@@ -1,4 +1,4 @@
-# GIT
+# stuttgart-things/docs/git
 
 ## GITCONFIG
 
