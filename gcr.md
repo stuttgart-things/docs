@@ -1,4 +1,4 @@
-# stuttgart-things/gcr
+# stuttgart-things/docs/gcr
 
 ## LOGIN W/HELM AT GCR
 
