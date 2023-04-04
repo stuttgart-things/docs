@@ -1,4 +1,4 @@
-# GOLANG
+# stuttgart-things/docs/golang
 
 ## init project w/ cobra-cli
 ```
