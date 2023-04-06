@@ -1,5 +1,42 @@
 # stuttgart-things/docs/golang
 
+## K8S-OPERATOR
+
+### INSTALL OPERATOR SDK
+
+```
+OPERATOR_SDK_VERSION=v1.28.0
+curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${OPERATOR_SDK_VERSION}/operator-sdk_linux_amd64
+chmod +x operator-sdk_linux_amd64
+sudo mv operator-sdk_linux_amd64 /usr/bin/operator-sdk
+go version
+operator-sdk version
+```
+
+### INIT/SCAFFOLD OPERATOR STRUCTURE
+
+```
+mkdir -p ~/projects/go/src/shipyard-operator
+operator-sdk init --plugins go/v3 --domain sthings.tiab.ssc.sva.de --owner "patrick hermann" --project-name shipyard-operator
+```
+
+
+```
+operator-sdk create api --group shipyard --version v1beta1 --kind ShipyardTerraformConfig
+```
+
+´´´
+make manifests
+
+sudo nerdctl build -t shipyard-operator:v1 .
+
+make install
+
+make changes here:
+/home/sthings/projects/go/src/shipyard-operator/controllers/terraform_controller.go
+
+´´´
+
 ## CLI w/ COBRA
 
 ### INIT CLI 
