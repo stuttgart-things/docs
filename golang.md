@@ -1,6 +1,9 @@
 # stuttgart-things/docs/golang
 
-## init project w/ cobra-cli
+## CLI w/ COBRA
+
+### INIT CLI 
+
 ```
 go install github.com/spf13/cobra-cli@latest
 PROJECT_NAME=toolkit-chart-creator
@@ -14,13 +17,17 @@ go install ./${PROJECT_NAME} # build binary to $GOPATH/bin
 go build -o ./${PROJECT_NAME} # build binary to target dir
 ```
 
-## add create command w/ cobra
+### ADD CMD
+
 ```
 cobra-cli add version
 ```
 
-## add subcommand to vm command w/ cobra 
+### ADD SUB-CMD
+
 ```
 cobra-cli add vm
 cobra-cli add create -p 'vmCmd' # like sthings vm create
 ```
+
+
