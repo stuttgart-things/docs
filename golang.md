@@ -16,19 +16,24 @@ operator-sdk version
 ### INIT/SCAFFOLD OPERATOR STRUCTURE
 
 ```
-mkdir -p ~/projects/go/src/shipyard-operator
+mkdir -p ~/projects/go/src/shipyard-operator && ~/projects/go/src/shipyard-operator 
 operator-sdk init --plugins go/v3 --domain sthings.tiab.ssc.sva.de --owner "patrick hermann" --project-name shipyard-operator
 ```
 
-
+### CREATE API/KIND
 ```
-operator-sdk create api --group shipyard --version v1beta1 --kind ShipyardTerraformConfig
+operator-sdk create api --group shipyard --version v1beta1 --kind ShipyardTerraform
 ```
 
-´´´
+### CREATE MANIFESTS
+```
 make manifests
+```
 
-sudo nerdctl build -t shipyard-operator:v1 .
+### CREATE CONTAINER IMAGE
+```
+nerdctl build -t shipyard-operator:v1 .
+```
 
 make install
 
