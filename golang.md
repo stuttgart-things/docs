@@ -17,7 +17,16 @@ operator-sdk version
 
 ```
 mkdir -p ~/projects/go/src/shipyard-operator && ~/projects/go/src/shipyard-operator 
-operator-sdk init --plugins go/v3 --domain sthings.tiab.ssc.sva.de --owner "patrick hermann" --project-name shipyard-operator
+operator-sdk init \
+--plugins go/v3 \
+--domain sthings.tiab.ssc.sva.de \
+--owner "patrick hermann" \
+--project-name shipyard-operator \
+--repo github.com/stuttgart-things/shipyard-operator
+
+go mod tidy
+
+go get sigs.k8s.io/controller-runtime@v0.14.1
 ```
 
 ### CREATE API/KIND
