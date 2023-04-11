@@ -34,22 +34,30 @@ go get sigs.k8s.io/controller-runtime@v0.14.1
 operator-sdk create api --group shipyard --version v1beta1 --kind ShipyardTerraform
 ```
 
+### EDIT TYPES
+```
+<OPERATOR-PATH>/api/v1beta1/<KIND>_types.go
+```
+
 ### CREATE MANIFESTS
 ```
 make manifests
 ```
 
+### EDIT CONTROLLER
+```
+<OPERATOR-PATH>/controllers/<KIND>_controller.go
+´´´
+
 ### CREATE CONTAINER IMAGE
 ```
-nerdctl build -t shipyard-operator:v1 .
+nerdctl build -t <IMG-ADDRESS:IMG-TAG> . && nerdctl push <IMG-ADDRESS:IMG-TAG>
 ```
 
-make install
-
-make changes here:
-/home/sthings/projects/go/src/shipyard-operator/controllers/terraform_controller.go
-
-´´´
+### DEPLOY
+```
+make deploy IMG=<IMG-ADDRESS:IMG-TAG>
+```
 
 ## CLI w/ COBRA
 
