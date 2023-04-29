@@ -38,7 +38,7 @@ operator-sdk create api --group shipyard --version <API-VERSION> --kind Shipyard
 ```
 <OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
 
-# example struct
+# example struct snippet
 ...
 type AnsibleSpec struct {
 	// +kubebuilder:default:="localhost"
@@ -58,7 +58,19 @@ make manifests
 ### EDIT CONTROLLER
 ```
 <OPERATOR-PATH>/controllers/<KIND>_controller.go
-´´´
+
+# example controller snippet
+
+func (r *ShipyardTerraformReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+	_ = log.FromContext(ctx)
+
+	log := ctrllog.FromContext(ctx)
+	log.Info("⚡️ Event received! ⚡️")
+	log.Info("Request: ", "req", req)
+...
+}
+
+```
 
 ### CREATE CONTAINER IMAGE
 ```
