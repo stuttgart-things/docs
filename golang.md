@@ -37,6 +37,17 @@ operator-sdk create api --group shipyard --version <API-VERSION> --kind Shipyard
 ### EDIT TYPES
 ```
 <OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
+
+# example struct
+...
+type AnsibleSpec struct {
+	// +kubebuilder:default:="localhost"
+	Hosts string   `json:"hosts,omitempty"`
+	Vars  []string `json:"vars"`
+	Roles []string `json:"roles,omitempty"`
+}
+...
+
 ```
 
 ### CREATE MANIFESTS
