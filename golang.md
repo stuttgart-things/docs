@@ -31,12 +31,12 @@ go get sigs.k8s.io/controller-runtime@v0.14.1
 
 ### CREATE API/KIND
 ```
-operator-sdk create api --group shipyard --version v1beta1 --kind ShipyardTerraform
+operator-sdk create api --group shipyard --version <API-VERSION> --kind ShipyardTerraform
 ```
 
 ### EDIT TYPES
 ```
-<OPERATOR-PATH>/api/v1beta1/<KIND>_types.go
+<OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
 ```
 
 ### CREATE MANIFESTS
