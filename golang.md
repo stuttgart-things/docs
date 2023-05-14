@@ -112,4 +112,40 @@ cobra-cli add vm
 cobra-cli add create -p 'vmCmd' # like sthings vm create
 ```
 
+## BUILD ARM64 IMAGE W/ NERDCTL
+
+### REGISTER QEMU
+
+```
+sudo systemctl start containerd
+sudo nerdctl run --privileged --rm tonistiigi/binfmt --install all
+ls -1 /proc/sys/fs/binfmt_misc/qemu*
+```
+
+### EXAMPLE DOCKERFILE
+
+```
+FROM arm64v8/golang:1.20 AS gobuilder
+WORKDIR /tmp/build
+COPY . .
+RUN go build -o app
+
+FROM arm64v8/alpine
+ENTRYPOINT [ "/usr/local/bin/app" ]
+COPY --from=gobuilder /tmp/build/app /usr/local/bin/app
+```
+
+### EXAMPLE BUILD
+
+```
+nerdctl build --platform=arm64 --output type=image,name=eu.gcr.io/stuttgart-things/wled-informer:0.1,push=true .
+```
+
+### EXAMPLE RUN
+
+```
+sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
+```
+
+
 
