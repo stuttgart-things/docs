@@ -1,2 +1,3 @@
 # stuttgart-things/docs
-snippets, codes &amp; documentation
+documentation in code snippets
+
