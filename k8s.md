@@ -1,5 +1,12 @@
 # K8S
 
+## CURL/TEST SERVICE INSIDE CLUSTER
+```
+kubectl run curler --image=radial/busyboxplus:curl -i --tty --rm
+ping/curl <SERVICE_NAME>.<NAMESPACE>.svc.cluster.local
+curl elastic-cluster-master.elastic.svc.cluster.local:9200
+```
+
 ## NAMESPACE STUCK IN DELETION
 
 #### OPTION1: DELETE PENDING APISERVICES
