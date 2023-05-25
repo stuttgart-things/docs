@@ -31,6 +31,7 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 
 sudo systemctl restart containerd
 sudo systemctl status containerd
+sudo journalctl -u containerd
 ```
 
 ### INSTALL RUNC
@@ -46,6 +47,7 @@ wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni
 sudo mkdir -p /opt/cni/bin
 sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 ```
+
 
 ## RKE2
 ```
