@@ -1,5 +1,12 @@
 # K8S
 
+## CONTAINERD
+```
+
+yum install -y unzstd
+
+```
+
 ## CURL/TEST SERVICE INSIDE CLUSTER
 ```
 kubectl run curler --image=radial/busyboxplus:curl -i --tty --rm
