@@ -30,6 +30,11 @@ stringData:
 flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test  # EXAMPLE
 ```
 
+## UNINSTALL FLUX
+```
+flux uninstall --namespace=flux-system
+```
+
 ## LIST
 
 ### HELM RELEASES
