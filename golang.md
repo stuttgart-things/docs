@@ -5,9 +5,9 @@
 ### INSTALL OPERATOR SDK
 
 ```
-OPERATOR_SDK_VERSION=v1.28.0
+OPERATOR_SDK_VERSION=v1.28.1
 curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${OPERATOR_SDK_VERSION}/operator-sdk_linux_amd64
-chmod +x operator-sdk_linux_amd64
+sudo chmod +x operator-sdk_linux_amd64
 sudo mv operator-sdk_linux_amd64 /usr/bin/operator-sdk
 go version
 operator-sdk version
