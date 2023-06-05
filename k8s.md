@@ -55,6 +55,38 @@ sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 journalctl -u rke2-server | grep Import
 ```
 
+### IMPORT RKE2 IMAGES INTO CONTAINERD NAMESPACE
+
+```
+wget https://github.com/rancher/rke2/releases/download/v1.25.7%2Brke2r1/rke2-images-all.linux-amd64.txt
+```
+
+```
+#!/bin/bash
+
+FILES="./rke2-images-all.linux-amd64.txt"
+
+while read image; do
+
+  image=$(echo $image | cut -d'/' -f 3)
+  tag=$(echo $image| cut -d':' -f 2)
+  imagename=$(echo $image| cut -d':' -f 1)
+
+  echo pulling "$image"
+
+  sudo ctr image pull $image
+
+  echo exporting "$image"
+
+  sudo ctr image export $(echo $image | cut -d'/' -f 2)-$imagename-$tag.tar $image
+
+  echo importing "$image"
+
+  sudo ctr -n=k8s.io image import $(echo $image | cut -d'/' -f 2)-$imagename-$tag.tar
+
+done <${FILES}
+```
+
 
 ## CURL/TEST SERVICE INSIDE CLUSTER
 ```
