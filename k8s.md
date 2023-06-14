@@ -142,3 +142,143 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm install my-ingress-nginx ingress-nginx/ingress-nginx --version 4.7.0 \
 --set controller.extraArgs.default-ssl-certificate="ingress-nginx/tls-wildcard"
 ```
+
+## TEST INGRESS-NGINX DEPLOYMENTS
+
+<details><summary><b>wildcard</b></summary>
+
+```
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kuard
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: kuard
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kuard
+spec:
+  selector:
+    matchLabels:
+      app: kuard
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kuard
+    spec:
+      containers:
+      - image: gcr.io/kuar-demo/kuard-amd64:1
+        imagePullPolicy: Always
+        name: kuard
+        ports:
+        - containerPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guard-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - guard.<DOMAIN>
+  rules:
+  - host: guard.<DOMAIN>
+    http:
+      paths:
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service
+            name: kuard
+            port:
+              number: 80
+```
+
+</details>
+
+<details><summary><b>path-based</b></summary>
+
+```
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: apple-app
+  labels:
+    app: apple
+spec:
+  containers:
+    - name: apple-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=apple"
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: banana-app
+  labels:
+    app: banana
+spec:
+  containers:
+    - name: banana-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=banana"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: banana-service
+spec:
+  selector:
+    app: banana
+  ports:
+    - port: 5678 # Default port for image
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: apple-service
+spec:
+  selector:
+    app: apple
+  ports:
+    - port: 5678 # Default port for image
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fruit-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /apple
+        pathType: Prefix
+        backend:
+          service:
+            name: apple-service
+            port:
+              number: 5678
+      - path: /banana
+        pathType: Prefix
+        backend:
+          service:
+            name: banana-service
+            port:
+              number: 5678
+```
+
+</details>
