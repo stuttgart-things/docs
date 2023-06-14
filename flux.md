@@ -1,4 +1,4 @@
-# # stuttgart-things/docs/flux
+# stuttgart-things/docs/flux
 
 ## TROUBLESHOOTING
 ```
