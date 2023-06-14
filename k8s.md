@@ -109,3 +109,36 @@ kubectl get namespace "<NAMESPACE>" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
   | kubectl replace --raw /api/v1/namespaces/<NAMESPACE>/finalize -f -
 ```
+
+## DEPLOY INGRESS-NGINX W/ DEFAULT WILDCARD CERT
+
+### CREATE TLS SECRET 
+
+```
+# CMD
+kubectl create secret tls tls-wildcard --cert=lab.crt --key=lab.key -n ingress-nginx
+
+# OR AS FILE
+---
+cat <<EOF > tls-wildcard.yaml
+apiVersion: v1
+data:
+  tls.crt: {{ ssl_cert_crt | b64encode }}
+  tls.key: {{ ssl_cert_key | b64encode }}
+kind: Secret
+metadata:
+  name: tls-wildcard
+  namespace: ingress-nginx
+type: kubernetes.io/tls
+EOF
+
+kubectl apply -f tls-wildcard.yaml
+```
+
+### DEPLOY
+
+```
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install my-ingress-nginx ingress-nginx/ingress-nginx --version 4.7.0 \
+--set controller.extraArgs.default-ssl-certificate="ingress-nginx/tls-wildcard"
+```
