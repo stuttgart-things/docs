@@ -1,4 +1,4 @@
-# # stuttgart-things/docs/k8s
+# stuttgart-things/docs/k8s
 
 ## CONTAINERD CTR
 ```
