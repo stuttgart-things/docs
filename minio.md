@@ -1,6 +1,7 @@
-# MINIO
+# stuttgart-things/docs/minio
 
-## SET BUCKET TO PUBLIC
+## MC COMMAND SNIPPETS
 ```
-mc anonymous set public artifacts-labda/roles
+mc anonymous set public artifacts-labda/roles # SET BUCKET TO PUBLIC
+mc ls artifacts-labda # LIST BUCKETS
 ```
