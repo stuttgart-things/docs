@@ -2,13 +2,18 @@
 
 ## CLEANUP W/ NERDCTL
 ```
-# clean images
+# clean images by id
 sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
+
+# clean images by name+tag
+sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
 
 # stop & delete all containers
 sudo nerdctl stop $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }') \
 && sudo nerdctl rm $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }')
 ```
+
+
 ## CONTAINERD CTR
 ```
 # pull image w/ crt
