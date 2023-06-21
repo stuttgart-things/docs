@@ -1,5 +1,14 @@
 # stuttgart-things/docs/k8s
 
+## CLEANUP W/ NERDCTL
+```
+# clean images
+sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
+
+# stop & delete all containers
+sudo nerdctl stop $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }') \
+&& sudo nerdctl rm $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }')
+```
 ## CONTAINERD CTR
 ```
 # pull image w/ crt
