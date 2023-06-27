@@ -2,6 +2,14 @@
 
 ## SKOPEO
 
+### INSTALL
+```
+SKOPEO_VERSION=1.12.0
+wget https://github.com/lework/skopeo-binary/releases/download/v${SKOPEO_VERSION}/skopeo-linux-amd64
+sudo chmod +x skopeo-linux-amd64
+sudo mv skopeo-linux-amd64 /usr/bin/skopeo && skopeo --version
+```
+
 ### /COPY IMAGE BETWEEN REGISTRIES (TAG)
 
 * Copy images between registries
