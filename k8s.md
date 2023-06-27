@@ -10,7 +10,7 @@ sudo chmod +x skopeo-linux-amd64
 sudo mv skopeo-linux-amd64 /usr/bin/skopeo && skopeo --version
 ```
 
-### /COPY IMAGE BETWEEN REGISTRIES (TAG)
+### COPY IMAGE BETWEEN REGISTRIES (TAG)
 
 * Copy images between registries
 
@@ -19,7 +19,7 @@ skopeo copy --insecure-policy docker://nginx:1.21
 docker://whatever.cloud/gtc1fe/web:1.21
 ```
 
-### /COPY IMAGE BETWEEN REGISTRIES (DIGEST)
+### COPY IMAGE BETWEEN REGISTRIES (DIGEST)
 
 * Copy images between registries
 
