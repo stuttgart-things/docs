@@ -1,5 +1,25 @@
 # stuttgart-things/docs/k8s
 
+## SKOPEO
+
+### /COPY IMAGE BETWEEN REGISTRIES (TAG)
+
+* Copy images between registries
+
+```
+skopeo copy --insecure-policy docker://nginx:1.21
+docker://whatever.cloud/gtc1fe/web:1.21
+```
+
+### /COPY IMAGE BETWEEN REGISTRIES (DIGEST)
+
+* Copy images between registries
+
+```
+skopeo copy --all --insecure-policy
+docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a \ docker://whatever.cloud/gtc1fe/web@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a
+```
+
 ## CLEANUP W/ NERDCTL
 ```
 # clean images by id
@@ -12,7 +32,6 @@ sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"
 sudo nerdctl stop $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }') \
 && sudo nerdctl rm $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }')
 ```
-
 
 ## CONTAINERD CTR
 ```
