@@ -31,7 +31,7 @@ go get sigs.k8s.io/controller-runtime@v0.14.1
 
 ### CREATE API/KIND
 ```
-operator-sdk create api --group shipyard --version <API-VERSION> --kind ShipyardTerraform
+operator-sdk create api --group machineshop --version v1beta1 --kind Ansible #example
 ```
 
 ### EDIT TYPES
