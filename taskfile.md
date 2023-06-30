@@ -2,6 +2,14 @@
 
 A task runner / simpler Make alternative written in Go
 
+<details><summary><b>TASKFILE INSTALLATION</b></summary>
+
+```bash
+go install github.com/go-task/task/v3/cmd/task@latest
+```
+
+</details>
+
 <details><summary><b>INIT GO PROJECT</b></summary>
 
 ```yaml
