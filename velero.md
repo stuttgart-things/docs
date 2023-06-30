@@ -21,6 +21,8 @@ https://github.com/vmware-tanzu/velero/blob/main/examples/nginx-app/with-pv.yaml
 ### DEPLOY PostgresDB
 
 ```
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
 helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres.yaml
 
 primary:
