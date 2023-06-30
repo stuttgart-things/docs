@@ -9,13 +9,6 @@ velero restore create nginx --from-backup nginx-backup5
 kubectl delete volumesnapshotlocation artifacts -n velero
 ```
 
-## LINKS
-```
-https://www.ntchosting.com/encyclopedia/databases/postgresql/
-https://velero.io/docs/v1.10/backup-hooks/
-https://github.com/vmware-tanzu/velero/blob/main/examples/nginx-app/with-pv.yaml
-```
-
 ## BACKUP/RESTORE PostgresDB
 
 ### DEPLOY PostgresDB
@@ -23,8 +16,8 @@ https://github.com/vmware-tanzu/velero/blob/main/examples/nginx-app/with-pv.yaml
 ```
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
-helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres.yaml
 
+cat <<EOF > postgres-velero.yaml
 primary:
   extraVolumes: 
   - name: backup
@@ -41,6 +34,9 @@ primary:
         pg_restore -U postgres -d postgres --clean < /scratch/backup.psql"]'
     pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=Ue1Fsc5Lgd
         && sleep 1m && pg_dump -U postgres -d postgres -F c -f /scratch/backup.psql"]'
+EOF
+
+helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml
 ```
 
 ### CREATE TESTDATA ON PostgresDB
@@ -74,3 +70,11 @@ kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace new5 -
 
 SELECT * FROM phonebook ORDER BY lastname;
 ````
+
+
+## LINKS
+```
+https://www.ntchosting.com/encyclopedia/databases/postgresql/
+https://velero.io/docs/v1.10/backup-hooks/
+https://github.com/vmware-tanzu/velero/blob/main/examples/nginx-app/with-pv.yaml
+```
