@@ -1,8 +1,10 @@
 # TASKFILE
 
+A task runner / simpler Make alternative written in Go
+
 <details><summary><b>INIT GO PROJECT</b></summary>
 
-```
+```yaml
 cat <<EOF > ./taskfile.yaml
 version: 3
 vars:
