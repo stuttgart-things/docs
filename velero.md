@@ -42,15 +42,23 @@ helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgr
 ### CREATE TESTDATA ON PostgresDB
 
 ```
+# GET THE POSTGRES PASSWORD ON YOUR LOCAL ENV
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 
-kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace postgres --image docker.io/bitnami/postgresql:15.2.0-debian-11-r14 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host postgresql -U postgres -d postgres -p 5432
+# RUN A POSTGRES CLIENT IN THE NAMESPACE
+kubectl run postgresql-client --rm --tty -i --restart='Never' \
+--namespace postgres --image docker.io/bitnami/postgresql:15.2.0-debian-11-r14 \
+--env="PGPASSWORD=$POSTGRES_PASSWORD" --command \
+-- psql --host postgresql -U postgres -d postgres -p 5432
 
+# CREATE A TABLE
 CREATE TABLE phonebook(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32), address VARCHAR(64));
 
+# INSERT TEST DATA
 INSERT INTO phonebook(phone, firstname, lastname, address) VALUES('+1 123 456 7890', 'John', 'Doe', 'North America'); 
-SELECT * FROM phonebook ORDER BY lastname;
 
+# TEST QUERY
+SELECT * FROM phonebook ORDER BY lastname;
 ```
 
 ### CREATE BACKUP 
