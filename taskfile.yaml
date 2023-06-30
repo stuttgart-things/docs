@@ -1,6 +1,7 @@
 # TASKFILE
 
 <details><summary>INIT GO PROJECT</summary>
+
 ```
 cat <<EOF > ./taskfile.yaml
 version: 3
@@ -27,4 +28,5 @@ tasks:
       - git push origin --tags
 EOF      
 ```
+
 </details>
