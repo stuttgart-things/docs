@@ -1,6 +1,6 @@
 # TASKFILE
 
-<details><summary>INIT GO PROJECT</summary>
+<details><summary><b>INIT GO PROJECT</b></summary>
 
 ```
 cat <<EOF > ./taskfile.yaml
