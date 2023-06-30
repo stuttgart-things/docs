@@ -30,9 +30,9 @@ primary:
     backup.velero.io/backup-volumes: backup
     pre.hook.backup.velero.io/timeout: 5m
     pre.hook.restore.velero.io/timeout: 5m
-    post.hook.restore.velero.io/command: '["/bin/bash", "-c", "sleep 1m && PGPASSWORD=Ue1Fsc5Lgd
+    post.hook.restore.velero.io/command: '["/bin/bash", "-c", "sleep 1m && PGPASSWORD=$POSTGRES_PASSWORD
         pg_restore -U postgres -d postgres --clean < /scratch/backup.psql"]'
-    pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=Ue1Fsc5Lgd
+    pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=$POSTGRES_PASSWORD
         && sleep 1m && pg_dump -U postgres -d postgres -F c -f /scratch/backup.psql"]'
 EOF
 
@@ -49,10 +49,16 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o
 kubectl run postgresql-client --rm --tty -i --restart='Never' \
 --namespace postgres --image docker.io/bitnami/postgresql:15.2.0-debian-11-r14 \
 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command \
--- psql --host postgresql -U postgres -d postgres -p 5432
+-- psql --host postgres-postgresql postgres -d postgres -p 5432
 
 # CREATE A TABLE
 CREATE TABLE phonebook(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32), address VARCHAR(64));
+
+# List the databases
+\l, \l+
+
+# List tables in the current database
+\dt, \dt+
 
 # INSERT TEST DATA
 INSERT INTO phonebook(phone, firstname, lastname, address) VALUES('+1 123 456 7890', 'John', 'Doe', 'North America'); 
