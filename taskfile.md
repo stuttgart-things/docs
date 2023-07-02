@@ -94,10 +94,10 @@ EOF
 cat <<EOF > ./Taskfile.yaml
 version: 3
 vars:
-  REPOSITORY_NAME: stuttgart-things
-  MODULE: github.com/{{ .REPOSITORY_NAME }}/{{ .PROJECT_NAME }}
   PROJECT_NAME:
     sh: pwd | grep -o "[^/]*$"
+  REPOSITORY_NAME: stuttgart-things
+  MODULE: github.com/{{ .REPOSITORY_NAME }}/{{ .PROJECT_NAME }}
   GIT_COMMIT:
     sh: git log -n 1 --format=%h
   DATE:
