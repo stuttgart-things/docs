@@ -10,6 +10,51 @@ go install github.com/go-task/task/v3/cmd/task@latest
 
 </details>
 
+<details><summary><b>GORELEASER</b></summary>
+
+```yaml
+cat <<EOF > ./taskfile.yaml
+version: 3
+vars:
+  REPOSITORY_NAME: stuttgart-things
+  MODULE: github.com/{{ .REPOSITORY_NAME }}/{{ .PROJECT_NAME }}
+  DATE:
+    sh: date +"%y.%m%d.%H%M"
+  PROJECT_NAME:
+    sh: pwd | grep -o "[^/]*$"
+  UPDATED_TAG:
+    sh: old_tag=$(git describe --tags --abbrev=0 | cut -d "." -f3 | cut -d "-" -f1); new_tag=$((old_tag+1)); echo $new_tag
+  UPDATED_TAG_VERSION:
+    sh: t1=$(git describe --tags --abbrev=0 | cut -f1 -d'.'); t2=$(git describe --tags --abbrev=0 | cut -f2 -d'.'); echo $t1.$t2.{{ .UPDATED_TAG }}
+  BRANCH:
+    sh: if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then echo -$(git rev-parse --abbrev-ref HEAD) ; fi
+
+tasks:
+  tag:
+    desc: Commit, push & tag the module
+    deps: [lint, test]
+    cmds:
+      - go mod tidy
+      - git pull && git pull --tags
+      - git add *
+      - git config advice.addIgnoredFile false
+      - git commit -am 'updated {{ .PROJECT_NAME }} {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }} '
+      - git push
+      - git tag -a {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }} -m 'updated for stuttgart-things {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }}'
+      - git push origin --tags
+
+  release:
+    desc: Build amd release to github w/ goreleaser
+    deps: [tag]
+    cmds:
+      - goreleaser release --skip-publish --snapshot --clean
+      - goreleaser release --clean
+EOF      
+```
+
+</details>
+
+
 <details><summary><b>INIT GO PROJECT</b></summary>
 
 ```yaml
@@ -31,6 +76,7 @@ tasks:
     cmds:
       - go mod init {{ .Module }}
       - go mod tidy
+      - goreleaser init
       - git add go.mod
       - git commit -am 'initialized go module {{ .Module }} on {{ .DATE }}'
       - git push
