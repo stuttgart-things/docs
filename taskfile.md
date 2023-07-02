@@ -2,14 +2,6 @@
 
 A task runner / simpler Make alternative written in Go
 
-<details><summary><b>INSTALLATION</b></summary>
-
-```bash
-go install github.com/go-task/task/v3/cmd/task@latest
-```
-
-</details>
-
 <details><summary><b>GO LDFLAGS</b></summary>
 
 ```yaml
@@ -124,6 +116,15 @@ tasks:
       - git tag -a v0.1.0 -m 'initialized go module {{ .Module }} on {{ .DATE }}'
       - git push origin --tags
 EOF      
+```
+
+</details>
+
+
+<details><summary><b>INSTALLATION</b></summary>
+
+```bash
+go install github.com/go-task/task/v3/cmd/task@latest
 ```
 
 </details>
