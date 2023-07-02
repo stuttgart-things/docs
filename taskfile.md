@@ -110,10 +110,11 @@ tasks:
       - go mod init {{ .Module }}
       - go mod tidy
       - goreleaser init
-      - git add go.mod
+      - git add *
+      - git add .goreleaser.yaml
       - git commit -am 'initialized go module {{ .Module }} on {{ .DATE }}'
       - git push
-      - git tag -a v0.1.0 -m 'initialized go module {{ .Module }} on {{ .DATE }}'
+      - git tag -a v0.1.1 -m 'initialized go module {{ .Module }} on {{ .DATE }}'
       - git push origin --tags
 EOF      
 ```
