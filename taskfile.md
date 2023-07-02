@@ -2,7 +2,7 @@
 
 A task runner / simpler Make alternative written in Go
 
-<details><summary><b>TASKFILE INSTALLATION</b></summary>
+<details><summary><b>INSTALLATION</b></summary>
 
 ```bash
 go install github.com/go-task/task/v3/cmd/task@latest
