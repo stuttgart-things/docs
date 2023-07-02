@@ -5,7 +5,7 @@ A task runner / simpler Make alternative written in Go
 <details><summary><b>GO LDFLAGS</b></summary>
 
 ```yaml
-cat <<EOF > ./taskfile.yaml
+cat <<EOF > ./Taskfile.yaml
 version: 3
 vars:
   PROJECT_NAME:
@@ -46,7 +46,7 @@ EOF
 <details><summary><b>GORELEASER</b></summary>
 
 ```yaml
-cat <<EOF > ./taskfile.yaml
+cat <<EOF > ./Taskfile.yaml
 version: 3
 vars:
   PROJECT_NAME:
@@ -91,7 +91,7 @@ EOF
 <details><summary><b>INIT GO PROJECT</b></summary>
 
 ```yaml
-cat <<EOF > ./taskfile.yaml
+cat <<EOF > ./Taskfile.yaml
 version: 3
 vars:
   REPOSITORY_NAME: stuttgart-things
