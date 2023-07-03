@@ -1,5 +1,10 @@
 # stuttgart-things/docs/k8s
 
+## DELETE ALL EVICTED PODS IN ALL NAMESPACES
+```
+kubectl get pods --all-namespaces | grep Evicted | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
+```
+
 ## SKOPEO
 
 ### INSTALL
