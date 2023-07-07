@@ -11,7 +11,7 @@ EOF
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
-helm pull bitnami/nginx -- version 15.1.0
+helm pull bitnami/nginx --version 15.1.0
 tar xvfz nginx-15.1.0.tgz 
 yq e -i '.version = "9.9.9"' nginx/Chart.yaml
 helm package nginx
