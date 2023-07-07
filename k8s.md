@@ -2,7 +2,7 @@
 
 ## TEST REGISTRY SECRETS W/ HELM 
 ```
-kubectl run helm-pod -it --image alpine/k8s:1.24.15 -- sh
+kubectl run helm-pod -it --rm --image alpine/k8s:1.24.15 -- sh
 
 mkdir -p ~/.docker/
 cat <<EOF > ~/.docker/config.json 
