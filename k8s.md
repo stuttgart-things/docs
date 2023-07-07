@@ -1,5 +1,23 @@
 # stuttgart-things/docs/k8s
 
+## TEST REGISTRY SECRETS W/ HELM 
+```
+kubectl run helm-pod -it --image alpine/k8s:1.24.15 -- sh
+
+mkdir -p ~/.docker/
+cat <<EOF > ~/.docker/config.json 
+{"auths": #...
+EOF
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm pull bitnami/nginx -- version 15.1.0
+tar xvfz nginx-15.1.0.tgz 
+yq e -i '.version = "9.9.9"' nginx/Chart.yaml
+helm package nginx
+helm push nginx-9.9.9.tgz oci://eu.gcr.io/stuttgart-things/
+```
+
 ## DELETE ALL EVICTED PODS IN ALL NAMESPACES
 ```
 kubectl get pods --all-namespaces | grep Evicted | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
