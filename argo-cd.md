@@ -98,7 +98,7 @@ spec:
         destination: dev11
         kind: crs
         namespace: machine-shop-operator-system
-        revision: ANSIBLE-CR
+        targetRevision: ANSIBLE-CR
         path: config/samples
         repoURL: https://github.com/stuttgart-things/machine-shop-operator.git
   template:
@@ -108,7 +108,7 @@ spec:
       project: app
       source:
         repoURL: '{{ repoURL }}'
-        targetRevision: HEAD
+        targetRevision:  '{{ targetRevision }}'
         path: '{{ path }}'
       destination:
         name: '{{ destination }}'
