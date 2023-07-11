@@ -80,3 +80,44 @@ spec:
           prune: true
           selfHeal: false
 ```
+</details close>
+
+<details open><summary>GIT REPO+PATH</summary>
+
+```
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: machineshop-operator-dev-crs
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - app: sweatshop-creator
+        destination: dev11
+        kind: crs
+        namespace: machine-shop-operator-system
+        revision: ANSIBLE-CR
+        path: config/samples
+        repoURL: https://github.com/stuttgart-things/machine-shop-operator.git
+  template:
+    metadata:
+      name: '{{ app }}-{{ kind }}-{{ destination }}'
+    spec:
+      project: app
+      source:
+        repoURL: '{{ repoURL }}'
+        targetRevision: HEAD
+        path: '{{ path }}'
+      destination:
+        name: '{{ destination }}'
+        namespace: '{{ namespace }}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: false
+```
+</details close>
