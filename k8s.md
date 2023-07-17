@@ -23,6 +23,13 @@ helm push nginx-9.9.9.tgz oci://eu.gcr.io/stuttgart-things/
 kubectl get pods --all-namespaces | grep Evicted | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
 ```
 
+## WORK W/ OFTEN MANUALY RESTARTED/DELETED PODS FOR DEV/TESTING
+```
+kubectl -n <NAMESPACE> get po | grep <PART-OF-POD-NAME> | awk '{ print $1}'
+kubectl -n sweatshop delete po $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
+kubectl -n sweatshop logs -f $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
+```
+
 ## SKOPEO
 
 ### INSTALL
