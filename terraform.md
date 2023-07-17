@@ -28,7 +28,7 @@ aws configure
 ```
 mkdir -p ./aws-secrets
 
-cat <<EOF > ./saws-secrets/random-secret-aws.tf
+cat <<EOF > ./aws-secrets/random-secret-aws.tf
 provider "aws" {
   region = "eu-central-1"
 }
