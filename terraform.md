@@ -18,7 +18,24 @@ terraform destroy
 sudo apt -y install awscli
 aws configure
 ```
-  
+
+</details close>
+
+<details open><provider.tf</summary>
+
+```
+terraform {
+  required_version = ">= 1.4"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = ">= 5.0"
+    }
+  }
+}
+```
+
 </details close>
 
 ## CREATE GENERATED SECRET IN AWS SECRETS MANAGER 
