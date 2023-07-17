@@ -21,7 +21,7 @@ aws configure
 
 </details close>
 
-<details open><provider.tf</summary>
+<details open><summary>provider.tf</summary>
 
 ```
 terraform {
