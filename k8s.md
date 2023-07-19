@@ -30,6 +30,16 @@ kubectl -n sweatshop delete po $(kubectl -n sweatshop get po | grep creator | aw
 kubectl -n sweatshop logs -f $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
 ```
 
+## BUILDAH
+
+BUILD OCI-IMAGE
+```
+buildah --storage-driver=overlay bud --format=oci \
+--tls-verify=true --no-cache \
+-f ~/projects/github/stuttgart-things/images/sthings-alpine/Dockerfile \
+-t scr.app.4sthings.tiab.ssc.sva.de/sthings-alpine/alpine:123
+```
+
 ## SKOPEO
 
 ### INSTALL
