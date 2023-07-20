@@ -1,5 +1,13 @@
 # stuttgart-things/docs/k8s
 
+### GET ALL IMAGES IN CLUSTER
+```
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
+tr -s '[[:space:]]' '\n' |\
+sort |\
+uniq -c
+```
+
 ## TEST REGISTRY SECRETS W/ HELM 
 ```
 kubectl run helm-pod -it --rm --image alpine/k8s:1.24.15 -- sh
