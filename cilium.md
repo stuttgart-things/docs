@@ -7,6 +7,7 @@ helm repo add cilium https://helm.cilium.io/
 helm install cilium cilium/cilium --version 1.14.0  -f cilium-values.yaml -n kube-system
 ```
 ```
+# cilium-values.yaml
 ---
 kubeProxyReplacement: strict
 k8sServiceHost: 172.28.30.173
