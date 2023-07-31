@@ -3,7 +3,7 @@ NOT FINISHED!!!!
 Cilium 1.14.0 is compatible with k8s 1.17.x or older
 
 ## K8s Cluster
-Install cluster w/ kudeadm:
+Install cluster w/ kudeadm without kube-proxy:
 ```
 kubeadm init --skip-phases=addon/kube-proxy
 ```
