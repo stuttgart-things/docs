@@ -105,3 +105,7 @@ Check l2 Announcement CR:
 kubectl describe l2announcement
 ```
 Also check the logs of cilium pods and operator!!
+
+## Cilium ingress controller (tbd)
+
+## Cilium wildcard default certs (tbd)
