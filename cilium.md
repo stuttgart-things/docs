@@ -28,7 +28,7 @@ hubble:
   ui:
     enabled: true # This setting enable hubble ui 
 ipam:
-  mode: "kubernetes" # This setting prevent cilium to overide the service and pod subnet
+  mode: "kubernetes" # This setting prevent cilium to overide the service and pod subnet and use the kubeadm network configuration
 l2announcements:
   enabled: true # This setting enable the metallb like arp load balancing
 ```
