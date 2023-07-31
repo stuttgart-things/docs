@@ -47,7 +47,7 @@ spec:
   - cidr: "10.1.2.0/24"
 ```
 
-## Create loadbalancer pool
+## Configure the L2 Announcement
 Like in metallb we need activate and configure the announcement of the ip pool
 
 This is a basic example and we announce the pool to all network interfaces:
