@@ -104,3 +104,4 @@ Check l2 Announcement CR:
 ```
 kubectl describe l2announcement
 ```
+Also check the logs of cilium pods and operator!!
