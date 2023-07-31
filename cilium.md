@@ -85,3 +85,20 @@ spec:
   externalIPs: true
   loadBalancerIPs: true
 ```
+## Use Cilium for kubernetes services
+We can use a annotation to tell cilium, which specific ip should set for the service
+```
+annotations:
+  io.cilium/lb-ipam-ips: 172.28.30.200
+```
+
+## Commands for troubleshooting
+Check IP pool CR:
+```
+kubectl get ippools
+```
+
+Check l2 Announcement CR:
+```
+kubectl describe l2announcement
+```
