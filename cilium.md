@@ -32,3 +32,56 @@ ipam:
 l2announcements:
   enabled: true # This setting enable the metallb like arp load balancing
 ```
+
+## Create loadbalancer pool
+Like in metallb we need to create a ip pool for cilium
+```
+# cilium-mainpool.yaml
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "main-pool"
+spec:
+  cidrs:
+  - cidr: "10.1.2.0/24"
+```
+
+## Create loadbalancer pool
+Like in metallb we need activate and configure the announcement of the ip pool
+
+This is a basic example and we announce the pool to all network interfaces:
+```
+# cilium-l2policy.yaml
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: policy1
+spec:
+  nodeSelector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: DoesNotExist
+  externalIPs: true
+  loadBalancerIPs: true
+```
+
+This is a basic example and we announce the pool only to network interfaces, that match the regex term "^eth[0-9]+":
+```
+# cilium-l2policy.yaml
+---
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: policy1
+spec:
+  nodeSelector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: DoesNotExist
+  interfaces:
+  - ^eth[0-9]+
+  externalIPs: true
+  loadBalancerIPs: true
+```
