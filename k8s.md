@@ -78,15 +78,14 @@ docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d7
 
 ## CLEANUP W/ NERDCTL
 ```
-# clean images by id
+# STOP AND DELETE ALL RUNNING CONTAINERS
+sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
+
+# CLEAN IMAGES BY ID
 sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
 
-# clean images by name+tag
+# CLEAN IMAGES BY NAME + TAG
 sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
-
-# stop & delete all containers
-sudo nerdctl stop $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }') \
-&& sudo nerdctl rm $(sudo nerdctl container ls -a | grep "weeks ago" | awk '{ print $1 }')
 ```
 
 ## CONTAINERD CTR
