@@ -1,6 +1,6 @@
 # stuttgart-things/docs/cilium
 NOT FINISHED!!!!
-Cilium 1.14.0 is compatible with k8s 1.17.x or older
+Cilium 1.14.0 is compatible with k8s 1.17.x or older but not newer
 
 ## K8s Cluster
 Install cluster /w kudeadm without kube-proxy:
