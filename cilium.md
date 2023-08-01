@@ -98,6 +98,21 @@ annotations:
 ```
 
 ## Commands for troubleshooting
+Check l2 works:
+
+In this example we testing, if cilium are announce the service correctly over arp. The service are exposed /w cilium over arp via 172.28.30.200
+```
+arping: arping -I <interface> <announced_iü>
+
+[root@linux ~] # arping -I ens192 172.28.30.200
+ARPING 172.28.30.200 from 172.28.30.184 ens192
+Unicast reply from 172.28.30.200 [00:50:56:89:5E:0A]  0.853ms
+Unicast reply from 172.28.30.200 [00:50:56:89:5E:0A]  0.707ms
+Unicast reply from 172.28.30.200 [00:50:56:89:5E:0A]  0.741ms
+Unicast reply from 172.28.30.200 [00:50:56:89:5E:0A]  0.634ms
+Unicast reply from 172.28.30.200 [00:50:56:89:5E:0A]  0.763ms
+```
+
 Check IP pool CR:
 ```
 kubectl get ippools
