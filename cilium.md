@@ -112,7 +112,14 @@ Check l2 leases: (look for ressources with pattern l2announce)
 kubectl -n kube-system get lease
 ```
 Also check the logs of cilium pods and operator!!
-
+Relevant log part from cilium pod:
+```
+[...]
+level=info msg="Serving cilium health API at unix:///var/run/cilium/health.sock" subsys=health-server
+level=info msg="attempting to acquire leader lease kube-system/cilium-l2announce-kube-system-cilium-ingress..." subsys=klog
+level=info msg="successfully acquired lease kube-system/cilium-l2announce-kube-system-cilium-ingress" subsys=klog
+[...]
+```
 ## Cilium ingress controller (tbd)
 
 ## Cilium wildcard default certs (tbd)
