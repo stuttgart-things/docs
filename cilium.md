@@ -102,7 +102,7 @@ Check l2 works:
 
 In this example we testing, if cilium is announce the service correctly over arp. The service is exposed /w cilium over arp via 172.28.30.200
 ```
-arping: arping -I <interface> <announced_iü>
+arping: arping -I <interface> <announced_ip>
 
 [root@linux ~] # arping -I ens192 172.28.30.200
 ARPING 172.28.30.200 from 172.28.30.184 ens192
