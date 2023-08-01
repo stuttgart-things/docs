@@ -69,7 +69,7 @@ spec:
   loadBalancerIPs: true
 ```
 
-This is a basic example and we announce the pool only to network interfaces, that match the regex term "^eth[0-9]+":
+Recommend: This is a basic example and we announce the pool only to network interfaces, that match the regex term "^eth[0-9]+" and only announce services with the requestet label "l2=active":
 ```
 # cilium-l2policy.yaml
 ---
@@ -78,6 +78,9 @@ kind: CiliumL2AnnouncementPolicy
 metadata:
   name: policy1
 spec:
+  serviceSelector:
+    matchLabels:
+      l2: active
   nodeSelector:
     matchExpressions:
       - key: node-role.kubernetes.io/control-plane
@@ -103,6 +106,10 @@ kubectl get ippools
 Check l2 Announcement CR:
 ```
 kubectl describe l2announcement
+```
+Check l2 leases: (look for ressources with pattern l2announce)
+```
+kubectl -n kube-system get lease
 ```
 Also check the logs of cilium pods and operator!!
 
