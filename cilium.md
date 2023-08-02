@@ -100,7 +100,7 @@ annotations:
 ## Commands for troubleshooting
 Check l2 works:
 
-In this example we testing, if cilium is announce the service correctly over arp. The service is exposed /w cilium over arp via 172.28.30.200
+In this example we testing, if cilium is announcing the service correctly over arp. The service is exposed /w cilium over arp via 172.28.30.200
 ```
 arping: arping -I <interface> <announced_ip>
 
