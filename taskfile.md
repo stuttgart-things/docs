@@ -107,6 +107,7 @@ tasks:
   project-init-go:
     desc: Bootstrap project
     cmds:
+      - go install github.com/goreleaser/goreleaser@latest
       - go mod init {{ .Module }}
       - go mod tidy
       - goreleaser init
@@ -116,7 +117,7 @@ tasks:
       - git push
       - git tag -a v0.1.1 -m 'initialized go module {{ .Module }} on {{ .DATE }}'
       - git push origin --tags
-EOF      
+EOF
 ```
 
 </details>
