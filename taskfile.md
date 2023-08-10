@@ -10,6 +10,37 @@ go install github.com/go-task/task/v3/cmd/task@latest
 
 </details>
 
+<details><summary><b>GIT TASKS</b></summary>
+
+```bash
+cat <<EOF > ./Taskfile.yaml
+version: 3
+tasks:
+  tag:
+    desc: Commit, push & tag the module
+    deps: [lint, test]
+    cmds:
+      - task: git-push
+      - rm -rf dist
+      - go mod tidy
+      - git pull --tags
+      - git tag -a {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }} -m 'updated for stuttgart-things {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }}'
+      - git push origin --tags
+
+  git-push:
+    desc: Commit & push the module
+    cmds:
+      - go mod tidy
+      - git pull
+      - git config advice.addIgnoredFile false
+      - git add *
+      - git commit -am 'updated {{ .PROJECT_NAME }} {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }}'
+      - git push
+EOF      
+```
+
+</details>
+
 <details><summary><b>LINT & TEST</b></summary>
 
 ```bash
