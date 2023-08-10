@@ -15,7 +15,29 @@ go install github.com/go-task/task/v3/cmd/task@latest
 ```bash
 cat <<EOF > ./Taskfile.yaml
 version: 3
+vars:
+  PROJECT_NAME:
+    sh: pwd | grep -o "[^/]*$"
+  DATE:
+    sh: date +"%y.%m%d.%H%M"
+  UPDATED_TAG:
+    sh: old_tag=$(git describe --tags --abbrev=0 | cut -d "." -f3 | cut -d "-" -f1); new_tag=$((old_tag+1)); echo $new_tag
+  UPDATED_TAG_VERSION:
+    sh: t1=$(git describe --tags --abbrev=0 | cut -f1 -d'.'); t2=$(git describe --tags --abbrev=0 | cut -f2 -d'.'); echo $t1.$t2.{{ .UPDATED_TAG }}
+  BRANCH:
+    sh: if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then echo -$(git rev-parse --abbrev-ref HEAD) ; fi
+
 tasks:
+  git-push:
+    desc: Commit & push the module
+    cmds:
+      - go mod tidy
+      - git pull
+      - git config advice.addIgnoredFile false
+      - git add *
+      - git commit -am 'updated {{ .PROJECT_NAME }} {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }}'
+      - git push
+
   tag:
     desc: Commit, push & tag the module
     deps: [lint, test]
@@ -27,15 +49,6 @@ tasks:
       - git tag -a {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }} -m 'updated for stuttgart-things {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }}'
       - git push origin --tags
 
-  git-push:
-    desc: Commit & push the module
-    cmds:
-      - go mod tidy
-      - git pull
-      - git config advice.addIgnoredFile false
-      - git add *
-      - git commit -am 'updated {{ .PROJECT_NAME }} {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }}'
-      - git push
 EOF      
 ```
 
