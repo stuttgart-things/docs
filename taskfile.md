@@ -2,7 +2,36 @@
 
 A task runner / simpler Make alternative written in Go
 
-<details><summary><b>GO LDFLAGS</b></summary>
+<details><summary><b>INSTALLATION</b></summary>
+
+```bash
+go install github.com/go-task/task/v3/cmd/task@latest
+```
+
+</details>
+
+<details><summary><b>LINT & TEST</b></summary>
+
+```bash
+cat <<EOF > ./Taskfile.yaml
+version: 3
+tasks:
+  lint:
+    desc: Lint code
+    cmds:
+      - cmd: golangci-lint run
+        ignore_error: true
+  test:
+    desc: Test code
+    cmds:
+      - go mod tidy
+      - go test ./... -v
+EOF      
+```
+
+</details>
+
+<details><summary><b>BUILD W/ LDFLAGS</b></summary>
 
 ```yaml
 cat <<EOF > ./Taskfile.yaml
@@ -25,19 +54,16 @@ tasks:
     cmds:
       - go install -ldflags="-X {{ .MODULE }}/internal.date={{ .DATE }} -X {{ .MODULE }}/internal.version={{ .UPDATED_TAG_VERSION }} -X {{ .MODULE }}/internal.commit={{ .GIT_COMMIT }}"
       - "{{ .PROJECT_NAME }}"
-
   lint:
     desc: Lint code
     cmds:
       - cmd: golangci-lint run
         ignore_error: true
-
   test:
     desc: Test code
     cmds:
       - go mod tidy
       - go test ./... -v
-
 EOF      
 ```
 
@@ -108,6 +134,7 @@ tasks:
     desc: Bootstrap project
     cmds:
       - go install github.com/goreleaser/goreleaser@latest
+      - go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
       - go mod init {{ .MODULE }}
       - go mod tidy
       - goreleaser init
@@ -123,10 +150,4 @@ EOF
 </details>
 
 
-<details><summary><b>INSTALLATION</b></summary>
 
-```bash
-go install github.com/go-task/task/v3/cmd/task@latest
-```
-
-</details>
