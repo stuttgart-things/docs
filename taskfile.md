@@ -108,7 +108,7 @@ tasks:
     desc: Bootstrap project
     cmds:
       - go install github.com/goreleaser/goreleaser@latest
-      - go mod init {{ .Module }}
+      - go mod init {{ .MODULE }}
       - go mod tidy
       - goreleaser init
       - git add *
