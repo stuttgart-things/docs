@@ -10,9 +10,9 @@ go install github.com/go-task/task/v3/cmd/task@latest
 
 </details>
 
-```bash
 <details><summary><b>PROTO (GO GEN)</b></summary>
 
+```bash
 # edit proto dir
 cat <<EOF > ./Taskfile.yaml
 version: 3
@@ -24,6 +24,7 @@ tasks:
       - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
       - protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative fetcher/*.proto
 ```
+</details>
 
 <details><summary><b>GIT TASKS</b></summary>
 
