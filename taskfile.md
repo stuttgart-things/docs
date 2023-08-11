@@ -13,16 +13,21 @@ go install github.com/go-task/task/v3/cmd/task@latest
 <details><summary><b>PROTO (GO GEN)</b></summary>
 
 ```bash
-# edit proto dir
 cat <<EOF > ./Taskfile.yaml
 version: 3
 tasks:
   proto:
     desc: Generate Go code from proto file
     cmds:
-      - go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
-      - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
-      - protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative fetcher/*.proto
+      - go install google.golang.org/protobuf/cmd/protoc-gen-go@v{{ .PROTOC_GEN_GO_VERSION }}
+      - go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v{{ .PROTOC_GEN_GO_GRPC_VERSION }}
+      - protoc -I{{ .PROTOC_DIR }} --go_opt=module={{ .GO_MODULE }} --go_out={{ .OUTPUT_DIR }} --go-grpc_opt=require_unimplemented_servers=false,module={{ .GO_MODULE }} --go-grpc_out={{ .OUTPUT_DIR }} {{ .PROTOC_DIR }}/*.proto
+    vars:
+      PROTOC_GEN_GO_VERSION: 1.28
+      PROTOC_GEN_GO_GRPC_VERSION: 1.2
+      PROTOC_DIR: fetcher/repository
+      GO_MODULE: github.com/stuttgart-things/sweatShop-fetcher/reposerver/apiclient
+      OUTPUT_DIR: fetcher/apiclient
 ```
 
 </details>
