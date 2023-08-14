@@ -169,11 +169,19 @@ tasks:
       - git push origin --tags
 
   release:
-    desc: Build amd release to github w/ goreleaser
+    desc: Relase binaries
     deps: [tag]
     cmds:
+      - go install github.com/goreleaser/goreleaser@v{{ .GO_RELEASER_VERSION }}
+      - unset GITLAB_TOKEN
+      - goreleaser healthcheck
+      - goreleaser check
       - goreleaser release --skip-publish --snapshot --clean
       - goreleaser release --clean
+      - rm -rf ./dist
+    vars:
+      GO_RELEASER_VERSION: 1.20.0
+
 EOF      
 ```
 
