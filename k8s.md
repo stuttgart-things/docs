@@ -1,5 +1,21 @@
 # stuttgart-things/docs/k8s
 
+### NFS STORAE CLASS / REMOUNT PVC
+
+After pod was deleted, nfs based pvc cannot be mounted to the pod "applyFSGroup failed for vol".
+
+Workaround: Not having fsGroup field in pod will also skip call to  SetVolumeOwnership function.
+
+remove:
+```
+...
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000 # remove this field!
+...
+```
+
 ### GET ALL IMAGES IN CLUSTER
 ```
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
