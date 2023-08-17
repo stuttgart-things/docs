@@ -11,24 +11,18 @@ redis-cli -h redis-pve.labul.sva.de -a ${REDIS_PASSWORD} # remote redis
 KEYS *
 ```
 
-## READ REDIS STREAM
+## READ STREAM
 ```
 XREAD COUNT 2 STREAMS redisqueue:yacht-revisionruns writers 0-0 0-0
 ```
 
-Delete stream
+## DELETE STREAM
 
 ```
 DEL redisqueue:yacht-revisionruns writers 0-0 0-0
 ```
 
-Get random member from set
-
-```
-SRANDMEMBER whatever 1
-```
-
-Get random member from set
+## GET 1 RANDOM MEMBER FROM SET
 
 ```
 SRANDMEMBER whatever 1
