@@ -15,3 +15,21 @@ KEYS *
 ```
 XREAD COUNT 2 STREAMS redisqueue:yacht-revisionruns writers 0-0 0-0
 ```
+
+Delete stream
+
+```
+DEL redisqueue:yacht-revisionruns writers 0-0 0-0
+```
+
+Get random member from set
+
+```
+SRANDMEMBER whatever 1
+```
+
+Get random member from set
+
+```
+SRANDMEMBER whatever 1
+```
