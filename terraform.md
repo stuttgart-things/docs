@@ -87,3 +87,26 @@ EOF
 
 </details close>
 
+
+## OUTPUT/USE SECRET FROM AWS SECRETS MANAGER
+
+<details open><summary>random-secret-aws.tf</summary>
+
+```
+data "aws_secretsmanager_secret" "ms_secrets" {
+    arn = "arn:aws:secretsmanager:eu-central-1:367557680358:secret:AmazonMSK_example-vfUxyF"
+}
+
+data "aws_secretsmanager_secret_version" "secret_version" {
+  secret_id = data.aws_secretsmanager_secret.ms_secrets.id
+}
+
+# 
+output "secret_string" {
+  value = jsondecode(nonsensitive(data.aws_secretsmanager_secret_version.secret_version.secret_string))["username"]
+}
+```
+
+</details close>
+
+
