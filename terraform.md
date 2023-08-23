@@ -93,12 +93,12 @@ EOF
 <details open><summary>random-secret-aws.tf</summary>
 
 ```
-data "aws_secretsmanager_secret" "ms_secrets" {
+data "aws_secretsmanager_secret" "msk_secrets" {
     arn = "arn:aws:secretsmanager:eu-central-1:367557680358:secret:AmazonMSK_example-vfUxyF"
 }
 
 data "aws_secretsmanager_secret_version" "secret_version" {
-  secret_id = data.aws_secretsmanager_secret.ms_secrets.id
+  secret_id = data.aws_secretsmanager_secret.msk_secrets.id
 }
 
 # 
@@ -109,4 +109,54 @@ output "secret_string" {
 
 </details close>
 
+
+## CREATE INLINE KUBERNETES (YAML) RESOURCES
+
+<details open><summary>akhq_ingress.tf</summary>
+
+```
+resource "kubectl_manifest" "akhq_ingress" {
+  yaml_body = <<YAML
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: ${format("akhq.%s", local.example_domain)}
+    alb.ingress.kubernetes.io/certificate-arn: ${local.csr_certificate_arn}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: 443,80
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tls
+    service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ${var.alb_ssl_policy}
+    alb.ingress.kubernetes.io/ssl-policy: ${var.alb_ssl_policy}
+    alb.ingress.kubernetes.io/subnets: subnet-ID1,subnet-ID2
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/auth-on-unauthenticated-request: deny
+    alb.ingress.kubernetes.io/load-balancer-attributes: routing.http2.enabled=true,idle_timeout.timeout_seconds=60
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/healthcheck-path: /api/me
+    alb.ingress.kubernetes.io/group.order: "2"
+    alb.ingress.kubernetes.io/group.name: akhq
+  labels:
+    app.kubernetes.io/instance: akhq
+    app.kubernetes.io/name: akhq
+  name: akhq
+  namespace: akhq
+spec:
+  ingressClassName: alb
+  rules:
+  - host: ${format("akhq.%s", local.example_domain)}
+    http:
+      paths:
+      - backend:
+          service:
+            name: akhq
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+YAML
+}
+```
+
+</details close>
 
