@@ -160,3 +160,55 @@ YAML
 
 </details close>
 
+## HELM CHART DEPLOYMENT
+
+<details open><summary>helm-akhq.tf</summary>
+
+```
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/dev11"
+  }
+}
+
+resource "helm_release" "akhq" {
+  count      =  1
+  name             = "akhq"
+  namespace        = "akhq2"
+  create_namespace = true
+  repository       = "https://akhq.io"
+  chart            = "akhq"
+  version          = "0.3.1"
+  atomic           = true
+  timeout          = 240
+
+  values = [
+    yamlencode({
+      akhq = {
+        server = {
+          access-log = {
+            enabled = true
+            name = "org.akhq.log.access"
+          }
+        }
+      }
+      secrets = {
+        akhq = {
+          connections = {
+            my-cluster-sasl = {
+              properties  = {
+                "bootstrap.servers" = "my-release-kafka.akhq.svc.cluster.local:9092"
+                "security.protocol" = "SASL_PLAINTEXT"
+                "sasl.mechanism" = "SCRAM-SHA-512"
+                "sasl.jaas.config" = "org.apache.kafka.common.security.scram.ScramLoginModule required username='user1' password='ssq15oEwl3';"
+               }
+            }
+          }
+        }
+      }
+  })]
+
+}
+```
+</details close>
+
