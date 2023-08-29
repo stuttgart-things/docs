@@ -1,4 +1,16 @@
-# # stuttgart-things/docs/ansible
+# stuttgart-things/docs/ansible
+
+## ansible lint
+
+```
+pip3 install ansible-lint
+cat ./.ansible-lint 
+skip_list:
+  - 'yaml'
+  - 'role-name'
+ansible-lint
+```
+
 
 ## VAULT LOOKUPS/REFRESH INVENTORY
 In this example two playbooks are run automatically and consecutively. 
