@@ -108,9 +108,11 @@ sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"
 ```
 # pull image w/ crt
 sudo ctr images pull docker.io/library/redis:alpine
+# or for rke2 bundled containerd: sudo /var/lib/rancher/rke2/bin/ctr images pull docker.io/library/redis:alpine
 
 # list images
 ctr --namespace k8s.io images ls -q
+# or for rke2 bundled containerd: sudo /var/lib/rancher/rke2/bin/ctr --address /run/k3s/containerd/containerd.sock --namespace k8s.io container ls
 
 # load/import conatiner image
 ctr -n=k8s.io images import <IMAGE_NAME>
