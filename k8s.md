@@ -116,6 +116,10 @@ ctr --namespace k8s.io images ls -q
 
 # load/import conatiner image
 ctr -n=k8s.io images import <IMAGE_NAME>
+
+ ctr image export <output-filename> <image-name>
+
+
 ```
 
 ## INSTALL CONTAINERD
