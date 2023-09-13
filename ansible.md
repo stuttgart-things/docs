@@ -1,6 +1,62 @@
 # stuttgart-things/docs/ansible
 
-## ansible lint
+## EVENT-DRIVEN-ANSIBLE (EDA)
+
+### WEBHOOK RULEBOOK
+```yaml
+---
+- name: Listen for events on a webhook
+  hosts: all
+
+  ## Define our source for events
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
+      filters:
+        - ansible.eda.insert_hosts_to_meta:
+            host_path: event.payload.source
+
+  rules:
+    - name: Say Hello
+      condition: event.payload.message == "install RKE"
+      action:
+        run_playbook:
+          name: deployK3s2.yaml
+```
+
+### INVENTORY EXAMPLE
+
+```yaml
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+```
+
+### PLAYBOOK EXAMPLE
+
+```yaml
+- hosts: localhost
+  connection: local
+  tasks:
+    - debug:
+        msg: "Thank you, my friend!"
+```
+
+### RULEBOOK EXECUTION
+
+```bash
+ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
+```
+
+### RULEBOOK/EDA TRIGGERING
+
+```bash
+curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.31.103.137:5000/endpoint
+```
+
+## ANSIBLE-LINT
 
 ```
 pip3 install ansible-lint
