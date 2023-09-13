@@ -2,6 +2,18 @@
 
 ## EVENT-DRIVEN-ANSIBLE (EDA)
 
+### INSTALLATION
+
+```bash
+sudo apt install python3-pip openjdk-17-jdk maven
+export PATH=$PATH:$HOME/.local/bin
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PIP_NO_BINARY=jpy
+export PATH=/home/vagrant/.local/bin:$PATH
+pip install wheel ansible-rulebook ansible ansible-runner
+ansible-galaxy collection install community.general ansible.eda
+```
+
 ### WEBHOOK RULEBOOK
 ```yaml
 ---
