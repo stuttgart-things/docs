@@ -19,4 +19,11 @@ for argument in "$@"; do echo $argument ; done # loop over parameters
 for argument in "$@"; do echo $argument | sed -e "s/+-/: /g" ; done 
 ```
 
- parameters
+## GET VERSION NUMBER W/ AWK
+
+```bash
+python3 --version # Python 3.10.12
+python3 --version | awk '{print $2}' # 3.10.12
+
+```
+
