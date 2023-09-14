@@ -15,8 +15,8 @@ set great foo bar # set parameters
 echo "$@" # test output
 for argument in "$@"; do echo $argument ; done # loop over parameters
 
-for argument in "$@"; do echo $argument | sed -e "s/+-/: /g" ; done # loop over parameters and
-change +- to : w/ sed
+# loop over parameters andchange +- to : w/ sed
+for argument in "$@"; do echo $argument | sed -e "s/+-/: /g" ; done 
 ```
 
  parameters
