@@ -27,3 +27,9 @@ DEL redisqueue:yacht-revisionruns writers 0-0 0-0
 ```
 SRANDMEMBER whatever 1
 ```
+
+## GET JSON
+
+```
+JSON.GET st-0-execute-ansible-smt40-rke2-15-1717483c5a
+```
