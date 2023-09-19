@@ -14,6 +14,13 @@ pip install wheel ansible-rulebook ansible ansible-runner
 ansible-galaxy collection install community.general ansible.eda
 ```
 
+### INSTALLATION ELASTICSEARCH SOURCE PLUGIN
+
+```bash
+pip install aiohttp elasticsearch python-dateutil pyyaml
+ansible-galaxy collection install cloin.eda
+```
+
 ### WEBHOOK RULEBOOK
 ```yaml
 ---
@@ -37,6 +44,30 @@ ansible-galaxy collection install community.general ansible.eda
           name: deployK3s2.yaml
 ```
 
+### ELASTICSEARCH RULEBOOK
+
+```yaml
+---
+- name: Elastic events
+  hosts: all
+  sources:
+    - cloin.eda.elastic:
+        elastic_host: <elasticsearch_url>
+        elastic_port: 9200
+        elastic_index_pattern: metricbeat-*
+        query: |
+          term:
+            vsphere.virtualmachine.memory.used.guest.bytes: 0
+        interval: 60
+
+  rules:
+    - name: Start vm if state is powerd off
+      condition: event.ecs is defined and event.vsphere.virtualmachine.name == "vm-name"
+      action:
+        run_playbook:
+          name: vsphere.yaml
+```
+
 ### INVENTORY EXAMPLE
 
 ```yaml
@@ -46,7 +77,7 @@ all:
       ansible_connection: local
 ```
 
-### PLAYBOOK EXAMPLE
+### PLAYBOOK EXAMPLES
 
 ```yaml
 - hosts: localhost
@@ -54,6 +85,51 @@ all:
   tasks:
     - debug:
         msg: "Thank you, my friend!"
+```
+
+```yaml
+---
+- hosts: localhost
+  
+  vars:
+    vcenter_hostname: <vcenter_url>
+    vcenter_username: <user>
+    vcenter_password: <password>
+    vcenter_datacenter: <datacenter>
+    vm_name: <vm-name>
+    vm_folder: <folder>
+
+  tasks:
+    - name: "Get uuid of {{ vm_name }}"
+      community.vmware.vmware_guest_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        datacenter: "{{ vcenter_datacenter }}"
+        name: "{{ vm_name }}"
+        folder: "{{ vm_folder }}"
+        validate_certs: False
+      register: vm_facts
+        
+    - name: "Set facts of {{ vm_name }}"
+      ansible.builtin.set_fact:
+        vm_uuid: "{{ vm_facts.instance.hw_product_uuid }}"
+        power_status: "{{ vm_facts.instance.hw_power_status }}"
+
+    - name: "Check power status of {{ vm_name }}"
+      ansible.builtin.debug:
+        var: power_status
+
+    - name: Set powerstate of a virtual machine to poweroff by using UUID
+      community.vmware.vmware_guest:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        uuid: "{{ vm_uuid }}"
+        state: poweredon
+      delegate_to: localhost
+      when: power_status == "poweredOff"
 ```
 
 ### RULEBOOK EXECUTION
