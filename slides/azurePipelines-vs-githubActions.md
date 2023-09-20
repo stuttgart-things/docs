@@ -6,7 +6,7 @@ Before you compare GitHub Actions and Azure Pipelines, you should consider the b
 * Don’t require accessing a separate system or UI to edit.
 * Can fully codify the build, test, and deploy process for code.
 * Can usually be templatized to empower teams to create standard processes across multiple repositories.
-
+--
 # Azure Pipelines vs. GitHub Actions
 * GitHub Actions and Azure Pipelines share several configuration similarities
 * migrating to GitHub Actions relatively straightforward.
