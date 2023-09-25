@@ -9,27 +9,54 @@ kubectl create ns
 export VAR_NAME=VALUE
 helm upgrade --install <RELEASE-NAME> bitnami/postgresql --version 12.12.5 --values posgres.yaml
 ```
+## CHEETSHEET
+```
+kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 
-## EXERCISE1: CLONE + CREATE ENV FILE
+```
 
-* Clone https://github.com/divrhino/divrhino-trivia-crud.git
+
+## EXERCISE0: PREPARATION / 'FORK' from github
+* Create a git repository with the name web-app-<YOURNAME> on gitea (or init w/ git shell on your local system)
+* Clone the repository to your local filesystem
+* Create a README.md file in your newly created & cloned repository and push it to remote (gitea)
+* Clone https://github.com/divrhino/divrhino-trivia-crud.git to your local filesystem (do not clone it inside your web-app-<YOURNAME> folder)
+* Remove divrhino-trivia-crud/.git folder from the repo
+* Copy everything (all files and folders) from the cloned divrhino-trivia-crud/ to web-app-<YOURNAME>
+* Do not forget to copy the hidden .gitignore and .air.toml
+* Push all files to your remote repo
+* Remove divrhino-trivia-crud from your local filesystem
+--
+## EXERCISE1: TEST W/ DOCKER-COMPOSE
+* Check the docker-compose.yaml file
+* Verify/Add the .env file to the .gitignore file
 * Create .env file (see docker-compose file) for the variables
     ```
     DB_USER=<REPLACE-WITH-YOUR-VALUE>
     DB_PASSWORD=<REPLACE-WITH-YOUR-VALUE>
     DB_NAME=<REPLACE-WITH-YOUR-VALUE>
     ```
-* Export POSTGRES_USER; POSTGRES_PASSWORD; POSTGRES_DB w/ the (same) values from .env file
-* Test service with docker-compose + Browser
+* Export POSTGRES_USER w/ the (same) values from .env file
+* Export POSTGRES_PASSWORD w/ the (same) values from .env file
+* Export POSTGRES_DB w/ the (same) values from .env file
+* Change the external port of the web service to something between 3001-3125
+* Test service with docker-compose + Browser (172.187.248.49:<PORT>)
 * Stop docker compose
-
-## EXERCISE2: CHECK KIND + DEPLOY DB W/ HELM
-
-* Check k8s connection w/ kubectl
-* Create your deployment namespace
-
-## EXERCISE3: BUILD DOCKERIMAGE
-
+* Stop docker compose
+* Delete all created containers
+--
+## EXERCISE3: CHECK KIND + DEPLOY DB W/ HELM
+* Check k8s connection w/ kubectl to the kind cluster
+* Create your deployment namespace (your username)
+* Deploy postgresdb w/ helm
+* Check for helm values & repo https://artifacthub.io/packages/helm/bitnami/postgresql
+* Create a helm values file and set values for db username; password & database + Set the value from primary.persistence.size to 1Gi
+* Install the db w/ helm command in your namespace
+* Check if db is running in your namespace w/ help of helm deployment output
+* Check if size of db pvc is 1Gi
+* push your helm values file to your git repository
+--
+## EXERCISE4: UPDATE SOURCECODE & DOCKERFILE OF WEB-APP
 * Update Dockerfile w/ the following content
 ```
 FROM golang:1.19.0 as builder
@@ -44,22 +71,81 @@ WORKDIR /usr/src/app/cmd
 
 RUN go mod tidy && CGO_ENABLED=0 go build -buildvcs=false -o /bin/app
 
-
 FROM alpine:3.17.0
 COPY --from=builder /bin/app /bin/app
 ADD views /web/views/
 ADD public /web/public/
 ENTRYPOINT ["app"]
 ```
+* Update cmd/main.go with
+```
+engine := html.New("/web/views", ".html")
+```
+and
+```
+app.Static("/", "/web/public")
+```
+* Build the application w/ docker and the tag webapp:<username>
+* Import the newly build image into kind (kind get clusters for the name of the cluster)
+--
+## EXERCISE5: CREATE TASKFILE FOR BUILD& IMPORT + CHANGE LOGO
+* Create a taskfile and add it to your remote repo
+* Example file
+```
+...
+```
+* Create a task wich builds and imports an image to your kind cluster
+* Update database/database.go
+```
+dsn := fmt.Sprintf(
+		"host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASSWORD"),
+		os.Getenv("DB_NAME"),
+)
+``````
+* Update the logo of the app in the static content folder and rebuild the application image w/ task:
+public/divrhino-logo.png (overwrite with another png - dont change the name of the file)
+---
+## EXERCISE6: Deploy webapp on cluster
+* Update the following deployment
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: web-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+        - name: web-app
+          image: webapp:patrick3
+          ports:
+          - containerPort: 3000
+          env:
+          - name: DB_NAME
+            value: patdb
+          - name: DB_PASSWORD
+            value: Atlan7is
+          - name: DB_USER
+            value: patrick
+          - name: DB_HOST
+            value: postgresql
+```
 
-* Build container image w/ docker
-
-
-
-## EXERCISE5: CREATE SERVICE + INGRESS
-
-
-* Create Service w/ kubectl in your namespace
 ```
 apiVersion: v1
 kind: Service
@@ -92,8 +178,7 @@ spec:
             name: web
             port:
               number: 3000
----
 ```
 
-Change deployment strategy
-taskfile
+
+* ssh-keygen (für gitea aufgabe)

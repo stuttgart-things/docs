@@ -12,3 +12,5 @@ To use Markdown, you just apply simple tags to your text. For example, to format
 
 Here are some other examples of Markdown formatting from the syntax guide:
 --
+
+https://bulldogjob.com/readme/how-to-write-a-good-readme-for-your-github-project

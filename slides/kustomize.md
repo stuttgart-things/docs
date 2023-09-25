@@ -67,3 +67,6 @@
 
 
 --
+https://github.com/kubernetes-sigs/kustomize/blob/master/examples/image.md
+https://github.com/CariZa/kustomize-practice
+https://levelup.gitconnected.com/kubernetes-change-base-yaml-config-for-different-environments-prod-test-6224bfb6cdd6
