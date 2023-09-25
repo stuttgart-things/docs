@@ -1,5 +1,44 @@
-# /GITLAB-FLOW
-https://about.gitlab.com/topics/version-control/what-are-gitlab-flow-best-practices/
+# /GIT-STRATEGYS
+
+* There are two main patterns for developer teams to work together using version control
+*
+--
+## /FEATURE-BRANCHES
+* a developer or a group of developers create a branch usually from trunk (also known as main or mainline)
+* work in isolation on that branch until the feature they are building is complete.
+* When the team considers the feature ready to go, they merge the feature branch back to trunk.
+--
+## /TRUNK-BASED DEVOLPMENT
+
+[<img src="https://statusneo.com/wp-content/uploads/2022/12/Beginners%20Guide%20to%20Trunk-Based%20Development.png" width="600"/>](www.google.com)
+
+
+
+* Trunk-based development (TBD) is a source control workflow model that enables continuous integration.
+* The primary purpose of trunk-based development is to avoid the creation of long-lived branches by merging partial changes to the entire feature
+--
+* Developers can achieve this by committing straight to the main branch or by using short-lived branches with an efficient code review process.
+* Branches, by definition, should only live a few days.
+--
+
+* trunk-based development, where each developer divides their own work into small batches and merges that work into trunk at least once (and potentially several times) a day.
+* The key difference between these approaches is scope.
+* Feature branches typically involve multiple developers and take days or even weeks of work.
+--
+* In contrast, branches in trunk-based development typically last no more than a few hours, with many developers merging their individual changes into trunk frequently.
+
+
+## /GIT-FLOW
+
+
+
+## /RELEASE-BRANCHES
+
+
+## /GITHUB-FLOW
+
+# /GITLAB-FLOW best practices
+[what-are-gitlab-flow-best-practices](https://about.gitlab.com/topics/version-control/what-are-gitlab-flow-best-practices/)
 --
 ### /Use feature branches..
 * ..rather than direct commits on the main branch
