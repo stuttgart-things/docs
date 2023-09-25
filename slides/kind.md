@@ -34,12 +34,13 @@ nodes:
 ```
 kind create cluster --name=nodes-test --config=workerNodes.yaml
 ```
-
 --
 ### How to load a docker image into cluster node
-
-
-
+```
+kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
+```
+--
+<!--
 
 cat <<EOF | kind create cluster --name=wks2 --config=-
 kind: Cluster
@@ -74,4 +75,4 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main
 kubectl wait --namespace ingress-nginx \
   --for=condition=ready pod \
   --selector=app.kubernetes.io/component=controller \
-  --timeout=90s
+  --timeout=90s -->

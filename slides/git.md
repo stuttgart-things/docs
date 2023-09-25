@@ -97,7 +97,17 @@ v1.4
   * We add files to a staging area, and then we commit the files that have been staged <!-- .element: class="fragment fade-up" -->
 --
 ### /Git Push
+* The git push command is used to upload local repository content to a remote repository <!-- .element: class="fragment fade-up" -->
+* Pushing is how you transfer commits from your local repository to a remote repo <!-- .element: class="fragment fade-up" -->
+* It's the counterpart to git fetch, but whereas fetching imports commits to local branches, pushing exports commits to remote branches <!-- .element: class="fragment fade-up" -->
+--
+### /Git Push
+*  Remote branches are configured using the git remote <!-- .element: class="fragment fade-up" -->
 
+```
+git push <remote> <branch>
+```
+<!-- .element: class="fragment fade-up" -->
 --
 ### /Branches
 * Git lets you branch out from the original code base <!-- .element: class="fragment fade-up" -->
