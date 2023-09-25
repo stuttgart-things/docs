@@ -18,6 +18,7 @@ kind create cluster --name=[cluster-name]
 ### Create a cluster with more than one node
 
 * config <!-- .element: class="fragment fade-up" -->
+
 ```
 # three node (two workers) cluster config
 kind: Cluster

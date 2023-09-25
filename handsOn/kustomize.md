@@ -38,4 +38,35 @@ TASKS:
 * CHECK (CHANGES) ON FILESYSTEM
 * CHECK (CHANGES) ON CLUSTER
 
-## configMapGenerator
+## change image names and tags
+
+TASKS:
+
+* CREATE THE FOLLOWING FILES
+
+    ```bash
+    mkdir -p ./pod
+    cat <<EOF >./pod/kustomization.yaml
+    resources:
+    - pod.yaml
+    EOF
+    ```
+
+    ```bash
+    cat <<EOF >./pod/pod.yaml
+    cat <<EOF >$DEMO_HOME/pod.yaml
+    apiVersion: v1
+    kind: Pod
+    metadata:
+    name: myapp-pod
+    labels:
+        app: myapp
+    spec:
+    containers:
+    - name: myapp-container
+        image: busybox:1.29.0
+        command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+    EOF
+    ```
+
+* kustomize edit set image busybox=alpine:3.6
