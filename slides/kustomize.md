@@ -61,8 +61,9 @@
 | Support for packaging      | no          | yes        |
 | Native kubectl integration | yes         | no         |
 | Declarative/ imperative    | declarative | imperative |
-
 --
+
+
 ## Demo: change image names and tags
 
 
