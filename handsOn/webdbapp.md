@@ -10,11 +10,11 @@ export VAR_NAME=VALUE
 helm upgrade --install <RELEASE-NAME> bitnami/postgresql --version 12.12.5 --values posgres.yaml
 ```
 ## CHEETSHEET
+
 ```
 kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 
 ```
-
 
 ## EXERCISE0: PREPARATION / 'FORK' from github
 * Create a git repository with the name web-app-<YOURNAME> on gitea (or init w/ git shell on your local system)
