@@ -135,13 +135,126 @@ https://www.educative.io/answers/how-to-delete-a-git-branch-locally-and-remotely
 
 https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/10/create-git-branches.jpg
 --
-### /Forking
-
-
+### /Fork
+* A fork in Git is simply a copy of an existing repository in which the new owner disconnects the codebase from previous committers <!-- .element: class="fragment fade-up" -->
+* A fork often occurs when a developer becomes dissatisfied or disillusioned with the direction of a project and wants to detach their work from that of the original project <!-- .element: class="fragment fade-up" -->
+--
+### /Fork
+* When a git fork occurs, previous contributors will not be able to commit code to the new repository without the owner giving them access to the forked repo <!-- .element: class="fragment fade-up" -->
+* either by providing developers the publicly accessible Git URL, or by providing explicit access through user permission in tools like GitHub or GitLab <!-- .element: class="fragment fade-up" -->
+--
+### /Fork
+* There is no git fork command <!-- .element: class="fragment fade-up" -->
+* From the command line you can clone a Git repo, you can pull from a Git repo and you can fetch updates from a Git repo <!-- .element: class="fragment fade-up" -->
 --
 ### /Pull Requests
 * Pull requests are a way to discuss changes before merging them into your codebase <!-- .element: class="fragment fade-up" -->
 * A developer makes changes on a new branch and would like to merge that branch into the master <!-- .element: class="fragment fade-up" -->
 * They can create a pull request to notify you to review their code <!-- .element: class="fragment fade-up" -->
 * You can discuss the changes, and decide if you want to merge it or not <!-- .element: class="fragment fade-up" -->
+--
+### /Pull Request Workflow
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0frm6MvNkCtuQEMg.png" width="700"/>](https://www.sva.de/index.html)
+--
+### /Pull Request Workflow
+* Pull the changes to your local machine (get the most recent base) <!-- .element: class="fragment fade-up" -->
+* Create a branch (version) <!-- .element: class="fragment fade-up" -->
+* Commit the changes <!-- .element: class="fragment fade-up" -->
+* Push your changes <!-- .element: class="fragment fade-up" -->
+* Open a pull request (propose changes) <!-- .element: class="fragment fade-up" -->
+* Discuss and review your code <!-- .element: class="fragment fade-up" -->
+* Rebase and tests <!-- .element: class="fragment fade-up" -->
+* Merge your branch to the master branch <!-- .element: class="fragment fade-up" -->
+--
+### /CREATE BRANCH
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*AbFP4SPZZa_3RVHW.png" width="700"/>](https://www.sva.de/index.html)
+--
+### /CREATE BRANCH
+* Create a new branch named feature_x and switch to it using <!-- .element: class="fragment fade-up" -->
+
+```
+git checkout -b feature_x
+```
+<!-- .element: class="fragment fade-up" -->
+* a branch is not available to others unless you push the branch to your remote repository <!-- .element: class="fragment fade-up" -->
+
+```
+git push origin <branch>
+```
+<!-- .element: class="fragment fade-up" -->
+--
+### /Add & commit
+```
+You can propose changes (add it to the Index) using
+git add <filename>
+git add *
+To actually commit these changes use
+git commit -m "Commit message"
+```
+<!-- .element: class="fragment fade-up" -->
+--
+### /Add & commit
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*fCDhhg4mTgqDxXzt.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+
+This process of adding commits keeps track of your progress as you work <!-- .element: class="fragment fade-up" -->
+Commits also create a transparent history of your work that others can follow to understand what you’ve done and why <!-- .element: class="fragment fade-up" -->
+--
+### /Push your changes
+A branch is not available to others unless you push the branch to your remote repository
+<!-- .element: class="fragment fade-up" -->
+
+```
+git push origin <branch>
+```
+<!-- .element: class="fragment fade-up" -->
+--
+### /Open a Pull Request
+* Pull Requests initiate discussion about your commits <!-- .element: class="fragment fade-up" -->
+* Anyone can see exactly what changes would be merged if they accept your request <!-- .element: class="fragment fade-up" -->
+
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*7lSbC78AN6pAgaaB.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+--
+### /Open a Pull Request
+You can open a Pull Request at any point:
+* when you have little or no code but want to share some screenshots or general ideas <!-- .element: class="fragment fade-up" -->
+* when you're stuck and need help or advice <!-- .element: class="fragment fade-up" -->
+* when you're ready for someone to review your work <!-- .element: class="fragment fade-up" -->
+--
+### /Discuss and review your code
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*pcvtS8aN4qhzfDYC.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+
+* Once a Pull Request has been opened, the person or team reviewing your changes may have questions or comments (the most often through your git host platform)
+--
+### /Discuss and review your code
+* Perhaps the coding style doesn't match project guidelines <!-- .element: class="fragment fade-up" -->
+* the change is missing unit tests <!-- .element: class="fragment fade-up" -->
+* Pull Requests are designed to encourage and capture this type of conversation <!-- .element: class="fragment fade-up" -->
+--
+### /Rebase and tests
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*_KV_rWe23HSBrj3U.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+
+* Once your pull request has been reviewed and the branch passes your tests <!-- .element: class="fragment fade-up" -->
+* you can rebase your branch on master (it will use the most recent version of the code base) <!-- .element: class="fragment fade-up" -->
+* in order to test all the changes together (production) <!-- .element: class="fragment fade-up" -->
+--
+### /Rebase
+* To take all the changes that were committed on master and replay them on the current branch <!-- .element: class="fragment fade-up" -->
+
+```
+git rebase master
+```
+<!-- .element: class="fragment fade-up" -->
+
+* This operation works by resetting the current branch to the same commit as master, and applying each commit of the current branch <!-- .element: class="fragment fade-up" -->
+--
+### /Merge
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*cWYTGbMdR-qJiOks.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+
+Now that your changes have been verified in production, it is time to merge your code into the master branch <!-- .element: class="fragment fade-up" -->
+
+```
+git checkout master
+git merge <branch> --no-ff
+```
+<!-- .element: class="fragment fade-up" -->
 --
