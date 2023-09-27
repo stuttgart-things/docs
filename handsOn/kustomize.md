@@ -54,7 +54,6 @@ TASKS:
 
     ```bash
     cat <<EOF >./pod/pod.yaml
-    cat <<EOF >$DEMO_HOME/pod.yaml
     apiVersion: v1
     kind: Pod
     metadata:
@@ -69,4 +68,83 @@ TASKS:
     EOF
     ```
 
+* Fix the syntax errors in the pod manifest
 * kustomize edit set image busybox=alpine:3.6
+* build and or apply
+
+## work w/ environments
+
+TASKS:
+* CREATE THE FOLLOWING FILES
+
+    ```bash
+    mkdir -p ./kustomize/base
+    mkdir -p ./kustomize/overlays/dev
+    cat <<EOF >./kustomize/base/kustomization.yaml
+    apiVersion: kustomize.config.k8s.io/v1beta1
+    kind: Kustomization
+
+    resources:
+    - deployment.yaml
+
+    images:
+    - name: nginx
+    newTag: 1.8.0
+    EOF
+    ```
+
+    ```bash
+    cat <<EOF >./kustomize/base/deployment.yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+    name: the-deployment
+    annotations:
+        app: nginx
+    spec:
+    template:
+        spec:
+        containers:
+        - name: nginxapp
+            image: nginx:1.7.9
+    EOF
+    ```
+
+    ```bash
+    mkdir -p ./kustomize/base
+    mkdir -p ./kustomize/overlays/dev
+    cat <<EOF >./kustomize/dev/kustomization.yaml
+    apiVersion: kustomize.config.k8s.io/v1beta1
+    kind: Kustomization
+
+    resources:
+    - ../../base
+
+    patches:
+    - path: deploy-patch.yaml
+    EOF
+    ```
+
+    ```bash
+    cat <<EOF >./kustomize/dev/deploy-patch.yaml
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+    name: the-deployment
+    spec:
+    template:
+        spec:
+        containers:
+            - name: istio-proxy
+            image: docker.io/istio/proxyv2
+            args:
+            - proxy
+            - sidecar
+    EOF
+    ```
+
+* build base
+* apply base
+* build dev
+* apply dev
+* create prod env

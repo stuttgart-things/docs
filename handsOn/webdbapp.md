@@ -13,7 +13,6 @@ helm upgrade --install <RELEASE-NAME> bitnami/postgresql --version 12.12.5 --val
 
 ```
 kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
-
 ```
 
 ## EXERCISE0: PREPARATION / 'FORK' from github
