@@ -58,17 +58,3 @@ If main branch and production are very different:
 * put a file in your repository and then telling the CI system to read the file
 * actual CI config for the cloud-based options is often a little simpler
 * there are often resource limitations on cloud-based platforms
-
-
-
-
-
-
-
-
-https://www.cncf.io/blog/2020/06/17/testing-kubernetes-deployments-within-ci-pipelines/
-
-
-
-
-docker login -u patrick -p Upaf8GHr27j5STvthY5YLSAaZaifEPYRo4ggSA5Q2y+ACRA71LRz k8sworkshop2.azurecr.io

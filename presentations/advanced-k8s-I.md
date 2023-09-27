@@ -800,8 +800,6 @@ The ecosystem of static checking of Kubernetes YAML files can be grouped in the 
 * Use it to check early and often for security misconfigurations and DevOps best practices <!-- .element: class="fragment fade-up" -->
 * Some common issues that KubeLinter identifies are running containers as a non-root user, enforcing least privilege, and storing sensitive information only in secrets <!-- .element: class="fragment fade-up" -->
 --
-
-
 ---
 # /DEMO APP EXERCISE #3
 --

@@ -87,13 +87,32 @@ app.Static("/", "/web/public")
 * Build the application w/ docker and the tag webapp:<username>
 * Import the newly build image into kind (kind get clusters for the name of the cluster)
 --
-## EXERCISE5: CREATE TASKFILE FOR BUILD& IMPORT + CHANGE LOGO
+## EXERCISE5: ADD/CHANGE TASKFILE (Create a task wich builds and imports an image to your kind cluster)
+* Add the file Taskfile.yaml to your app repo
+* example Taskfile.yaml (copy and change)
+
+```
+---
+version: 3
+vars:
+  DATE:
+    sh: date +"%y.%m%d.%H%M"
+
+tasks:
+  build:
+    desc: Builds docker image
+    cmds:
+      - docker build -t k8sworkshop2.azurecr.io/webapp-patrick:{{ .DATE}} .
+```
+* list tasks w/ task --list
+* change image name to your name/image
+* add task for import the image to kind:
+  kind load docker-image <IMAGENAME> --name <KIND-CLUSTERNAME>
+* use declared variables for it
+* use task build
+--
+## EXERCISE6: CHANGE DB + LOGO
 * Create a taskfile and add it to your remote repo
-* Example file
-```
-...
-```
-* Create a task wich builds and imports an image to your kind cluster
 * Update database/database.go
 ```
 dsn := fmt.Sprintf(
@@ -178,6 +197,3 @@ spec:
             port:
               number: 3000
 ```
-
-
-* ssh-keygen (für gitea aufgabe)

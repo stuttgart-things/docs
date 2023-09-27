@@ -28,8 +28,29 @@ What's a shortcut to staging all the changes you have?
 * By using "GIT add", you are indicating to Git which files or changes you want to include in the next commit <!-- .element: class="fragment fade-up" -->
 --
 What is k9s?
+* provides a terminal UI to interact with your Kubernetes clusters <!-- .element: class="fragment fade-up" -->
+--
+What is .gitignore
+* specify which files or parts of your project should be ignored by Git <!-- .element: class="fragment fade-up" -->
+--
+What is a helmfile?
+* Helmfile is a declarative spec for deploying helm charts <!-- .element: class="fragment fade-up" -->
+Keep a directory of chart value files and maintain changes in version control <!-- .element: class="fragment fade-up" -->
+Apply CI/CD to configuration changes <!-- .element: class="fragment fade-up" -->
+Periodically sync to avoid skew in environments <!-- .element: class="fragment fade-up" -->
+--
+What is a taskfile?
+* Task is a task runner / build tool <!-- .element: class="fragment fade-up" -->
+* aims to be simpler and easier to use than, for example, GNU Make <!-- .element: class="fragment fade-up" -->
+* Since it's written in Go, Task is just a single binary and has no other dependencies <!-- .element: class="fragment fade-up" -->
+--
+How to generate a private ssh key?
+* ssh-keygen <!-- .element: class="fragment fade-up" -->
 --
 What is kube-linter?
+* KubeLinter analyzes Kubernetes YAML files and Helm charts <!-- .element: class="fragment fade-up" -->
+* checks them against a variety of best practices <!-- .element: class="fragment fade-up" -->
+* with a focus on production readiness <!-- .element: class="fragment fade-up" -->
 --
 How do you supply a commit message to a commit?
 * To supply a commit message to a commit in GIT, the correct way is to use the command "GIT commit -m "I'm coding!". <!-- .element: class="fragment fade-up" -->
