@@ -55,7 +55,29 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Check if size of db pvc is 1Gi
 * push your helm values file to your git repository
 --
-## EXERCISE4: UPDATE SOURCECODE & DOCKERFILE OF WEB-APP
+## EXERCISE4: CHANGE HELM DEPLOYMENT INTO HELMFILE
+* Create following helmfile.yaml
+
+```
+# cat Helmfile.yaml
+repositories:
+ - name: bitnami
+   url: https://charts.bitnami.com/bitnami
+
+releases:
+- name: webserver
+  namespace: web
+  chart: bitnami/nginx
+```
+
+* change the release namespace
+* helmfile init
+* helmfile template
+* helmfile apply
+* check pods in namespace
+* helmfile destroy
+--
+## EXERCISE5: UPDATE SOURCECODE & DOCKERFILE OF WEB-APP
 * Update Dockerfile w/ the following content
 ```
 FROM golang:1.19.0 as builder
@@ -76,6 +98,7 @@ ADD views /web/views/
 ADD public /web/public/
 ENTRYPOINT ["app"]
 ```
+
 * Update cmd/main.go with
 ```
 engine := html.New("/web/views", ".html")
@@ -112,7 +135,6 @@ tasks:
 * use task build
 --
 ## EXERCISE6: CHANGE DB + LOGO
-* Create a taskfile and add it to your remote repo
 * Update database/database.go
 ```
 dsn := fmt.Sprintf(
@@ -150,7 +172,7 @@ spec:
     spec:
       containers:
         - name: web-app
-          image: webapp:patrick3
+          image: webapp-patrick:23.0927.0425
           ports:
           - containerPort: 3000
           env:
@@ -197,3 +219,44 @@ spec:
             port:
               number: 3000
 ```
+
+# EXERCISE HELMFILE
+
+```
+repositories:
+ - name: prometheus-community
+   url: https://prometheus-community.github.io/helm-charts
+
+releases:
+- name: prom-norbac-ubuntu
+  namespace: prometheus
+  chart: prometheus-community/prometheus
+  set:
+  - name: rbac.create
+    value: false
+```
+
+
+# ARGOCD
+
+* go to: http://20.71.6.40
+* create a new repo on gitea http://20.103.92.233 w/ the name argocd-<USERNAME>
+* add a folder w/ the name pod
+* add this file to the repo
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserver
+spec:
+  containers:
+  - name: webserver
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+```
+* add your repository to argocd e.g. gitea@52.137.62.254:patrick/argocd-patrick.git
+* export KUBECONFIG=~/.kube/aks
+* find your created repo as a kind: Secret in the argocd namespace w/ k9s
+* add the line insecure: "true"
+* Create a argocd appilcation

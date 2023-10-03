@@ -19,10 +19,10 @@ helm repo update
 
 cat <<EOF > postgres-velero.yaml
 primary:
-  extraVolumes: 
+  extraVolumes:
   - name: backup
     emptyDir: {}
-  extraVolumeMounts: 
+  extraVolumeMounts:
   - name: backup
     mountPath: /scratch
 
@@ -61,19 +61,19 @@ CREATE TABLE phonebook(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHA
 \dt, \dt+
 
 # INSERT TEST DATA
-INSERT INTO phonebook(phone, firstname, lastname, address) VALUES('+1 123 456 7890', 'John', 'Doe', 'North America'); 
+INSERT INTO phonebook(phone, firstname, lastname, address) VALUES('+1 123 456 7890', 'John', 'Doe', 'North America');
 
 # TEST QUERY
 SELECT * FROM phonebook ORDER BY lastname;
 ```
 
-### CREATE BACKUP 
+### CREATE BACKUP
 
 ```
 velero backup create pgb18-restic --include-namespaces postgres
 ```
 
-### RESTORE BACKUP 
+### RESTORE BACKUP
 
 ```
 velero restore create pgb18 --from-backup pgb18-restic --namespace-mappings postgres:new5
