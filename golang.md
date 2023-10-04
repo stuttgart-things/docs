@@ -1,5 +1,20 @@
 # stuttgart-things/docs/golang
 
+## GORELEASER
+
+### GITHUB ENTERPRISE
+
+```
+# .goreleaser.yaml
+github_urls:
+  api: https://git.company.com/api/v3/
+  upload: https://git.company.com/api/uploads/
+  download: https://git.company.com/
+  # set to true if you use a self-signed certificate
+  skip_tls_verify: false
+```
+
+
 ## K8S-OPERATOR
 
 ### INSTALL OPERATOR SDK
