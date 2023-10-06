@@ -40,7 +40,7 @@ helm upgrade --install vault hashicorp/vault -n vault --create-namespace --versi
 ```bash
 helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
 helm repo update
-helm upgrade --install vault-deployment secrets-store-csi-driver/secrets-store-csi-driver -n vault --version 1.3.4 
+helm upgrade --install vault-deployment secrets-store-csi-driver/secrets-store-csi-driver -n vault --version 1.3.4
 ```
 
 </details>
@@ -48,7 +48,7 @@ helm upgrade --install vault-deployment secrets-store-csi-driver/secrets-store-c
 <details><summary><b>CONFIGURE VAULT</b></summary>
 
 ```bash
-kubectl -n vault exec -it vault-deployment-0 -- /bin/sh 
+kubectl -n vault exec -it vault-deployment-0 -- /bin/sh
 
 vault login root  # or w/ ingress vault login -address=https://vault.dev11.4sthings.tiab.ssc.sva.de -tls-skip-verify
 vault secrets enable -version=1 kv
@@ -67,9 +67,54 @@ bound_service_account_namespaces=default \
 policies=kv_policy \
 ttl=20m
 
-## Put some Sample data 
+## Put some Sample data
 vault kv put kv/db password=password
 vault kv put kv/app user=admin
+```
+
+</details>
+
+
+<details><summary><b>EXAMPLE: SECRET-PROVIDER-CLASS</b></summary>
+
+
+```yaml
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: vault-git-creds
+  namespace: tektoncd
+spec:
+  provider: vault
+  parameters:
+    roleName: csi-kv
+    vaultAddress: 'http://vault-deployment.vault.svc.cluster.local:8200'
+    objects: |
+      - objectName: "token"
+        secretPath: "kv/git"
+        secretKey: "token"
+      - objectName: ".git-credentials"
+        secretPath: "kv/git"
+        secretKey: ".git-credentials"
+      - objectName: ".gitconfig"
+        secretPath: "kv/git"
+        secretKey: ".gitconfig"
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: vault-kaniko-creds
+  namespace: tektoncd
+spec:
+  provider: vault
+  parameters:
+    roleName: csi-kv
+    vaultAddress: 'http://vault-deployment.vault.svc.cluster.local:8200'
+    objects: |
+      - objectName: "config.json"
+        secretPath: "kv/acr"
+        secretKey: "config.json"
 ```
 
 </details>
