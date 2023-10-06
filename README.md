@@ -1,11 +1,12 @@
 # stuttgart-things/docs
+
 documentation in code (snippets)
 
 ## /K8S
 
-|                     Name | Description                                                                                      |                            
-| :----------------------- | :----------------------------------------------------------------------------------------------- | 
-| **[k8s-general][k8s]** | Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services  | 
+|                     Name | Description                                                                                      |
+| :----------------------- | :----------------------------------------------------------------------------------------------- |
+| **[k8s-general][k8s]** | Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services  |
 
 [k8s]: https://github.com/stuttgart-things/docs/blob/main/k8s.md
 
