@@ -2,11 +2,34 @@
 
 documentation in code (snippets)
 
+## /LINUX
+
+|                     Name | Description                                                                                      |
+| :----------------------- | :----------------------------------------------------------------------------------------------- |
+| **[linux][linux]** |  |
+
 ## /K8S
 
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
-| **[k8s-general][k8s]** | Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services  |
+| **[k8s-general][k8s]** | Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services |
+| **[helm][helm]** |  |
+
+## /GITOPS
+
+|                     Name | Description                                                                                      |
+| :----------------------- | :----------------------------------------------------------------------------------------------- |
+| **[git][git]** |  |
+| **[flux][flux]** |  |
+| **[argo-cd][argo-cd]** |  |
+
+## /DEV
+
+|                     Name | Description                                                                                      |
+| :----------------------- | :----------------------------------------------------------------------------------------------- |
+taskfile
+golang
+
 
 [k8s]: https://github.com/stuttgart-things/docs/blob/main/k8s.md
 
