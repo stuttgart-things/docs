@@ -1,6 +1,9 @@
-# stuttgart-things/docs/aws
+# stuttgart-things/docs/cloud
 
-## AWS CLI 
+## AWS
+
+<details><summary><b>INSTALL AWS CLI</b></summary>
+
 The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
 
 ### INSTALLATION
@@ -10,19 +13,40 @@ You must be able to extract or "unzip" the downloaded package. If your operating
 #### Install the AWS CLI
 To [install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) you must run the following commands.
 
-```
+```bash
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
 ```
 
 Confirm the installation with the following command.
-```
+
+```bash
 aws --version
 ```
 
+```yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: basic
+type: Opaque
+stringData:
+  .gitconfig: |
+    [url "https://<USERNAME>:<TOKEN>@github.<ENT>.com"]
+        insteadOf = https://github.<ENT>.com
+    [user]
+        name = Patrick Hermann
+        email = patrick.hermann@sva.de
+  .git-credentials: |
+    https://<USERNAME>:<TOKEN>@github.<ENT>.com
+```
 
-### BASIC COMMANDS
+</details>
+
+<details><summary><b>BASIC CLI COMMANDS</b></summary>
+
+```bash
 
 | COMMAND | DESCRIPTION | EXAMPLE CALL
 |--|--|--|
@@ -47,3 +71,52 @@ Reference Links:
 - [15 Essential Amazon AWS EC2 CLI Command](https://www.thegeekstuff.com/2016/04/aws-ec2-cli-examples/)
 - [describe-VPCs](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-vpcs.html)
 - [describe-subnets](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-subnets.html)
+```
+
+</details>
+
+
+## GCR
+
+<details><summary><b>WORK W/ GCR REGISTRY</b></summary>
+
+## LOGIN W/HELM AT GCR
+
+```
+cat gcr.json | helm registry login -u _json_key --password-stdin \eu.gcr.io
+```
+
+## PUSH OCI HELM CHART TO GCR
+```
+helm package ./sthings-helm-toolkit
+helm push sthings-helm-toolkit-2.4.7.tgz oci://eu.gcr.io/stuttgart-things/sthings-helm-toolkit
+```
+
+## LOGIN W/NERDCTL AT GCR
+
+```
+cat gcr.json | nerdctl login -u _json_key --password-stdin \eu.gcr.io
+```
+
+## ADD GCR TO HARBOR (REGISTRY)
+
+Endpoint: https://eu.gcr.io
+Access ID: _json_key
+
+Access Secret:
+```
+{
+  "type": "service_account",
+  "project_id": "",
+  "private_key_id": "",
+  "private_key": "",
+  "client_email": "",
+  "client_id": "",
+  "auth_uri": "",
+  "token_uri": "",
+  "auth_provider_x509_cert_url": "",
+  "client_x509_cert_url": ""
+}
+```
+
+</details>
