@@ -13,7 +13,23 @@ documentation in code (snippets)
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
 | **[k8s-general][k8s]** | Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services |
-| **[helm][helm]** |  |
+| **[helm][helm]** | Helm is a tool that streamlines installing and managing Kubernetes applications |
+| **[velero][velero]** |  |
+| **[tekton][tekton]** |  |
+
+## /IAC
+
+|                     Name | Description                                                                                      |
+| :----------------------- | :----------------------------------------------------------------------------------------------- |
+ansible
+terraform
+
+## /SECURITY
+vault
+
+## /OBSERVABILITY
+elastic
+
 
 ## /GITOPS
 
@@ -27,11 +43,14 @@ documentation in code (snippets)
 
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
-taskfile
 golang
+taskfile
+redis
 
 
 [k8s]: https://github.com/stuttgart-things/docs/blob/main/k8s.md
+[helm]: https://github.com/stuttgart-things/docs/blob/main/helm.md
+
 
 Author Information
 ------------------
