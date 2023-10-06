@@ -1,6 +1,6 @@
-# stuttgart-things/docs/k8s
+# K8S 
 
-### NFS STORAGE CLASS / REMOUNT PVC
+## NFS STORAGE CLASS / REMOUNT PVC
 
 After pod was deleted, nfs based pvc cannot be mounted to the pod "applyFSGroup failed for vol".
 
