@@ -65,6 +65,14 @@ argocd app terminate-op yacht-application-server
 
 </details>
 
+<details><summary><b>ADD OCI REPOSITORY</b></summary>
+
+```bash
+argocd repo add <REGISTRY-URL> --type helm --name aks2 --enable-oci --username <USERNAME> --password <PASSWORD>
+```
+
+</details>
+
 ## APPLICATION
 
 <details><summary><b>FOLDER</b></summary>
