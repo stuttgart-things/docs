@@ -23,13 +23,8 @@ documentation in code (snippets)
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
 ansible
 terraform
-
-## /SECURITY
 vault
-
-## /OBSERVABILITY
-elastic
-
+cloud
 
 ## /GITOPS
 
@@ -46,7 +41,8 @@ elastic
 golang
 taskfile
 redis
-
+elastic
+minio
 
 [k8s]: https://github.com/stuttgart-things/docs/blob/main/k8s.md
 [helm]: https://github.com/stuttgart-things/docs/blob/main/helm.md
@@ -57,4 +53,5 @@ Author Information
 ```
 Patrick Hermann, stuttgart-things 03/2023
 Christian Mueller, stuttgart-things 08/2023
+Martin Wolf, stuttgart-things 10/2023
 ```
