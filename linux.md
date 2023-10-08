@@ -25,6 +25,16 @@ for argument in "$@"; do echo $argument | sed -e "s/+-/: /g" ; done
 
 </details>
 
+<details><summary><b>CONCATENATE SET PARAMETERS + FOR LOOP</b></summary>
+
+```bash
+set 'scanners vuln' 'timeout 30m'
+output=" "; for argument in "$@"; do output=${output}'--'$argument' '; done
+echo ${output} #--scanners vuln --timeout 30m
+```
+
+</details>
+
 <details><summary><b>GET VERSION NUMBER W/ AWK</b></summary>
 
 ```bash
