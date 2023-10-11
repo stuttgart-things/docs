@@ -144,9 +144,44 @@ spec:
 
 </details close>
 
+<details open><summary><b>MULTISOURCES HELM + GIT VALUES</b></summary>
+
+```yaml
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tekton-cd-pipelineruns
+  namespace: argocd
+spec:
+  project: app
+  sources:
+    - repoURL: eu.gcr.io/stuttgart-things
+      chart: tekton-resources
+      targetRevision: v0.47.31
+      helm:
+        valueFiles:
+        - $values/images/pipelineRuns.yaml
+        - $values/charts/pipelineRuns.yaml
+    - repoURL: https://github.com/stuttgart-things/stuttgart-things.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    name: dev11
+    namespace: tektoncd
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+```
+
+</details close>
+
 ## APPSET
 
-<details open><summary><b>BULD ENV VAR + VAULT PLUGIN VALUES</b></summary>
+<details open><summary><b>LIST GENERATOR, BULD ENV VAR + VAULT PLUGIN VALUES</b></summary>
 
 ```
 ---
@@ -209,6 +244,7 @@ spec:
           prune: true
           selfHeal: false
 ```
+
 </details close>
 
 <details open><summary><b>GIT REPO+PATH</b></summary>
