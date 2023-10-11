@@ -28,7 +28,7 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 
 ## GITCONFIG
 
-<details open><summary><b>EXAMPLE CONFIG #1</b></summary>
+<details open><summary><b>EXAMPLE CONFIG</b></summary>
 
 ```bash
 cat ~/.gitconfig 
