@@ -26,6 +26,80 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 
 </details close>
 
+## GITHUB ACTIONS
+
+### EXAMPLES
+
+<details open><summary><b>workflow.yaml</b></summary>
+
+```yaml
+name: Run git workflow
+on:
+  workflow_dispatch:
+    inputs:
+      dev-cleanup:
+        description: "Dev: Check to enable deletion of the deployment"
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches: [ main ]
+
+# USE IN MAIN BRANCH ONLY
+build-helm-staging:
+  if: github.event.ref == 'refs/heads/main'
+  name: Staging
+  needs:
+    - Init
+  uses: ./.github/workflows/helm.yaml
+  with:
+    environment-name: dev
+    cancel-concurrent: false
+    branch-name: ${{ needs.Init.outputs.branch_name }}
+  secrets: inherit
+
+build-helm-production:
+  name: Production
+  needs:
+    - Init
+    - Linting-staging
+  uses: ./.github/workflows/helm.yaml
+  with:
+    environment-name: production
+    cancel-concurrent: true
+    branch-name: ${{ needs.Init.outputs.branch_name }}
+  secrets: inherit
+```
+
+</details close>
+
+<details open><summary><b>helm-job.yaml</b></summary>
+
+```yaml
+on:
+  workflow_call:
+    inputs:
+      environment-name:
+        required: true
+        type: string
+      branch-name:
+        required: true
+        type: string
+jobs:
+  build-helm:
+    environment: ${{ inputs.environment-name }}
+    steps:
+      - name: CHECKOUT GIT
+        uses: actions/checkout@v4
+      - name: SETUP HELMFILE
+        uses: mamezou-tech/setup-helmfile@v1.2.0
+```
+
+</details close>
+
+
+
+
 ## GITCONFIG
 
 <details open><summary><b>EXAMPLE CONFIG</b></summary>
