@@ -9,6 +9,8 @@ helm repo add hashicorp https://helm.releases.hashicorp.com
 helm repo update
 
 cat <<EOF > vaul-values.yaml
+csi:
+  enabled: true
 injector:
   enabled: false
 server:
