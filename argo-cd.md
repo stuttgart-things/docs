@@ -1,4 +1,4 @@
-# stuttgart-things/docs/argo-cd
+# ARGO-CD
 
 ## DEPLOYMENT
 
