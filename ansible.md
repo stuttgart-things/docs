@@ -1,4 +1,4 @@
-# stuttgart-things/docs/ansible
+# ansible
 
 ## EVENT-DRIVEN-ANSIBLE (EDA)
 
