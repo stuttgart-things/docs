@@ -18,3 +18,4 @@ curl -k -H "Content-Type: application/json" \
 
 ### FILEBEAT
 [filebeat-kubernetes](https://stackoverflow.com/questions/60566173/how-we-can-filter-namespace-in-filebeat-kubernetes)
+[filebeat-kubernetes](https://faun.pub/eck-logging-11017202cb19)
