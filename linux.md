@@ -2,6 +2,17 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>CUT FOLDERPATH W/ SED FROM URL</b></summary>
+
+```bash
+git clone https://github.com/stuttgart-things/stuttgart-things.git
+cd $(echo $(params.REPO_URL) | sed 's|.*/||' | sed 's/.git//g')
+# https://github.com/stuttgart-things/stuttgart-things.git -> stuttgart-things
+```
+
+</details>
+
+
 <details><summary><b>SPLIT STRINGS BY DELIMITER (+-) W/ AWK</b></summary>
 
 ```bash
@@ -58,7 +69,7 @@ done
 
 </details>
 
-<details><summary><b>CHECK TEKTON PIPELINERUN STATUS IN WHILE LOOP</b></summary>
+<details><summary><b>CHECK TEKTON PIPELINERUN STATUS IN WHILE LOOP W/ OPERATORS</b></summary>
 
 ```bash
 #!/bin/bash
