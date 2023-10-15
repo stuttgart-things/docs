@@ -7,22 +7,22 @@
 # /AGENDA
 --
 #/SLOT1
-* INTRO
-* GIT BASICS
-* TRUNK-BASED DEVOLPMENT
-* EXECRISE #1: GITHUB ENTERPRISE
+* INTRO <!-- .element: class="fragment fade-up" -->
+* GIT BASICS <!-- .element: class="fragment fade-up" -->
+* TRUNK-BASED DEVOLPMENT <!-- .element: class="fragment fade-up" -->
+* EXECRISE #1: GITHUB ENTERPRISE <!-- .element: class="fragment fade-up" -->
 --
 #/SLOT2
-* CI/CD
-* GITHUB ACTIONS
-* AURE PIPELINES VS. GITHUB ACTIONS
-* EXECRISE #2: GITHUB ACTIONS
+* CI/CD <!-- .element: class="fragment fade-up" -->
+* GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
+* AURE PIPELINES VS. GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
+* EXECRISE #2: GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
 --
 #/SLOT3
-* TEKTON
-* EXECRISE #3: TEKTON
-* QUIZ
-* SUMMARY
+* TEKTON <!-- .element: class="fragment fade-up" -->
+* EXECRISE #3: TEKTON <!-- .element: class="fragment fade-up" -->
+* QUIZ <!-- .element: class="fragment fade-up" -->
+* SUMMARY <!-- .element: class="fragment fade-up" -->
 ---
 ### /Introduction
 
@@ -37,7 +37,7 @@ patrick.hermann@sva.de
 * short introduction <!-- .element: class="fragment fade-up" -->
 * container technology / kubernetes experiences/knowledge <!-- .element: class="fragment fade-up" -->
 * workshop expectations <!-- .element: class="fragment fade-up" -->
---
+---
 # /GIT
 --
 ### /OVERVIEW
@@ -290,10 +290,10 @@ git checkout master
 git merge <branch> --no-ff
 ```
 <!-- .element: class="fragment fade-up" -->
+---
+# /TRUNK-BASED DEVOLPMENT
 --
-
-
-## /TRUNK-BASED DEVOLPMENT
+### /TRUNK-BASED DEVOLPMENT
 [<img src="https://statusneo.com/wp-content/uploads/2022/12/Beginners%20Guide%20to%20Trunk-Based%20Development.png" width="600"/>](www.google.com)
 * Trunk-based development (TBD) is a source control workflow model that enables continuous integration <!-- .element: class="fragment fade-up" -->
 * The primary purpose of trunk-based development is to avoid the creation of long-lived branches by merging partial changes to the entire feature <!-- .element: class="fragment fade-up" -->
@@ -341,7 +341,50 @@ Continuous deployment (the other possible "CD") can refer to automatically relea
 --
 ![Alt text](https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png?itok=NNRD1Zj0)
 --
+# /PIPELINES AS CODE
+* Benefit from standard source control practices (such as code reviews via pull request and versioning) <!-- .element: class="fragment fade-up" -->
+* Can be audited for changes just like any other files in the repository <!-- .element: class="fragment fade-up" -->
+* Don't require accessing a separate system or UI to edit <!-- .element: class="fragment fade-up" -->
+* Can fully codify the build, test, and deploy process for code <!-- .element: class="fragment fade-up" -->
+* Can usually be templatized to empower teams to create standard processes across multiple repositories <!-- .element: class="fragment fade-up" -->
+--
+# /AZURE PIPELINES VS. GITHUB ACTIONS
+* GitHub Actions and Azure Pipelines share several configuration similarities <!-- .element: class="fragment fade-up" -->
+* migrating to GitHub Actions relatively straightforward <!-- .element: class="fragment fade-up" -->
+--
+# /SIMILARITIES
+* Workflow configuration files are written in YAML and are stored in the code's repository <!-- .element: class="fragment fade-up" -->
+* Workflows include one or more jobs <!-- .element: class="fragment fade-up" -->
+* Jobs include one or more steps or individual commands <!-- .element: class="fragment fade-up" -->
+* Steps or tasks can be reused and shared with the community <!-- .element: class="fragment fade-up" -->
+--
+* Jobs contain a series of steps that run sequentially <!-- .element: class="fragment fade-up" -->
+* Jobs run on separate virtual machines or in separate containers <!-- .element: class="fragment fade-up" -->
+* Jobs run in parallel by default, but can be configured to run sequentially <!-- .element: class="fragment fade-up" -->
+--
+# /KEY DIFFERENCES
+When migrating from Azure Pipelines, consider the following differences:
 
+* Azure Pipelines supports a legacy classic editor, which lets you define your CI configuration in a GUI editor instead of creating the pipeline definition in a YAML file <!-- .element: class="fragment fade-up" -->
+* GitHub Actions uses YAML files to define workflows and does not support a graphical editor <!-- .element: class="fragment fade-up" -->
+* Azure Pipelines allows you to omit some structure in job definitions. For example, if you only have a single job, you don't need to define the job and only need to define its steps <!-- .element: class="fragment fade-up" -->
+--
+# /KEY DIFFERENCES
+* GitHub Actions requires explicit configuration, and YAML structure cannot be omitted <!-- .element: class="fragment fade-up" -->
+* Azure Pipelines supports stages defined in the YAML file, which can be used to create deployment workflows. GitHub Actions requires you to separate stages into separate YAML workflow files <!-- .element: class="fragment fade-up" -->
+* On-premises Azure Pipelines build agents can be selected with capabilities. GitHub Actions self-hosted runners can be selected with labels <!-- .element: class="fragment fade-up" -->
+--
+# /BENEFITS OF USING SELF-HOSTED RUNNER
+* Improved Performance: By hosting your runners, you can ensure that the build and deployment processes are faster and more reliable, as you have complete control over the hardware and networking resources <!-- .element: class="fragment fade-up" -->
+* Increased Security: GitHub self-hosted runners can be configured to run on your own servers, which provides an extra layer of security compared to using shared runners. This helps to protect sensitive information and data in your workflows <!-- .element: class="fragment fade-up" -->
+--
+# /BENEFITS OF USING SELF-HOSTED RUNNER
+* Customizable Environments: With self-hosted runners, you can create custom environments that match your exact needs, including specific software versions and configurations <!-- .element: class="fragment fade-up" -->
+* Cost-Effective: If you have a large number of workflows or use cases that require a lot of resources, self-hosted runners can be more cost-effective than using GitHub's shared runners or cloud-based solutions <!-- .element: class="fragment fade-up" -->
+--
+# /BENEFITS OF USING SELF-HOSTED RUNNER
+* High Availability: With self-hosted runners, you can set up Horizontal Runner Autoscaler, which provides redundancy and high availability for your workflows <!-- .element: class="fragment fade-up" -->
+* Greater Control: Self-hosted runners give you complete control over the resources and environment used for your workflows, which can help you optimize performance and ensure that your builds and deployments run smoothly <!-- .element: class="fragment fade-up" -->
 ---
 ### /QUIZ
 What's a shortcut to staging all the changes you have?
