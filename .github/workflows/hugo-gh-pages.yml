@@ -12,7 +12,12 @@ jobs:
       - run: ls -lta
       - run: which docker
 
-
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: nginx:latest
+          run: |
+            whoami
 
   container-test-job:
     runs-on: docs-runner-set-2
