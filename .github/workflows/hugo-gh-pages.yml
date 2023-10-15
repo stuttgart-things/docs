@@ -8,9 +8,6 @@ jobs:
     runs-on: docs-runner-set-6
     steps:
       - run: echo "🎉 This job uses runner scale set runners!"
-      - name: Check out code
-        uses: actions/checkout@v4
-      - run: ls -lta
       - run: which docker
 
       - name: Run the build process with Docker
