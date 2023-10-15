@@ -10,6 +10,16 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
       - run: ls -lta
+      - name: Run Trivy vulnerability scanner with exclusions
+        uses: aquasecurity/trivy-action@0.12.0
+        with:
+          image-ref: nginx:latest
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          trivyignores: ""
+          severity: 'CRITICAL,HIGH'
+          timeout: 15m
 
   container-test-job:
     runs-on: docs-runner-set
