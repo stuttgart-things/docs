@@ -14,14 +14,9 @@ jobs:
   container-test-job:
     runs-on: docs-runner-set
     container:
-      image: node:18
+      image: nginx
       env:
         NODE_ENV: development
-      ports:
-        - 80
-      volumes:
-        - my_docker_volume:/volume_mount
-      options: --cpus 1
     steps:
       - name: Check for dockerenv file
-        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+        run: "echo $(cat /etc/os-release)"
