@@ -3,13 +3,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  container-test-job:
-    runs-on: docs-runner-set-6
-    container:
-      image: nginx:latest
-    steps:
-      - name: Check for dockerenv file
-        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
 
   Explore-GitHub-Actions:
     runs-on: docs-runner-set-6
