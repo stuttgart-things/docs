@@ -6,4 +6,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: docs-runner-set
     steps:
-    - run: echo "🎉 This job uses runner scale set runners!"
+      - run: echo "🎉 This job uses runner scale set runners!"
+      - name: Check out code
+        uses: actions/checkout@v4
+      - run: ls -lta
