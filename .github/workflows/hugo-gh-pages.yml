@@ -4,6 +4,6 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: all
+    runs-on: docs-runner-set
     steps:
     - run: echo "🎉 This job uses runner scale set runners!"
