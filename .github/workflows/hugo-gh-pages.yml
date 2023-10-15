@@ -3,8 +3,23 @@ on:
   workflow_dispatch:
 
 jobs:
+  container-test-job:
+    runs-on: docs-runner-set-6
+    container:
+      image: node:18
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
+    steps:
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+
   Explore-GitHub-Actions:
-    runs-on: docs-runner-set-5
+    runs-on: docs-runner-set-6
     steps:
       - run: echo "🎉 This job uses runner scale set runners!"
       - name: Check out code
@@ -18,13 +33,3 @@ jobs:
           image: nginx:latest
           run: |
             whoami
-
-  container-test-job:
-    runs-on: docs-runner-set-5
-    container:
-      image: nginx
-      env:
-        NODE_ENV: development
-    steps:
-      - name: Check for dockerenv file
-        run: "echo $(cat /etc/os-release)"
