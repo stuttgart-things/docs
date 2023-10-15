@@ -5,11 +5,12 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: k8s-docs
-    container: nginx
+    container: nginx:1.25.2-alpine
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - run: |
           echo "🎉 This job runs on kubernetes!"
           cat /etc/os-release
+          whoami
           ls -lta
