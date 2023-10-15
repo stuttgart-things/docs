@@ -265,3 +265,98 @@ stringData:
 ```
 
 </details>
+
+## SERVICE-ACCOUNT
+
+<details><summary><b>REFERENCE SERVICE ACCOUNTS IN PIPELINERUN</b></summary>
+
+```yaml
+...
+kind: PipelineRun
+metadata:
+  name: watch-tekton-pipelineruns-29
+spec:
+  taskRunSpecs:
+    - pipelineTaskName: watch-tekton
+      serviceAccountName: tektoncd
+```
+
+</details>
+
+<details><summary><b>SERVICE ACCOUNT FOR TKN TASK</b></summary>
+  
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tektoncd
+  namespace: tektoncd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: tektoncd
+  name: tektoncd
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["create", "get", "watch", "list"]
+- apiGroups: ["batch"]
+  resources: ["jobs"]
+  verbs: ["create", "get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tektoncd
+  namespace: tektoncd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tektoncd
+subjects:
+- kind: ServiceAccount
+  name: tektoncd
+  namespace: tektoncd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: list-all-namespaces-and-jobs-tektoncd
+rules:
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["get", "list"]
+- apiGroups: ["batch"]
+  resources: ["jobs"]
+  verbs: ["create", "get", "patch", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: list-all-namespaces-and-jobs-tektoncd
+subjects:
+- kind: ServiceAccount
+  name: tektoncd
+  namespace: tektoncd
+roleRef:
+  kind: ClusterRole
+  name: list-all-namespaces-and-jobs-tektoncd
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tekton-pipelines-controller-cluster-access-tektoncd
+subjects:
+- kind: ServiceAccount
+  name: tektoncd
+  namespace: tektoncd
+roleRef:
+  kind: ClusterRole
+  name: tekton-pipelines-controller-cluster-access
+  apiGroup: rbac.authorization.k8s.io
+```
+
+</details>
+
