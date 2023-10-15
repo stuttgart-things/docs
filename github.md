@@ -2,39 +2,86 @@
 
 ## GITHUB ACTIONS ON K8S
 
+[Deploying runner scale sets with Actions Runner Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers)
+
 <details open><summary><b>DEPLOY GHA SCALE SET CONTROLLER</b></summary>
 
 ```bash
-INSTALLATION_NAME="arc"
-NAMESPACE="arc-systems"
-helm upgrade --install "${INSTALLATION_NAME}" \
---namespace "${NAMESPACE}" \
+helm upgrade --install arc \
+--namespace arc-systems \
 --create-namespace \
 oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
 ```
 
 </details close>
 
-<details open><summary><b>DEPLOY GHA SCALE SET</b></summary>
+<details open><summary><b>DEPLOY OPENEBS</b></summary>
 
 ```bash
-INSTALLATION_NAME="docs-runner-set"
-NAMESPACE="arc-runners"
-GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
-GITHUB_PAT="<$GITHUB_PAT>"
-
-helm upgrade --install "${INSTALLATION_NAME}" \
---namespace "${NAMESPACE}" \
---create-namespace \
---set githubConfigUrl="${GITHUB_CONFIG_URL}" \
---set githubConfigSecret.github_token="${GITHUB_PAT}" \
-oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
+helm repo add openebs https://openebs.github.io/charts
+helm install openebs openebs/openebs --version 3.9.0 -n openebs --create-namespace
 ```
 
 </details close>
 
+<details open><summary><b>DEPLOY K8S AUTOSCALINGRUNNERSET</b></summary>
 
+```bash
+cat <<EOF > ./k8s-arc-scale-values.yaml
+containerMode:
+  type: kubernetes
+  kubernetesModeWorkVolumeClaim:
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: openebs-hostpath
+    resources:
+      requests:
+        storage: 1Gi
 
+template:
+  spec:
+    containers:
+    - name: runner
+      image: ghcr.io/actions/actions-runner:latest
+      command: ["/home/runner/run.sh"]
+      env:
+        - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+          value: "false"
+EOF
+
+GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
+GITHUB_PAT="<$GITHUB_PAT>"
+helm upgrade --install k8s-docs \
+--namespace arc-runners \
+--create-namespace \
+--set githubConfigUrl="${GITHUB_CONFIG_URL}" \
+--set githubConfigSecret.github_token="${GITHUB_PAT}" \
+--values ./k8s-arc-scale-values.yaml \
+oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --version 0.6.1
+```
+
+</details close>
+
+<details open><summary><b>TEST PIPELINE</b></summary>
+
+```yaml
+name: ACTIONS RUNNER K8S SMOKE TEST
+on:
+  workflow_dispatch:
+
+jobs:
+  Smoke:
+    runs-on: k8s-docs
+    container: nginx:1.25.2-alpine
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - run: |
+          echo "🎉 This job runs on kubernetes!"
+          cat /etc/os-release
+          ls -lta
+```
+
+</details close>
 
 ## GITHUB CLI
 
@@ -67,7 +114,7 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 ### EXAMPLES
 
 <details open><summary><b>test-workflow</b></summary>
-  
+
 ```
 name: Actions Runner Controller Demo
 on:
@@ -157,7 +204,7 @@ jobs:
 <details open><summary><b>EXAMPLE CONFIG</b></summary>
 
 ```bash
-cat ~/.gitconfig 
+cat ~/.gitconfig
 [url "https://${USERNAME}:${PASSWORD}@codehub.sva.de"]
         insteadOf = https://codehub.sva.de
 [user]
@@ -173,4 +220,3 @@ cat ~/.gitconfig
 ```
 
 </details close>
-
