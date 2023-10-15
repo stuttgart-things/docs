@@ -4,7 +4,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: docs-runner-set-4
+    runs-on: docs-runner-set-5
     steps:
       - run: echo "🎉 This job uses runner scale set runners!"
       - name: Check out code
@@ -20,7 +20,7 @@ jobs:
             whoami
 
   container-test-job:
-    runs-on: docs-runner-set-4
+    runs-on: docs-runner-set-5
     container:
       image: nginx
       env:
