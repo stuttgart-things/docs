@@ -4,7 +4,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: docs-runner-set
+    runs-on: docs-runner-set-2
     steps:
       - run: echo "🎉 This job uses runner scale set runners!"
       - name: Check out code
@@ -22,7 +22,7 @@ jobs:
           timeout: 15m
 
   container-test-job:
-    runs-on: docs-runner-set
+    runs-on: docs-runner-set-2
     container:
       image: nginx
       env:
