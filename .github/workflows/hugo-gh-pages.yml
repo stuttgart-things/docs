@@ -24,4 +24,5 @@ jobs:
           whoami
           ls -lta
           trivy version
+          trivy image python:3.4-alpine
 
