@@ -5,8 +5,9 @@
 <details open><summary><b>DEPLOY GHA SCALE SET CONTROLLER</b></summary>
 
 ```bash
+INSTALLATION_NAME="arc"
 NAMESPACE="arc-systems"
-helm upgrade --install arc \
+helm upgrade --install "${INSTALLATION_NAME}" \
 --namespace "${NAMESPACE}" \
 --create-namespace \
 oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
