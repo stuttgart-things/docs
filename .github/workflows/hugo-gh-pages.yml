@@ -6,6 +6,7 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: k8s-docs
     container: nginx:1.25.2-alpine
+    environment: k8s
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -14,9 +15,11 @@ jobs:
           cat /etc/os-release
           whoami
           ls -lta
+          echo ${{secrets.KUBECONFIG}}
   Trivy:
     runs-on: k8s-docs
     container: aquasec/trivy:0.46.0
+    environment: k8s
     steps:
       - run: |
           echo "🎉 TRIVY!"
@@ -25,4 +28,5 @@ jobs:
           ls -lta
           trivy version
           trivy image python:3.4-alpine
+          echo ${{secrets.KUBECONFIG}}
 
