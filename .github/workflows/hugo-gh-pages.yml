@@ -3,16 +3,8 @@ on:
   workflow_dispatch:
 
 jobs:
-
   Explore-GitHub-Actions:
-    runs-on: docs-runner-set-6
+    runs-on: k8s-docs
+    container: busybox
     steps:
-      - run: echo "🎉 This job uses runner scale set runners!"
-      - run: which docker
-
-      - name: Run the build process with Docker
-        uses: addnab/docker-run-action@v3
-        with:
-          image: nginx:latest
-          run: |
-            whoami
+      - run: echo "🎉 This job runs on kubernetes!"
