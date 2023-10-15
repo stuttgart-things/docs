@@ -5,6 +5,8 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: k8s-docs
-    container: busybox
+    container: nginx
     steps:
-      - run: echo "🎉 This job runs on kubernetes!"
+      - run: |
+          echo "🎉 This job runs on kubernetes!"
+          cat /etc/os-release
