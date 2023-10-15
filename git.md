@@ -22,7 +22,7 @@ NAMESPACE="arc-runners"
 GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
 GITHUB_PAT="<$GITHUB_PAT>"
 
-helm install --upgrade "${INSTALLATION_NAME}" \
+helm upgrade --install "${INSTALLATION_NAME}" \
 --namespace "${NAMESPACE}" \
 --create-namespace \
 --set githubConfigUrl="${GITHUB_CONFIG_URL}" \
