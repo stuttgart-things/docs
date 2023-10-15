@@ -7,6 +7,9 @@ jobs:
     runs-on: k8s-docs
     container: nginx
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - run: |
           echo "🎉 This job runs on kubernetes!"
           cat /etc/os-release
+          ls -lta
