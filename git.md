@@ -1,5 +1,40 @@
 # /GIT
 
+## GITHUB ACTIONS ON K8S
+
+<details open><summary><b>DEPLOY GHA SCALE SET CONTROLLER</b></summary>
+
+```bash
+NAMESPACE="arc-systems"
+helm upgrade --install arc \
+--namespace "${NAMESPACE}" \
+--create-namespace \
+oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+```
+
+</details close>
+
+<details open><summary><b>DEPLOY GHA SCALE SET</b></summary>
+
+```bash
+INSTALLATION_NAME="docs-runner-set"
+NAMESPACE="arc-runners"
+GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
+GITHUB_PAT="<$GITHUB_PAT>"
+
+helm install --upgrade "${INSTALLATION_NAME}" \
+--namespace "${NAMESPACE}" \
+--create-namespace \
+--set githubConfigUrl="${GITHUB_CONFIG_URL}" \
+--set githubConfigSecret.github_token="${GITHUB_PAT}" \
+oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
+```
+
+</details close>
+
+
+
+
 ## GITHUB CLI
 
 <details open><summary><b>CREATE PULL REQUEST</b></summary>
