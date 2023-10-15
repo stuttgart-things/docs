@@ -1,4 +1,4 @@
-# /GIT
+# /GITHUB
 
 ## GITHUB ACTIONS ON K8S
 
