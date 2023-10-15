@@ -10,3 +10,18 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
       - run: ls -lta
+
+  container-test-job:
+    runs-on: docs-runner-set
+    container:
+      image: node:18
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
+    steps:
+      - name: Check for dockerenv file
+        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
