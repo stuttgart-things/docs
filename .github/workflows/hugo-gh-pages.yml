@@ -14,12 +14,14 @@ jobs:
           cat /etc/os-release
           whoami
           ls -lta
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'nginx:1.25.2-alpine'
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'CRITICAL,HIGH'
+  Trivy:
+    runs-on: k8s-docs
+    container: aquasec/trivy:0.46.0
+    steps:
+      - run: |
+          echo "🎉 TRIVY!"
+          cat /etc/os-release
+          whoami
+          ls -lta
+          trivy version
+
