@@ -65,6 +65,22 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 
 ### EXAMPLES
 
+<details open><summary><b>test-workflow</b></summary>
+  
+```
+name: Actions Runner Controller Demo
+on:
+  workflow_dispatch:
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: arc-runner-set
+    steps:
+      - run: echo "🎉 This job uses runner scale set runners!"
+```
+
+</details close>
+
 <details open><summary><b>workflow.yaml</b></summary>
 
 ```yaml
