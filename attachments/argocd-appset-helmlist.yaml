@@ -29,14 +29,6 @@ spec:
           destination: in-cluster
           appValues: |
             ---
-        - app: longhorn
-          project: default
-          namespace: longhorn-system
-          targetRevision: 1.5.1
-          repoURL: https://charts.longhorn.io
-          destination: in-cluster
-          appValues: |
-            ---
         - app: nginx
           project: default
           namespace: nginx

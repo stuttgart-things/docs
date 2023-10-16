@@ -10,15 +10,15 @@
 * INTRO <!-- .element: class="fragment fade-up" -->
 * GIT BASICS <!-- .element: class="fragment fade-up" -->
 * TRUNK-BASED DEVOLPMENT <!-- .element: class="fragment fade-up" -->
-* EXECRISE #1: GITHUB ENTERPRISE <!-- .element: class="fragment fade-up" -->
 * ARGOCD APPSETS <!-- .element: class="fragment fade-up" -->
+* EXECRISE #1: GITHUB ENTERPRISE <!-- .element: class="fragment fade-up" -->
 --
 #/SLOT2
 * CI/CD <!-- .element: class="fragment fade-up" -->
 * GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
-* AURE PIPELINES VS. GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
-* EXECRISE #2: GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
+* PIPELINING <!-- .element: class="fragment fade-up" -->
 * VAULT CSI SECRETS PROVIDER <!-- .element: class="fragment fade-up" -->
+* EXECRISE #2: GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
 --
 #/SLOT3
 * TEKTON <!-- .element: class="fragment fade-up" -->
@@ -50,6 +50,8 @@ patrick.hermann@sva.de
 ### /OVERVIEW
 * A Git repository contains all project files and their complete revision history, which is stored in a .git subfolder <!-- .element: class="fragment fade-up" -->
 * Git allows users to 'stage' and 'commit' files, enabling them to choose specific pieces for version tracking and updates <!-- .element: class="fragment fade-up" -->
+--
+### /OVERVIEW
 * Online hosts such as GitHub and GitLab can be used for storing a copy of the Git repository, enabling smoother collaboration with other developers <!-- .element: class="fragment fade-up" -->
 * Git also supports branching and merging, allowing concurrent development workflows and providing robust tools for handling conflicts during merges <!-- .element: class="fragment fade-up" -->
 --
@@ -59,9 +61,10 @@ patrick.hermann@sva.de
 * Git also makes collaboration easier, allowing changes by multiple people to all be merged into one source <!-- .element: class="fragment fade-up" -->
 --
 ### /What is Git?
-https://www.nobledesktop.com/image/blog/git-branches-merge.png
-
+[<img src="https://www.nobledesktop.com/image/blog/git-branches-merge.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
 * Git is software that runs locally <!-- .element: class="fragment fade-up" -->
+--
+### /What is Git?
 * Your files and their history are stored on your computer <!-- .element: class="fragment fade-up" -->
 * You can also use online hosts (such as GitHub or Bitbucket) to store a copy of the files and their revision history <!-- .element: class="fragment fade-up" -->
 --
@@ -71,7 +74,7 @@ https://www.nobledesktop.com/image/blog/git-branches-merge.png
 --
 ### /Git Repositories
 * A Git repository (or repo for short) contains all of the project files and the entire revision history <!-- .element: class="fragment fade-up" -->
-* You' ll take an ordinary folder of files (such as a website’s root folder), and tell Git to make it a repository <!-- .element: class="fragment fade-up" -->
+* You' ll take an ordinary folder of files (such as a website's root folder), and tell Git to make it a repository <!-- .element: class="fragment fade-up" -->
 * This creates a .git subfolder, which contains all of the Git metadata for tracking changes <!-- .element: class="fragment fade-up" -->
 --
 ### /Git clone
@@ -86,23 +89,24 @@ https://www.nobledesktop.com/image/blog/git-branches-merge.png
 ### /Git clone
 * Clone the repository located at ＜repo＞ to the local machine <!-- .element: class="fragment fade-up" -->
 
-```bash
+```
 git clone ssh://john@example.com/path/to/my-project.git
 cd my-project
-# Start working on the project
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 ### /Cloning to a specific folder
 * Clone the repository located at ＜repo＞ into the folder called ~＜directory＞! on the local machine <!-- .element: class="fragment fade-up" -->
 
-```bash
+```
 git clone <repo> <directory>
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 ### /Tagging
-* Like most VCSs, Git has the ability to tag specific points in a repository’s history as being important <!-- .element: class="fragment fade-up" -->
+* Like most VCSs, Git has the ability to tag specific points in a repository's history as being important <!-- .element: class="fragment fade-up" -->
 * Typically, people use this functionality to mark release points (v1.0, v2.0 and so on) <!-- .element: class="fragment fade-up" -->
-* In this section, you’ll learn how to list existing tags, how to create and delete tags, and what the different types of tags are <!-- .element: class="fragment fade-up" -->
+* In this section, you'll learn how to list existing tags, how to create and delete tags, and what the different types of tags are <!-- .element: class="fragment fade-up" -->
 --
 ### /Listing Tags
 * Listing the existing tags in Git is straightforward. Just type git tag (with optional -l or --list): <!-- .element: class="fragment fade-up" -->
@@ -154,14 +158,17 @@ git push <remote> <branch>
 ### /Branches
 * Git lets you branch out from the original code base <!-- .element: class="fragment fade-up" -->
 * This lets you more easily work with other developers, and gives you a lot of flexibility in your workflow <!-- .element: class="fragment fade-up" -->
-
+### /Branches
 --
-* Let's say you need to work on a new feature for a website: <!-- .element: class="fragment fade-up" -->
-  * You create a new branch and start working <!-- .element: class="fragment fade-up" -->
-  * You haven't finished your new feature, but you get a request to make a rush change that needs to go live on the site today <!-- .element: class="fragment fade-up" -->
-  * You switch back to the master branch, make the change, and push it live <!-- .element: class="fragment fade-up" -->
-  * Then you can switch back to your new feature branch and finish your work <!-- .element: class="fragment fade-up" -->
-  * When you're done, you merge the new feature branch into the master branch and both the new feature and rush change are kept! <!-- .element: class="fragment fade-up" -->
+* you need to work on a new feature for a website: <!-- .element: class="fragment fade-up" -->
+* You create a new branch and start working <!-- .element: class="fragment fade-up" -->
+* You haven't finished your new feature, but you get a request to make a rush change that needs to go live on the site today <!-- .element: class="fragment fade-up" -->
+--
+### /Branches
+--
+* You switch back to the master branch, make the change, and push it live <!-- .element: class="fragment fade-up" -->
+* Then you can switch back to your new feature branch and finish your work <!-- .element: class="fragment fade-up" -->
+* When you're done, you merge the new feature branch into the master branch and both the new feature and rush change are kept! <!-- .element: class="fragment fade-up" -->
 --
 ### /Merging
 * When you merge two branches (or merge a local and remote branch) you can sometimes get a conflict <!-- .element: class="fragment fade-up" -->
@@ -232,7 +239,7 @@ git commit -m "Commit message"
 [<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*fCDhhg4mTgqDxXzt.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
 
 This process of adding commits keeps track of your progress as you work <!-- .element: class="fragment fade-up" -->
-Commits also create a transparent history of your work that others can follow to understand what you’ve done and why <!-- .element: class="fragment fade-up" -->
+Commits also create a transparent history of your work that others can follow to understand what you've done and why <!-- .element: class="fragment fade-up" -->
 --
 ### /Push your changes
 A branch is not available to others unless you push the branch to your remote repository
@@ -336,10 +343,10 @@ git merge <branch> --no-ff
 * sometimes used separately to illustrate just how much automation is happening <!-- .element: class="fragment fade-up" -->
 --
 ## /CONTINUOUS DELIVERY
-usually means a developer’s changes to an application are automatically bug tested and uploaded to a repository (like GitHub or a container registry), where they can then be deployed to a live production environment by the operations team. It’s an answer to the problem of poor visibility and communication between dev and business teams. To that end, the purpose of continuous delivery is to ensure that it takes minimal effort to deploy new code.
+usually means a developer's changes to an application are automatically bug tested and uploaded to a repository (like GitHub or a container registry), where they can then be deployed to a live production environment by the operations team. It's an answer to the problem of poor visibility and communication between dev and business teams. To that end, the purpose of continuous delivery is to ensure that it takes minimal effort to deploy new code.
 --
 ## /CONTINUOUS DEPLOYMENT
-Continuous deployment (the other possible "CD") can refer to automatically releasing a developer’s changes from the repository to production, where it is usable by customers. It addresses the problem of overloading operations teams with manual processes that slow down app delivery. It builds on the benefits of continuous delivery by automating the next stage in the pipeline.
+Continuous deployment (the other possible "CD") can refer to automatically releasing a developer's changes from the repository to production, where it is usable by customers. It addresses the problem of overloading operations teams with manual processes that slow down app delivery. It builds on the benefits of continuous delivery by automating the next stage in the pipeline.
 --
 ![Alt text](https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png?itok=NNRD1Zj0)
 --
@@ -349,6 +356,33 @@ Continuous deployment (the other possible "CD") can refer to automatically relea
 * Don't require accessing a separate system or UI to edit <!-- .element: class="fragment fade-up" -->
 * Can fully codify the build, test, and deploy process for code <!-- .element: class="fragment fade-up" -->
 * Can usually be templatized to empower teams to create standard processes across multiple repositories <!-- .element: class="fragment fade-up" -->
+--
+# /GITHUB ADVANTAGES
+* Benefit from standard source control practices (such as code reviews via pull request and versioning) <!-- .element: class="fragment fade-up" -->
+* GitHub Issues: project management tools are included alongside code repositories, including issue tracking <!-- .element: class="fragment fade-up" -->
+* Pull request review process: as part of the platform's version control, product managers and project leaders can monitor pull requests more effectively <!-- .element: class="fragment fade-up" -->
+--
+# /GITHUB ADVANTAGES
+* GitHub Actions: automate your build, test, and deployment workflows using secure CI/CD features <!-- .element: class="fragment fade-up" -->
+* Social features: know who's following your work, communicate, collaborate on code, and receive notifications <!-- .element: class="fragment fade-up" -->
+* Most active dev community on the planet <!-- .element: class="fragment fade-up" -->
+--
+# /GITHUB ADVANTAGES
+* Extensive wikis for every public and private codebase so that it's easy to document product development and collaborate on projects <!-- .element: class="fragment fade-up" -->
+* Project milestones: make collaboration easier with project milestones that align with your product roadmap <!-- .element: class="fragment fade-up" -->
+--
+# /GITHUB ADVANTAGES
+* GitHub Copilot X, an AI pair programmer using OpenAI's GPT-4, will make it easier for devs to write code, support pull requests, and integrate AI-powered software development into workflows <!-- .element: class="fragment fade-up" -->
+* Advanced security: make apps and products more secure with GitHub Advanced Security. Scan your source code for security weaknesses and vulnerabilities <!-- .element: class="fragment fade-up" -->
+--
+# /BITBUCKET ADVANTAGES
+* Integrated issue tracking and project management solutions, natively compatible with Jira <!-- .element: class="fragment fade-up" -->
+* Native support for Mercurial, while GitHub & GitLab only support Git <!-- .element: class="fragment fade-up" -->
+* Private code repositories (similar to the others, but Atlassian focused) <!-- .element: class="fragment fade-up" -->
+--
+# /BITBUCKET ADVANTAGES
+* Code insights, giving team members more visibility into code quality via performance metrics and code review analytics <!-- .element: class="fragment fade-up" -->
+* Advanced branch permissions for code review and greater security <!-- .element: class="fragment fade-up" -->
 --
 # /AZURE PIPELINES VS. GITHUB ACTIONS
 * GitHub Actions and Azure Pipelines share several configuration similarities <!-- .element: class="fragment fade-up" -->
