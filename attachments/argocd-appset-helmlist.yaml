@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+        - app: vault
+          project: default
+          namespace: vault
+          targetRevision: 0.25.0
+          repoURL: https://helm.releases.hashicorp.com
+          destination: in-cluster
+          appValues: |
+            ---
+        - app: nginx
+          project: default
+          namespace: nginx
+          targetRevision: 15.3.4
+          repoURL: https://charts.bitnami.com/bitnami
+          destination: in-cluster
+          appValues: |
+            ---
+            service:
+              type: ClusterIP
+  template:
+    metadata:
+      name: '{{ app }}-{{ destination }}'
+    spec:
+      project: '{{ project }}'
+      source:
+        repoURL: '{{ repoURL }}'
+        chart: '{{ app }}'
+        targetRevision:  '{{ targetRevision }}'
+        helm:
+          releaseName: '{{ app }}-{{ project }}'
+          values: |
+            {{ appValues}}
+      destination:
+        name: '{{ destination }}'
+        namespace: '{{ namespace }}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: false
