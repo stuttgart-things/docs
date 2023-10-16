@@ -91,7 +91,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: clusters/aks
-    repoURL: 'https://github.boschdevcloud.com/HEP4BUE/tekton.git'
+    repoURL: 'https://github.<ent>.com/HEP4BUE/tekton.git'
     targetRevision: HEAD
     directory:
       recurse: true
@@ -303,7 +303,7 @@ spec:
         generators:
           - pullRequest:
               github:
-                api: https://github.boschdevcloud.com/api/v3/
+                api: https://github.<ent>.com/api/v3/
                 owner: HEP4BUE
                 repo: scaffolder # application source code repo
                 tokenRef:
