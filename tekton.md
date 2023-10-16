@@ -229,8 +229,15 @@ metadata:
   name: acr
 type: Opaque
 ```
+</details>
+
+
+<details><summary><b>VAULT SECRET ACR</b></summary>
+
+config.json: {"auths": {"<REGISTRY>.azurecr.io": {"auth": "<USERNAME:PASSWORD | BASE64>"}}}
 
 </details>
+
 
 <details><summary><b>BASIC AUTH SECRET MANIFEST</b></summary>
 
@@ -284,7 +291,7 @@ spec:
 </details>
 
 <details><summary><b>SERVICE ACCOUNT FOR TKN TASK</b></summary>
-  
+
 ```yaml
 apiVersion: v1
 kind: ServiceAccount
@@ -359,4 +366,3 @@ roleRef:
 ```
 
 </details>
-
