@@ -357,6 +357,20 @@ Continuous deployment (the other possible "CD") can refer to automatically relea
 * Can fully codify the build, test, and deploy process for code <!-- .element: class="fragment fade-up" -->
 * Can usually be templatized to empower teams to create standard processes across multiple repositories <!-- .element: class="fragment fade-up" -->
 --
+# /GIT REPOSITORY SERVICES
+* GitHub is the most popular, with an active community of 100 million developers <!-- .element: class="fragment fade-up" -->
+* It hosts 372 million repositories and is a favorite for open-source projects <!-- .element: class="fragment fade-up" -->
+* with 28 million public repositories. It also provides robust CI/CD pipelines <!-- .element: class="fragment fade-up" -->
+--
+# /GIT REPOSITORY SERVICES
+* GitLab is similar, providing hosting for code repositories <!-- .element: class="fragment fade-up" -->
+* it offers a more comprehensive suite of DevOps tools (security testing, monitoring, and more) than its alternatives <!-- .element: class="fragment fade-up" -->
+--
+# /GIT REPOSITORY SERVICES
+* BitBucket is more specialized <!-- .element: class="fragment fade-up" -->
+* It's the native Git tool in Atlassian's Open DevOps solution <!-- .element: class="fragment fade-up" -->
+* It's designed as a code repository, but only for Jira and Confluence integrations and software projects <!-- .element: class="fragment fade-up" -->
+--
 # /GITHUB ADVANTAGES
 * Benefit from standard source control practices (such as code reviews via pull request and versioning) <!-- .element: class="fragment fade-up" -->
 * GitHub Issues: project management tools are included alongside code repositories, including issue tracking <!-- .element: class="fragment fade-up" -->
@@ -421,6 +435,84 @@ When migrating from Azure Pipelines, consider the following differences:
 # /BENEFITS OF USING SELF-HOSTED RUNNER
 * High Availability: With self-hosted runners, you can set up Horizontal Runner Autoscaler, which provides redundancy and high availability for your workflows <!-- .element: class="fragment fade-up" -->
 * Greater Control: Self-hosted runners give you complete control over the resources and environment used for your workflows, which can help you optimize performance and ensure that your builds and deployments run smoothly <!-- .element: class="fragment fade-up" -->
+--
+# /GitHub Actions/WORKFLOW (EXAMPLE)
+--
+### /GitHub Actions/WORKFLOW (EXAMPLE)
+```
+# workflow.yaml
+name: Run git workflow
+on:
+  workflow_dispatch:
+    inputs:
+      dev-cleanup:
+        description: "Dev: Check to enable deletion of the deployment"
+        required: false
+        type: boolean
+        default: false
+  push:
+    branches: [ main ]
+```
+--
+### /GitHub Actions/Job DEV (EXAMPLE)
+```
+# workflow.yaml
+# USE IN MAIN BRANCH ONLY
+build-helm-staging:
+  if: github.event.ref == 'refs/heads/main'
+  name: Staging
+  needs:
+    - Init
+  uses: ./.github/workflows/helm.yaml
+  with:
+    environment-name: dev
+    cancel-concurrent: false
+    branch-name: ${{ needs.Init.outputs.branch_name }}
+  secrets: inherit
+```
+--
+### /GitHub Actions/Job PROD (EXAMPLE)
+```
+# workflow.yaml
+build-helm-production:
+  name: Production
+  needs:
+    - Init
+    - Linting-staging
+  uses: ./.github/workflows/helm.yaml
+  with:
+    environment-name: production
+    cancel-concurrent: true
+    branch-name: ${{ needs.Init.outputs.branch_name }}
+  secrets: inherit
+```
+--
+### /GitHub Actions/Job (EXAMPLE)
+```
+# build-helm.yaml
+on:
+  workflow_call:
+    inputs:
+      environment-name:
+        required: true
+        type: string
+      branch-name:
+        required: true
+        type: string
+```
+--
+### /GitHub Actions/Job (EXAMPLE)
+```
+# build-helm.yaml
+jobs:
+  build-helm:
+    environment: ${{ inputs.environment-name }}
+    steps:
+      - name: CHECKOUT GIT
+        uses: actions/checkout@v4
+      - name: SETUP HELMFILE
+        uses: mamezou-tech/setup-helmfile@v1.2.0
+```
 ---
 ### /QUIZ
 What's a shortcut to staging all the changes you have?
@@ -472,9 +564,5 @@ What is the opposite of a GIT clone?
 --
 ### /SUMMARY
 * GIT BASICS <!-- .element: class="fragment fade-up" -->
-* LINTING / MARKDOWN <!-- .element: class="fragment fade-up" -->
-* HELM / KUSTOMIZE <!-- .element: class="fragment fade-up" -->
-* KIND <!-- .element: class="fragment fade-up" -->
-* TASKFILE <!-- .element: class="fragment fade-up" -->
 * PULL REQUEST WORKFLOW <!-- .element: class="fragment fade-up" -->
 ---
