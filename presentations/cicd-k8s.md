@@ -11,12 +11,14 @@
 * GIT BASICS <!-- .element: class="fragment fade-up" -->
 * TRUNK-BASED DEVOLPMENT <!-- .element: class="fragment fade-up" -->
 * EXECRISE #1: GITHUB ENTERPRISE <!-- .element: class="fragment fade-up" -->
+* ARGOCD APPSETS <!-- .element: class="fragment fade-up" -->
 --
 #/SLOT2
 * CI/CD <!-- .element: class="fragment fade-up" -->
 * GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
 * AURE PIPELINES VS. GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
 * EXECRISE #2: GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
+* VAULT CSI SECRETS PROVIDER <!-- .element: class="fragment fade-up" -->
 --
 #/SLOT3
 * TEKTON <!-- .element: class="fragment fade-up" -->

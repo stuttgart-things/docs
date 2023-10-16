@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: tekton-pr
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - pullRequest:
+              github:
+                api: https://github.boschdevcloud.com/api/v3/
+                owner: HEP4BUE
+                repo: tekton
+                tokenRef:
+                  key: token
+                  secretName: github-ent
+              requeueAfterSeconds: 30
+          - list:
+              elements:
+                - project: webserver
+  template:
+    metadata:
+      name: '{{ project }}-{{ branch_slug }}-{{ number }}'
+    spec:
+      project: default
+      destination:
+        namespace: '{{ branch_slug }}-{{ number }}'
+        name: in-cluster
+      source:
+        path: dev/web
+        repoURL: https://github.boschdevcloud.com/HEP4BUE/tekton.git
+        targetRevision: '{{ branch_slug }}'
+        directory:
+          recurse: true
+      sources: []
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: false
