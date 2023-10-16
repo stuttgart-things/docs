@@ -234,7 +234,9 @@ type: Opaque
 
 <details><summary><b>VAULT SECRET ACR</b></summary>
 
+```
 config.json: {"auths": {"<REGISTRY>.azurecr.io": {"auth": "<USERNAME:PASSWORD | BASE64>"}}}
+```
 
 </details>
 
