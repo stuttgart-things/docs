@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: github
+metadata:
+  name: github-ent
+  namespace: argocd
+data:
+  token: <GITHUB_TOKEN>
