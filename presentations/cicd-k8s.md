@@ -158,6 +158,7 @@ git push <remote> <branch>
 ### /Branches
 * Git lets you branch out from the original code base <!-- .element: class="fragment fade-up" -->
 * This lets you more easily work with other developers, and gives you a lot of flexibility in your workflow <!-- .element: class="fragment fade-up" -->
+--
 ### /Branches
 --
 * you need to work on a new feature for a website: <!-- .element: class="fragment fade-up" -->
@@ -303,11 +304,11 @@ git merge <branch> --no-ff
 # /TRUNK-BASED DEVOLPMENT
 --
 ### /TRUNK-BASED DEVOLPMENT
-[<img src="https://statusneo.com/wp-content/uploads/2022/12/Beginners%20Guide%20to%20Trunk-Based%20Development.png" width="600"/>](www.google.com)
+[<img src="https://wpblog.semaphoreci.com/wp-content/uploads/2023/02/unnamed-9.png" width="600"/>](www.google.com) <!-- .element: class="fragment fade-up" -->
 * Trunk-based development (TBD) is a source control workflow model that enables continuous integration <!-- .element: class="fragment fade-up" -->
-* The primary purpose of trunk-based development is to avoid the creation of long-lived branches by merging partial changes to the entire feature <!-- .element: class="fragment fade-up" -->
 --
 ## /TRUNK-BASED DEVOLPMENT
+* The primary purpose of trunk-based development is to avoid the creation of long-lived branches by merging partial changes to the entire feature <!-- .element: class="fragment fade-up" -->
 * Developers can achieve this by committing straight to the main branch or by using short-lived branches with an efficient code review process <!-- .element: class="fragment fade-up" -->
 * Branches, by definition, should only live a few days <!-- .element: class="fragment fade-up" -->
 --
@@ -319,11 +320,22 @@ git merge <branch> --no-ff
 ## /TRUNK-BASED DEVOLPMENT
 * In contrast, branches in trunk-based development typically last no more than a few hours, with many developers merging their individual changes into trunk frequently <!-- .element: class="fragment fade-up" -->
 ---
+# /ARGOCD APPSETS
+--
+### /ARGOCD APPSETS
+---
+# /EXECRISE #1: GITHUB ENTERPRISE
+--
+### /EXECRISE #1: GITHUB ENTERPRISE
+---
 # /CICD
 --
 ## /OVERVIEW
 * frequently deliver apps to customers by introducing automation into the stages of app development <!-- .element: class="fragment fade-up" -->
 * The main concepts: continuous integration, continuous delivery, and continuous deployment <!-- .element: class="fragment fade-up" -->
+--
+## /OVERVIEW
+![cicdcd](https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png?itok=NNRD1Zj0)
 --
 ## /OVERVIEW
 * ongoing automation and continuous monitoring throughout the lifecycle of apps -> from integration and testing phases to delivery and deployment  <!-- .element: class="fragment fade-up" -->
@@ -343,13 +355,18 @@ git merge <branch> --no-ff
 * sometimes used separately to illustrate just how much automation is happening <!-- .element: class="fragment fade-up" -->
 --
 ## /CONTINUOUS DELIVERY
-usually means a developer's changes to an application are automatically bug tested and uploaded to a repository (like GitHub or a container registry), where they can then be deployed to a live production environment by the operations team. It's an answer to the problem of poor visibility and communication between dev and business teams. To that end, the purpose of continuous delivery is to ensure that it takes minimal effort to deploy new code.
+* a developer's changes to an application are automatically bug tested and uploaded to a repository (like GitHub or a container registry) <!-- .element: class="fragment fade-up" -->
+* where they can then be deployed to a live production environment by the operations team <!-- .element: class="fragment fade-up" -->
+--
+## /CONTINUOUS DELIVERY
+* It's an answer to the problem of poor visibility and communication between dev and business teams <!-- .element: class="fragment fade-up" -->
+* To that end, the purpose of continuous delivery is to ensure that it takes minimal effort to deploy new code <!-- .element: class="fragment fade-up" -->
 --
 ## /CONTINUOUS DEPLOYMENT
-Continuous deployment (the other possible "CD") can refer to automatically releasing a developer's changes from the repository to production, where it is usable by customers. It addresses the problem of overloading operations teams with manual processes that slow down app delivery. It builds on the benefits of continuous delivery by automating the next stage in the pipeline.
---
-![Alt text](https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png?itok=NNRD1Zj0)
---
+* Continuous deployment  can refer to automatically releasing a developer's changes from the repository to production <!-- .element: class="fragment fade-up" -->
+* It addresses the problem of overloading operations teams with manual processes that slow down app delivery <!-- .element: class="fragment fade-up" -->
+* It builds on the benefits of continuous delivery by automating the next stage in the pipeline <!-- .element: class="fragment fade-up" -->
+---
 # /PIPELINES AS CODE
 * Benefit from standard source control practices (such as code reviews via pull request and versioning) <!-- .element: class="fragment fade-up" -->
 * Can be audited for changes just like any other files in the repository <!-- .element: class="fragment fade-up" -->
@@ -514,6 +531,22 @@ jobs:
         uses: mamezou-tech/setup-helmfile@v1.2.0
 ```
 ---
+# /VAULT CSI SECRETS PROVIDER
+--
+### /VAULT CSI SECRETS PROVIDER
+---
+# /EXECRISE #2: GITHUB ACTIONS
+--
+### /EXECRISE #2: GITHUB ACTIONS
+---
+# /TEKTON
+--
+### /TEKTON
+---
+# /EXECRISE #3: TEKTON
+--
+### /EXECRISE #3: TEKTON
+---
 ### /QUIZ
 What's a shortcut to staging all the changes you have?
 * git add <!-- .element: class="fragment fade-up" -->
@@ -526,17 +559,6 @@ What is k9s?
 --
 What is .gitignore
 * specify which files or parts of your project should be ignored by Git <!-- .element: class="fragment fade-up" -->
---
-What is a helmfile?
-* Helmfile is a declarative spec for deploying helm charts <!-- .element: class="fragment fade-up" -->
-Keep a directory of chart value files and maintain changes in version control <!-- .element: class="fragment fade-up" -->
-Apply CI/CD to configuration changes <!-- .element: class="fragment fade-up" -->
-Periodically sync to avoid skew in environments <!-- .element: class="fragment fade-up" -->
---
-What is a taskfile?
-* Task is a task runner / build tool <!-- .element: class="fragment fade-up" -->
-* aims to be simpler and easier to use than, for example, GNU Make <!-- .element: class="fragment fade-up" -->
-* Since it's written in Go, Task is just a single binary and has no other dependencies <!-- .element: class="fragment fade-up" -->
 --
 How to generate a private ssh key?
 * ssh-keygen <!-- .element: class="fragment fade-up" -->
@@ -564,5 +586,8 @@ What is the opposite of a GIT clone?
 --
 ### /SUMMARY
 * GIT BASICS <!-- .element: class="fragment fade-up" -->
-* PULL REQUEST WORKFLOW <!-- .element: class="fragment fade-up" -->
----
+* ARGOCD APPSETS <!-- .element: class="fragment fade-up" -->
+* CI/CD <!-- .element: class="fragment fade-up" -->
+* GITHUB ACTIONS <!-- .element: class="fragment fade-up" -->
+* VAULT CSI SECRETS PROVIDER <!-- .element: class="fragment fade-up" -->
+* TEKTON <!-- .element: class="fragment fade-up" -->
