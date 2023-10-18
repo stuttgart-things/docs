@@ -17,10 +17,9 @@ jobs:
       - run: |
           echo "🎉 Starting markdown lint!"
           ls -lta
-          whoami
           apk add --update --no-cache ruby-full 
           gem install mdl --no-document
-          #mdl --help
+          mdl --help
 
  # Trivy:
  #   runs-on: docs-runner-set-4
