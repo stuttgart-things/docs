@@ -31,7 +31,7 @@ operator-sdk version
 ### INIT/SCAFFOLD OPERATOR STRUCTURE
 
 ```
-mkdir -p ~/projects/go/src/shipyard-operator && ~/projects/go/src/shipyard-operator 
+mkdir -p ~/projects/go/src/shipyard-operator && ~/projects/go/src/shipyard-operator
 operator-sdk init \
 --plugins go/v3 \
 --domain sthings.tiab.ssc.sva.de \
@@ -99,16 +99,16 @@ make deploy IMG=<IMG-ADDRESS:IMG-TAG>
 
 ## CLI w/ COBRA
 
-### INIT CLI 
+### INIT CLI
 
 ```
 go install github.com/spf13/cobra-cli@latest
 PROJECT_NAME=toolkit-chart-creator
-mkdir ./${PROJECT_NAME} && cd ${PROJECT_NAME} 
+mkdir ./${PROJECT_NAME} && cd ${PROJECT_NAME}
 go mod init ${PROJECT_NAME}
 cobra-cli init
 
-# install locally 
+# install locally
 go install ./${PROJECT_NAME} # build binary to $GOPATH/bin
 # or build binary
 go build -o ./${PROJECT_NAME} # build binary to target dir
