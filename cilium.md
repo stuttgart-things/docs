@@ -1,20 +1,25 @@
 # stuttgart-things/docs/cilium
+
 NOT FINISHED!!!!
 Cilium 1.14.0 is compatible with k8s 1.17.x or older but not newer
 
 It is important that the cluster does not have a kube-proxy installed
 
 ## K8s Cluster
+
 Install cluster /w kudeadm without kube-proxy:
+
 ```
 kubeadm init --skip-phases=addon/kube-proxy
 ```
 
 ## Install Cilium /w Helm
+
 ```
 helm repo add cilium https://helm.cilium.io/
 helm install cilium cilium/cilium --version 1.14.0  -f cilium-values.yaml -n kube-system
 ```
+
 ```
 # cilium-values.yaml
 ---
@@ -36,7 +41,9 @@ l2announcements:
 ```
 
 ## Create loadbalancer pool
+
 Like in metallb we need to create a ip pool for cilium
+
 ```
 # cilium-mainpool.yaml
 ---
@@ -50,9 +57,11 @@ spec:
 ```
 
 ## Configure the L2 Announcement
+
 Like in metallb we need activate and configure the announcement of the ip pool
 
 This is a basic example and we announce the pool to all network interfaces:
+
 ```
 # cilium-l2policy.yaml
 ---
@@ -70,6 +79,7 @@ spec:
 ```
 
 Recommend: This is a basic example and we announce the pool only to network interfaces, that match the regex term "^eth[0-9]+" and only announce services with the requestet label "l2=active":
+
 ```
 # cilium-l2policy.yaml
 ---
@@ -90,17 +100,22 @@ spec:
   externalIPs: true
   loadBalancerIPs: true
 ```
+
 ## Use Cilium for kubernetes services
+
 We can use a annotation to tell cilium, which specific ip should set for the service
+
 ```
 annotations:
   io.cilium/lb-ipam-ips: 172.28.30.200
 ```
 
 ## Commands for troubleshooting
+
 Check l2 works:
 
 In this example we testing, if cilium is announcing the service correctly over arp. The service is exposed /w cilium over arp via 172.28.30.200
+
 ```
 arping: arping -I <interface> <announced_ip>
 
@@ -114,20 +129,26 @@ Unicast reply from 172.28.30.200 [00:50:56:89:5E:0A]  0.763ms
 ```
 
 Check IP pool CR:
+
 ```
 kubectl get ippools
 ```
 
 Check l2 Announcement CR:
+
 ```
 kubectl describe l2announcement
 ```
+
 Check l2 leases: (look for ressources with pattern l2announce)
+
 ```
 kubectl -n kube-system get lease
 ```
+
 Also check the logs of cilium pods and operator!!
 Relevant log part from cilium pod:
+
 ```
 [...]
 level=info msg="Serving cilium health API at unix:///var/run/cilium/health.sock" subsys=health-server
@@ -135,6 +156,7 @@ level=info msg="attempting to acquire leader lease kube-system/cilium-l2announce
 level=info msg="successfully acquired lease kube-system/cilium-l2announce-kube-system-cilium-ingress" subsys=klog
 [...]
 ```
+
 ## Cilium ingress controller (tbd)
 
 ## Cilium wildcard default certs (tbd)
