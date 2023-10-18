@@ -2,7 +2,7 @@
 
 ## CHEATSHEET
 
-```
+```bash
 docker-compose up/down
 kubectl get nodes
 kubectl create ns
@@ -11,7 +11,7 @@ helm upgrade --install <RELEASE-NAME> bitnami/postgresql --version 12.12.5 --val
 ```
 ## CHEETSHEET
 
-```
+```bash
 kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 ```
 
@@ -58,7 +58,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 ## EXERCISE4: CHANGE HELM DEPLOYMENT INTO HELMFILE
 * Create following helmfile.yaml
 
-```
+```bash
 # cat Helmfile.yaml
 repositories:
  - name: bitnami
@@ -78,8 +78,10 @@ releases:
 * helmfile destroy
 --
 ## EXERCISE5: UPDATE SOURCECODE & DOCKERFILE OF WEB-APP
+
 * Update Dockerfile w/ the following content
-```
+
+```bash
 FROM golang:1.19.0 as builder
 
 WORKDIR /usr/src/app
@@ -100,13 +102,17 @@ ENTRYPOINT ["app"]
 ```
 
 * Update cmd/main.go with
-```
+
+```bash
 engine := html.New("/web/views", ".html")
 ```
+
 and
-```
+
+```bash
 app.Static("/", "/web/public")
 ```
+
 * Build the application w/ docker and the tag webapp:<username>
 * Import the newly build image into kind (kind get clusters for the name of the cluster)
 --
@@ -114,7 +120,7 @@ app.Static("/", "/web/public")
 * Add the file Taskfile.yaml to your app repo
 * example Taskfile.yaml (copy and change)
 
-```
+```yaml
 ---
 version: 3
 vars:
@@ -127,6 +133,7 @@ tasks:
     cmds:
       - docker build -t k8sworkshop2.azurecr.io/webapp-patrick:{{ .DATE}} .
 ```
+
 * list tasks w/ task --list
 * change image name to your name/image
 * add task for import the image to kind:
@@ -144,13 +151,15 @@ dsn := fmt.Sprintf(
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_NAME"),
 )
-``````
+```
+--
 * Update the logo of the app in the static content folder and rebuild the application image w/ task:
 public/divrhino-logo.png (overwrite with another png - dont change the name of the file)
----
+
 ## EXERCISE6: Deploy webapp on cluster
 * Update the following deployment
-```
+
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -222,7 +231,7 @@ spec:
 
 # EXERCISE HELMFILE
 
-```
+```yaml
 repositories:
  - name: prometheus-community
    url: https://prometheus-community.github.io/helm-charts
@@ -235,7 +244,6 @@ releases:
   - name: rbac.create
     value: false
 ```
-
 
 # ARGOCD
 

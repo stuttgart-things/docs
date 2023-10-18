@@ -14,7 +14,6 @@ github_urls:
   skip_tls_verify: false
 ```
 
-
 ## K8S-OPERATOR
 
 ### INSTALL OPERATOR SDK
@@ -167,6 +166,3 @@ nerdctl build --platform=arm64 --output type=image,name=eu.gcr.io/stuttgart-thin
 ```
 sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
 ```
-
-
-

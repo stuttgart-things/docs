@@ -44,7 +44,6 @@ documentation in code (snippets)
 | **[elastic][elastic]** | The Elastic Stack is a group of open source products from Elastic designed to help users take data from any type of source and in any format, and search, analyze and visualize that data in real time. The product group was formerly known as the ELK Stack for the core products in the group -- Elasticsearch, Logstash and Kibana -- but has been rebranded as the Elastic Stack. |
 | **[minio][minio]** | MinIO is a high performance, distributed object storage system. It is software-defined, runs on industry standard hardware and is 100% open source with the dominant license being GNU AGPL v3. |
 
-
 [ansible]: https://github.com/stuttgart-things/docs/blob/main/ansible.md
 [argo-cd]: https://github.com/stuttgart-things/docs/blob/main/argo-cd.md
 [cloud]: https://github.com/stuttgart-things/docs/blob/main/cloud.md

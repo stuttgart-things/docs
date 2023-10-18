@@ -48,7 +48,6 @@ git checkout -b [new-branch]
 git push -u origin [new-branch]
 ```
 
-
 ### Create a new tracking branch based on a remote branch
 
 ```bash

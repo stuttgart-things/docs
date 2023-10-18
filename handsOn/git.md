@@ -6,7 +6,6 @@ viele weitere Optionen. Suchen Sie selbstständig nach einer Möglichkeit,
 um mit dem config-Befehl die Autokorrektur zu aktivieren. Diese führt
 dazu, dass auch bei einem Tippfehler der korrekte Befehl ausgeführt wird.
 
-
 ```bash
 git config --global help.autocorrect 1
 ```
@@ -26,7 +25,6 @@ git config --global user.email jekyll@example.com
 * Hinterlegen sie einen pub key in gitea
 * Testen sie git clone via ssh
 T esten sie git init via git cli und das Anlegen einens Repos über die GUI
-
 
 ## /AUFGABE 2: GIT COMMIT + TAG + PUSH
 

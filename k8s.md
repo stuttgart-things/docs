@@ -7,7 +7,8 @@ After pod was deleted, nfs based pvc cannot be mounted to the pod "applyFSGroup 
 Workaround: Not having fsGroup field in pod will also skip call to  SetVolumeOwnership function.
 
 remove:
-```
+
+```yaml
 ...
   securityContext:
     runAsUser: 1000
@@ -18,7 +19,7 @@ remove:
 
 ### GET ALL IMAGES IN CLUSTER
 
-```
+```bash
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
 tr -s '[[:space:]]' '\n' |\
 sort |\
@@ -27,7 +28,7 @@ uniq -c
 
 ## TEST REGISTRY SECRETS W/ HELM
 
-```
+```bash
 kubectl run helm-pod -it --rm --image alpine/k8s:1.24.15 -- sh
 
 mkdir -p ~/.docker/
@@ -46,13 +47,13 @@ helm push nginx-9.9.9.tgz oci://eu.gcr.io/stuttgart-things/
 
 ## DELETE ALL EVICTED PODS IN ALL NAMESPACES
 
-```
+```bash
 kubectl get pods --all-namespaces | grep Evicted | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
 ```
 
 ## WORK W/ OFTEN MANUALY RESTARTED/DELETED PODS FOR DEV/TESTING
 
-```
+```bash
 kubectl -n <NAMESPACE> get po | grep <PART-OF-POD-NAME> | awk '{ print $1}'
 kubectl -n sweatshop delete po $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
 kubectl -n sweatshop logs -f $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
@@ -61,7 +62,8 @@ kubectl -n sweatshop logs -f $(kubectl -n sweatshop get po | grep creator | awk 
 ## BUILDAH
 
 BUILD OCI-IMAGE
-```
+
+```bash
 buildah --storage-driver=overlay bud --format=oci \
 --tls-verify=true --no-cache \
 -f ~/projects/github/stuttgart-things/images/sthings-alpine/Dockerfile \
@@ -72,7 +74,7 @@ buildah --storage-driver=overlay bud --format=oci \
 
 ### INSTALL
 
-```
+```bash
 SKOPEO_VERSION=1.12.0
 wget https://github.com/lework/skopeo-binary/releases/download/v${SKOPEO_VERSION}/skopeo-linux-amd64
 sudo chmod +x skopeo-linux-amd64
@@ -83,7 +85,7 @@ sudo mv skopeo-linux-amd64 /usr/bin/skopeo && skopeo --version
 
 * Copy images between registries
 
-```
+```bash
 skopeo copy --insecure-policy docker://nginx:1.21
 docker://whatever.cloud/gtc1fe/web:1.21
 ```
@@ -92,14 +94,14 @@ docker://whatever.cloud/gtc1fe/web:1.21
 
 * Copy images between registries
 
-```
+```bash
 skopeo copy --all --insecure-policy
 docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a \ docker://whatever.cloud/gtc1fe/web@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a
 ```
 
 ## CLEANUP W/ NERDCTL
 
-```
+```bash
 # STOP AND DELETE ALL RUNNING CONTAINERS
 sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
 
@@ -112,7 +114,7 @@ sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"
 
 ## CONTAINERD CTR
 
-```
+```bash
 # pull image w/ crt
 sudo ctr images pull docker.io/library/redis:alpine
 # or for rke2 bundled containerd: sudo /var/lib/rancher/rke2/bin/ctr images pull docker.io/library/redis:alpine
@@ -126,14 +128,13 @@ ctr -n=k8s.io images import <IMAGE_NAME>
 
  ctr image export <output-filename> <image-name>
 
-
 ```
 
 ## INSTALL CONTAINERD
 
 ### INSTALL RUNC
 
-```
+```bash
 wget https://github.com/containerd/containerd/releases/download/v1.7.1/containerd-1.7.1-linux-amd64.tar.gz
 sudo tar Cxzvf /usr/local containerd-1.7.1-linux-amd64.tar.gz
 wget https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
@@ -153,7 +154,7 @@ sudo journalctl -u containerd
 
 ### INSTALL RUNC
 
-```
+```bash
 wget https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.amd64
 sudo install -m 755 runc.amd64 /usr/local/sbin/runc
 sudo ls /usr/local/sbin/ #check
@@ -161,7 +162,7 @@ sudo ls /usr/local/sbin/ #check
 
 ### INSTALL CNI PLUGINS
 
-```
+```bash
 wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
 sudo mkdir -p /opt/cni/bin
 sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
@@ -170,18 +171,18 @@ sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 
 ## RKE2
 
-```
+```bash
 # list images
 journalctl -u rke2-server | grep Import
 ```
 
 ### IMPORT RKE2 IMAGES INTO CONTAINERD NAMESPACE
 
-```
+```bash
 wget https://github.com/rancher/rke2/releases/download/v1.25.7%2Brke2r1/rke2-images-all.linux-amd64.txt
 ```
 
-```
+```bash
 #!/bin/bash
 
 FILES="./rke2-images-all.linux-amd64.txt"
@@ -210,7 +211,7 @@ done <${FILES}
 
 ## CURL/TEST SERVICE INSIDE CLUSTER
 
-```
+```bash
 kubectl run curler --image=radial/busyboxplus:curl -i --tty --rm
 ping/curl/nslookup <SERVICE_NAME>.<NAMESPACE>.svc.cluster.local
 curl elastic-cluster-master.elastic.svc.cluster.local:9200
@@ -220,14 +221,14 @@ curl elastic-cluster-master.elastic.svc.cluster.local:9200
 
 #### OPTION1: DELETE PENDING APISERVICES
 
-```
+```bash
 kubectl get apiservice|grep False
 kubectl delete APIServices v1alpha1.apps.kio.kasten.io # example
 ```
 
 #### OPTIONW: CHANGE FINALIZER
 
-```
+```bash
 kubectl get namespace "<NAMESPACE>" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
   | kubectl replace --raw /api/v1/namespaces/<NAMESPACE>/finalize -f -
@@ -237,7 +238,7 @@ kubectl get namespace "<NAMESPACE>" -o json \
 
 ### CREATE TLS SECRET
 
-```
+```bash
 # CMD
 kubectl create secret tls tls-wildcard --cert=lab.crt --key=lab.key -n ingress-nginx
 
@@ -260,7 +261,7 @@ kubectl apply -f tls-wildcard.yaml
 
 ### DEPLOY
 
-```
+```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm install my-ingress-nginx ingress-nginx/ingress-nginx --version 4.7.0 \
 --set controller.extraArgs.default-ssl-certificate="ingress-nginx/tls-wildcard"
@@ -270,7 +271,7 @@ helm install my-ingress-nginx ingress-nginx/ingress-nginx --version 4.7.0 \
 
 <details><summary><b>wildcard</b></summary>
 
-```
+```yaml
 ---
 apiVersion: v1
 kind: Service
@@ -331,7 +332,7 @@ spec:
 
 <details><summary><b>path-based</b></summary>
 
-```
+```yaml
 ---
 kind: Pod
 apiVersion: v1
