@@ -21,9 +21,8 @@ jobs:
       - run: |
           echo "🎉 Starting markdown lint!"
           ls -lta
-          pwd
           apk add --update --no-cache ruby-full && gem install mdl --no-document
-          mdl . | tee ./lint.txt
+          mdl . -s .markdownlint.rb | tee ./lint.txt
       - uses: actions/upload-artifact@v3
         with:
           name: lint
