@@ -90,7 +90,6 @@ all:
 ```yaml
 ---
 - hosts: localhost
-  
   vars:
     vcenter_hostname: <vcenter_url>
     vcenter_username: <user>
@@ -110,7 +109,7 @@ all:
         folder: "{{ vm_folder }}"
         validate_certs: False
       register: vm_facts
-        
+
     - name: "Set facts of {{ vm_name }}"
       ansible.builtin.set_fact:
         vm_uuid: "{{ vm_facts.instance.hw_product_uuid }}"
@@ -148,7 +147,7 @@ curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.3
 
 ```
 pip3 install ansible-lint
-cat ./.ansible-lint 
+cat ./.ansible-lint
 skip_list:
   - 'yaml'
   - 'role-name'
@@ -156,7 +155,7 @@ ansible-lint
 ```
 
 ## VAULT LOOKUPS/REFRESH INVENTORY
-In this example two playbooks are run automatically and consecutively. 
+In this example two playbooks are run automatically and consecutively.
  - The first playbook run is meant to obtain the login information of the host from vault secrets and modify.
  - The second playbook is meant to run through the host, using the login data obtained on the prevoius playbook.
 
@@ -169,9 +168,9 @@ There are two methods for ansible to connect with the host:
 
 ### Before we Start
   In order to prepare the system, the following environment variables have to be set in case that they have not ben set by then.
-  
+
   <details><summary><b>Environment Variables</b></summary>
-  
+
 ```
 export ANSIBLE_HASHI_VAULT_ADDR=<vault-url-addr>
 export ANSIBLE_HASHI_VAULT_ROLE_ID=<approle-id>
@@ -182,8 +181,8 @@ export ANSIBLE_HASHI_VAULT_SECRET_ID=<secret-id>
 ### Running multiple playbooks in a sequence.
 
 #### Inventory
-  
-An inventory file should be created with the name of the desired host. Note: This file will change automatically throughout the process. 
+
+An inventory file should be created with the name of the desired host. Note: This file will change automatically throughout the process.
 <details><summary><b>inventory.ini</b></summary>
 ```
 [all]
@@ -193,7 +192,7 @@ hostname
 
 #### Playbook1
 The following playbook uses the enviornment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as *~/.ssh/vault_key*. Finally the inventory is refreshed with the new user data included.
-  
+
 <details><summary><b>Playbook1.yaml: </b></summary>
 
 ```yaml
@@ -218,7 +217,6 @@ The following playbook uses the enviornment variables to connect into vault and 
     ansible.builtin.lineinfile:
       path: "inventory.ini"
       line: |
-        
         [all:vars]
         ansible_user={{ username }}
         ansibel_password={{ password }}
@@ -240,17 +238,17 @@ The following playbook uses the enviornment variables to connect into vault and 
 
 ```
 </details>
-  
+
  **For ssh connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_pasword.
-  
-After the first playbook is run, the inventory will look as follows: 
-  
+
+After the first playbook is run, the inventory will look as follows:
+
 <details><summary><b>Inventory</b></summary>
-  
+
 ```
 [all:vars]
 ansible_user=sthings
-ansibel_password=Atlan7is
+ansible_password=<password>
 #ansible_connection=ssh
 
 ```
@@ -258,9 +256,9 @@ ansibel_password=Atlan7is
 
 #### Playbook2
 The second playbook connects to the host with the information obtained by the first playbook and then runs the desired tasks on the host. The playbook contains a general example of a task to be run within the host, and it is currenlty used to verify that the connection was made.
-  
+
 <details><summary><b>Playbook2.yaml</b></summary>
-  
+
 ```
 ---
 - hosts: all
@@ -271,12 +269,12 @@ The second playbook connects to the host with the information obtained by the fi
         uptime
 ```
 </details>
-  
+
 #### Consecutively running multiple playbooks within one playbook
 The following format can be used to list the playbooks in the order in which they should be run.
- 
+
 <details><summary><b>main.yaml</b></summary>
-  
+
 ```
 ---
 - name: Playbook_1
@@ -286,9 +284,9 @@ The following format can be used to list the playbooks in the order in which the
   import_playbook: playbook2.yaml
 ```
 </details>
-  
+
 Afterwards, you can run the following command, and the playbooks will be run:
-  
+
 ```
 ansible-playbook main.yaml -i inventory.ini
 ```
