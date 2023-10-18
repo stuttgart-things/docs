@@ -1,32 +1,31 @@
-name: Actions Runner Controller Demo
+name: Build Static Content
 on:
   workflow_dispatch:
 
 jobs:
-  Explore-GitHub-Actions:
+  Markdown-Lint:
     runs-on: docs-runner-set-4
-    container: nginx:1.25.2-alpine
+    container: markdownlint/markdownlint:0.13.0
     environment: k8s
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - run: |
-          echo "🎉 This job runs on kubernetes!"
-          cat /etc/os-release
-          whoami
+          echo "🎉 Starting markdown lint!"
           ls -lta
-          echo ${{secrets.KUBECONFIG}}
-  Trivy:
-    runs-on: docs-runner-set-4
-    container: aquasec/trivy:0.46.0
-    environment: k8s
-    steps:
-      - run: |
-          echo "🎉 TRIVY!"
-          cat /etc/os-release
-          whoami
-          ls -lta
-          trivy version
-          trivy image python:3.4-alpine
-          echo ${{secrets.KUBECONFIG}}
+          mdl --help
+
+ # Trivy:
+ #   runs-on: docs-runner-set-4
+ #   container: aquasec/trivy:0.46.0
+ #   environment: k8s
+ #   steps:
+ #     - run: |
+ #         echo "🎉 TRIVY!"
+ #         cat /etc/os-release
+ #         whoami
+ #         ls -lta
+ #         trivy version
+ #         trivy image python:3.4-alpine
+ #         echo ${{secrets.KUBECONFIG}}
 
