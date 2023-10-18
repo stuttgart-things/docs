@@ -29,16 +29,16 @@ spec:
           destination: in-cluster
           appValues: |
             ---
-        - app: nginx
-          project: default
-          namespace: nginx
-          targetRevision: 15.3.4
-          repoURL: https://charts.bitnami.com/bitnami
-          destination: in-cluster
-          appValues: |
-            ---
-            service:
-              type: ClusterIP
+        # - app: nginx
+        #   project: default
+        #   namespace: nginx
+        #   targetRevision: 15.3.4
+        #   repoURL: https://charts.bitnami.com/bitnami
+        #   destination: in-cluster
+        #   appValues: |
+        #     ---
+        #     service:
+        #       type: ClusterIP
   template:
     metadata:
       name: '{{ app }}-{{ destination }}'
