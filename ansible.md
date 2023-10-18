@@ -155,7 +155,6 @@ skip_list:
 ansible-lint
 ```
 
-
 ## VAULT LOOKUPS/REFRESH INVENTORY
 In this example two playbooks are run automatically and consecutively. 
  - The first playbook run is meant to obtain the login information of the host from vault secrets and modify.
@@ -167,7 +166,6 @@ There are two methods for ansible to connect with the host:
  - User and Password
  - ssh-key
  The example shows the use of user and password, however the clarification on how to connect with ssh-key will be done. To connect this way, you have to previously make sure that the ssh-key has already been added to the host. If necesary change */.ssh/config* to include the proper key path.
-
 
 ### Before we Start
   In order to prepare the system, the following environment variables have to be set in case that they have not ben set by then.
@@ -193,13 +191,12 @@ hostname
 ```
 </details>
 
-
 #### Playbook1
 The following playbook uses the enviornment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as *~/.ssh/vault_key*. Finally the inventory is refreshed with the new user data included.
   
 <details><summary><b>Playbook1.yaml: </b></summary>
 
-  ```
+```yaml
 ---
 - hosts: localhost
   become: true
@@ -215,7 +212,6 @@ The following playbook uses the enviornment variables to connect into vault and 
     password: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=ssh/data/sthings:password validate_certs=false auth_method=approle role_id={{ vault_approle_id }} secret_id={{ vault_approle_secret }} url={{ vault_url }}') }}"
     pubKey: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=ssh/data/sthings:publicKey validate_certs=false auth_method=approle role_id={{ vault_approle_id }} secret_id={{ vault_approle_secret }} url={{ vault_url }}') }}"
     privKey: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=ssh/data/sthings:privateKey validate_certs=false auth_method=approle role_id={{ vault_approle_id }} secret_id={{ vault_approle_secret }} url={{ vault_url }}') }}"
-
 
   tasks:
   - name: Write vars on inv file
@@ -259,7 +255,6 @@ ansibel_password=Atlan7is
 
 ```
 </details>
-
 
 #### Playbook2
 The second playbook connects to the host with the information obtained by the first playbook and then runs the desired tasks on the host. The playbook contains a general example of a task to be run within the host, and it is currenlty used to verify that the connection was made.
