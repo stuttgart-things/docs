@@ -26,9 +26,9 @@ ingressController:
 hubble:
   enabled: true
   relay:
-    enabled: true # This setting enable hubble relay 
+    enabled: true # This setting enable hubble relay
   ui:
-    enabled: true # This setting enable hubble ui 
+    enabled: true # This setting enable hubble ui
 ipam:
   mode: "kubernetes" # This setting prevent cilium to overide the service and pod subnet and use the kubeadm network configuration
 l2announcements:
