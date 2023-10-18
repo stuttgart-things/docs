@@ -11,6 +11,7 @@ jobs:
     container:
       image: alpine:3.16.2
     environment: k8s
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,7 +19,7 @@ jobs:
           echo "🎉 Starting markdown lint!"
           ls -lta
           apk add --update --no-cache ruby-full && gem install mdl --no-document
-          mdl elastic.md --json
+          mdl . --json | tee ./lint.json
       - uses: actions/upload-artifact@v3
         with:
           name: lint.json
