@@ -18,7 +18,7 @@ jobs:
           echo "🎉 Starting markdown lint!"
           ls -lta
           apk add --update --no-cache ruby-full && gem install mdl --no-document
-          mdl --json elastic.md > lint.json
+          mdl elastic.md --json
       - uses: actions/upload-artifact@v3
         with:
           name: lint.json
