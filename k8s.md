@@ -1,4 +1,4 @@
-# K8S 
+# K8S
 
 ## NFS STORAGE CLASS / REMOUNT PVC
 
@@ -24,19 +24,19 @@ sort |\
 uniq -c
 ```
 
-## TEST REGISTRY SECRETS W/ HELM 
+## TEST REGISTRY SECRETS W/ HELM
 ```
 kubectl run helm-pod -it --rm --image alpine/k8s:1.24.15 -- sh
 
 mkdir -p ~/.docker/
-cat <<EOF > ~/.docker/config.json 
+cat <<EOF > ~/.docker/config.json
 {"auths": #...
 EOF
 
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm pull bitnami/nginx --version 15.1.0
-tar xvfz nginx-15.1.0.tgz 
+tar xvfz nginx-15.1.0.tgz
 yq e -i '.version = "9.9.9"' nginx/Chart.yaml
 helm package nginx
 helm push nginx-9.9.9.tgz oci://eu.gcr.io/stuttgart-things/
@@ -222,7 +222,7 @@ kubectl get namespace "<NAMESPACE>" -o json \
 
 ## DEPLOY INGRESS-NGINX W/ DEFAULT WILDCARD CERT
 
-### CREATE TLS SECRET 
+### CREATE TLS SECRET
 
 ```
 # CMD
