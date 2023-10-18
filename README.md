@@ -63,9 +63,9 @@ documentation in code (snippets)
 [vault]: https://github.com/stuttgart-things/docs/blob/main/vault.md
 [velero]: https://github.com/stuttgart-things/docs/blob/main/velero.md
 
-Author Information
-------------------
-```
+## Author Information
+
+```bash
 Patrick Hermann, stuttgart-things 03/2023
 Christian Mueller, stuttgart-things 08/2023
 Martin Wolf, stuttgart-things 10/2023
