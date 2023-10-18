@@ -22,6 +22,7 @@ ansible-galaxy collection install cloin.eda
 ```
 
 ### WEBHOOK RULEBOOK
+
 ```yaml
 ---
 - name: Listen for events on a webhook
@@ -155,6 +156,7 @@ ansible-lint
 ```
 
 ## VAULT LOOKUPS/REFRESH INVENTORY
+
 In this example two playbooks are run automatically and consecutively.
  - The first playbook run is meant to obtain the login information of the host from vault secrets and modify.
  - The second playbook is meant to run through the host, using the login data obtained on the prevoius playbook.
@@ -167,6 +169,7 @@ There are two methods for ansible to connect with the host:
  The example shows the use of user and password, however the clarification on how to connect with ssh-key will be done. To connect this way, you have to previously make sure that the ssh-key has already been added to the host. If necesary change */.ssh/config* to include the proper key path.
 
 ### Before we Start
+
   In order to prepare the system, the following environment variables have to be set in case that they have not ben set by then.
 
   <details><summary><b>Environment Variables</b></summary>
@@ -191,6 +194,7 @@ hostname
 </details>
 
 #### Playbook1
+
 The following playbook uses the enviornment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as *~/.ssh/vault_key*. Finally the inventory is refreshed with the new user data included.
 
 <details><summary><b>Playbook1.yaml: </b></summary>
@@ -255,6 +259,7 @@ ansible_password=<password>
 </details>
 
 #### Playbook2
+
 The second playbook connects to the host with the information obtained by the first playbook and then runs the desired tasks on the host. The playbook contains a general example of a task to be run within the host, and it is currenlty used to verify that the connection was made.
 
 <details><summary><b>Playbook2.yaml</b></summary>
@@ -271,6 +276,7 @@ The second playbook connects to the host with the information obtained by the fi
 </details>
 
 #### Consecutively running multiple playbooks within one playbook
+
 The following format can be used to list the playbooks in the order in which they should be run.
 
 <details><summary><b>main.yaml</b></summary>
