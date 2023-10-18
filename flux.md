@@ -1,13 +1,14 @@
 # stuttgart-things/docs/flux
 
 ## TROUBLESHOOTING
+
 ```
 flux get all -A --status-selector ready=false # show all flux objects that are not ready
 kubectl get events -n flux-system --field-selector type=Warning # show flux warning events
 ```
 
-
 ## CREATE SECRET FOR KUSTOMIZATION
+
 ```
 apiVersion: v1
 kind: Secret
@@ -26,11 +27,13 @@ stringData:
 ```
 
 ## BOOTRSTAP FROM GITHUB
+
 ```
 flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test  # EXAMPLE
 ```
 
 ## UNINSTALL FLUX
+
 ```
 flux uninstall --namespace=flux-system
 ```
@@ -38,6 +41,7 @@ flux uninstall --namespace=flux-system
 ## LIST
 
 ### HELM RELEASES
+
 ```
 kubectl get hr -A  # LIST ALL HRs
 flux suspend hr metallb-configuration -n metallb-system  # SUSPEND HR
@@ -47,7 +51,7 @@ flux reconcile kustomization vault -n flux-system # RECREATE HR
 ```
 
 ### LIST ALL HELM KUSTOMIZATIONS
+
 ```
 kubectl get Kustomization -A
 ```
-
