@@ -18,12 +18,13 @@ jobs:
       - run: |
           echo "🎉 Starting markdown lint!"
           ls -lta
+          pwd
           apk add --update --no-cache ruby-full && gem install mdl --no-document
-          mdl . --json | tee ./lint.json
+          mdl . | tee ./lint.txt
       - uses: actions/upload-artifact@v3
         with:
-          name: lint.json
-          path: lint.json
+          name: lint
+          path: lint.txt
  # Trivy:
  #   runs-on: docs-runner-set-4
  #   container: aquasec/trivy:0.46.0
