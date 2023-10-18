@@ -11,7 +11,7 @@ jobs:
     container: markdownlint/markdownlint:0.13.0
     defaults:
       run:
-        working-directory: /data
+        working-directory: /tmp
     environment: k8s
     steps:
       - name: Checkout code
