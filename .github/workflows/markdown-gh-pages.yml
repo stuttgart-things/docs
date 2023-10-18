@@ -10,6 +10,9 @@ jobs:
     runs-on: docs-runner-set-4
     container:
       image: alpine:3.16.2
+    defaults:
+      run:
+        working-directory: /      
     environment: k8s
     continue-on-error: true
     steps:
