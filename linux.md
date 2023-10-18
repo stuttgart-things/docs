@@ -12,7 +12,6 @@ cd $(echo $(params.REPO_URL) | sed 's|.*/||' | sed 's/.git//g')
 
 </details>
 
-
 <details><summary><b>SPLIT STRINGS BY DELIMITER (+-) W/ AWK</b></summary>
 
 ```bash
@@ -31,7 +30,7 @@ echo "$@" # test output
 for argument in "$@"; do echo $argument ; done # loop over parameters
 
 # loop over parameters andchange +- to : w/ sed
-for argument in "$@"; do echo $argument | sed -e "s/+-/: /g" ; done 
+for argument in "$@"; do echo $argument | sed -e "s/+-/: /g" ; done
 ```
 
 </details>
@@ -106,4 +105,3 @@ echo Succeeded pipelineRuns: ${succeeded_prs}
 ```
 
 </details>
-
