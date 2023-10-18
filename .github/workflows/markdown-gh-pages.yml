@@ -8,10 +8,9 @@ on:
 jobs:
   Markdown-Lint:
     runs-on: docs-runner-set-4
-    container: markdownlint/markdownlint:0.13.0
-    defaults:
-      run:
-        working-directory: /tmp
+    container:
+      image: markdownlint/markdownlint:0.13.0
+      options: --user root
     environment: k8s
     steps:
       - name: Checkout code
