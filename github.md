@@ -196,9 +196,6 @@ jobs:
 
 </details close>
 
-
-
-
 ## GITCONFIG
 
 <details open><summary><b>EXAMPLE CONFIG</b></summary>
