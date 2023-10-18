@@ -45,11 +45,13 @@ go get sigs.k8s.io/controller-runtime@v0.14.1
 ```
 
 ### CREATE API/KIND
+
 ```
 operator-sdk create api --group machineshop --version v1beta1 --kind Ansible #example
 ```
 
 ### EDIT TYPES
+
 ```
 <OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
 
@@ -66,11 +68,13 @@ type AnsibleSpec struct {
 ```
 
 ### CREATE MANIFESTS
+
 ```
 make manifests
 ```
 
 ### EDIT CONTROLLER
+
 ```
 <OPERATOR-PATH>/controllers/<KIND>_controller.go
 
@@ -88,11 +92,13 @@ func (r *ShipyardTerraformReconciler) Reconcile(ctx context.Context, req ctrl.Re
 ```
 
 ### CREATE CONTAINER IMAGE
+
 ```
 nerdctl build -t <IMG-ADDRESS:IMG-TAG> . && nerdctl push <IMG-ADDRESS:IMG-TAG>
 ```
 
 ### DEPLOY
+
 ```
 make deploy IMG=<IMG-ADDRESS:IMG-TAG>
 ```
