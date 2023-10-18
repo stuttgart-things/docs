@@ -4,7 +4,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: k8s-docs
+    runs-on: arc-runner-scale-set
     container: nginx:1.25.2-alpine
     environment: k8s
     steps:
@@ -17,7 +17,7 @@ jobs:
           ls -lta
           echo ${{secrets.KUBECONFIG}}
   Trivy:
-    runs-on: k8s-docs
+    runs-on: arc-runner-scale-set
     container: aquasec/trivy:0.46.0
     environment: k8s
     steps:
