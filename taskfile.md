@@ -71,7 +71,7 @@ tasks:
       - git tag -a {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }} -m 'updated for stuttgart-things {{ .DATE }} for tag version {{ .UPDATED_TAG_VERSION }}{{ .BRANCH }}'
       - git push origin --tags
 
-EOF      
+EOF
 ```
 
 </details>
@@ -92,7 +92,7 @@ tasks:
     cmds:
       - go mod tidy
       - go test ./... -v
-EOF      
+EOF
 ```
 
 </details>
@@ -130,7 +130,7 @@ tasks:
     cmds:
       - go mod tidy
       - go test ./... -v
-EOF      
+EOF
 ```
 
 </details>
@@ -182,11 +182,10 @@ tasks:
     vars:
       GO_RELEASER_VERSION: 1.20.0
 
-EOF      
+EOF
 ```
 
 </details>
-
 
 <details><summary><b>INIT GO PROJECT</b></summary>
 
@@ -222,6 +221,3 @@ EOF
 ```
 
 </details>
-
-
-

@@ -168,7 +168,6 @@ sudo mkdir -p /opt/cni/bin
 sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 ```
 
-
 ## RKE2
 
 ```bash
@@ -207,7 +206,6 @@ while read image; do
 
 done <${FILES}
 ```
-
 
 ## CURL/TEST SERVICE INSIDE CLUSTER
 

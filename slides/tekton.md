@@ -13,18 +13,12 @@
 
 Defines a series of steps which launch specific build or delivery tools that ingest specific inputs and produce specific outputs.
 --
-
-
-TaskRun
+### /TaskRun
 Instantiates a <code>Task</code> for execution with specific inputs, outputs, and execution parameters. Can be invoked on its own or as part of a <code>Pipeline</code>
 --
-
-Pipeline
-
+### /Pipeline
 Defines a series of <code>Tasks</code> that accomplish a specific build or delivery goal. Can be triggered by an event or invoked from a <code>PipelineRun
 --
-
-
-PipelineRun
+### /PipelineRun
 Instantiates a <code>Pipeline</code> for execution with specific inputs, outputs, and execution parameters.
 --

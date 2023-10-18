@@ -128,13 +128,6 @@ git push <remote> <branch>
 * When you then pull them to your local repo you'll get a merge conflict.
 * Luckily Git has a way to handle conflicts, so you can see both sets of changes and decide which you want to keep.
 --
-
-
-https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Git-Branch-Create-Example-Command-Checkout-Commit-Tag
-https://www.educative.io/answers/how-to-delete-a-git-branch-locally-and-remotely?utm_campaign=brand_educative&utm_source=google&utm_medium=ppc&utm_content=performance_max&eid=5082902844932096&utm_term=&utm_campaign=%5BNew%5D+Performance+Max&utm_source=adwords&utm_medium=ppc&hsa_acc=5451446008&hsa_cam=18511913007&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gclid=Cj0KCQjwvL-oBhCxARIsAHkOiu2Qq0skPhHr5fB2RNuDihM29oFojv2oxLlYi0KiHGVhABTZTHDZ_AgaAo0aEALw_wcB
-
-https://itknowledgeexchange.techtarget.com/coffee-talk/files/2021/10/create-git-branches.jpg
---
 ### /Fork
 * A fork in Git is simply a copy of an existing repository in which the new owner disconnects the codebase from previous committers <!-- .element: class="fragment fade-up" -->
 * A fork often occurs when a developer becomes dissatisfied or disillusioned with the direction of a project and wants to detach their work from that of the original project <!-- .element: class="fragment fade-up" -->
