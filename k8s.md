@@ -17,6 +17,7 @@ remove:
 ```
 
 ### GET ALL IMAGES IN CLUSTER
+
 ```
 kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
 tr -s '[[:space:]]' '\n' |\
@@ -25,6 +26,7 @@ uniq -c
 ```
 
 ## TEST REGISTRY SECRETS W/ HELM
+
 ```
 kubectl run helm-pod -it --rm --image alpine/k8s:1.24.15 -- sh
 
@@ -43,11 +45,13 @@ helm push nginx-9.9.9.tgz oci://eu.gcr.io/stuttgart-things/
 ```
 
 ## DELETE ALL EVICTED PODS IN ALL NAMESPACES
+
 ```
 kubectl get pods --all-namespaces | grep Evicted | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
 ```
 
 ## WORK W/ OFTEN MANUALY RESTARTED/DELETED PODS FOR DEV/TESTING
+
 ```
 kubectl -n <NAMESPACE> get po | grep <PART-OF-POD-NAME> | awk '{ print $1}'
 kubectl -n sweatshop delete po $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
@@ -67,6 +71,7 @@ buildah --storage-driver=overlay bud --format=oci \
 ## SKOPEO
 
 ### INSTALL
+
 ```
 SKOPEO_VERSION=1.12.0
 wget https://github.com/lework/skopeo-binary/releases/download/v${SKOPEO_VERSION}/skopeo-linux-amd64
@@ -93,6 +98,7 @@ docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d7
 ```
 
 ## CLEANUP W/ NERDCTL
+
 ```
 # STOP AND DELETE ALL RUNNING CONTAINERS
 sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
@@ -105,6 +111,7 @@ sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"
 ```
 
 ## CONTAINERD CTR
+
 ```
 # pull image w/ crt
 sudo ctr images pull docker.io/library/redis:alpine
@@ -145,6 +152,7 @@ sudo journalctl -u containerd
 ```
 
 ### INSTALL RUNC
+
 ```
 wget https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.amd64
 sudo install -m 755 runc.amd64 /usr/local/sbin/runc
@@ -152,6 +160,7 @@ sudo ls /usr/local/sbin/ #check
 ```
 
 ### INSTALL CNI PLUGINS
+
 ```
 wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
 sudo mkdir -p /opt/cni/bin
@@ -160,6 +169,7 @@ sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 
 
 ## RKE2
+
 ```
 # list images
 journalctl -u rke2-server | grep Import
@@ -199,6 +209,7 @@ done <${FILES}
 
 
 ## CURL/TEST SERVICE INSIDE CLUSTER
+
 ```
 kubectl run curler --image=radial/busyboxplus:curl -i --tty --rm
 ping/curl/nslookup <SERVICE_NAME>.<NAMESPACE>.svc.cluster.local
@@ -208,12 +219,14 @@ curl elastic-cluster-master.elastic.svc.cluster.local:9200
 ## NAMESPACE STUCK IN DELETION
 
 #### OPTION1: DELETE PENDING APISERVICES
+
 ```
 kubectl get apiservice|grep False
 kubectl delete APIServices v1alpha1.apps.kio.kasten.io # example
 ```
 
 #### OPTIONW: CHANGE FINALIZER
+
 ```
 kubectl get namespace "<NAMESPACE>" -o json \
   | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
