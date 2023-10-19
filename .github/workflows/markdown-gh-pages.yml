@@ -28,7 +28,7 @@ jobs:
           name: md-lint
           path: md-lint.txt
 
-  yaml-Lint:
+  Yaml-Lint:
     runs-on: docs-runner-set-4
     container:
       image: cytopia/yamllint:1
@@ -40,7 +40,7 @@ jobs:
       - run: |
           echo "🎉 Starting yaml lint!"
           ls -lta
-          yamllint
+          yamllint . --format github | tee ./yaml-lint.txt
       - uses: actions/upload-artifact@v3
         with:
           name: yaml-lint
