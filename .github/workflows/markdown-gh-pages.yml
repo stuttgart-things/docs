@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'main'
-      
+
 jobs:
   Markdown-Lint:
     runs-on: docs-runner-set-4
@@ -12,7 +12,7 @@ jobs:
       image: alpine:3.16.2
     #defaults:
       #run:
-       # working-directory: /      
+       # working-directory: /
     environment: k8s
     continue-on-error: true
     steps:
@@ -22,11 +22,32 @@ jobs:
           echo "🎉 Starting markdown lint!"
           ls -lta
           apk add --update --no-cache ruby-full && gem install mdl --no-document
-          mdl . -s .markdownlint.rb | tee ./lint.txt
+          mdl . -s .markdownlint.rb | tee ./md-lint.txt
       - uses: actions/upload-artifact@v3
         with:
-          name: lint
-          path: lint.txt
+          name: md-lint
+          path: md-lint.txt
+
+  yaml-Lint:
+    runs-on: docs-runner-set-4
+    container:
+      image: cytopia/yamllint:1
+    environment: k8s
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - run: |
+          echo "🎉 Starting yaml lint!"
+          ls -lta
+          yamllint
+      - uses: actions/upload-artifact@v3
+        with:
+          name: yaml-lint
+          path: yaml-lint.txt
+
+
+
  # Trivy:
  #   runs-on: docs-runner-set-4
  #   container: aquasec/trivy:0.46.0
@@ -40,4 +61,3 @@ jobs:
  #         trivy version
  #         trivy image python:3.4-alpine
  #         echo ${{secrets.KUBECONFIG}}
-
