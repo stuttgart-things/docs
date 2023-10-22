@@ -58,8 +58,11 @@ jobs:
       - run: |
           echo "Creating hugo block"
           hugo new site docs > --format yaml
-          ls -lta docs
-
+          cd docs
+          git clone https://github.com/alex-shpak/hugo-book ./themes/hugo-book
+          cp -R ../hugo/config.yaml .
+          hugo --verbose --destination ./public
+          ls ./public
 
  # Trivy:
  #   runs-on: docs-runner-set-4
