@@ -217,3 +217,45 @@ cat ~/.gitconfig
 ```
 
 </details close>
+
+## HUGO MARKDOWN STATIC SITE GENERATOR
+
+<details open><summary><b>CREATE HUGO SITE</b></summary>
+
+```bash
+export SITE_NAME=BLOG
+nerdctl run --user $(id -u):$(id -g) --rm -v $(pwd):/src klakegg/hugo:0.107.0-ext-alpine new site ${SITE_NAME} > --format yaml
+```
+
+</details close>
+
+<details open><summary><b>CLONE THEME + CREATE CONFIG</b></summary>
+
+```bash
+export SITE_NAME=BLOG
+cd ${SITE_NAME}
+
+git clone https://github.com/alex-shpak/hugo-book ${SITE_NAME}/themes/hugo-book
+
+cat <<EOF > ${SITE_NAME}/config.yaml
+baseURL: http://example.org/
+languageCode: en-us
+title: My New Hugo Site
+theme: hugo-book
+EOF
+```
+
+</details close>
+
+<details open><summary><b>RUN HUGO SITE</b></summary>
+
+```bash
+export SITE_NAME=BLOG
+
+# EXAMPLE SITE
+cp -R themes/hugo-book/exampleSite/content.en/* ./content
+
+nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd)/blog:/src klakegg/hugo:0.107.0-ext-alpine server
+```
+
+</details close>
