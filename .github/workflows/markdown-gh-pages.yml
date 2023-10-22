@@ -68,7 +68,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: hugo-public
-          path: docs/public
+          path: docs
 
 
 
