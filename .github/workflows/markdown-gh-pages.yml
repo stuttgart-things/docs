@@ -56,11 +56,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - run: |
-          echo "Creating hugo block"
+          echo "Creating hugo blog"
           hugo new site docs > --format yaml
           cd docs
           git clone https://github.com/alex-shpak/hugo-book ./themes/hugo-book
           cp -R ../hugo/config.yaml .
+          cp -R ../*.md content/docs/docs .
           hugo --verbose --destination ./public
           ls ./public
 
