@@ -46,6 +46,19 @@ jobs:
           name: yaml-lint
           path: yaml-lint.txt
 
+  Create-Hugo-Site:
+    runs-on: docs-runner-set-4
+    container:
+      image: klakegg/hugo:0.107.0-ext-alpine
+    environment: k8s
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - run: |
+          echo "Creating hugo block"
+          hugo new site docs > --format yaml
+          ls -lta docs
 
 
  # Trivy:
