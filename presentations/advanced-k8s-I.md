@@ -454,7 +454,6 @@ viele weitere Optionen. Suchen Sie selbstständig nach einer Möglichkeit,
 um mit dem config-Befehl die Autokorrektur zu aktivieren. Diese führt
 dazu, dass auch bei einem Tippfehler der korrekte Befehl ausgeführt wird.
 
-
 ```bash
 git config --global help.autocorrect 1
 ```

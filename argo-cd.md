@@ -183,7 +183,7 @@ spec:
 
 <details open><summary><b>LIST GENERATOR, BULD ENV VAR + VAULT PLUGIN VALUES</b></summary>
 
-```
+```yaml
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
@@ -249,7 +249,7 @@ spec:
 
 <details open><summary><b>GIT REPO+PATH</b></summary>
 
-```
+```yaml
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
@@ -290,7 +290,7 @@ spec:
 
 <details open><summary><b>PULL REQUEST + LIST GENERATOR MATRIX</b></summary>
 
-```
+```yaml
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
