@@ -51,7 +51,7 @@ jobs:
     container:
       image: klakegg/hugo:0.107.0-ext-alpine
     environment: k8s
-    continue-on-error: true
+    continue-on-error: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -61,9 +61,16 @@ jobs:
           cd docs
           git clone https://github.com/alex-shpak/hugo-book ./themes/hugo-book
           cp -R ../hugo/config.yaml .
+          mkdir -p content/docs/docs
           cp -R ../*.md content/docs/docs .
           hugo --verbose --destination ./public
           ls ./public
+      - uses: actions/upload-artifact@v3
+        with:
+          name: hugo-public
+          path: docs/public
+
+
 
  # Trivy:
  #   runs-on: docs-runner-set-4
