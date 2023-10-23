@@ -47,6 +47,7 @@ jobs:
           path: yaml-lint.txt
 
   Create-Hugo-Site:
+    name: build
     runs-on: docs-runner-set-4
     container:
       image: klakegg/hugo:0.107.0-ext-alpine
@@ -77,9 +78,22 @@ jobs:
             echo "::warning title=Invalid file permissions automatically fixed::$line"
           done
 
-      - uses: actions/upload-pages-artifact@v2
-        with:
-          path: public
+  Deploy-Hugo-Site:
+    runs-on: docs-runner-set-4
+    needs: build
+    container:
+      image: locietta/loia-dev-base:node
+    environment: k8s
+    continue-on-error: false
+    steps:
+      - name: Checkout code
+        run: |
+          ls -lta
+
+
+      # - uses: actions/upload-pages-artifact@v2
+      #   with:
+      #     path: public
 
  # Trivy:
  #   runs-on: docs-runner-set-4
