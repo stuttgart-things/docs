@@ -64,6 +64,9 @@ jobs:
           mkdir -p ./content/docs/docs
           cp -R ../*.md content/docs/docs .
           hugo --verbose --destination ./public
+          ls -lta content/docs/docs
+          ls -lta themes
+          pwd
           ls -lta
           ls ./public
       - uses: actions/upload-artifact@v3
