@@ -64,16 +64,12 @@ jobs:
           git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
           ls -lta ./blog
           ls -lta ./blog/themes
-          ls -lta ./blog/themes
-          ls -lta ./blog/themes
-          cd blog && hugo --verbose --destination ./public
-          pwd
-          ls -lta
-          ls ./public
+          ls -lta ./blog/content/docs/docs
+          cd blog && hugo --verbose --destination ../public
       - uses: actions/upload-artifact@v3
         with:
           name: hugo-public
-          path: docs
+          path: public
 
  # Trivy:
  #   runs-on: docs-runner-set-4
