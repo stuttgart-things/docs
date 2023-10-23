@@ -97,6 +97,10 @@ jobs:
         with:
           path: .
 
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+
  # Trivy:
  #   runs-on: docs-runner-set-4
  #   container: aquasec/trivy:0.46.0
