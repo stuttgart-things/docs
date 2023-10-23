@@ -58,14 +58,15 @@ jobs:
       - run: |
           echo "Creating hugo blog"
           hugo new site blog -f "yaml"
-          cd blog
-          git clone https://github.com/alex-shpak/hugo-book ./themes/hugo-book
-          cp -R ../hugo/config.yaml .
-          mkdir -p ./content/docs/docs
-          cp -R ../*.md content/docs/docs .
-          hugo --verbose --destination ./public
-          ls -lta content/docs/docs
-          ls -lta themes
+          mkdir -p ./blog/content/docs/docs
+          cp -R *.md ./blog/content/docs/docs
+          cp -R hugo/config.yaml ./blog
+          git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
+          ls -lta ./blog
+          ls -lta ./blog/themes
+          ls -lta ./blog/themes
+          ls -lta ./blog/themes
+          cd blog && hugo --verbose --destination ./public
           pwd
           ls -lta
           ls ./public
