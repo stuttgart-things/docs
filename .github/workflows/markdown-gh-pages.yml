@@ -57,20 +57,19 @@ jobs:
         uses: actions/checkout@v4
       - run: |
           echo "Creating hugo blog"
-          hugo new site docs > --format yaml
-          cd docs
+          hugo new site blog -f "yaml"
+          cd blog
           git clone https://github.com/alex-shpak/hugo-book ./themes/hugo-book
           cp -R ../hugo/config.yaml .
-          mkdir -p content/docs/docs
+          mkdir -p ./content/docs/docs
           cp -R ../*.md content/docs/docs .
           hugo --verbose --destination ./public
+          ls -lta
           ls ./public
       - uses: actions/upload-artifact@v3
         with:
           name: hugo-public
           path: docs
-
-
 
  # Trivy:
  #   runs-on: docs-runner-set-4
