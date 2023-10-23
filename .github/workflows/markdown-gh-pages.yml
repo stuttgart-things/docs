@@ -46,8 +46,7 @@ jobs:
           name: yaml-lint
           path: yaml-lint.txt
 
-  Create-Hugo-Site:
-    name: build
+  Build-Hugo:
     runs-on: docs-runner-set-4
     container:
       image: klakegg/hugo:0.107.0-ext-alpine
@@ -80,7 +79,7 @@ jobs:
 
   Deploy-Hugo-Site:
     runs-on: docs-runner-set-4
-    needs: build
+    needs: Build-Hugo
     container:
       image: locietta/loia-dev-base:node
     environment: k8s
