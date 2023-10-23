@@ -61,6 +61,7 @@ jobs:
           cp -R hugo/config.yaml ./blog
           # git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
           # cp -R ./blog/themes/hugo-book/exampleSite/content.en/* ./blog/content
+          mkdir -p ./blog/content/docs
           cp -R *.md ./blog/content/docs
           cd blog && hugo --verbose --destination ../public
       - uses: actions/upload-artifact@v3
