@@ -80,6 +80,9 @@ jobs:
   Deploy-Hugo-Site:
     runs-on: docs-runner-set-4
     needs: Build-Hugo
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
     container:
       image: locietta/loia-dev-base:node
     environment: k8s
