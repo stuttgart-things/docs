@@ -259,3 +259,19 @@ nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd)/blog:/src klake
 ```
 
 </details close>
+
+<details open><summary><b>BUILD STATIC CONTENT</b></summary>
+
+```bash
+nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd):/src klakegg/hugo:0.107.0-ext-alpine --verbose --destination public
+```
+
+</details close>
+
+<details open><summary><b>RUN/VIEW STATIC CONTENT W/ NGINX</b></summary>
+
+```bash
+sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html nginx
+```
+
+</details close>
