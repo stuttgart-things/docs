@@ -85,6 +85,10 @@ jobs:
     environment: k8s
     continue-on-error: false
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: hugo-public
+
       - name: Checkout code
         run: |
           ls -lta
