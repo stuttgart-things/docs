@@ -77,11 +77,26 @@ jobs:
   Deploy-Hugo-Site:
     runs-on: docs-runner-set-4
     needs: Build-Hugo
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
     container:
       image: locietta/loia-dev-base:node
     environment: k8s
     continue-on-error: false
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: hugo-public
+
       - name: Checkout code
         run: |
           ls -lta
+
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
