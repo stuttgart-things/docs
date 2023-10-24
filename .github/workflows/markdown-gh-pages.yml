@@ -58,11 +58,13 @@ jobs:
       - run: |
           echo "Creating hugo blog"
           hugo new site blog -f "yaml"
+          mkdir -p ./blog/content/docs/docs
+          cp -R *.md ./blog/content/docs/docs
           cp -R hugo/config.yaml ./blog
-          # git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
-          # cp -R ./blog/themes/hugo-book/exampleSite/content.en/* ./blog/content
-          mkdir -p ./blog/content/docs
-          cp -R *.md ./blog/content/docs
+          git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
+          ls -lta ./blog
+          ls -lta ./blog/themes
+          ls -lta ./blog/content/docs/docs
           cd blog && hugo --verbose --destination ../public
       - uses: actions/upload-artifact@v3
         with:
@@ -78,40 +80,11 @@ jobs:
   Deploy-Hugo-Site:
     runs-on: docs-runner-set-4
     needs: Build-Hugo
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
     container:
       image: locietta/loia-dev-base:node
     environment: k8s
     continue-on-error: false
     steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: hugo-public
-
       - name: Checkout code
         run: |
           ls -lta
-
-      - uses: actions/upload-pages-artifact@v2
-        with:
-          path: .
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
-
- # Trivy:
- #   runs-on: docs-runner-set-4
- #   container: aquasec/trivy:0.46.0
- #   environment: k8s
- #   steps:
- #     - run: |
- #         echo "🎉 TRIVY!"
- #         cat /etc/os-release
- #         whoami
- #         ls -lta
- #         trivy version
- #         trivy image python:3.4-alpine
- #         echo ${{secrets.KUBECONFIG}}
