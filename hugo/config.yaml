@@ -1,4 +1,4 @@
 baseURL: https://stuttgart-things.github.io
 languageCode: en-us
 title: docs
-# theme: hugo-book
+theme: hugo-book
