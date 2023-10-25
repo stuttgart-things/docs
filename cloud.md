@@ -7,10 +7,13 @@
 The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
 
 ### INSTALLATION
+
 #### Requirements
+
 You must be able to extract or "unzip" the downloaded package. If your operating system doesn't have the built-in unzip command, use an equivalent.
 
 #### Install the AWS CLI
+
 To [install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) you must run the following commands.
 
 ```bash
@@ -81,19 +84,20 @@ Reference Links:
 
 ## LOGIN W/HELM AT GCR
 
-```
+```bash
 cat gcr.json | helm registry login -u _json_key --password-stdin \eu.gcr.io
 ```
 
 ## PUSH OCI HELM CHART TO GCR
-```
+
+```bash
 helm package ./sthings-helm-toolkit
 helm push sthings-helm-toolkit-2.4.7.tgz oci://eu.gcr.io/stuttgart-things/sthings-helm-toolkit
 ```
 
 ## LOGIN W/NERDCTL AT GCR
 
-```
+```bash
 cat gcr.json | nerdctl login -u _json_key --password-stdin \eu.gcr.io
 ```
 
@@ -103,7 +107,8 @@ Endpoint: https://eu.gcr.io
 Access ID: _json_key
 
 Access Secret:
-```
+
+```yaml
 {
   "type": "service_account",
   "project_id": "",
