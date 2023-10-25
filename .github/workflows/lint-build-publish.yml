@@ -59,6 +59,7 @@ jobs:
           echo "Creating hugo blog"
           hugo new site blog -f "yaml"
           cp -R hugo/config.yaml ./blog
+          cp -R hugo/*.png ./blog/static
           git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
           mkdir -p ./blog/content/docs
           cp *.md ./blog/content/docs
