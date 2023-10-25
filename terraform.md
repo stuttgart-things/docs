@@ -2,7 +2,7 @@
 
 <details open><summary>INIT|APPLY|DESTROY</summary>
 
-```
+```bash
 terraform init
 terraform plan
 terraform apply
@@ -15,7 +15,7 @@ terraform destroy
 
 <details open><summary>AWS CLI</summary>
   
-```
+```bash
 sudo apt -y install awscli
 aws configure
 ```
@@ -43,7 +43,7 @@ terraform {
 
 <details open><summary>random-secret-aws.tf</summary>
 
-```
+```bash
 mkdir -p ./aws-secrets
 
 cat <<EOF > ./aws-secrets/random-secret-aws.tf

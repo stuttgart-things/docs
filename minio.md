@@ -1,14 +1,15 @@
 # stuttgart-things/docs/minio
 
 ## MC COMMAND SNIPPETS
-```
+
+```bash
 mc anonymous set public artifacts-labda/roles # SET BUCKET TO PUBLIC
 mc ls artifacts-labda # LIST BUCKETS
 ```
 
 ## MC CONFIG (EXAMPLE)
 
-```
+```json
 cat ~/.mc/config.json
 {
         "version": "10",

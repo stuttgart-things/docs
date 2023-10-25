@@ -115,11 +115,10 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 
 <details open><summary><b>test-workflow</b></summary>
 
-```
+```yaml
 name: Actions Runner Controller Demo
 on:
   workflow_dispatch:
-
 jobs:
   Explore-GitHub-Actions:
     runs-on: arc-runner-set

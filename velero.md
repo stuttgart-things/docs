@@ -1,7 +1,8 @@
 # stuttgart-things/docs/velero
 
 ## CMD/CLI SNIPPETS
-```
+
+```bash
 kubectl get volumesnapshotlocations.velero.io -A
 velero backup-location get
 velero backup create metricbeat --include-namespaces metricbeat
@@ -13,7 +14,7 @@ kubectl delete volumesnapshotlocation artifacts -n velero
 
 ### DEPLOY PostgresDB
 
-```
+```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
@@ -41,7 +42,7 @@ helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgr
 
 ### CREATE TESTDATA ON PostgresDB
 
-```
+```bash
 # GET THE POSTGRES PASSWORD ON YOUR LOCAL ENV
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 
@@ -69,13 +70,13 @@ SELECT * FROM phonebook ORDER BY lastname;
 
 ### CREATE BACKUP
 
-```
+```bash
 velero backup create pgb18-restic --include-namespaces postgres
 ```
 
 ### RESTORE BACKUP
 
-```
+```bash
 velero restore create pgb18 --from-backup pgb18-restic --namespace-mappings postgres:new5
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace new5 postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
@@ -87,6 +88,7 @@ SELECT * FROM phonebook ORDER BY lastname;
 
 
 ## LINKS
+
 ```
 https://www.ntchosting.com/encyclopedia/databases/postgresql/
 https://velero.io/docs/v1.10/backup-hooks/
