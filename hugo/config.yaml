@@ -8,6 +8,14 @@ params:
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
   BookTheme: "dark"
 
+  # (Optional, default favicon.png) Set the path to a favicon file.
+  # If the favicon is /static/favicon.png then the path would be favicon.png
+  BookFavicon: "sthings-logo.png"
+
+  # (Optional, default none) Set the path to a logo for the book.
+  # If the logo is /static/logo.png then the path would be logo.png
+  BookLogo: sthings-city.png
+
   # Set source repository location.
   # Used for 'Last Modified' and 'Edit this page' links.
   BookRepo: https://github.com/stuttgart-things/docs
