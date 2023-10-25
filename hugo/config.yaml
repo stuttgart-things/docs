@@ -2,3 +2,12 @@ baseURL: https://stuttgart-things.github.io/docs/
 languageCode: en-us
 title: docs
 theme: hugo-book
+
+params:
+  # (Optional, default light) Sets color theme: light, dark or auto.
+  # Theme 'auto' switches between dark and light modes based on browser/os preferences
+  BookTheme: "dark"
+
+  # Set source repository location.
+  # Used for 'Last Modified' and 'Edit this page' links.
+  BookRepo: https://github.com/stuttgart-things/docs

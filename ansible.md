@@ -146,7 +146,7 @@ curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.3
 
 ## ANSIBLE-LINT
 
-```
+```yaml
 pip3 install ansible-lint
 cat ./.ansible-lint
 skip_list:
@@ -174,11 +174,12 @@ There are two methods for ansible to connect with the host:
 
   <details><summary><b>Environment Variables</b></summary>
 
-```
+```bash
 export ANSIBLE_HASHI_VAULT_ADDR=<vault-url-addr>
 export ANSIBLE_HASHI_VAULT_ROLE_ID=<approle-id>
 export ANSIBLE_HASHI_VAULT_SECRET_ID=<secret-id>
 ```
+
   </details>
 
 ### Running multiple playbooks in a sequence.
@@ -187,10 +188,12 @@ export ANSIBLE_HASHI_VAULT_SECRET_ID=<secret-id>
 
 An inventory file should be created with the name of the desired host. Note: This file will change automatically throughout the process.
 <details><summary><b>inventory.ini</b></summary>
-```
+
+```bash
 [all]
 hostname
 ```
+
 </details>
 
 #### Playbook1
@@ -239,8 +242,8 @@ The following playbook uses the enviornment variables to connect into vault and 
       mode: 0644
 
   - meta: refresh_inventory  # Reloads the Inventory
-
 ```
+
 </details>
 
  **For ssh connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_pasword.
@@ -249,13 +252,13 @@ After the first playbook is run, the inventory will look as follows:
 
 <details><summary><b>Inventory</b></summary>
 
-```
+```bash
 [all:vars]
 ansible_user=sthings
 ansible_password=<password>
 #ansible_connection=ssh
-
 ```
+
 </details>
 
 #### Playbook2
@@ -264,7 +267,7 @@ The second playbook connects to the host with the information obtained by the fi
 
 <details><summary><b>Playbook2.yaml</b></summary>
 
-```
+```yaml
 ---
 - hosts: all
   tasks:
@@ -273,6 +276,7 @@ The second playbook connects to the host with the information obtained by the fi
         whoami
         uptime
 ```
+
 </details>
 
 #### Consecutively running multiple playbooks within one playbook
@@ -281,7 +285,7 @@ The following format can be used to list the playbooks in the order in which the
 
 <details><summary><b>main.yaml</b></summary>
 
-```
+```yaml
 ---
 - name: Playbook_1
   import_playbook: playbook1.yaml
@@ -289,10 +293,11 @@ The following format can be used to list the playbooks in the order in which the
 - name: Playbook_2
   import_playbook: playbook2.yaml
 ```
+
 </details>
 
 Afterwards, you can run the following command, and the playbooks will be run:
 
-```
+```bash
 ansible-playbook main.yaml -i inventory.ini
 ```
