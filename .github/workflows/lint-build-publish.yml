@@ -60,6 +60,7 @@ jobs:
           hugo new site blog -f "yaml"
           cp -R hugo/config.yaml ./blog
           cp -R hugo/*.png ./blog/static
+          cp -R hugo/*.ico ./blog/static
           cp -R hugo/*.md ./blog/content
           git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
           mkdir -p ./blog/content/docs
