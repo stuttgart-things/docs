@@ -55,3 +55,18 @@ flux reconcile kustomization vault -n flux-system # RECREATE HR
 ```bash
 kubectl get Kustomization -A
 ```
+
+### PREVIEWING CHANGES FROM KUSTOMIZATION
+
+#### ON CLUSTER
+
+```bash
+flux diff kustomization --path=./clusters/labul/pve/bootstrap flux-system
+flux build kustomization --path=./clusters/labul/pve/bootstrap flux-system
+```
+
+#### LOCAL
+
+```bash
+flux build kustomization vault --path clusters/labul/pve/bootstrap --kustomization-file clusters/labul/pve/bootstrap/infra.yaml --dry-run > ../flux.yaml
+```
