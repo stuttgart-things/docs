@@ -3,5 +3,5 @@ title: Introduction
 type: docs
 ---
 
-# Stuttgart-Things
+# STUTTGART-THINGS/DOCS/
 ![Alt-Text](sthings-city.png)
