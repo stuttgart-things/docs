@@ -131,7 +131,7 @@ spec:
         namespace: vault
     - patch: |-
         - op: replace
-          path: /spec/values/ingress/enabled
+          path: /spec/values/ingress/server/enabled
           value: false
       target:
         kind: HelmRelease
