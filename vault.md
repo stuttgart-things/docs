@@ -1,4 +1,4 @@
-# VAULT
+# STUTTGART-THINGS/DOCS/VAULT
 
 ## USE VAULT W/ SECRETS CSI DRIVER
 
@@ -181,3 +181,14 @@ spec:
 ```
 
 </details>
+
+<details><summary><b>PORT FORWARD TO VAULT INSTANCE</b></summary>
+
+```bash
+kubectl -n vault port-forward vault-deployment-0 8200:8200
+```
+
+</details>
+
+
+
