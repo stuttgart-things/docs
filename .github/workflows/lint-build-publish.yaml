@@ -111,9 +111,3 @@ jobs:
         if: always()
         with:
           webhook_url: ${{ secrets.MS_TEAMS_URL }}
-          raw: >-
-            {
-              "@type": "MessageCard",
-              "@context": "http://schema.org/extensions",
-              "title": "No ${variables} avaliable in here"
-            }
