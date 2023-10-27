@@ -182,6 +182,28 @@ spec:
 
 </details>
 
+<details><summary><b>KVDB V2 SECRET ENGINE/PATH</b></summary>
+
+```
+# EXAMPLE SECRET FOR V2 VAULT KVDB
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: vault-creds
+  namespace: tektoncd
+spec:
+  provider: vault
+  parameters:
+    roleName: csi-kv
+    vaultAddress: 'http://vault-deployment.vault.svc.cluster.local:8200'
+    objects: |
+      - objectName: "VAULT_ADDR"
+        secretPath: "kv/data/vault-pve"
+        secretKey: "VAULT_ADDR"
+```
+
+</details>
+
 <details><summary><b>PORT FORWARD TO VAULT INSTANCE</b></summary>
 
 ```bash
