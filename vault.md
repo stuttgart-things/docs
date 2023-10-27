@@ -266,11 +266,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: vault-auth
+  namespace: tektoncd
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: vault-auth
+  namespace: tektoncd
   annotations:
     kubernetes.io/service-account.name: vault-auth
 type: kubernetes.io/service-account-token
