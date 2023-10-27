@@ -212,5 +212,131 @@ kubectl -n vault port-forward vault-deployment-0 8200:8200
 
 </details>
 
+<details><summary><b>CONFIGURE VAULT SECRETS OPERATOR</b></summary>
+
+```bash
+kubectl -n vault exec -it vault-deployment-0 -- /bin/sh
+vault login
+
+#create kv engine + put example secrets
+vault secrets enable -path=kvv2 kv-v2
+vault kv put kvv2/webapp username="web-user" password=":pa55word:"
+
+#create policy
+vault policy write webapp-ro - <<EOF
+path "kvv2/data/webapp" {
+   capabilities = ["read"]
+}
+path "kvv2/metadata/webapp" {
+   capabilities = ["read"]
+}
+EOF
+
+#create config
+vault write auth/vso/config \
+token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \
+kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+disable_issuer_verification=true
+
+#create role
+vault write auth/vso/role/vso-role \
+bound_service_account_names=default \
+bound_service_account_namespaces=default \
+policies=webapp-ro \
+ttl=24h
+
+#verify
+vault list auth/vso/role
+vault read auth/vso/role/vso-role
+
+```
+
+</details>
 
 
+<details><summary><b>CONFIGURE VAULT SECRETS OPERATOR SERVICE ACCOUNT</b></summary>
+
+```yaml
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vault-auth
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-auth
+  annotations:
+    kubernetes.io/service-account.name: vault-auth
+type: kubernetes.io/service-account-token
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: role-tokenreview-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - kind: ServiceAccount
+    name: vault-auth
+    namespace: default
+```
+
+</details>
+
+<details><summary><b>DEPLOY VAULT SECRETS OPERATOR</b></summary>
+
+```bash
+helm repo add hashicorp https://helm.releases.hashicorp.com
+helm repo update
+helm install vault-secrets-operator hashicorp/vault-secrets-operator
+```
+
+</details>
+
+<details><summary><b>CRATE VSO CONNECTION + STATIC SECRET</b></summary>
+
+```yaml
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  namespace: default
+  name: vault-connection
+spec:
+  # address to the Vault server.
+  address: http://vault-deployment.vault.svc.cluster.local:8200
+  skipTLSVerify: true
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: vault-auth
+spec:
+  vaultConnectionRef: vault-connection
+  method: kubernetes
+  mount: vso
+  kubernetes:
+    role: vso-role
+    serviceAccount: default
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: vault-static-secret
+spec:
+  vaultAuthRef: vault-auth
+  mount: kvv2
+  type: kv-v2
+  path:  webapp
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: vso-handled
+```
+
+</details>
