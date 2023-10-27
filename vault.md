@@ -233,6 +233,9 @@ path "kvv2/metadata/webapp" {
 }
 EOF
 
+#enable auth
+vault auth enable -path=vso kubernetes
+
 #create config
 vault write auth/vso/config \
 token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
