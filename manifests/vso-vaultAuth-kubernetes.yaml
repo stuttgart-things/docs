@@ -1,0 +1,14 @@
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: vault-auth-1
+  namespace: tektoncd
+spec:
+  kubernetes:
+    role: tektoncd-role
+    serviceAccount: default
+    tokenExpirationSeconds: 600
+  method: kubernetes
+  mount: tektoncd
+  vaultConnectionRef: vault-connection
