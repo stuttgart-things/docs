@@ -215,6 +215,7 @@ kubectl -n vault port-forward vault-deployment-0 8200:8200
 <details><summary><b>CONFIGURE VAULT SECRETS OPERATOR</b></summary>
 
 ```bash
+#jump into vault pod and login
 kubectl -n vault exec -it vault-deployment-0 -- /bin/sh
 vault login
 
