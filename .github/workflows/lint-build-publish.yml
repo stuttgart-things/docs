@@ -1,3 +1,4 @@
+---
 name: Build Static Content
 on:
   workflow_dispatch:
