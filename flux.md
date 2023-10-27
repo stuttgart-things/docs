@@ -56,6 +56,89 @@ flux reconcile kustomization vault -n flux-system # RECREATE HR
 kubectl get Kustomization -A
 ```
 
+### OVERWRITE HELM VALUES (EXAMPLE)
+
+#### APP DEFINITION 
+
+```yaml
+# /infra/vault/release.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vault-deployment
+  namespace: vault
+spec:
+  interval: 30m
+  dependsOn:
+    - name: vault-certificate-configuration
+      namespace: vault
+  chart:
+    spec:
+      chart: vault
+      version: 0.25.0
+      sourceRef:
+        kind: HelmRepository
+        name: hashicorp
+        namespace: vault
+      interval: 12h
+  values:
+    injector:
+      enabled: false
+    server:
+      enabled: true
+      dataStorage:
+        enabled: true
+        storageClass: ${VAULT_STORAGE_CLASS}
+        size: ${VAULT_STORAGE_SIZE}
+      ingress:
+        enabled: true
+        hosts:
+          - host: ${VAULT_INGRESS_HOSTNAME}.${VAULT_INGRESS_DOMAIN}
+        tls:
+          - hosts:
+            - ${VAULT_INGRESS_HOSTNAME}.${VAULT_INGRESS_DOMAIN}
+            secretName: ${VAULT_INGRESS_HOSTNAME}-ingress-tls
+        ingressClassName: nginx
+    csi:
+      enabled: true
+```
+
+```yaml
+# /clusters/cluster1/infra.yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: vault
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infra/vault
+  prune: true
+  wait: true
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/values
+          value: {}
+      target:
+        kind: HelmRelease
+        name: vault-certificate-configuration
+        namespace: vault
+    - patch: |-
+        - op: replace
+          path: /spec/values/ingress/enabled
+          value: false
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+```
+
 ### PREVIEWING CHANGES FROM KUSTOMIZATION
 
 #### ON CLUSTER
