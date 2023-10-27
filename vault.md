@@ -220,40 +220,39 @@ kubectl -n vault exec -it vault-deployment-0 -- /bin/sh
 vault login
 
 #create kv engine + put example secrets
-vault secrets enable -path=kvv2 kv-v2
-vault kv put kvv2/webapp username="web-user" password=":pa55word:"
+vault secrets enable -path=tektoncd kv-v2
+vault kv put kvv2/tektoncd username="web-user" password=":pa55word:"
 
 #create policy
-vault policy write webapp-ro - <<EOF
-path "kvv2/data/webapp" {
+vault policy write tektoncd - <<EOF
+path "tektoncd/data/tektoncd" {
    capabilities = ["read"]
 }
-path "kvv2/metadata/webapp" {
+path "kvv2/metadata/tektoncd" {
    capabilities = ["read"]
 }
 EOF
 
 #enable auth
-vault auth enable -path=vso kubernetes
+vault auth enable -path=tektoncd kubernetes
 
 #create config
-vault write auth/vso/config \
+vault write auth/tektoncd/config \
 token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
 kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \
 kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
 disable_issuer_verification=true
 
 #create role
-vault write auth/vso/role/vso-role \
+vault write auth/tektoncd/role/tektoncd-role \
 bound_service_account_names=default \
-bound_service_account_namespaces=default \
-policies=webapp-ro \
+bound_service_account_namespaces=tektoncd \
+policies=tektoncd \
 ttl=24h
 
 #verify
-vault list auth/vso/role
-vault read auth/vso/role/vso-role
-
+vault list auth/tektoncd/role
+vault read auth/tektoncd/role/tektoncd-role
 ```
 
 </details>
@@ -287,7 +286,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: vault-auth
-    namespace: default
+    namespace: tektoncd
 ```
 
 </details>
@@ -297,20 +296,20 @@ subjects:
 ```bash
 helm repo add hashicorp https://helm.releases.hashicorp.com
 helm repo update
-helm install vault-secrets-operator hashicorp/vault-secrets-operator
+helm upgrade --install vault-secrets-operator hashicorp/vault-secrets-operator --version 0.3.4
 ```
 
 </details>
 
-<details><summary><b>CRATE VSO CONNECTION + STATIC SECRET</b></summary>
+<details><summary><b>CREATE VSO CONNECTION + STATIC SECRET</b></summary>
 
 ```yaml
 ---
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultConnection
 metadata:
-  namespace: default
   name: vault-connection
+  namespace: tektoncd
 spec:
   # address to the Vault server.
   address: http://vault-deployment.vault.svc.cluster.local:8200
@@ -320,23 +319,25 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: vault-auth
+  namespace: tektoncd
 spec:
   vaultConnectionRef: vault-connection
   method: kubernetes
-  mount: vso
+  mount: tektoncd
   kubernetes:
-    role: vso-role
+    role: tektoncd-role
     serviceAccount: default
 ---
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
   name: vault-static-secret
+  namespace: tektoncd
 spec:
   vaultAuthRef: vault-auth
   mount: kvv2
   type: kv-v2
-  path:  webapp
+  path: tektoncd
   refreshAfter: 10s
   destination:
     create: true
