@@ -41,7 +41,7 @@ jobs:
       - run: |
           echo "🎉 Starting yaml lint!"
           ls -lta
-          yamllint . --format github | tee ./yaml-lint.txt
+          yamllint . --format github -c .yamllint | tee ./yaml-lint.txt
       - uses: actions/upload-artifact@v3
         with:
           name: yaml-lint
