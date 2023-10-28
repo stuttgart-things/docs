@@ -1,4 +1,4 @@
-# /GITHUB
+# stuttgart-things/docs/github
 
 ## GITHUB ACTIONS ON K8S
 
@@ -271,6 +271,14 @@ nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd):/src klakegg/hu
 
 ```bash
 sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html nginx
+```
+
+</details close>
+
+<details open><summary><b>YAML LINT</b></summary>
+
+```bash
+nerdctl run -it -v ./docs:/manifests cytopia/yamllint -- /manifests
 ```
 
 </details close>

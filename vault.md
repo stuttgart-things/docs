@@ -1,4 +1,4 @@
-# STUTTGART-THINGS/DOCS/VAULT
+# stuttgart-things/docs/vault
 
 ## USE VAULT W/ SECRETS CSI DRIVER
 

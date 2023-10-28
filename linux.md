@@ -1,4 +1,4 @@
-# LINUX
+# stuttgart-things/docs/linux
 
 ## BASH-SNIPPETS
 
