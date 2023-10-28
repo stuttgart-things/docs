@@ -65,6 +65,7 @@ jobs:
           cp -R hugo/*.md ./blog/content
           git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
           mkdir -p ./blog/content/docs
+          bash hugo/create-content.sh
           cp *.md ./blog/content/docs
           ls -lta blog/content/docs
           cd blog && hugo --verbose --destination ../public
@@ -105,7 +106,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
-        
+
       - name: Microsoft Teams Notification
         uses: skitionek/notify-microsoft-teams@master
         if: always()
