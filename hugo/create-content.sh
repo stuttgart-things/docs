@@ -4,9 +4,11 @@ dir="manifests"
 file="*.yaml"
 out="manifests.md"
 
+# CREATE HEADER
+echo -e "# /EXAMPLE-MANIFESTS\n" >> ${out}
+
 for file in `cd ${dir};ls -1 ${file}` ;do
    echo ${file}
-   echo -e "# /Manifests\n" >> ${out}
    echo '{{< expand '\"${file}\"' "..." >}}' >> ${out}
    echo -e "\n" >> ${out}
    echo -e '```yaml' >> ${out}
