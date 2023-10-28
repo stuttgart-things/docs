@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -47,7 +48,7 @@ spec:
       source:
         repoURL: '{{ repoURL }}'
         chart: '{{ app }}'
-        targetRevision:  '{{ targetRevision }}'
+        targetRevision: '{{ targetRevision }}'
         helm:
           releaseName: '{{ app }}-{{ project }}'
           values: |
@@ -58,7 +59,7 @@ spec:
         namespace: '{{ namespace }}'
       syncPolicy:
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true
         automated:
           prune: true
           selfHeal: false

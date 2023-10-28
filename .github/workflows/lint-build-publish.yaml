@@ -1,3 +1,4 @@
+---
 name: Build Static Content
 on:
   workflow_dispatch:
@@ -40,7 +41,7 @@ jobs:
       - run: |
           echo "🎉 Starting yaml lint!"
           ls -lta
-          yamllint . --format github | tee ./yaml-lint.txt
+          yamllint . --format github -c .yamllint | tee ./yaml-lint.txt
       - uses: actions/upload-artifact@v3
         with:
           name: yaml-lint
@@ -59,6 +60,9 @@ jobs:
           echo "Creating hugo blog"
           hugo new site blog -f "yaml"
           cp -R hugo/config.yaml ./blog
+          cp -R hugo/*.png ./blog/static
+          cp -R hugo/*.ico ./blog/static
+          cp -R hugo/*.md ./blog/content
           git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
           mkdir -p ./blog/content/docs
           cp *.md ./blog/content/docs
@@ -101,3 +105,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
+        
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.MS_TEAMS_URL }}
