@@ -33,6 +33,6 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo ${file}
    echo '{{< expand '\"${file}\"' "..." >}}' >> ${out}
    echo -e "\n" >> ${out}
-   echo -e "![${file}](${file})" >> ${out}
+   echo -e "![${file}](/static/${file})" >> ${out}
    echo '{{< /expand >}}' >> ${out}
 done
