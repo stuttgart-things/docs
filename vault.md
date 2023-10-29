@@ -1,5 +1,52 @@
 # stuttgart-things/docs/vault
 
+## GENERAL
+
+</details>
+
+<details><summary><b>PORT FORWARD TO VAULT INSTANCE</b></summary>
+
+```bash
+kubectl -n vault port-forward vault-deployment-0 8200:8200
+```
+
+</details>
+
+<details><summary><b>CREATE APPROLE</b></summary>
+
+```bash
+# Enabling AppRole
+vault secrets enable -path=kubeconfigs kv-v2
+vault auth enable approle
+
+# Create a Vault Policy
+vault policy write kubeconfigs - <<EOF
+path "kubeconfigs/data/*" {
+  capabilities = ["create", "update", "patch", "read", "delete"]
+}
+
+path "kubeconfigs/metadata/*" {
+  capabilities = ["list"]
+}
+EOF
+vault policy list
+
+# Define a Role
+vault write auth/approle/role/kubeconfigs policies=kubeconfigs
+vault list auth/approle/role
+
+# Generate the Authentication Credentials
+vault read auth/approle/role/kubeconfigs/role-id
+vault write -f auth/approle/role/kubeconfigs/secret-id
+
+# Use Credentials To Login Using AppRole
+vault write auth/approle/login \
+role_id=${ROLE_ID} \
+secret_id=${SECRET_ID} 
+```
+
+</details>
+
 ## USE VAULT W/ SECRETS CSI DRIVER
 
 <details><summary><b>DEPLOY VAULT W/ CSI DRIVER ENABLED</b></summary>
@@ -204,13 +251,7 @@ spec:
 
 </details>
 
-<details><summary><b>PORT FORWARD TO VAULT INSTANCE</b></summary>
-
-```bash
-kubectl -n vault port-forward vault-deployment-0 8200:8200
-```
-
-</details>
+## VAULT SECRETS OPERATOR
 
 <details><summary><b>CONFIGURE VAULT SECRETS OPERATOR</b></summary>
 
@@ -348,37 +389,3 @@ spec:
 
 </details>
 
-<details><summary><b>CREATE APPROLE</b></summary>
-
-```bash
-# Enabling AppRole
-vault secrets enable -path=kubeconfigs kv-v2
-vault auth enable approle
-
-# Create a Vault Policy
-vault policy write kubeconfigs - <<EOF
-path "kubeconfigs/data/*" {
-  capabilities = ["create", "update", "patch", "read", "delete"]
-}
-
-path "kubeconfigs/metadata/*" {
-  capabilities = ["list"]
-}
-EOF
-vault policy list
-
-# Define a Role
-vault write auth/approle/role/kubeconfigs policies=kubeconfigs
-vault list auth/approle/role
-
-# Generate the Authentication Credentials
-vault read auth/approle/role/kubeconfigs/role-id
-vault write -f auth/approle/role/kubeconfigs/secret-id
-
-# Use Credentials To Login Using AppRole
-vault write auth/approle/login \
-role_id=${ROLE_ID} \
-secret_id=${SECRET_ID} 
-```
-
-</details>
