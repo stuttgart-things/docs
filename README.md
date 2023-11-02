@@ -2,7 +2,7 @@
 
 documentation in code (snippets)
 
-```mermaid
+{{</* mermaid [class="text-center"]*/>}}
 mindmap
   root((mindmap))
     Origins
@@ -20,8 +20,7 @@ mindmap
     Tools
       Pen and paper
       Mermaid
-```
-
+{{</* /mermaid */>}}
 
 
 ## /LINUX
