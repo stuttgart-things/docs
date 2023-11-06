@@ -5,6 +5,7 @@ cp -R hugo/config.yaml ./blog
 cp -R hugo/*.png ./blog/static
 cp -R hugo/*.ico ./blog/static
 cp -R hugo/*.md ./blog/content
+cp -R hugo/mermaid.json ./blog/assets
 
 # CREATE MANIFESTS AS MD
 dir="manifests"
