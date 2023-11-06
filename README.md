@@ -2,25 +2,16 @@
 
 documentation in code (snippets)
 
-{{</* mermaid [class="text-center"]*/>}}
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectivness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-{{</* /mermaid */>}}
+{{< mermaid >}}
+stateDiagram-v2
+    State1: The state with a note
+    note right of State1
+        Important information! You can write
+        notes.
+    end note
+    State1 --> State2
+    note left of State2 : This is the note to the left.
+{{< /mermaid >}}
 
 
 ## /LINUX
