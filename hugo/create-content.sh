@@ -5,7 +5,6 @@ cp -R hugo/config.yaml ./blog
 cp -R hugo/*.png ./blog/static
 cp -R hugo/*.ico ./blog/static
 cp -R hugo/*.md ./blog/content
-cp -R hugo/mermaid.json ./blog/assets
 
 # CREATE MANIFESTS AS MD
 dir="manifests"
@@ -27,8 +26,27 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo -e "\n" >> ${out}
 done
 
-# CREATE STHINGS AS MD
+# CREATE MANIFESTS AS MD
+dir="stageTime"
+file="*.yaml"
+out="stageTime.md"
 
+# CREATE HEADER
+echo -e "# /stageTime\n" >> ${out}
+
+# CREATE MANIFESTS INTO MD
+for file in `cd ${dir};ls -1 ${file}` ;do
+   echo ${file}
+   echo '{{< expand '\"${file}\"' "..." >}}' >> ${out}
+   echo -e "\n" >> ${out}
+   echo -e '```yaml' >> ${out}
+   cat ${dir}/${file} >> ${out}
+   echo -e '\n```\n' >> ${out}
+   echo '{{< /expand >}}' >> ${out}
+   echo -e "\n" >> ${out}
+done
+
+# CREATE STHINGS AS MD
 dir="hugo"
 file="sthings-*.png"
 out="sthings.md"
