@@ -42,7 +42,7 @@ vault write -f auth/approle/role/kubeconfigs/secret-id
 # Use Credentials To Login Using AppRole
 vault write auth/approle/login \
 role_id=${ROLE_ID} \
-secret_id=${SECRET_ID} 
+secret_id=${SECRET_ID}
 ```
 
 </details>
@@ -253,7 +253,7 @@ spec:
 
 ## VAULT SECRETS OPERATOR
 
-<details><summary><b>CONFIGURE VAULT SECRETS OPERATOR</b></summary>
+<details><summary><b>CONFIGURE VAULT FOR THE USE OF VAULT SECRETS OPERATOR</b></summary>
 
 ```bash
 #jump into vault pod and login
@@ -262,14 +262,14 @@ vault login
 
 #create kv engine + put example secrets
 vault secrets enable -path=tektoncd kv-v2
-vault kv put kvv2/tektoncd username="web-user" password=":pa55word:"
+vault kv put tektoncd/cd43 username="web-user" password=":pa55word:"
 
 #create policy
 vault policy write tektoncd - <<EOF
-path "tektoncd/data/tektoncd" {
+path "tektoncd/data/cd43" {
    capabilities = ["read"]
 }
-path "kvv2/metadata/tektoncd" {
+path "tektoncd/metadata/cd43" {
    capabilities = ["read"]
 }
 EOF
@@ -354,7 +354,6 @@ metadata:
   name: vault-connection
   namespace: tektoncd
 spec:
-  # address to the Vault server.
   address: http://vault-deployment.vault.svc.cluster.local:8200
   skipTLSVerify: true
 ---
@@ -374,13 +373,13 @@ spec:
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
-  name: vault-static-secret
+  name: vault-static-secret-1
   namespace: tektoncd
 spec:
   vaultAuthRef: vault-auth
-  mount: kvv2
+  mount: tektoncd
   type: kv-v2
-  path: tektoncd
+  path: cd43
   refreshAfter: 10s
   destination:
     create: true
@@ -388,4 +387,3 @@ spec:
 ```
 
 </details>
-
