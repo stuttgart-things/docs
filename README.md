@@ -1,5 +1,7 @@
 # stuttgart-things/docs
 
+DOCS-PAGES: https://stuttgart-things.github.io/docs/
+
 documentation in code (snippets)
 
 {{< mermaid >}}
