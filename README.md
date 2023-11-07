@@ -2,27 +2,16 @@
 
 DOCS-PAGES: https://stuttgart-things.github.io/docs/
 
-documentation in code (snippets)
-
-{{< mermaid >}}
-stateDiagram-v2
-    State1: The state with a note
-    note right of State1
-        Important information! You can write
-        notes.
-    end note
-    State1 --> State2
-    note left of State2 : This is the note to the left.
-{{< /mermaid >}}
+## /DOCUMENTATION IN CODE (SNIPPETS)
 
 
-## /LINUX
+### /LINUX
 
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
 | **[linux][linux]** | Linux is an open source operating system (OS). An operating system is the software that directly manages a system's hardware and resources, like CPU, memory, and storage. |
 
-## /K8S
+### /K8S
 
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
@@ -31,7 +20,7 @@ stateDiagram-v2
 | **[velero][velero]** | Velero (formerly Heptio Ark) gives you tools to back up and restore your Kubernetes cluster resources and persistent volumes. |
 | **[tekton][tekton]** | Tekton is a powerful yet flexible Kubernetes-native open source framework for creating continuous integration and delivery (CI/CD) systems. It lets you build, test, and deploy across multiple cloud providers or on-premises systems by abstracting away the underlying implementation details. |
 
-## /IAC
+### /IAC
 
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
@@ -40,7 +29,7 @@ stateDiagram-v2
 | **[vault][vault]** | HashiCorp Vault is an identity-based secrets and encryption management system. A secret is anything that you want to tightly control access to, such as API encryption keys, passwords, and certificates. Vault provides encryption services that are gated by authentication and authorization methods. |
 | **[cloud][cloud]** | A cloud service provider is an information technology (IT) company that provides its customers with computing resources over the internet and delivers them on-demand. |
 
-## /GITOPS
+### /GITOPS
 
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
@@ -48,7 +37,7 @@ stateDiagram-v2
 | **[flux][flux]** | Flux is a tool for keeping Kubernetes clusters in sync with sources of configuration (like Git repositories), and automating updates to configuration when there is new code to deploy. |
 | **[argo-cd][argo-cd]** | Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. |
 
-## /DEV
+### /DEV
 
 |                     Name | Description                                                                                      |
 | :----------------------- | :----------------------------------------------------------------------------------------------- |
@@ -76,7 +65,7 @@ stateDiagram-v2
 [vault]: https://github.com/stuttgart-things/docs/blob/main/vault.md
 [velero]: https://github.com/stuttgart-things/docs/blob/main/velero.md
 
-## Author Information
+## /Authors
 
 ```bash
 Patrick Hermann, stuttgart-things 03/2023
