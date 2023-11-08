@@ -15,31 +15,37 @@ kubectl -n vault port-forward vault-deployment-0 8200:8200
 <details><summary><b>CREATE APPROLE</b></summary>
 
 ```bash
-# Enabling AppRole
-vault secrets enable -path=kubeconfigs kv-v2
+# ENABLING APPROLE
+APPROLE_NAME="kubeconfigs"
+
+vault secrets enable -path=${APPROLE_NAME} kv-v2
 vault auth enable approle
 
-# Create a Vault Policy
-vault policy write kubeconfigs - <<EOF
-path "kubeconfigs/data/*" {
+# CREATE A VAULT POLICY
+vault policy write ${APPROLE_NAME} - <<EOF
+path "${APPROLE_NAME}/data/*" {
   capabilities = ["create", "update", "patch", "read", "delete"]
 }
 
-path "kubeconfigs/metadata/*" {
+path "${APPROLE_NAME}/metadata/*" {
   capabilities = ["list"]
 }
 EOF
+
 vault policy list
 
-# Define a Role
-vault write auth/approle/role/kubeconfigs policies=kubeconfigs
+# DEFINE A ROLE
+vault write auth/approle/role/${APPROLE_NAME} policies=${APPROLE_NAME}
 vault list auth/approle/role
 
-# Generate the Authentication Credentials
-vault read auth/approle/role/kubeconfigs/role-id
-vault write -f auth/approle/role/kubeconfigs/secret-id
+# GENERATE THE AUTHENTICATION CREDENTIALS
+vault read auth/approle/role/${APPROLE_NAME}/role-id
+vault write -f auth/approle/role/${APPROLE_NAME}/secret-id
 
-# Use Credentials To Login Using AppRole
+# GET APPROLE ID + SECRET ID
+export ROLE_ID=<role_id>
+export SECRET_ID=<secret_id>
+
 vault write auth/approle/login \
 role_id=${ROLE_ID} \
 secret_id=${SECRET_ID}
@@ -256,15 +262,15 @@ spec:
 <details><summary><b>CONFIGURE VAULT FOR THE USE OF VAULT SECRETS OPERATOR</b></summary>
 
 ```bash
-#jump into vault pod and login
+# JUMP INTO VAULT POD AND LOGIN
 kubectl -n vault exec -it vault-deployment-0 -- /bin/sh
 vault login
 
-#create kv engine + put example secrets
+# CREATE KV ENGINE + PUT EXAMPLE SECRETS
 vault secrets enable -path=tektoncd kv-v2
 vault kv put tektoncd/cd43 username="web-user" password=":pa55word:"
 
-#create policy
+# CREATE POLICY
 vault policy write tektoncd - <<EOF
 path "tektoncd/data/cd43" {
    capabilities = ["read"]
@@ -274,24 +280,24 @@ path "tektoncd/metadata/cd43" {
 }
 EOF
 
-#enable auth
+# ENABLE AUTH
 vault auth enable -path=tektoncd kubernetes
 
-#create config
+# CREATE CONFIG
 vault write auth/tektoncd/config \
 token_reviewer_jwt="$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
 kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443" \
 kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
 disable_issuer_verification=true
 
-#create role
+# CREATE ROLE
 vault write auth/tektoncd/role/tektoncd-role \
 bound_service_account_names=default \
 bound_service_account_namespaces=tektoncd \
 policies=tektoncd \
 ttl=24h
 
-#verify
+# VERIFY
 vault list auth/tektoncd/role
 vault read auth/tektoncd/role/tektoncd-role
 ```
@@ -387,3 +393,47 @@ spec:
 ```
 
 </details>
+
+## VAULT KUBERNTES AUTH (EXTERNAL CLUSTER)
+
+### GET CLIENT CLUSTER DETAILS
+
+```bash
+TOKEN_REVIEW_JWT=<VAULT-TOKEN>
+KUBE_HOST=$(kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.server}')
+# KUBE_CA_CERT
+kubectl config view --raw --minify --flatten --output='jsonpath={.clusters[].cluster.certificate-authority-data}' | base64 -d
+
+echo KUBE_HOST=${KUBE_HOST}
+echo TOKEN_REVIEW_JWT=${TOKEN_REVIEW_JWT}
+```
+
+### CREATE KUBERNETES AUTH FOR EXTERNAL CLUSTER
+
+```bash
+kubectl -n vault exec -it vault-deployment-0 -- /bin/sh
+vault login
+
+# COPY FROM STEP ABOVE
+echo KUBE_HOST=${KUBE_HOST}
+echo TOKEN_REVIEW_JWT=${TOKEN_REVIEW_JWT}
+
+# COPY FROM STEP ABOVE
+vi /tmp/dev51.crt
+
+# ENABLE KUBERNETES AUTH
+vault auth enable -path=dev51 kubernetes
+
+# CREATE CONFIG
+vault write auth/dev51/config \
+token_reviewer_jwt="${TOKEN_REVIEW_JWT}" \
+kubernetes_host="${KUBE_HOST}" \
+kubernetes_ca_cert=@/tmp/dev51.crt \
+disable_issuer_verification=true
+
+vault write auth/dev51/role/tektoncd-role \
+bound_service_account_names=default \
+bound_service_account_namespaces=tektoncd \
+policies=tektoncd \
+ttl=24h
+```

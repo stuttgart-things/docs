@@ -2,19 +2,26 @@
 
 ## DEPLOY VPA + PROMETHEUS
 
+### DEPLOY VPA
+
+```bash
+kubectl create ns monitoring
+helm repo add fairwinds-stable https://charts.fairwinds.com/stable && helm repo update
+helm upgrade --install vpa fairwinds-stable/vpa -n monitoring  --version 3.0.2 --create-namespace
+helm -n monitoring test vpa
+```
+
 ### FORKED GIT-REPOSITORY: FOR RKE CLUSTERS (at least for =<52.1.0)
 
 ```bash
 git clone https://github.com/mohamadkhani/helm-charts.git
 cd helm-charts/kube-prometheus-stack && helm dep update
-kubectl create ns monitoring
 ```
 
 ### HELM REPO: NON RKE/RANCHER K8S
 
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-kubectl create ns monitoring
 ```
 
 ### CREATE TLS CERTIFICATE
@@ -128,14 +135,6 @@ EOF
 helm upgrade --install kube-prometheus-stack . --values values.yaml --version 52.1.0 --namespace monitoring --create-namespace
 # OR W/ HELM REPOSITORY
 helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --values values.yaml --version 52.1.0 --namespace monitoring --create-namespace
-```
-
-### DEPLOY VPA
-
-```bash
-helm repo add fairwinds-stable https://charts.fairwinds.com/stable && helm repo update
-helm upgrade --install vpa fairwinds-stable/vpa --values vpa.yaml -n monitoring  --version 3.0.2 --create-namespace
-helm -n monitoring test vpa
 ```
 
 ### DEPLOY GOLDILOCKS
@@ -287,6 +286,12 @@ docker://whatever.cloud/gtc1fe/web:1.21
 ```bash
 skopeo copy --all --insecure-policy
 docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a \ docker://whatever.cloud/gtc1fe/web@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a
+```
+
+### OVERWRITE ENTRYPOINT OF IMAGE W/ NERDCTL
+
+```bash
+nerdctl run -it --entrypoint sh eu.gcr.io/stuttgart-things/stagetime-server:23.1108.1227-0.3.22
 ```
 
 ## CLEANUP W/ NERDCTL

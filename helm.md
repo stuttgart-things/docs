@@ -1,5 +1,62 @@
 # stuttgart-things/docs/helm
 
+## HELMFILE
+
+<details><summary>SET VAULT CONNECTION</summary>
+
+```bash
+export VAULT_ADDR=https://${VAULT_FQDN}}
+export VAULT_NAMESPACE=root
+
+# APPROLE AUTH
+export VAULT_AUTH_METHOD=approle
+export VAULT_ROLE_ID=${VAULT_ROLE_ID}
+export VAULT_SECRET_ID=${VAULT_SECRET_ID}
+
+# TOKEN AUTH
+export VAULT_AUTH_METHOD=token #default
+export VAULT_TOKEN=${VAULT_TOKEN}
+```
+
+<details><summary>RENDER/APPLY</summary>
+
+```bash
+helmfile template --environment labul-pve-dev
+helmfile sync --environment labul-pve-dev
+```
+
+</details>
+
+## HELM PACKAGE
+
+```bash
+helm package <DIR-TO-HELM-CHART>
+```
+
+## HELM REGISTRY LOGIN
+
+```bash
+helm registry login -u sthings -p <REPLACE-ME> scr.tiab.labda.sva.de
+```
+
+## PUSH CHART TO HARBOR
+
+```bash
+helm push sthings-demo-news-0.1.0.tgz oci://scr.tiab.labda.sva.de/sthings-k8s-operator/
+```
+
+## PULL CHART FROM HARBOR
+
+```bash
+helm pull oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --version 0.1.0
+```
+
+## INSTALL CHART FROM OCI/HARBOR
+
+```bash
+helm install --upgrade sthings-operator oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --version 0.1.0
+```
+
 <details><summary><b>FUNCTION</b></summary>
 
 ```yaml
