@@ -34,7 +34,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Check the docker-compose.yaml file
 * Verify/Add the .env file to the .gitignore file
 * Create .env file (see docker-compose file) for the variables
-  
+
     ```bash
     DB_USER=<REPLACE-WITH-YOUR-VALUE>
     DB_PASSWORD=<REPLACE-WITH-YOUR-VALUE>
@@ -49,6 +49,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Stop docker compose
 * Stop docker compose
 * Delete all created containers
+  
 --
 
 ## EXERCISE3: CHECK KIND + DEPLOY DB W/ HELM
@@ -62,6 +63,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Check if db is running in your namespace w/ help of helm deployment output
 * Check if size of db pvc is 1Gi
 * push your helm values file to your git repository
+  
 --
 
 ## EXERCISE4: CHANGE HELM DEPLOYMENT INTO HELMFILE
@@ -86,6 +88,7 @@ releases:
 * helmfile apply
 * check pods in namespace
 * helmfile destroy
+  
 --
 
 ## EXERCISE5: UPDATE SOURCECODE & DOCKERFILE OF WEB-APP
@@ -126,6 +129,7 @@ app.Static("/", "/web/public")
 
 * Build the application w/ docker and the tag webapp:<username>
 * Import the newly build image into kind (kind get clusters for the name of the cluster)
+  
 --
 
 ## EXERCISE5: ADD/CHANGE TASKFILE (Create a task wich builds and imports an image to your kind cluster)
@@ -153,12 +157,13 @@ tasks:
   kind load docker-image <IMAGENAME> --name <KIND-CLUSTERNAME>
 * use declared variables for it
 * use task build
+  
 --
 
 ## EXERCISE6: CHANGE DB + LOGO
 
 * Update database/database.go
-  
+
 ```go
 dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
@@ -168,7 +173,9 @@ dsn := fmt.Sprintf(
 		os.Getenv("DB_NAME"),
 )
 ```
+
 --
+
 * Update the logo of the app in the static content folder and rebuild the application image w/ task:
 public/divrhino-logo.png (overwrite with another png - dont change the name of the file)
 
@@ -248,7 +255,7 @@ spec:
               number: 3000
 ```
 
-# EXERCISE HELMFILE
+## EXERCISE HELMFILE
 
 ```yaml
 ---
@@ -265,7 +272,7 @@ releases:
     value: false
 ```
 
-# ARGOCD
+## ARGOCD
 
 * go to: http://20.71.6.40
 * create a new repo on gitea http://20.103.92.233 w/ the name argocd-<USERNAME>
