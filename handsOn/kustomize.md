@@ -1,6 +1,7 @@
 # KUSTOMIZE EXERCISES
 
 ## CHEETSHEET
+
 ```bash
 # To view Resources found in a directory containing a kustomization file, run the following command:
 kubectl kustomize <kustomization_directory>
@@ -29,6 +30,7 @@ TASKS:
       files:
         - application.properties
     EOF
+    ```
 
 * CHECK CREATED FILES
 * VIEW RESOURCES
