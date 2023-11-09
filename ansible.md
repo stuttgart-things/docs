@@ -159,8 +159,8 @@ ansible-lint
 
 In this example two playbooks are run automatically and consecutively.
 
- - The first playbook run is meant to obtain the login information of the host from vault secrets and modify.
- - The second playbook is meant to run through the host, using the login data obtained on the prevoius playbook.
+- The first playbook run is meant to obtain the login information of the host from vault secrets and modify.
+- The second playbook is meant to run through the host, using the login data obtained on the prevoius playbook.
 
 In order for the second playbook to connect to the host, the data obtained from the first playbook is written into the inventory file and the inventory file is then refreshed to work with the new data.
 
