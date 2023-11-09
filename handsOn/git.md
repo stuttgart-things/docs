@@ -24,7 +24,7 @@ git config --global user.email jekyll@example.com
 * Erstellen Sie einen user, projekt und repository für sie in gitea
 * Hinterlegen sie einen pub key in gitea
 * Testen sie git clone via ssh
-T esten sie git init via git cli und das Anlegen einens Repos über die GUI
+* Testen sie git init via git cli und das Anlegen einens Repos über die GUI
 
 ## /AUFGABE 2: GIT COMMIT + TAG + PUSH
 
@@ -32,14 +32,14 @@ T esten sie git init via git cli und das Anlegen einens Repos über die GUI
 Bezeichnung aufgaben an. Wechseln Sie in dieses Verzeichnis und
 erstellen Sie dort ein neues Git-Repository. Geben Sie die drei Befehle an,
 die Sie hierfür benötigen.
-2. Erstellen Sie drei Dateien mit den Bezeichnungen aufgabe.py,
+1. Erstellen Sie drei Dateien mit den Bezeichnungen aufgabe.py,
 aufgabe.java und beispiel.c. Fügen Sie mit einem einzigen Kommando
 alle Dateien zum Repository hinzu, die mit dem Ausdruck aufgabe
 beginnen. Lassen Sie sich den Status des Repositorys nach dem Erstellen
 der Dateien und nach dem Hinzufügen ausgeben.
-3. Erstellen Sie ein Commit für die beiden Dateien. Fügen Sie die CommitNachricht direkt über die Kommandozeile ein. Geben Sie anschließend
+1. Erstellen Sie ein Commit für die beiden Dateien. Fügen Sie die CommitNachricht direkt über die Kommandozeile ein. Geben Sie anschließend
 den Verlauf der Commits aus.
-4. Erstellen Sie ein annotated Tag für den in Aufgabe 3 durchgeführten
+1. Erstellen Sie ein annotated Tag für den in Aufgabe 3 durchgeführten
 Commit. Rufen Sie anschließend die Informationen zu diesem Tag ab.
 
 ```bash
@@ -67,8 +67,8 @@ git show version0.1
 Verwenden Sie wieder das Repository, das Sie für die Übungsaufgaben in Kapitel 3 angelegt haben. Gehen Sie nun davon aus, dass im master-Zweig mehrere Team-Mitglieder gemeinsam an der Entwicklung einer Software arbeiten.
 
 1. Erstellen Sie zunächst einen Zweig für Ihre eigenen Beiträge und nennen Sie ihn meinZweig. Ändern Sie darin eine Datei und erstellen Sie darin einen Commit.
-2. Gehen Sie nun davon aus, dass in der Zwischenzeit ein anderes Team- Mitglied eine neue Datei in den master-Zweig eingefügt hat. Da sich jedoch wahrscheinlich kein Mitarbeiter in der Nähe befindet, der diese Aufgabe erledigen kann, müssen Sie die Datei für dieses Beispiel ebenfalls selbst einfügen. Um mit Ihren eigenen Tätigkeiten fortzufahren, benötigen Sie diese Datei. Übernehmen Sie die Änderungen aus dem Hauptzweig mit dem rebase-Befehl.
-3. Erstellen Sie daraufhin einen weiteren Beitrag in Ihrem Zweig. Tragen Sie daraufhin Ihren Beitrag in den Hauptzweig ein. Nutzen Sie hierfür den merge-Befehl. Da Sie damit Ihre Arbeit abgeschlossen haben, benötigen Sie den entsprechenden Zweig nicht mehr. Löschen Sie ihn, um die Ordnung im Repository aufrechtzuerhalten.
+1. Gehen Sie nun davon aus, dass in der Zwischenzeit ein anderes Team- Mitglied eine neue Datei in den master-Zweig eingefügt hat. Da sich jedoch wahrscheinlich kein Mitarbeiter in der Nähe befindet, der diese Aufgabe erledigen kann, müssen Sie die Datei für dieses Beispiel ebenfalls selbst einfügen. Um mit Ihren eigenen Tätigkeiten fortzufahren, benötigen Sie diese Datei. Übernehmen Sie die Änderungen aus dem Hauptzweig mit dem rebase-Befehl.
+1. Erstellen Sie daraufhin einen weiteren Beitrag in Ihrem Zweig. Tragen Sie daraufhin Ihren Beitrag in den Hauptzweig ein. Nutzen Sie hierfür den merge-Befehl. Da Sie damit Ihre Arbeit abgeschlossen haben, benötigen Sie den entsprechenden Zweig nicht mehr. Löschen Sie ihn, um die Ordnung im Repository aufrechtzuerhalten.
 
 ```bash
 # 1
@@ -96,10 +96,10 @@ git branch -d meinZweig
 ## Pull Requests
 
 1. Each new feature starts on its own branch (the so-called **feature branch**).
-2. When the feature is ready, a pull request is submitted to merge the feature branch into the `master` branch.
-3. A code review happens
-4. If something need to be changed based on the review, those
-5. Once everything looks good, the feature branch is merged into `master`.
+1. When the feature is ready, a pull request is submitted to merge the feature branch into the `master` branch.
+1. A code review happens
+1. If something need to be changed based on the review, those
+1. Once everything looks good, the feature branch is merged into `master`.
 
 ## Practicing Pull Requests
 
