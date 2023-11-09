@@ -58,7 +58,7 @@ kubectl get Kustomization -A
 
 ### OVERWRITE HELM VALUES (EXAMPLE)
 
-#### APP DEFINITION 
+#### APP DEFINITION
 
 ```yaml
 # /infra/vault/release.yaml
