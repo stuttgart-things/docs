@@ -2,7 +2,7 @@
 
 ## GET/DELETE ALL PODS OLDER THAN 24HOURS
 
-```
+```bash
 # LIST ALL PODS OLDER THAN 1 DAY
 kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $0}'
 
