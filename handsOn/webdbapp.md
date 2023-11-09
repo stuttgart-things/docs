@@ -9,6 +9,7 @@ kubectl create ns
 export VAR_NAME=VALUE
 helm upgrade --install <RELEASE-NAME> bitnami/postgresql --version 12.12.5 --values posgres.yaml
 ```
+
 ## CHEETSHEET
 
 ```bash
@@ -16,6 +17,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 ```
 
 ## EXERCISE0: PREPARATION / 'FORK' from github
+
 * Create a git repository with the name web-app-<YOURNAME> on gitea (or init w/ git shell on your local system)
 * Clone the repository to your local filesystem
 * Create a README.md file in your newly created & cloned repository and push it to remote (gitea)
@@ -26,15 +28,19 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Push all files to your remote repo
 * Remove divrhino-trivia-crud from your local filesystem
 --
+
 ## EXERCISE1: TEST W/ DOCKER-COMPOSE
+
 * Check the docker-compose.yaml file
 * Verify/Add the .env file to the .gitignore file
 * Create .env file (see docker-compose file) for the variables
-    ```
+  
+    ```bash
     DB_USER=<REPLACE-WITH-YOUR-VALUE>
     DB_PASSWORD=<REPLACE-WITH-YOUR-VALUE>
     DB_NAME=<REPLACE-WITH-YOUR-VALUE>
     ```
+
 * Export POSTGRES_USER w/ the (same) values from .env file
 * Export POSTGRES_PASSWORD w/ the (same) values from .env file
 * Export POSTGRES_DB w/ the (same) values from .env file
@@ -44,7 +50,9 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Stop docker compose
 * Delete all created containers
 --
+
 ## EXERCISE3: CHECK KIND + DEPLOY DB W/ HELM
+
 * Check k8s connection w/ kubectl to the kind cluster
 * Create your deployment namespace (your username)
 * Deploy postgresdb w/ helm
@@ -55,7 +63,9 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Check if size of db pvc is 1Gi
 * push your helm values file to your git repository
 --
+
 ## EXERCISE4: CHANGE HELM DEPLOYMENT INTO HELMFILE
+
 * Create following helmfile.yaml
 
 ```bash
@@ -77,6 +87,7 @@ releases:
 * check pods in namespace
 * helmfile destroy
 --
+
 ## EXERCISE5: UPDATE SOURCECODE & DOCKERFILE OF WEB-APP
 
 * Update Dockerfile w/ the following content
@@ -116,7 +127,9 @@ app.Static("/", "/web/public")
 * Build the application w/ docker and the tag webapp:<username>
 * Import the newly build image into kind (kind get clusters for the name of the cluster)
 --
+
 ## EXERCISE5: ADD/CHANGE TASKFILE (Create a task wich builds and imports an image to your kind cluster)
+
 * Add the file Taskfile.yaml to your app repo
 * example Taskfile.yaml (copy and change)
 
@@ -141,9 +154,12 @@ tasks:
 * use declared variables for it
 * use task build
 --
+
 ## EXERCISE6: CHANGE DB + LOGO
+
 * Update database/database.go
-```
+  
+```go
 dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
 		os.Getenv("DB_HOST"),
@@ -157,9 +173,11 @@ dsn := fmt.Sprintf(
 public/divrhino-logo.png (overwrite with another png - dont change the name of the file)
 
 ## EXERCISE6: Deploy webapp on cluster
+
 * Update the following deployment
 
 ```yaml
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -195,7 +213,8 @@ spec:
             value: postgresql
 ```
 
-```
+```yaml
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -232,6 +251,7 @@ spec:
 # EXERCISE HELMFILE
 
 ```yaml
+---
 repositories:
  - name: prometheus-community
    url: https://prometheus-community.github.io/helm-charts
@@ -251,7 +271,9 @@ releases:
 * create a new repo on gitea http://20.103.92.233 w/ the name argocd-<USERNAME>
 * add a folder w/ the name pod
 * add this file to the repo
-```
+
+```yaml
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -263,6 +285,7 @@ spec:
     ports:
     - containerPort: 80
 ```
+
 * add your repository to argocd e.g. gitea@52.137.62.254:patrick/argocd-patrick.git
 * export KUBECONFIG=~/.kube/aks
 * find your created repo as a kind: Secret in the argocd namespace w/ k9s
