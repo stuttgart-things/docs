@@ -337,7 +337,7 @@ ctr -n=k8s.io images import <IMAGE_NAME>
 
 ## INSTALL CONTAINERD
 
-### INSTALL RUNC
+### INSTALL CONTAINERD
 
 ```bash
 wget https://github.com/containerd/containerd/releases/download/v1.7.1/containerd-1.7.1-linux-amd64.tar.gz
@@ -422,14 +422,14 @@ curl elastic-cluster-master.elastic.svc.cluster.local:9200
 
 ## NAMESPACE STUCK IN DELETION
 
-#### OPTION1: DELETE PENDING APISERVICES
+### OPTION1: DELETE PENDING APISERVICES
 
 ```bash
 kubectl get apiservice|grep False
 kubectl delete APIServices v1alpha1.apps.kio.kasten.io # example
 ```
 
-#### OPTIONW: CHANGE FINALIZER
+### OPTIONW: CHANGE FINALIZER
 
 ```bash
 kubectl get namespace "<NAMESPACE>" -o json \
