@@ -1,6 +1,7 @@
 # /GIT Aufgaben
 
 ## /AURGABE 1: GIT CONFIG
+
 Git bietet neben den vorgestellten Konfigurationsmöglichkeiten noch
 viele weitere Optionen. Suchen Sie selbstständig nach einer Möglichkeit,
 um mit dem config-Befehl die Autokorrektur zu aktivieren. Diese führt
@@ -32,13 +33,16 @@ git config --global user.email jekyll@example.com
 Bezeichnung aufgaben an. Wechseln Sie in dieses Verzeichnis und
 erstellen Sie dort ein neues Git-Repository. Geben Sie die drei Befehle an,
 die Sie hierfür benötigen.
+
 1. Erstellen Sie drei Dateien mit den Bezeichnungen aufgabe.py,
 aufgabe.java und beispiel.c. Fügen Sie mit einem einzigen Kommando
 alle Dateien zum Repository hinzu, die mit dem Ausdruck aufgabe
 beginnen. Lassen Sie sich den Status des Repositorys nach dem Erstellen
 der Dateien und nach dem Hinzufügen ausgeben.
+
 1. Erstellen Sie ein Commit für die beiden Dateien. Fügen Sie die CommitNachricht direkt über die Kommandozeile ein. Geben Sie anschließend
 den Verlauf der Commits aus.
+
 1. Erstellen Sie ein annotated Tag für den in Aufgabe 3 durchgeführten
 Commit. Rufen Sie anschließend die Informationen zu diesem Tag ab.
 
@@ -241,7 +245,7 @@ Ta-da, first pull request!
 You have two ways to request a code review:
 
 1. Add one or more instructors as collaborators on your project and then select them from the "Request Review" dropdown
-2. Leave a comment `@`-mentioning anyone you want a code review from.
+1. Leave a comment `@`-mentioning anyone you want a code review from.
 
    ```text
    @Colleague I'd like a review!
