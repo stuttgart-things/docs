@@ -286,6 +286,7 @@ spec:
           prune: true
           selfHeal: false
 ```
+
 </details close>
 
 <details open><summary><b>PULL REQUEST + LIST GENERATOR MATRIX</b></summary>
