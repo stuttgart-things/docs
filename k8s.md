@@ -1,5 +1,15 @@
 # stuttgart-things/docs/k8s
 
+## GET/DELETE ALL PODS OLDER THAN 24HOURS
+
+```
+# LIST ALL PODS OLDER THAN 1 DAY
+kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $0}'
+
+# DELETE ALL PODS OLDER THAN 1 DAY
+kubectl -n tektoncd delete pod $(kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $1}')
+```
+
 ## DEPLOY VPA + PROMETHEUS
 
 ### DEPLOY VPA
