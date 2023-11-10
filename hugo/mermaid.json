@@ -1,7 +1,7 @@
 {
-    "theme": "dark",
+    "theme": "forest",
     "themeVariables": {
         "fontFamily": "Arial",
-        "fontSize": "25px"
+        "fontSize": "35px"
     }
 }
