@@ -1,11 +1,11 @@
 # stuttgart-things/docs/staging-pve
 
-## BOOSTRAP CLUSTER
+## BOOTSRAP CLUSTER
 
 {{< mermaid >}}
 stateDiagram-v2
     Bootstrap: BOOTSTRAP
-    note right of Bootstrap
+    note left of Bootstrap
         CREATES ALL VMS (MSO)
         PROVISIONS ALL VMS (TEKTON)
         BOOSTRAPS FLUX (TEKTON)
