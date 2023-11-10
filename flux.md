@@ -1,5 +1,60 @@
 # stuttgart-things/docs/flux
 
+## MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER
+
+### CREATE PUB CERT AS CM
+
+#### VIA KUBECTL
+
+```bash
+kubectl -n <namespace-for-config-map-optional> create configmap ca-pemstore — from-file=my-cert.pem
+```
+
+#### VIA MANIFEST
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ca-pemstore
+  namespace: flux-system
+data:
+  labul-pve.crt: |-
+    -----BEGIN CERTIFICATE-----
+    MIIFeDCCA2CgAwIBAgIUT4jkE73bE/rKLhh9k03K2uJ8EjowDQYJKoZIhvcNAQEL
+    #...
+    DGmlCM/e6VsZGsLz
+    -----END CERTIFICATE-----
+```
+
+#### PATCH SOURCE-CONTROLLER KUSTOMIZATION
+
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- gotk-components.yaml
+- gotk-sync.yaml
+patches:
+  - patch: |
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          name: ca-pemstore
+          configMap:
+            name: ca-pemstore
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: ca-pemstore
+          mountPath: /etc/ssl/certs/my-cert.pem
+          subPath: labul-pve.crt
+          readOnly: true
+    target:
+      kind: Deployment
+      name: source-controller
+```
+
 ## TROUBLESHOOTING
 
 ```bash
