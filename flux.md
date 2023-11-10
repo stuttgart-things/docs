@@ -4,10 +4,13 @@
 
 ### CREATE PUB CERT AS CM
 
+[issue](https://github.com/fluxcd/flux2/issues/3417)
+
 #### VIA KUBECTL
 
 ```bash
-kubectl -n <namespace-for-config-map-optional> create configmap ca-pemstore — from-file=my-cert.pem
+kubectl -n <namespace-for-config-map-optional> \
+create configmap ca-pemstore -— from-file=labul-pve.crt
 ```
 
 #### VIA MANIFEST
@@ -23,7 +26,6 @@ data:
     -----BEGIN CERTIFICATE-----
     MIIFeDCCA2CgAwIBAgIUT4jkE73bE/rKLhh9k03K2uJ8EjowDQYJKoZIhvcNAQEL
     #...
-    DGmlCM/e6VsZGsLz
     -----END CERTIFICATE-----
 ```
 
