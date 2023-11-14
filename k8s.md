@@ -215,7 +215,6 @@ kubectl -n cattle-system create secret generic tls-ca \
 kubectl rollout restart deploy/rancher -n cattle-system
 ```
 
-
 ### GET ALL IMAGES IN CLUSTER
 
 ```bash
