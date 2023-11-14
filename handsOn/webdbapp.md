@@ -27,6 +27,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Do not forget to copy the hidden .gitignore and .air.toml
 * Push all files to your remote repo
 * Remove divrhino-trivia-crud from your local filesystem
+
 --
 
 ## EXERCISE1: TEST W/ DOCKER-COMPOSE
@@ -35,11 +36,11 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Verify/Add the .env file to the .gitignore file
 * Create .env file (see docker-compose file) for the variables
 
-    ```bash
-    DB_USER=<REPLACE-WITH-YOUR-VALUE>
-    DB_PASSWORD=<REPLACE-WITH-YOUR-VALUE>
-    DB_NAME=<REPLACE-WITH-YOUR-VALUE>
-    ```
+```bash
+DB_USER=<REPLACE-WITH-YOUR-VALUE>
+DB_PASSWORD=<REPLACE-WITH-YOUR-VALUE>
+DB_NAME=<REPLACE-WITH-YOUR-VALUE>
+```
 
 * Export POSTGRES_USER w/ the (same) values from .env file
 * Export POSTGRES_PASSWORD w/ the (same) values from .env file
@@ -49,7 +50,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Stop docker compose
 * Stop docker compose
 * Delete all created containers
-  
+
 --
 
 ## EXERCISE3: CHECK KIND + DEPLOY DB W/ HELM
@@ -63,7 +64,7 @@ kind load docker-image webapp:<username> --name <KIND-CLUSTERNAME>
 * Check if db is running in your namespace w/ help of helm deployment output
 * Check if size of db pvc is 1Gi
 * push your helm values file to your git repository
-  
+
 --
 
 ## EXERCISE4: CHANGE HELM DEPLOYMENT INTO HELMFILE
@@ -88,7 +89,7 @@ releases:
 * helmfile apply
 * check pods in namespace
 * helmfile destroy
-  
+
 --
 
 ## EXERCISE5: UPDATE SOURCECODE & DOCKERFILE OF WEB-APP
@@ -129,7 +130,7 @@ app.Static("/", "/web/public")
 
 * Build the application w/ docker and the tag webapp:<username>
 * Import the newly build image into kind (kind get clusters for the name of the cluster)
-  
+
 --
 
 ## EXERCISE5: ADD/CHANGE TASKFILE (Create a task wich builds and imports an image to your kind cluster)
@@ -157,14 +158,14 @@ tasks:
   kind load docker-image <IMAGENAME> --name <KIND-CLUSTERNAME>
 * use declared variables for it
 * use task build
-  
+
 --
 
 ## EXERCISE6: CHANGE DB + LOGO
 
 * Update database/database.go
 
-```go
+```golang
 dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=5432 sslmode=disable TimeZone=Asia/Shanghai",
 		os.Getenv("DB_HOST"),
