@@ -25,3 +25,13 @@ pie title What Voldemort doesn't have?
          "NOSE" : 45
 %%{init:{'theme':'neutral'}}%%
 {{< /mermaid >}}
+
+{{< mermaid >}}
+sequenceDiagram
+Fred->>Jill:Hello my Snookums
+note over Fred:True Love
+Jill->>Fred:Oh my Darling!
+note over Jill:True Love Returned
+%%{init:{'theme':'dark'}}%%
+{{< /mermaid >}}
+
