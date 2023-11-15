@@ -1,5 +1,4 @@
 {
-    #"theme": "forest",
     "theme": "base",
     "themeVariables": {
         "fontFamily": "Calibri",
