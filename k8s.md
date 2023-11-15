@@ -6,6 +6,7 @@
 
 ```bash
 oras login zot.maverick.sthings-pve.labul.sva.de
+echo "hello world" > artifact.txt
 oras push zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1 \
 --artifact-type application/vnd.acme.rocket.config \
 artifact.txt:text/plain
