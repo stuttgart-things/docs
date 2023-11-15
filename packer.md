@@ -260,7 +260,6 @@ autoinstall:
 
 </details>
 
-
 <details><summary><b>PACKER BUILD</b></summary>
 
 ```bash

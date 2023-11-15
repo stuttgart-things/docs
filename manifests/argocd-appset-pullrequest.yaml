@@ -37,7 +37,7 @@ spec:
       sources: []
       syncPolicy:
         syncOptions:
-        - CreateNamespace=true
+          - CreateNamespace=true
         automated:
           prune: true
           selfHeal: false
