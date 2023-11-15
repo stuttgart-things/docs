@@ -1,5 +1,22 @@
 # stuttgart-things/docs/k8s
 
+## OCI ARTIFACTS W/ ORAS
+
+### PUSH
+
+```bash
+oras login zot.maverick.sthings-pve.labul.sva.de
+oras push zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1 \
+--artifact-type application/vnd.acme.rocket.config \
+artifact.txt:text/plain
+```
+
+### PULL
+
+```bash
+oras pull zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1
+```
+
 ## GET/DELETE ALL PODS OLDER THAN 24HOURS
 
 ```bash
