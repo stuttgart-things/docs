@@ -1,5 +1,6 @@
 {
-    "theme": "forest",
+    #"theme": "forest",
+    "theme": "base",
     "themeVariables": {
         "fontFamily": "Calibri",
         "fontSize": "60px"
