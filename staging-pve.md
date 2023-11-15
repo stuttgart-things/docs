@@ -14,6 +14,7 @@ stateDiagram-v2
     Bootstrap --> Vault
     Flux --> Bootstrap
     note left of Vault : Runs outside the cluster
+%%{init:{'themeCSS':'{ stroke: red; }'}}%%
 {{< /mermaid >}}
 
 ## Just another example to test some things
