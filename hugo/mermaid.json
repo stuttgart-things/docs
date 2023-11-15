@@ -1,5 +1,5 @@
 {
-    %%{init: {'theme':'base'}}%%
+    "theme": "base"
     "themeVariables": {
         "fontFamily": "Arial",
         "fontSize": "40px"
