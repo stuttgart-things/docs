@@ -1,5 +1,13 @@
 # stuttgart-things/docs/k8s
 
+## VCLUSTER
+
+```bash
+vcluster create my-vcluster --expose --set storage.className=openebs-hostpath
+vcluster disconnect
+vcluster connect my-vcluster -n vcluster-my-vcluster
+```
+
 ## OCI ARTIFACTS W/ ORAS
 
 ### PUSH
