@@ -16,12 +16,12 @@ stateDiagram-v2
     note left of Vault : Runs outside the cluster
 {{< /mermaid >}}
 
-## Just another exaple to test some things
-
+## Just another example to test some things
 
 {{< mermaid >}}
 pie title What Voldemort doesn't have?
          "FRIENDS" : 2
          "FAMILY" : 3
          "NOSE" : 45
+%%{init:{'theme':'neutral'}}%%
 {{< /mermaid >}}
