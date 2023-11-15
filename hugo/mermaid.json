@@ -2,6 +2,6 @@
     "theme": "base",
     "themeVariables": {
         "fontFamily": "Calibri",
-        "fontSize": "60px"
+        "fontSize": "80px"
     }
 }
