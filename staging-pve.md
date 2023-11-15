@@ -23,7 +23,7 @@ pie title What Voldemort doesn't have?
          "FRIENDS" : 2
          "FAMILY" : 3
          "NOSE" : 45
-%%{init:{'theme':'neutral'}}%%
+%%{init:{'theme':'dark'}}%%
 {{< /mermaid >}}
 
 {{< mermaid >}}
