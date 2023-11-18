@@ -1,7 +1,7 @@
 {
-    "theme": "forest",
+    "theme": "base"
     "themeVariables": {
-        "fontFamily": "Calibri",
-        "fontSize": "60px"
+        "fontFamily": "Arial",
+        "fontSize": "40px"
     }
 }
