@@ -104,7 +104,8 @@ kubectl get hr -A  # LIST ALL HRs
 flux suspend hr metallb-configuration -n metallb-system  # SUSPEND HR
 flux resume hr metallb-configuration -n metallb-system  # RESUME HR
 flux delete hr metallb-configuration -n metallb-system  # NOTHING ELSE MATTERS
-flux reconcile kustomization vault -n flux-system # RECREATE HR
+flux reconcile kustomization vault -n flux-system # RECONCILE KUSTOMIZATION
+flux reconcile source helm argocd  -n argocd # RECONCILE HELM SOURCE
 ```
 
 ### LIST ALL HELM KUSTOMIZATIONS
