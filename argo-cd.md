@@ -27,6 +27,28 @@ argocd-vault-plugin generate ./secret.yaml
 
 </details>
 
+<details><summary><b>AVP APPLICATION</b></summary>
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+  name: test2
+  namespace: argocd
+spec:   
+  project: pve-dev51
+  source:
+    repoURL: 'https://github.com/stuttgart-things/stuttgart-things.git'
+    path: machineShop/argo-cd/avp-manifest
+    targetRevision: HEAD
+    plugin:
+      name: argocd-vault-plugin
+  destination:
+    server: 'https://10.31.103.122:6443'
+    namespace: default
+```
+
+</details>
+
 <details><summary><b>AVP HELM-CHART</b></summary>
 
 ```bash
@@ -113,6 +135,8 @@ RUN mv ${BIN}* /usr/local/bin/${BIN}
 # Switch back to non-root user
 USER 65532
 ```
+
+</details>
 
 ## DEPLOYMENT
 
