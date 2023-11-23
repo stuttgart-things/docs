@@ -54,7 +54,7 @@ metadata:
     namespace: metallb-system
 spec:
     addresses:
-    - 10.31.10x.x-10.31.10x.x
+    - <ip-range-begin>-<ip-range-end>
 EOF
 ```
 ### create L2Advertisement
@@ -87,7 +87,7 @@ helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress
 depending on the infrastructure, you need to create an A-record for the Hosts IP-Address
 
 ## create Selfsingned Certificates for the Cluster
-create playbook to execute generate-selfsigned-certs role
+### create playbook to execute generate-selfsigned-certs role
 
 ```bash
 cat << EOF > selfsignedcerts.yaml
@@ -97,7 +97,7 @@ cat << EOF > selfsignedcerts.yaml
 
   vars:
     ssl_subject: rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN}
-    ssl_ip: 10.31.10x.x
+    ssl_ip: <ingress-ip>
     ca_subject: stuttgart-things
     certs_copy_target: "/tmp/certs/"
     trustbundle_name: cacerts.pem
@@ -112,7 +112,7 @@ cat << EOF > selfsignedcerts.yaml
 EOF
 ```
 
-deploy selfsigned certmanager
+### deploy selfsigned certmanager
 ```bash
 ansible-playbooks -i <inventory> selfsignedcerts.yaml
 ```
@@ -167,9 +167,14 @@ EOF
 helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 --values values.yaml -n cattle-system
 ```
 
-## Update CA-Certs on Downstream Cluster
+## Rancher create new Downstream cluster
+### Copy/Install CA-Certs on Downstream Cluster
+copy tls.crt to /usr/local/share/ca-certificates on new Host
 
-copy tls.crt to /usr/local/share/ca-certificates on cluster
 ```bash
 update-ca-certificates
 ```
+
+### create new Downstream cluster /w Rancher
+e.g. in Rancher Cluster Manager create a new cluster
+copy Registration Command from web ui and execute on new Host
