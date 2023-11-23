@@ -1,20 +1,51 @@
 # Install Rancher Cluster
 
-## Run Playbook Deploy RKE2
+## Run Playbook to deploy RKE2 on Host
+
+```bash
+cat << EOF > deployRKE2.yaml
+- hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Include vars
+      ansible.builtin.include_vars: "{{ path_to_vars_file }}.yaml"
+      when: path_to_vars_file is defined
+
+  vars:
+    rke_version: 2
+    rke2_k8s_version: 1.26.9 # or less
+    rke2_release_kind: rke2r1
+    rke2_airgapped_installation: true
+    disable_rke2_components:
+      - rke2-ingress-nginx
+      - rke-snapshot-controller
+    cluster_setup: multinode #singlenode
+    deploy_helm_charts: false
+
+  roles:
+    - role: deploy-configure-rke
+EOF
+```
+
+```bash
 ansible-playbook -i <hostlist> deployRKE2.yaml
+```
 
-v1.26.9+rke2r1 or less
-
-## Add Helm Repo for Bitnami
+## Install MetalLB
+### Add Helm Repo for Bitnami
+```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
+```
 
-## Install MetalLB /w Helm
+### Install MetalLB /w Helm
+```bash
 helm upgrade --install metallb -n metallb-system --create-namespace bitnami/metallb
+```
 
-## Create ipAddressPool for MetalLB
 ### create IPAddressPool
 
-```
+```bash
 kubectl apply -f - << EOF
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -28,7 +59,7 @@ EOF
 ```
 ### create L2Advertisement
 
-```
+```bash
 kubectl apply -f - << EOF
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -41,19 +72,25 @@ spec:
 EOF
 ```
 
-## Add Helm Repo for IngressNginx
+## Install IngressNginx
+### Add Helm Repo for IngressNginx
+```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-
-## Install IngressNginx /w Helm
-helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress-nginx/ingress-nginx
-
-## DNS created
-create DNS entry for ip address
-
-## CERT
-deploy selfsigned certmanager
-
 ```
+
+### Install IngressNginx /w Helm
+```bash
+helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress-nginx/ingress-nginx
+```
+
+## create DNS entry for ip address
+depending on the infrastructure, you need to create an A-record for the Hosts IP-Address
+
+## create Selfsingned Certificates for the Cluster
+create playbook to execute generate-selfsigned-certs role
+
+```bash
+cat << EOF > selfsignedcerts.yaml
 ---
 - hosts: localhost
   become: true
@@ -72,29 +109,45 @@ deploy selfsigned certmanager
 
   roles:
     - generate-selfsigned-certs
+EOF
+```
+
+deploy selfsigned certmanager
+```bash
+ansible-playbooks -i <inventory> selfsignedcerts.yaml
 ```
 
 ## Add namespace
+```bash
 kubectl create namespace cattle-system
+```
 
 ## Official documentation
 https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate
 
-## Add Helm Repo for Rancher
+## Install Rancher
+### Add Helm Repo for Rancher
+```bash
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
-
-## Deploy certs in cluster
-kubectl -n cattle-system create secret tls tls-rancher-ingress --cert=/tmp/certs/tls.crt --key=/tmp/certs/tls.key
-
-kubectl -n cattle-system create secret generic tls-ca --from-file=/tmp/certs/cacerts.pem
-
-## Apply CRDs
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.crds.yaml
-
-## Create values.yaml
-create values.yaml
-
 ```
+
+### Deploy certs in cluster
+```bash
+kubectl -n cattle-system create secret tls tls-rancher-ingress --cert=/tmp/certs/tls.crt --key=/tmp/certs/tls.key
+```
+```bash
+kubectl -n cattle-system create secret generic tls-ca --from-file=/tmp/certs/cacerts.pem
+```
+
+### Apply CRDs
+```bash
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.crds.yaml
+```
+
+## Create values file for Rancher bootstrap installation
+
+```bash
+cat << EOF > values.yaml
 global:
   cattle:
     psp:
@@ -106,12 +159,17 @@ ingress:
   enabled: true
   ingressClassName: nginx
   servicePort: 80
+EOF
 ```
 
 ## Install Rancher /w Helm
+```bash
 helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 --values values.yaml -n cattle-system
+```
 
 ## Update CA-Certs on Downstream Cluster
-copy tls.crt to /usr/local/share/ca-certificates on cluster
-update-ca-certificates
 
+copy tls.crt to /usr/local/share/ca-certificates on cluster
+```bash
+update-ca-certificates
+```
