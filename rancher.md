@@ -133,10 +133,13 @@ helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 
 ### Deploy certs in cluster
 ```bash
-kubectl -n cattle-system create secret tls tls-rancher-ingress --cert=/tmp/certs/tls.crt --key=/tmp/certs/tls.key
+kubectl -n cattle-system create secret tls tls-rancher-ingress \
+  --cert=/tmp/certs/tls.crt \
+  --key=/tmp/certs/tls.key
 ```
 ```bash
-kubectl -n cattle-system create secret generic tls-ca --from-file=/tmp/certs/cacerts.pem
+kubectl -n cattle-system create secret generic tls-ca \
+  --from-file=/tmp/certs/cacerts.pem
 ```
 
 ### Apply CRDs
@@ -164,7 +167,8 @@ EOF
 
 ## Install Rancher /w Helm
 ```bash
-helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 --values values.yaml -n cattle-system
+helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 \
+  --values values.yaml -n cattle-system
 ```
 
 ## Rancher create new Downstream cluster
