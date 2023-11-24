@@ -12,6 +12,7 @@ hostname.<domain>
 ansible_user=sthings
 EOF
 ```
+</details>
 
 <details><summary>INSTALL REQUIREMENTS</summary>
   
