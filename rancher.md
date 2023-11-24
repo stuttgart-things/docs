@@ -1,6 +1,6 @@
 # Install Rancher Cluster
 
-## Run Playbook to deploy RKE2 on Host
+## Deploy RKE2 on Host e.g. /w ansible role
 
 ```bash
 cat << EOF > deployRKE2.yaml
@@ -32,12 +32,14 @@ EOF
 ansible-playbook -i <hostlist> deployRKE2.yaml
 ```
 
-## Install MetalLB
-### Add Helm Repo for Bitnami
+### Add Helm Repos for Rancher Installation
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
+## Install MetalLB
 ### Install MetalLB /w Helm
 ```bash
 helm upgrade --install metallb -n metallb-system --create-namespace bitnami/metallb
@@ -73,18 +75,13 @@ EOF
 ```
 
 ## Install IngressNginx
-### Add Helm Repo for IngressNginx
-```bash
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-```
-
 ### Install IngressNginx /w Helm
 ```bash
 helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress-nginx/ingress-nginx
 ```
 
 ## create DNS entry for ip address
-depending on the infrastructure, you need to create an A-record for the Hosts IP-Address
+depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
 
 ## create Selfsingned Certificates for the Cluster
 ### create playbook to execute generate-selfsigned-certs role
@@ -126,11 +123,6 @@ kubectl create namespace cattle-system
 https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate
 
 ## Install Rancher
-### Add Helm Repo for Rancher
-```bash
-helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
-```
-
 ### Deploy certs in cluster
 ```bash
 kubectl -n cattle-system create secret tls tls-rancher-ingress \
