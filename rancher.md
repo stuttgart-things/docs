@@ -1,7 +1,52 @@
 # Install Rancher Cluster
 
-## Deploy RKE2 on Host e.g. /w ansible role
+<details><summary>INVENTORY FILE</summary>
 
+```bash
+cat << EOF > inventory
+[initial_master_node]
+hostname.<domain>
+[additional_master_node]
+
+[all:vars]
+ansible_user=sthings
+EOF
+```
+
+<details><summary>INSTALL REQUIREMENTS</summary>
+  
+```bash
+cat << EOF > requirements.yaml
+roles:
+- src: https://github.com/stuttgart-things/deploy-configure-rke.git
+  scm: git
+- src: https://github.com/stuttgart-things/configure-rke-node.git
+  scm: git
+- src: https://github.com/stuttgart-things/install-requirements.git
+  scm: git
+- src: https://github.com/stuttgart-things/install-configure-docker.git
+  scm: git
+- src: https://github.com/stuttgart-things/create-os-user.git
+  scm: git
+- src: https://github.com/stuttgart-things/download-install-binary.git
+  scm: git
+
+collections: 
+- name: community.crypto 
+  version: 2.15.1 
+- name: community.general 
+  version: 7.3.0 
+- name: ansible.posix 
+  version: 1.5.2 
+- name: kubernetes.core
+  version: 2.4.0
+EOF
+
+ansible-galaxy install -r requirements.yaml
+```
+</details>
+
+## Deploy RKE2 on Host e.g. /w ansible role
 ```bash
 cat << EOF > deployRKE2.yaml
 - hosts: all
@@ -26,10 +71,8 @@ cat << EOF > deployRKE2.yaml
   roles:
     - role: deploy-configure-rke
 EOF
-```
 
-```bash
-ansible-playbook -i <hostlist> deployRKE2.yaml
+ansible-playbook -i inventory deployRKE2.yaml
 ```
 
 ### Add Helm Repos for Rancher Installation
@@ -81,7 +124,22 @@ helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress
 ### create DNS entry for ip address
 depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
 
-### create playbook to execute generate-selfsigned-certs role
+<details><summary>INSTALL REQUIREMENTS</summary>
+  
+```bash
+cat << EOF > requirements.yaml
+roles:
+- src: https://github.com/stuttgart-things/install-requirements.git
+  scm: git
+- src: https://github.com/stuttgart-things/generate-selfsigned-certs.git
+  scm: git
+EOF
+
+ansible-galaxy install -r requirements.yaml
+```
+</details>
+
+### create playbook and execute generate-selfsigned-certs role
 
 ```bash
 cat << EOF > selfsignedcerts.yaml
@@ -104,11 +162,8 @@ cat << EOF > selfsignedcerts.yaml
   roles:
     - generate-selfsigned-certs
 EOF
-```
 
-### deploy selfsigned certmanager
-```bash
-ansible-playbooks -i <inventory> selfsignedcerts.yaml
+ansible-playbooks -i inventory selfsignedcerts.yaml
 ```
 
 ### Official documentation
@@ -158,6 +213,9 @@ EOF
 helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 \
   --values values.yaml -n cattle-system
 ```
+
+## Test Login /w bootstrap password from values.yaml
+open Browser of choice and connect to rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN} use bootstrap password for login
 
 ## Rancher create new Downstream cluster
 ### Copy/Install CA-Certs on Downstream Cluster
