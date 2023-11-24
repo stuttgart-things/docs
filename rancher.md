@@ -6,7 +6,7 @@
 cat << EOF > inventory
 [initial_master_node]
 hostname.<domain>
-[additional_master_node]
+[additional_master_nodes]
 
 [all:vars]
 ansible_user=sthings
