@@ -39,8 +39,7 @@ helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
-## Install MetalLB
-### Install MetalLB /w Helm
+## Install MetalLB /w Helm
 ```bash
 helm upgrade --install metallb -n metallb-system --create-namespace bitnami/metallb
 ```
@@ -74,16 +73,14 @@ spec:
 EOF
 ```
 
-## Install IngressNginx
-### Install IngressNginx /w Helm
+## Install IngressNginx /w Helm
 ```bash
 helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress-nginx/ingress-nginx
 ```
 
-## create DNS entry for ip address
+### create DNS entry for ip address
 depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
 
-## create Selfsingned Certificates for the Cluster
 ### create playbook to execute generate-selfsigned-certs role
 
 ```bash
@@ -114,15 +111,14 @@ EOF
 ansible-playbooks -i <inventory> selfsignedcerts.yaml
 ```
 
-## Add namespace
+### Official documentation
+https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate
+
+### Add namespace
 ```bash
 kubectl create namespace cattle-system
 ```
 
-## Official documentation
-https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate
-
-## Install Rancher
 ### Deploy certs in cluster
 ```bash
 kubectl -n cattle-system create secret tls tls-rancher-ingress \
@@ -139,7 +135,7 @@ kubectl -n cattle-system create secret generic tls-ca \
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.crds.yaml
 ```
 
-## Create values file for Rancher bootstrap installation
+### Create values file for Rancher bootstrap installation
 
 ```bash
 cat << EOF > values.yaml
