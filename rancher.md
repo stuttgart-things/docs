@@ -1,5 +1,6 @@
-# Install Rancher Cluster
+# stuttgart-things/docs/rancher
 
+## REQURIEMENTS
 <details><summary>INVENTORY FILE</summary>
 
 ```bash
@@ -7,9 +8,10 @@ cat << EOF > inventory
 [initial_master_node]
 hostname.<domain>
 [additional_master_nodes]
+# leave emptyfor singlenode cluster
 
 [all:vars]
-ansible_user=sthings
+ansible_user=<USERNAME>
 EOF
 ```
 </details>
@@ -43,7 +45,7 @@ collections:
   version: 2.4.0
 EOF
 
-ansible-galaxy install -r requirements.yaml
+ansible-galaxy install -r requirements.yaml -vv
 ```
 </details>
 
@@ -77,14 +79,16 @@ ansible-playbook -i inventory deployRKE2.yaml
 ```
 
 ### Add Helm Repos for Rancher Installation
+
 ```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
 ## Install MetalLB /w Helm
+
 ```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
 helm upgrade --install metallb -n metallb-system --create-namespace bitnami/metallb
 ```
 
@@ -118,12 +122,18 @@ EOF
 ```
 
 ## Install IngressNginx /w Helm
+
 ```bash
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress-nginx/ingress-nginx
 ```
 
 ### create DNS entry for ip address
 depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
+
+### create selfsigned-certs
+
+## REQURIEMENTS
 
 <details><summary>INSTALL REQUIREMENTS</summary>
   
@@ -140,7 +150,7 @@ ansible-galaxy install -r requirements.yaml
 ```
 </details>
 
-### create playbook and execute generate-selfsigned-certs role
+## GENERATE selfsigned-certs
 
 ```bash
 cat << EOF > selfsignedcerts.yaml
@@ -164,7 +174,7 @@ cat << EOF > selfsignedcerts.yaml
     - generate-selfsigned-certs
 EOF
 
-ansible-playbooks -i inventory selfsignedcerts.yaml
+ansible-playbooks -i inventory selfsignedcerts.yaml -vv
 ```
 
 ### Official documentation
