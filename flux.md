@@ -86,7 +86,15 @@ stringData:
 ## BOOTRSTAP FROM GITHUB
 
 ```bash
-flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test  # EXAMPLE
+export GITHUB_TOKEN=<TOKEN>
+flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test # EXAMPLE
+```
+
+## BOOTRSTAP FROM PRIVATE GITHUB
+
+```bash
+export GITLAB_TOKEN=<TOKEN>
+flux bootstrap gitlab --token-auth --hostname=<GITHUB-SERVER> --owner=Lab/stuttgart-things --repository=stuttgart-things --branch=master --path=clusters/labul/vsphere/sthings2 # EXAMPLE
 ```
 
 ## UNINSTALL FLUX
