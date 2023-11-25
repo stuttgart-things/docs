@@ -205,6 +205,21 @@ spec:
         namespace: vault
 ```
 
+#### ADD GitRepository
+
+```yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: stuttgart-things-github
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  url: https://github.com/stuttgart-things/stuttgart-things.git
+```
+
 ### PREVIEWING CHANGES FROM KUSTOMIZATION
 
 #### ON CLUSTER
