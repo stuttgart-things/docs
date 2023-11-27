@@ -51,6 +51,8 @@ ansible-galaxy install -r requirements.yaml -vv
 
 ## Deploy RKE2 w/ playbook
 
+<details><summary>Deploy RKE2 w/ playbook</summary>
+
 ```bash
 cat << EOF > deployRKE2.yaml
 - hosts: all
@@ -79,7 +81,11 @@ EOF
 ansible-playbook -i inventory deployRKE2.yaml
 ```
 
+</details>
+
 ## Install MetalLB /w Helm
+
+<details><summary> Install MetalLB /w Helm</summary>
 
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -87,7 +93,11 @@ helm repo update
 helm upgrade --install metallb -n metallb-system --create-namespace bitnami/metallb
 ```
 
+</details>
+
 ### create IPAddressPool
+
+<details><summary>create IPAddressPool</summary>
 
 ```bash
 kubectl apply -f - << EOF
@@ -101,7 +111,12 @@ spec:
     - <ip-range-begin>-<ip-range-end>
 EOF
 ```
+
+</details>
+
 ### create L2Advertisement
+
+<details><summary>create L2Advertisement</summary>
 
 ```bash
 kubectl apply -f - << EOF
@@ -115,6 +130,8 @@ spec:
     - ip-pool
 EOF
 ```
+
+</details>
 
 ## Install IngressNginx /w Helm
 
