@@ -49,7 +49,8 @@ ansible-galaxy install -r requirements.yaml -vv
 ```
 </details>
 
-## Deploy RKE2 on Host e.g. /w ansible role
+## Deploy RKE2 w/ playbook
+
 ```bash
 cat << EOF > deployRKE2.yaml
 - hosts: all
@@ -76,12 +77,6 @@ cat << EOF > deployRKE2.yaml
 EOF
 
 ansible-playbook -i inventory deployRKE2.yaml
-```
-
-### Add Helm Repos for Rancher Installation
-
-```bash
-helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
 ## Install MetalLB /w Helm
@@ -202,6 +197,12 @@ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/
 ```
 
 ### Create values file for Rancher bootstrap installation
+
+### Add Helm Repos for Rancher Installation
+
+```bash
+helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
+```
 
 ```bash
 cat << EOF > values.yaml
