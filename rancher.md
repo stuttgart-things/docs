@@ -257,3 +257,45 @@ update-ca-certificates
 ### create new Downstream cluster /w Rancher
 e.g. in Rancher Cluster Manager create a new cluster
 copy Registration Command from web ui and execute on new Host
+
+
+### ADD ADDITIONAL CLUSTER NODE
+get token from MASTER
+```
+cat /var/lib/rancher/rke2/token
+```
+
+create directory on additional node
+```
+mkdir -p /etc/rancher/rke2
+```
+
+create config yaml for cluster
+```
+cat << EOF > /etc/rancher/rke2/config.yaml
+---
+write-kubeconfig-mode: 644
+server: https://<ip-address>:9345
+token: <token>::server:<token>
+cni: canal
+disable:
+  - rke2-ingress-nginx
+  - rke-snapshot-controller
+EOF
+```
+
+set env vars
+```
+export INSTALL_RKE2_VERSION=v1.28.2+rke2r1
+export INSTALL_RKE2_CHANNEL_URL=https://update.rke2.io/v1-release/channels
+export INSTALL_RKE2_CHANNEL=stable
+export INSTALL_RKE2_METHOD=tar
+
+curl -sfL https://get.rke2.io | sh -
+```
+
+enable service
+```
+systemctl enable --now rke2-server.service
+```
+
