@@ -49,7 +49,7 @@ ansible-galaxy install -r requirements.yaml -vv
 ```
 </details>
 
-## Deploy RKE2 w/ playbook
+## DEPLOY RKE2 W/ PLAYBOOK
 
 <details><summary>Deploy RKE2 w/ playbook</summary>
 
@@ -83,7 +83,7 @@ ansible-playbook -i inventory deployRKE2.yaml
 
 </details>
 
-## Install MetalLB /w Helm
+## INSTALL METALLB /W HELM
 
 <details><summary> Install MetalLB /w Helm</summary>
 
@@ -95,7 +95,7 @@ helm upgrade --install metallb -n metallb-system --create-namespace bitnami/meta
 
 </details>
 
-### create IPAddressPool
+### CREATE IPADDRESSPOOL
 
 <details><summary>create IPAddressPool</summary>
 
@@ -114,7 +114,7 @@ EOF
 
 </details>
 
-### create L2Advertisement
+### CREATE L2ADVERTISEMENT
 
 <details><summary>create L2Advertisement</summary>
 
@@ -133,17 +133,17 @@ EOF
 
 </details>
 
-## Install IngressNginx /w Helm
+## INSTALL INGRESSNGINX /W HELM
 
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress-nginx/ingress-nginx
 ```
 
-### create DNS entry for ip address
+## CREATE DNS ENTRY FOR IP ADDRESS
 depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
 
-### create selfsigned-certs
+## CREATE SELFSIGNED-CERTS
 
 ## REQURIEMENTS
 
@@ -162,7 +162,7 @@ ansible-galaxy install -r requirements.yaml
 ```
 </details>
 
-## GENERATE selfsigned-certs
+### GENERATE SELFSIGNED-CERTS
 
 ```bash
 cat << EOF > selfsignedcerts.yaml
@@ -189,15 +189,15 @@ EOF
 ansible-playbooks -i inventory selfsignedcerts.yaml -vv
 ```
 
-### Official documentation
+### OFFICIAL DOCUMENTATION
 https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate
 
-### Add namespace
+### ADD NAMESPACE
 ```bash
 kubectl create namespace cattle-system
 ```
 
-### Deploy certs in cluster
+### DEPLOY CERTS IN CLUSTER
 ```bash
 kubectl -n cattle-system create secret tls tls-rancher-ingress \
   --cert=/tmp/certs/tls.crt \
@@ -208,19 +208,17 @@ kubectl -n cattle-system create secret generic tls-ca \
   --from-file=/tmp/certs/cacerts.pem
 ```
 
-### Apply CRDs
+### APPLY CRDS
 ```bash
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.crds.yaml
 ```
 
-### Create values file for Rancher bootstrap installation
-
-### Add Helm Repos for Rancher Installation
-
+### ADD HELM REPOS FOR RANCHER INSTALLATION
 ```bash
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
 
+### CREATE VALUES FILE FOR RANCHER BOOTSTRAP INSTALLATION
 ```bash
 cat << EOF > values.yaml
 global:
@@ -237,40 +235,40 @@ ingress:
 EOF
 ```
 
-## Install Rancher /w Helm
+## INSTALL RANCHER /W HELM
 ```bash
 helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 \
   --values values.yaml -n cattle-system
 ```
 
-## Test Login /w bootstrap password from values.yaml
+## TEST LOGIN /W BOOTSTRAP PASSWORD FROM VALUES.YAML
 open Browser of choice and connect to rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN} use bootstrap password for login
 
-## Rancher create new Downstream cluster
-### Copy/Install CA-Certs on Downstream Cluster
+## RANCHER CREATE NEW DOWNSTREAM CLUSTER
+### COPY/INSTALL CA-CERTS ON DOWNSTREAM CLUSTER
 copy tls.crt to /usr/local/share/ca-certificates on new Host
 
 ```bash
 update-ca-certificates
 ```
 
-### create new Downstream cluster /w Rancher
+### CREATE NEW DOWNSTREAM CLUSTER /W RANCHER
 e.g. in Rancher Cluster Manager create a new cluster
 copy Registration Command from web ui and execute on new Host
 
 
-### ADD ADDITIONAL CLUSTER NODE
-get token from MASTER
+## ADD ADDITIONAL CLUSTER NODE
+### GET TOKEN
 ```
 cat /var/lib/rancher/rke2/token
 ```
 
-create directory on additional node
+### CREATE DIRECTORY ON ADDITIONAL NODE
 ```
 mkdir -p /etc/rancher/rke2
 ```
 
-create config yaml for cluster
+### CREATE CONFIG YAML FOR CLUSTER
 ```
 cat << EOF > /etc/rancher/rke2/config.yaml
 ---
@@ -284,7 +282,7 @@ disable:
 EOF
 ```
 
-set env vars
+### SET ENV VARS
 ```
 export INSTALL_RKE2_VERSION=v1.28.2+rke2r1
 export INSTALL_RKE2_CHANNEL_URL=https://update.rke2.io/v1-release/channels
@@ -294,7 +292,7 @@ export INSTALL_RKE2_METHOD=tar
 curl -sfL https://get.rke2.io | sh -
 ```
 
-enable service
+### ENABLE SERVICE
 ```
 systemctl enable --now rke2-server.service
 ```
