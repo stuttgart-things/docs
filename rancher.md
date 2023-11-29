@@ -1,6 +1,11 @@
 # stuttgart-things/docs/rancher
 
-## REQURIEMENTS
+## DEPLOY HA-SERVER (UPSTREAM)
+
+### REQURIEMENTS
+
+#### INVENTORY
+
 <details><summary>INVENTORY FILE</summary>
 
 ```bash
@@ -16,8 +21,10 @@ EOF
 ```
 </details>
 
+#### REQUIREMENTS
+
 <details><summary>INSTALL REQUIREMENTS</summary>
-  
+
 ```bash
 cat << EOF > requirements.yaml
 roles:
@@ -34,13 +41,13 @@ roles:
 - src: https://github.com/stuttgart-things/download-install-binary.git
   scm: git
 
-collections: 
-- name: community.crypto 
-  version: 2.15.1 
-- name: community.general 
-  version: 7.3.0 
-- name: ansible.posix 
-  version: 1.5.2 
+collections:
+- name: community.crypto
+  version: 2.15.1
+- name: community.general
+  version: 7.3.0
+- name: ansible.posix
+  version: 1.5.2
 - name: kubernetes.core
   version: 2.4.0
 EOF
@@ -148,7 +155,7 @@ depending on the infrastructure, you need to create an A-record for the Ingress 
 ## REQURIEMENTS
 
 <details><summary>INSTALL REQUIREMENTS</summary>
-  
+
 ```bash
 cat << EOF > requirements.yaml
 roles:
@@ -256,43 +263,53 @@ update-ca-certificates
 e.g. in Rancher Cluster Manager create a new cluster > copy Registration Command from web ui > execute on new Hosts cli
 
 
-## ADD ADDITIONAL CLUSTER NODE
-### GET TOKEN
-```
+
+
+## ADD ADDITIONAL CLUSTER NODE (TO HA SERVER)
+
+### GET TOKEN + CONFIG FROM MASTER NODE
+
+```bash
 cat /var/lib/rancher/rke2/token
+cat /etc/rancher/rke2/config.yaml
 ```
 
 ### CREATE DIRECTORY ON ADDITIONAL NODE
-```
+
+```bash
 mkdir -p /etc/rancher/rke2
 ```
 
 ### CREATE CONFIG YAML FOR CLUSTER
-```
+
+Add token to (copied) config
+
+```bash
 cat << EOF > /etc/rancher/rke2/config.yaml
 ---
 write-kubeconfig-mode: 644
 server: https://<master-ip-address>:9345
 token: <token_from_master>
-cni: canal
-disable:
+cni: <CNI> # e.g. canal
+disable: # example
   - rke2-ingress-nginx
   - rke-snapshot-controller
 EOF
 ```
 
 ### SET ENV VARS
-```
-export INSTALL_RKE2_VERSION=v1.28.2+rke2r1
-export INSTALL_RKE2_CHANNEL_URL=https://update.rke2.io/v1-release/channels
-export INSTALL_RKE2_CHANNEL=stable
-export INSTALL_RKE2_METHOD=tar
+
+```bash
+export INSTALL_RKE2_VERSION=v1.28.2+rke2r1 #example - check version/github
+export INSTALL_RKE2_CHANNEL_URL=https://update.rke2.io/v1-release/channels #example
+export INSTALL_RKE2_CHANNEL=stable #example
+export INSTALL_RKE2_METHOD=tar #example
 
 curl -sfL https://get.rke2.io | sh -
 ```
 
 ### ENABLE SERVICE
-```
+
+```bash
 systemctl enable --now rke2-server.service
 ```
-
