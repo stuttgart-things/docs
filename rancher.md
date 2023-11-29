@@ -242,7 +242,7 @@ helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 \
 ```
 
 ## TEST LOGIN /W BOOTSTRAP PASSWORD FROM VALUES.YAML
-open Browser of choice and connect to rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN} use bootstrap password for login
+open Browser of choice and connect to rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN} > use bootstrap password from values.yaml for login
 
 ## RANCHER CREATE NEW DOWNSTREAM CLUSTER
 ### COPY/INSTALL CA-CERTS ON DOWNSTREAM CLUSTER
@@ -253,8 +253,7 @@ update-ca-certificates
 ```
 
 ### CREATE NEW DOWNSTREAM CLUSTER /W RANCHER
-e.g. in Rancher Cluster Manager create a new cluster
-copy Registration Command from web ui and execute on new Host
+e.g. in Rancher Cluster Manager create a new cluster > copy Registration Command from web ui > execute on new Hosts cli
 
 
 ## ADD ADDITIONAL CLUSTER NODE
