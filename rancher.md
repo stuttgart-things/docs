@@ -275,8 +275,8 @@ create config yaml for cluster
 cat << EOF > /etc/rancher/rke2/config.yaml
 ---
 write-kubeconfig-mode: 644
-server: https://<ip-address>:9345
-token: <token>::server:<token>
+server: https://<master-ip-address>:9345
+token: <token_from_master>
 cni: canal
 disable:
   - rke2-ingress-nginx
