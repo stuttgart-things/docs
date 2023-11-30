@@ -74,7 +74,6 @@ kind: Release
 metadata:
   name: wordpress-example
 spec:
-# rollbackLimit: 3
   forProvider:
     chart:
       name: wordpress
@@ -82,21 +81,17 @@ spec:
       version: 15.2.5 ## To use devlopment versions, set ">0.0.0-0"
 #     url: "https://charts.bitnami.com/bitnami/wordpress-9.3.19.tgz"
     namespace: wordpress
-#   insecureSkipTLSVerify: true
-#   skipCreateNamespace: true
-#   wait: true
-#   skipCRDs: true
+    insecureSkipTLSVerify: true
+    skipCreateNamespace: true
+    wait: true
+    skipCRDs: true
     values:
       service:
         type: ClusterIP
-    set:
-      - name: param1
-        value: value2
   providerConfigRef:
     name: helm-provider
 EOF
 ```
-
 
 ## EXAMPLE TERRAFORM PROVIDER (KUBERNETES EXAMPLE)
 
