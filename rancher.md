@@ -92,7 +92,7 @@ ansible-playbook -i inventory deployRKE2.yaml
 
 ## INSTALL METALLB /W HELM
 
-<details><summary> Install MetalLB /w Helm</summary>
+<details><summary> INSTALL METALLB /W HELM</summary>
 
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -104,7 +104,7 @@ helm upgrade --install metallb -n metallb-system --create-namespace bitnami/meta
 
 ### CREATE IPADDRESSPOOL
 
-<details><summary>create IPAddressPool</summary>
+<details><summary>CREATE IPADDRESSPOOL</summary>
 
 ```bash
 kubectl apply -f - << EOF
@@ -123,7 +123,7 @@ EOF
 
 ### CREATE L2ADVERTISEMENT
 
-<details><summary>create L2Advertisement</summary>
+<details><summary>CREATE L2ADVERTISEMENT</summary>
 
 ```bash
 kubectl apply -f - << EOF
@@ -140,12 +140,16 @@ EOF
 
 </details>
 
-## INSTALL INGRESSNGINX /W HELM
+## DEPLOY INGRESSNGINX /W HELM
+
+<details><summary>DEPLOY INGRESSNGINX</summary>
 
 ```bash
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress-nginx/ingress-nginx
 ```
+
+</details>
 
 ## CREATE DNS ENTRY FOR IP ADDRESS
 depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
@@ -261,9 +265,6 @@ update-ca-certificates
 
 ### CREATE NEW DOWNSTREAM CLUSTER /W RANCHER
 e.g. in Rancher Cluster Manager create a new cluster > copy Registration Command from web ui > execute on new Hosts cli
-
-
-
 
 ## ADD ADDITIONAL CLUSTER NODE (TO HA SERVER)
 
