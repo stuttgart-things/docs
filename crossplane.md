@@ -2,9 +2,13 @@
 
 ##  Terminology
 
-| CONCEPT  | DESCRIPTION                                                          |
+| KIND  | DESCRIPTION                                                          |
 |----------|----------------------------------------------------------------------|
-| provider | enable Crossplane to provision infrastructure on an external service |
+| Provider       | enable Crossplane to provision infrastructure on an external service |
+| ProviderConfig | each Provider package has its own configuration type |
+| Composition | Terraform fanboys might think of a Composition as a Terraform module - the HCL code that describes how to take input variables and use them to create resources in some cloud - Helm fanboys might think of a Composition as a Helm chart's templates; the moustache templated YAML files that describe how to take Helm chart values and render Kubernetes resources |
+| CompositeResourceDefinition | There isn't a direct analog to XRDs in the Helm ecosystem, but they're a little bit like the variable blocks in a Terraform module that define which variables exist, whether those variables are strings or integers, whether they're required or optional, etc. |
+| Composite Resource Claim  | Claims map to the same concepts as described above under the composite resource heading; i.e. tfvars files and Helm values.yaml files. Imagine that some tfvars files and some values.yaml files were only accessible to the platform team while others were offered to application teams; that's the difference between a composite resource and a claim. |
 
 
 ## DEPLOYMENT W/ HELM
