@@ -11,6 +11,13 @@
 | Composite Resource Claim  | Claims map to the same concepts as described above under the composite resource heading; i.e. tfvars files and Helm values.yaml files. Imagine that some tfvars files and some values.yaml files were only accessible to the platform team while others were offered to application teams; that's the difference between a composite resource and a claim. |
 
 
+## CLI INSTALLATION
+
+```bash
+curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh" | sh
+sudo mv crossplane /usr/local/bin
+```
+
 ## DEPLOYMENT W/ HELM
 
 ```bash
@@ -19,10 +26,77 @@ helm repo add crossplane-stable https://charts.crossplane.io/stable && helm repo
 
 helm upgrade --install crossplane --wait \
 --namespace crossplane-system \
-crossplane-stable/crossplane --version 1.14.1
+crossplane-stable/crossplane --version 1.14.3
 
 kubectl api-resources | grep upbound
 ```
+
+## EXAMPLE HELM PROVIDER
+
+### DEPLOY HELM PROVIDER
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-helm
+spec:
+  package: "crossplanecontrib/provider-helm:master"
+EOF
+```
+
+### IN-CLUSTER PROVIDER CONFIGURATION
+
+DEPLOY HELM RELEASES ON THE SAME CLUSTER CROSSPLANE IS RUNNING ON
+
+```bash
+SA=$(kubectl -n crossplane-system get sa -o name | grep provider-helm | sed -e 's|serviceaccount\/|crossplane-system:|g')
+kubectl create clusterrolebinding provider-helm-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}"
+
+kubectl apply -f - <<EOF
+apiVersion: helm.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: helm-provider
+spec:
+  credentials:
+    source: InjectedIdentity
+EOF
+```
+
+### DEPLOY RELEASE
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: wordpress-example
+spec:
+# rollbackLimit: 3
+  forProvider:
+    chart:
+      name: wordpress
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.2.5 ## To use devlopment versions, set ">0.0.0-0"
+#     url: "https://charts.bitnami.com/bitnami/wordpress-9.3.19.tgz"
+    namespace: wordpress
+#   insecureSkipTLSVerify: true
+#   skipCreateNamespace: true
+#   wait: true
+#   skipCRDs: true
+    values:
+      service:
+        type: ClusterIP
+    set:
+      - name: param1
+        value: value2
+  providerConfigRef:
+    name: helm-provider
+EOF
+```
+
 
 ## EXAMPLE TERRAFORM PROVIDER (KUBERNETES EXAMPLE)
 
