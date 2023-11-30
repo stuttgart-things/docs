@@ -1,5 +1,37 @@
 # stuttgart-things/docs/rancher
 
+## GENERAL
+
+### KUBECONFIG
+
+```bash
+export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+/var/lib/rancher/rke2/bin/kubectl get nodes
+```
+
+### LIST CONTAINERS USING CTR
+
+```bash
+/var/lib/rancher/rke2/bin/ctr --address /run/k3s/containerd/containerd.sock --namespace k8s.io container ls
+```
+
+### CRICTL
+
+```bash
+export CRI_CONFIG_FILE=/var/lib/rancher/rke2/agent/etc/crictl.yaml
+/var/lib/rancher/rke2/bin/crictl ps
+
+/var/lib/rancher/rke2/bin/crictl --runtime-endpoint unix:///run/k3s/containerd/containerd.sock ps -a
+```
+
+### LOGGING
+
+```bash
+journalctl -f -u rke2-server
+/var/lib/rancher/rke2/agent/containerd/containerd.log
+/var/lib/rancher/rke2/agent/logs/kubelet.log
+```
+
 ## DEPLOY HA-SERVER (UPSTREAM)
 
 ### REQURIEMENTS

@@ -20,6 +20,8 @@ sudo mv crossplane /usr/local/bin
 
 ## DEPLOYMENT W/ HELM
 
+[provider-helm](https://github.com/crossplane-contrib/provider-helm/tree/master)
+
 ```bash
 kubectl create namespace crossplane-system
 helm repo add crossplane-stable https://charts.crossplane.io/stable && helm repo update
