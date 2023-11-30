@@ -1,8 +1,13 @@
 # stuttgart-things/docs/crossplane
 
-## CROSSPLANE
+##  Terminology
 
-### DEPLOYMENT W/ HELM
+| CONCEPT  | DESCRIPTION                                                          |
+|----------|----------------------------------------------------------------------|
+| provider | enable Crossplane to provision infrastructure on an external service |
+
+
+## DEPLOYMENT W/ HELM
 
 ```bash
 kubectl create namespace crossplane-system
@@ -15,9 +20,9 @@ crossplane-stable/crossplane --version 1.14.1
 kubectl api-resources | grep upbound
 ```
 
-### EXAMPLE TERRAFORM PROVIDER (KUBERNETES EXAMPLE)
+## EXAMPLE TERRAFORM PROVIDER (KUBERNETES EXAMPLE)
 
-#### DEPLOY TERRAFORM PROVIDER
+### DEPLOY TERRAFORM PROVIDER
 
 ```bash
 kubectl apply -f - <<EOF
@@ -81,7 +86,7 @@ subjects:
 EOF
 ```
 
-#### CREATE SAMPLE CRD
+### CREATE SAMPLE CRD
 
 ```bash
 kubectl apply -f - <<EOF
@@ -113,7 +118,7 @@ spec:
 EOF
 ```
 
-#### CREATE SAMPLE COMPOSITION
+### CREATE SAMPLE COMPOSITION
 
 ```bash
 kubectl apply -f - <<EOF
@@ -150,7 +155,7 @@ spec:
 EOF
 ```
 
-#### CREATE SAMPLE CLAIM
+### CREATE SAMPLE CLAIM
 
 ```bash
 kubectl apply -f - <<EOF
@@ -165,8 +170,8 @@ spec:
 EOF
 ```
 
-#### VERIFY
+### VERIFY
 
 ```bash
 kubectl get NginxApp
-``
+```
