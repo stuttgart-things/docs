@@ -60,7 +60,7 @@ kubectl apply -f - <<EOF
 apiVersion: helm.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: helm-provider
+  name: helm-provider-incluster
 spec:
   credentials:
     source: InjectedIdentity
@@ -74,25 +74,31 @@ kubectl apply -f - <<EOF
 apiVersion: helm.crossplane.io/v1beta1
 kind: Release
 metadata:
-  name: wordpress-example
+  name: goldilocks-example
 spec:
   forProvider:
     chart:
-      name: wordpress
-      repository: https://charts.bitnami.com/bitnami
-      version: 15.2.5 ## To use devlopment versions, set ">0.0.0-0"
+      name: goldilocks
+      repository: https://charts.fairwinds.com/stable
+      version: 8.0.0
 #     url: "https://charts.bitnami.com/bitnami/wordpress-9.3.19.tgz"
-    namespace: wordpress
+    namespace: goldilocks
     insecureSkipTLSVerify: true
-    skipCreateNamespace: true
+    skipCreateNamespace: false
     wait: true
     skipCRDs: true
     values:
       service:
         type: ClusterIP
   providerConfigRef:
-    name: helm-provider
+    name: helm-provider-incluster
 EOF
+```
+
+### VERIFY RELEASE
+
+```bash
+kubectl get Release
 ```
 
 ## EXAMPLE TERRAFORM PROVIDER (KUBERNETES EXAMPLE)
