@@ -1,5 +1,64 @@
 # stuttgart-things/docs/flux
 
+## USE AS S3 AS SOURCE
+
+### CREATE S3 SECRET
+
+```bash
+kubectl apply -f - <<EOF
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: artifacts-labul-automation-secret
+  namespace: flux-system
+type: Opaque
+stringData:
+  accesskey: flux
+  secretkey: <${SECRET}
+EOF
+```
+
+### CREATE S3 BUCKET
+
+```bash
+kubectl apply -f - <<EOF
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: Bucket
+metadata:
+  name: artifacts-labul-automation
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  endpoint: artifacts.automation.sthings-vsphere.labul.sva.de
+  insecure: false
+  secretRef:
+    name: artifacts-labul-automation-secret
+  bucketName: vsphere-vm
+EOF
+```
+
+### CREATE S3 KUSTOMIZATION
+
+```bash
+kubectl apply -f - <<EOF
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: terraform
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  prune: true
+  path: ./
+  sourceRef:
+    kind: Bucket
+    name: artifacts-labul-automation
+EOF
+```
+
 ## MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER
 
 ### CREATE PUB CERT AS CM
