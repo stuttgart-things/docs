@@ -1,5 +1,38 @@
 # stuttgart-things/docs/ansible
 
+## WAIT FOR CUSTOM K8S RESOURCE TO BE CREATED/READY 
+
+```yaml
+---
+- hosts: localhost
+  become: no
+  gather_facts: no
+  environment:
+    K8S_AUTH_KUBECONFIG: "~/.kube/automationLab"
+  vars:
+    resource_name: warschau
+    resource_namespace: terraform
+    api_version: machineshop.sthings.tiab.ssc.sva.de/v1beta1
+
+  tasks:
+    - name: Wait until resource is created
+      kubernetes.core.k8s_info:
+        api_version: "{{ api_version }}"
+        kind: terraform
+        name: "{{ resource_name }}"
+        namespace: "{{ resource_namespace }}"
+        wait: yes
+        wait_timeout: 900
+
+    - name: Wait for operator to build vm
+      ansible.builtin.shell: |
+        kubectl get terraform {{ resource_name }} -n {{ resource_namespace }} -o jsonpath={.status.conditions[0].status}
+      register: resource_state
+      until: resource_state.stdout == "True"
+      retries: 60
+      delay: 15
+```
+
 ## EVENT-DRIVEN-ANSIBLE (EDA)
 
 ### INSTALLATION
