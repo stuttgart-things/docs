@@ -101,9 +101,9 @@ EOF
 kubectl get Release
 ```
 
-## EXAMPLE TERRAFORM PROVIDER (KUBERNETES EXAMPLE)
+## TERRAFORM PROVIDER
 
-### DEPLOY TERRAFORM PROVIDER
+### PROVIDER DEPLOYMENT + PROVIDER CONFIG (K8S STATE)
 
 ```bash
 kubectl apply -f - <<EOF
@@ -115,11 +115,13 @@ spec:
   package: xpkg.upbound.io/upbound/provider-terraform:v0.11.0
 EOF
 
+sleep 20s
+
 kubectl apply -f - <<EOF
 apiVersion: tf.upbound.io/v1beta1
 kind: ProviderConfig
 metadata:
-  name: terraform-default
+  name: default
 spec:
   configuration: |
     terraform {
@@ -165,6 +167,35 @@ subjects:
   name: ${TERRAFORM_SERVICE_ACCOUNT}
   namespace: crossplane-system
 EOF
+```
+
+### INLINE WORKSPACE-EXAMPLE
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: example-inline
+  annotations:
+    crossplane.io/external-name: coolbucket
+spec:
+  forProvider:
+    source: Inline
+    module: |
+      output "hello_world" {
+        value = "Hello, World!"
+      }
+  writeConnectionSecretToRef:
+    namespace: default
+    name: terraform-workspace-example-inline
+
+kubectl describe workspace example-inline | grep Status -A10
+EOF
+```
+
+### KUBERNETES DEPLOYMENT EXAMPLE
+
 ```
 
 ### CREATE SAMPLE CRD
