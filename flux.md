@@ -1,5 +1,75 @@
 # stuttgart-things/docs/flux
 
+## USE AGE+SOPS FOR SECRETS
+
+[age](https://github.com/getsops/sops/releases) - management of gnupg keyrings and PGP keys
+[sops](https://github.com/FiloSottile/age/releases) - encrypts file while maintaining the original structure
+
+### CREATE KEY FOR SOPS W/ AGE
+
+```bash
+age-keygen -o sops.key
+```
+
+### CREATE SOPS CONFIG YAML
+
+```bash
+AGE_PUB_KEY=$(cat sops.key | grep 'public key' | awk '{ print $4 }')
+cat <<EOF > .sops.yaml
+creation_rules:
+  - encrypted_regex: '^(data|stringData)$'
+    age: ${AGE_PUB_KEY}
+EOF
+```
+
+### EXAMPLE ENCRYPTION
+
+```bash
+cat <<EOF > ./secret.yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: secret
+data:
+  password: wHat6ver
+EOF
+
+sops -e ./secret.yaml | tee sops-secret.yaml
+```
+
+### DECRYPTION ON SHELL
+
+```bash
+export SOPS_AGE_KEY_FILE=${PWD}/sops.key
+sops --decrypt sops-secret.yaml
+```
+
+### DECRYPTION ON FLUX
+
+```bash
+kubectl -n flux-system create secret generic sops-age \
+--from-file=age.agekey=sops.key
+```
+
+```yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-system
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./clusters/labul/pve/dev43
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+```
+
 ## USE AS S3 AS SOURCE
 
 ### CREATE S3 SECRET
