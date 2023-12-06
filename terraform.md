@@ -4,6 +4,7 @@
 
 ```bash
 terraform init
+terraform verify
 terraform plan
 terraform apply
 terraform destroy
@@ -14,7 +15,7 @@ terraform destroy
 ## AWS
 
 <details open><summary>AWS CLI</summary>
-  
+
 ```bash
 sudo apt -y install awscli
 aws configure
@@ -39,7 +40,7 @@ terraform {
 
 </details close>
 
-## CREATE GENERATED SECRET IN AWS SECRETS MANAGER 
+## CREATE GENERATED SECRET IN AWS SECRETS MANAGER
 
 <details open><summary>random-secret-aws.tf</summary>
 
@@ -85,9 +86,6 @@ EOF
 </details close>
 
 
-</details close>
-
-
 ## OUTPUT/USE SECRET FROM AWS SECRETS MANAGER
 
 <details open><summary>random-secret-aws.tf</summary>
@@ -101,7 +99,7 @@ data "aws_secretsmanager_secret_version" "secret_version" {
   secret_id = data.aws_secretsmanager_secret.msk_secrets.id
 }
 
-# 
+#
 output "secret_string" {
   value = jsondecode(nonsensitive(data.aws_secretsmanager_secret_version.secret_version.secret_string))["username"]
 }
