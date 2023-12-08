@@ -1,5 +1,32 @@
 # stuttgart-things/docs/rancher
 
+## CREATE VSPHERE CLUSTER W/ CLUSTER API
+
+<details><summary>VSPHERE-CREDENTIALS</summary>
+
+```yaml
+
+```
+
+</details>
+
+<details><summary>VMWAREVSPHERECONFIG</summary>
+
+```yaml
+
+```
+
+</details>
+
+
+<details><summary>CLUSTER</summary>
+
+```yaml
+
+```
+
+</details>
+
 ## GENERAL
 
 ### KUBECONFIG
