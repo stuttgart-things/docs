@@ -5,6 +5,23 @@
 <details><summary>VSPHERE-CREDENTIALS</summary>
 
 ```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: labda-vsphere
+  namespace: cattle-global-data
+  annotations:
+    field.cattle.io/description: "labda-vsphere"
+    field.cattle.io/name: "labda-vsphere"
+    provisioning.cattle.io/driver: "vmwarevsphere"
+  labels:
+    cattle.io/creator: norman
+type: Opaque
+stringData:
+  vmwarevspherecredentialConfig-password: "<passwort for vshere>"
+  vmwarevspherecredentialConfig-username: "<user>"
+  vmwarevspherecredentialConfig-vcenter: "<vshere ip>"
+  vmwarevspherecredentialConfig-vcenterPort: "<vshere port>"
 
 ```
 
@@ -13,7 +30,44 @@
 <details><summary>VMWAREVSPHERECONFIG</summary>
 
 ```yaml
-
+apiVersion: rke-machine-config.cattle.io/v1
+kind: VmwarevsphereConfig
+metadata:
+  name: <your-maschine-pool-name>-<cluster-name>
+  namespace: fleet-default
+common:
+  cloudCredentialSecretName: cattle-global-data:labda-vsphere
+cloneFrom: /NetApp-HCI-Datacenter/vm/stuttgart-things/vm-templates/u22-rke2-ipi
+cfgparam:
+  - disk.enableUUID=TRUE
+datacenter: /NetApp-HCI-Datacenter
+datastoreCluster: /NetApp-HCI-Datacenter/datastore/DatastoreCluster
+hostsystem: null
+folder: /NetApp-HCI-Datacenter/vm/stuttgart-things/rancher-things
+network:
+  - /NetApp-HCI-Datacenter/host/NetApp-HCI-Cluster-01/10.100.135.44/tiab-prod
+cpuCount: "6"
+diskSize: "20480"
+memorySize: "6144"
+creationType: template
+sshPort: "22"
+sshUser: docker
+sshUserGroup: staff
+tag: []
+vappProperty: []
+customAttribute: []
+boot2dockerUrl: ""
+contentLibrary: ""
+vcenter: "10.100.135.50"
+vcenterPort: "443"
+vappTransport: null
+vappIpallocationpolicy: null
+vappIpprotocol: null
+cloudinit: |
+  runcmd:
+    - wget -O /usr/local/share/ca-certificates/labda-vsphere-ca.crt https://vault-vsphere.tiab.labda.sva.de:8200/v1/pki/ca/pem --no-check-certificate
+    - update-ca-certificates
+     
 ```
 
 </details>
@@ -22,11 +76,72 @@
 <details><summary>CLUSTER</summary>
 
 ```yaml
-
+apiVersion: provisioning.cattle.io/v1
+kind: Cluster
+metadata:
+  name: <clustername>
+  namespace: fleet-default
+  finalizers:
+    - wrangler.cattle.io/provisioning-cluster-remove
+spec:
+  kubernetesVersion: v1.25.9+rke2r1
+  cloudCredentialSecretName: cattle-global-data:labda-vsphere
+  localClusterAuthEndpoint: {}
+  rkeConfig:
+    chartValues:
+      rke2-calico: {}
+    etcd:
+      snapshotRetention: 5
+      snapshotScheduleCron: 0 */5 * * *
+    machineGlobalConfig:
+      cni: calico
+      disable:
+        - rke2-ingress-nginx
+        - rke2-metrics-server
+      disable-kube-proxy: false
+      etcd-expose-metrics: false
+      profile: null
+    machineSelectorConfig:
+      - config:
+          protect-kernel-defaults: false
+          cloud-provider-name: vsphere
+    machinePools:
+      - name: <your-master-machine-pool-name>-<cluster-name>
+        quantity: 1
+        displayName: <your-master-machine-pool-name>-<cluster-name>
+        controlPlaneRole: true
+        etcdRole: true
+        workerRole: false
+        machineConfigRef:
+          kind: VmwarevsphereConfig
+          name: <your-vmwarevsphereconfig-name>
+        paused: false
+      - name: <your-worker-machine-pool-name>-<cluster-name>
+        quantity: 1
+        displayName: <your-worker-machine-pool-name>-<cluster-name>
+        controlPlaneRole: false
+        etcdRole: false
+        workerRole: true
+        machineConfigRef:
+          kind: VmwarevsphereConfig
+          name: <your-vmwarevsphereconfig-name>
+        paused: false
+    registries: {}
+    upgradeStrategy:
+      controlPlaneConcurrency: 10%
+      controlPlaneDrainOptions:
+        timeout: 0
+      workerConcurrency: 10%
+      workerDrainOptions:
+        timeout: 0
 ```
-
 </details>
 
+```text
+For programmatically creating clusters via rest api calls you need to make sure that every 
+cluster you want to create needs theire own and specific MaschinePoolConfig as well as VmwarevsphereConfig, in order to work
+properly. MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide as a global ressource.   
+```
 ## GENERAL
 
 ### KUBECONFIG
