@@ -1,13 +1,8 @@
 # stuttgart-things/docs/minio
 
-## MC COMMAND SNIPPETS
+## MINIO CLIENT
 
-```bash
-mc anonymous set public artifacts-labda/roles # SET BUCKET TO PUBLIC
-mc ls artifacts-labda # LIST BUCKETS
-```
-
-## MC CONFIG (EXAMPLE)
+### MC CONFIG (EXAMPLE)
 
 ```json
 # cat ~/.mc/config.json
@@ -32,7 +27,16 @@ mc ls artifacts-labda # LIST BUCKETS
 }
 ```
 
-## RCLONE CONFIG (EXAMPLE)
+### MC COMMAND SNIPPETS
+
+```bash
+mc anonymous set public artifacts-labda/roles # SET BUCKET TO PUBLIC
+mc ls artifacts-labda # LIST BUCKETS
+```
+
+## RCLONE
+
+### RCLONE CONFIG (EXAMPLE)
 
 ```bash
 mdkir -p ${HOME}/.config/rclone/
@@ -47,3 +51,11 @@ acl = private
 region = us-central-1
 EOF
 ```
+
+### RCLONE COMMAND SNIPPETS
+
+```bash
+rclone ls labul-automation:vsphere-vm
+rclone sync labul-automation:vsphere-vm . # sync bucket to current (local) dir
+```
+
