@@ -1,5 +1,11 @@
 # stuttgart-things/docs/k8s
 
+## SAST W/ POLARIS
+
+```bash
+polaris audit nginx.yaml --only-show-failed-tests --severity error
+```
+
 ## VCLUSTER
 
 ```bash
