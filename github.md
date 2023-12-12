@@ -109,11 +109,21 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 
 </details close>
 
+<details open><summary><b>AUTO MERGE/REBASE PR</b></summary>
+
+```bash
+# GET LATEST PR AND AUTO MERGE + DELETE BRANCH
+gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --delete-branch
+```
+
+</details close>
+
+
 ## GITHUB ACTIONS
 
 ### EXAMPLES
 
-<details open><summary><b>test-workflow</b></summary>
+<details open><summary><b>TEST-WORKFLOW</b></summary>
 
 ```yaml
 name: Actions Runner Controller Demo
@@ -128,7 +138,50 @@ jobs:
 
 </details close>
 
-<details open><summary><b>workflow.yaml</b></summary>
+<details open><summary><b>MULTIPLE CHOICE INPUTS</b></summary>
+
+```yaml
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        description: Who to greet
+        options: 
+          - maypayne
+          - scorseese
+          - deniro
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send greeting
+      run: echo ${{ github.event.inputs.name }}"
+```
+
+</details close>
+
+
+
+<details open><summary><b>DEFAULTS FOR INPUTS</b></summary>
+
+```yaml
+# FOR EXAMPLE WHEN USING WORFLOW DISPATCH AND GIT TRIGGERS TO SET A DEFAULT VALUE
+  - name: Set default value
+    id: defaultname
+    run: |
+      USER_INPUT=${{ github.event.inputs.name }}
+      echo "value=${USER_INPUT:-"Octocat"}" >> "$GITHUB_OUTPUT"
+
+  - name: Do something with it
+    run: |
+      name="${{ steps.defaultname.outputs.value }}"
+      echo "Name: $name"
+```
+
+</details close>
+
+<details open><summary><b>WORKFLOW</b></summary>
 
 ```yaml
 name: Run git workflow
