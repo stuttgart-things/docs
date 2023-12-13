@@ -9,7 +9,6 @@ helm repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/cs
 helm upgrade --install csi-driver-nfs csi-driver-nfs/csi-driver-nfs --namespace kube-system --version v4.5.0
 ```
 
-
 ### STORAGECLASS EXAMPLE
 
 ```yaml
@@ -44,6 +43,22 @@ parameters:
 provisioner: nfs.csi.k8s.io
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
+```
+
+### PVC EXAMPLE
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: task-pv-claim
+spec:
+  storageClassName: nfs4-csi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
 ```
 
 ## SAST W/ POLARIS
