@@ -1,5 +1,51 @@
 # stuttgart-things/docs/k8s
 
+## NFS CSI
+
+### NFS CSI DEPLOYMENT
+
+```bash
+helm repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+helm upgrade --install csi-driver-nfs csi-driver-nfs/csi-driver-nfs --namespace kube-system --version v4.5.0
+```
+
+
+### STORAGECLASS EXAMPLE
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    helm.toolkit.fluxcd.io/name: nfs-csi-configuration
+    helm.toolkit.fluxcd.io/namespace: kube-system
+  name: nfs4-csi
+parameters:
+  mountPermissions: "0777"
+  server: pve-nfs-tekton.labul.sva.de
+  share: /var/nfs/k8s
+provisioner: nfs.csi.k8s.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    helm.toolkit.fluxcd.io/name: nfs-csi-configuration
+    helm.toolkit.fluxcd.io/namespace: kube-system
+  name: nfs3-csi
+parameters:
+  mountPermissions: "0777"
+  server: pve-nfs-tekton.labul.sva.de
+  share: /var/nfs/k8s
+provisioner: nfs.csi.k8s.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+```
+
 ## SAST W/ POLARIS
 
 ```bash
