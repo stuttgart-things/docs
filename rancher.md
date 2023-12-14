@@ -181,7 +181,6 @@ journalctl -f -u rke2-server
 #### INVENTORY
 
 <details><summary>INVENTORY FILE</summary>
-{{< expand "INVENTORY FILE" >}}
 
 ```bash
 cat << EOF > inventory
@@ -194,7 +193,6 @@ hostname.<domain>
 ansible_user=<USERNAME>
 EOF
 ```
-{{< /expand >}}
 </details>
 
 #### REQUIREMENTS
