@@ -2,6 +2,33 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>STATIC IP UBUNTU23</b></summary>
+
+```bash
+sudo cat <<EOF > /etc/netplan/00-installer-config.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens192:
+      dhcp4: false
+      dhcp6: false
+      addresses:
+        - 10.100.136.210/24
+      routes:
+        - to: default
+          via: 10.100.136.254
+      nameservers:
+        addresses: [10.100.101.5]
+EOF
+
+sudo chmod 600 /etc/netplan/00-installer-config.yaml
+sudo netplan --debug apply
+```
+
+</details>
+
+
 <details><summary><b>CUT FOLDERPATH W/ SED FROM URL</b></summary>
 
 ```bash
