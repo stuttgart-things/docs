@@ -220,12 +220,21 @@ export GITHUB_TOKEN=<TOKEN>
 flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test # EXAMPLE
 ```
 
-## BOOTRSTAP FROM PRIVATE GITHUB
+## BOOTRSTAP GITHUB
 
 ```bash
 export KUBECONFIG=<KUBECONFIG>
 export GITLAB_TOKEN=<TOKEN>
 flux bootstrap gitlab --token-auth --hostname=<GITHUB-SERVER> --owner=Lab/stuttgart-things --repository=stuttgart-things --branch=master --path=clusters/labul/vsphere/sthings2 # EXAMPLE
+```
+
+## BOOTRSTAP WITHOUT GIT
+
+```bash
+flux install \
+--namespace=flux-system \
+--network-policy=false \
+--components=source-controller,helm-controller
 ```
 
 ## UNINSTALL FLUX
