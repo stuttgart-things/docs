@@ -1,5 +1,35 @@
 # stuttgart-things/docs/argocd
 
+## IN-CLUSTER APP PROJECT
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: in-cluster
+  namespace: argocd
+spec:
+  clusterResourceBlacklist:
+    - group: ""
+      kind: ""
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  description: in-cluster
+  destinations:
+    - name: in-cluster
+      namespace: '*'
+      server: https://kubernetes.default.svc
+  namespaceResourceBlacklist:
+    - group: ""
+      kind: ""
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  sourceRepos:
+    - '*'
+```
+
 ## ARGOCD-VAULT-PLUGIN
 
 <details><summary><b>AVP SECRET-MANIFEST</b></summary>
@@ -32,9 +62,10 @@ argocd-vault-plugin generate ./secret.yaml
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
+metadata:
   name: test2
   namespace: argocd
-spec:   
+spec:
   project: pve-dev51
   source:
     repoURL: 'https://github.com/stuttgart-things/stuttgart-things.git'
