@@ -12,6 +12,8 @@ dir="manifests"
 file="*.yaml"
 out="manifests.md"
 
+# MANIFESTS
+
 # CREATE HEADER
 echo -e "# /MANIFESTS\n" >> ${out}
 
@@ -26,6 +28,8 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo '{{< /expand >}}' >> ${out}
    echo -e "\n" >> ${out}
 done
+
+# STAGETIME
 
 # CREATE MANIFESTS AS MD
 dir="stageTime"
@@ -62,3 +66,6 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo -e "![${file}](/static/${file})" >> ${out}
    echo '{{< /expand >}}' >> ${out}
 done
+
+# TEST REWRITE
+sed 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' ansible.md
