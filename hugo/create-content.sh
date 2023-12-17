@@ -7,6 +7,11 @@ cp -R hugo/*.ico ./blog/static
 cp -R hugo/*.md ./blog/content
 cp -R hugo/mermaid.json ./blog/assets
 
+
+# TEST REWRITE
+sed 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' ./blog/content/ansible.md
+
+
 # CREATE MANIFESTS AS MD
 dir="manifests"
 file="*.yaml"
@@ -66,6 +71,3 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo -e "![${file}](/static/${file})" >> ${out}
    echo '{{< /expand >}}' >> ${out}
 done
-
-# TEST REWRITE
-sed 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' ansible.md
