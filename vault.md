@@ -2,8 +2,6 @@
 
 ## GENERAL
 
-</details>
-
 <details><summary><b>PORT FORWARD TO VAULT INSTANCE</b></summary>
 
 ```bash
