@@ -71,8 +71,6 @@ spec:
     repoURL: 'https://github.com/stuttgart-things/stuttgart-things.git'
     path: machineShop/argo-cd/avp-manifest
     targetRevision: HEAD
-    plugin:
-      name: argocd-vault-plugin
   destination:
     server: 'https://10.31.103.122:6443'
     namespace: default
