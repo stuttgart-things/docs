@@ -262,6 +262,12 @@ flux reconcile source helm argocd  -n argocd # RECONCILE HELM SOURCE
 kubectl get Kustomization -A
 ```
 
+### LIST EVENTS/CHECK FOR NEXT RUNS
+
+```bash
+kubectl get events -n flux-system
+```
+
 ### OVERWRITE HELM VALUES (EXAMPLE)
 
 #### APP DEFINITION

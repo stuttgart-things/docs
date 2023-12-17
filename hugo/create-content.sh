@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # TEST REWRITE
-sed 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' ansible.md
+sed -i 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' ansible.md
 
 # COPY HUGO CONTENT
 cp -R hugo/config.yaml ./blog
