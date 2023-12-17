@@ -1,15 +1,14 @@
 #!/bin/bash
 
+# TEST REWRITE
+sed 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' ansible.md
+
 # COPY HUGO CONTENT
 cp -R hugo/config.yaml ./blog
 cp -R hugo/*.png ./blog/static
 cp -R hugo/*.ico ./blog/static
 cp -R hugo/*.md ./blog/content
 cp -R hugo/mermaid.json ./blog/assets
-
-
-# TEST REWRITE
-sed 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' ./blog/content/ansible.md
 
 
 # CREATE MANIFESTS AS MD
