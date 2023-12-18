@@ -2,6 +2,8 @@
 
 ## WAIT FOR CUSTOM K8S RESOURCE TO BE CREATED/READY 
 
+<details><summary><b>Expand yaml file</b></summary>
+
 ```yaml
 ---
 - hosts: localhost
@@ -33,9 +35,13 @@
       delay: 15
 ```
 
+ </details>
+
 ## EVENT-DRIVEN-ANSIBLE (EDA)
 
 ### INSTALLATION
+
+<details><summary><b>Expand code</b></summary>
 
 ```bash
 sudo apt install python3-pip openjdk-17-jdk maven
@@ -47,14 +53,22 @@ pip install wheel ansible-rulebook ansible ansible-runner
 ansible-galaxy collection install community.general ansible.eda
 ```
 
+ </details>
+
 ### INSTALLATION ELASTICSEARCH SOURCE PLUGIN
+
+<details><summary><b>Expand code</b></summary>
 
 ```bash
 pip install aiohttp elasticsearch python-dateutil pyyaml
 ansible-galaxy collection install cloin.eda
 ```
 
+ </details>
+
 ### WEBHOOK RULEBOOK
+
+<details><summary><b>Expand yaml file</b></summary>
 
 ```yaml
 ---
@@ -78,7 +92,11 @@ ansible-galaxy collection install cloin.eda
           name: deployK3s2.yaml
 ```
 
+ </details>
+
 ### ELASTICSEARCH RULEBOOK
+
+<details><summary><b>Expand yaml file</b></summary>
 
 ```yaml
 ---
@@ -102,7 +120,11 @@ ansible-galaxy collection install cloin.eda
           name: vsphere.yaml
 ```
 
+ </details>
+
 ### INVENTORY EXAMPLE
+
+<details><summary><b>Expand yaml file</b></summary>
 
 ```yaml
 all:
@@ -111,7 +133,11 @@ all:
       ansible_connection: local
 ```
 
+ </details>
+
 ### PLAYBOOK EXAMPLES
+
+<details><summary><b>Expand yaml files</b></summary>
 
 ```yaml
 - hosts: localhost
@@ -165,19 +191,31 @@ all:
       when: power_status == "poweredOff"
 ```
 
+ </details>
+
 ### RULEBOOK EXECUTION
+
+<details><summary><b>Expand code</b></summary>
 
 ```bash
 ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
 ```
 
+</details>
+
 ### RULEBOOK/EDA TRIGGERING
+
+<details><summary><b>Expand code</b></summary>
 
 ```bash
 curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.31.103.137:5000/endpoint
 ```
 
+ </details>
+
 ## ANSIBLE-LINT
+
+<details><summary><b>Expand yaml file</b></summary>
 
 ```yaml
 pip3 install ansible-lint
@@ -187,6 +225,8 @@ skip_list:
   - 'role-name'
 ansible-lint
 ```
+
+ </details>
 
 ## VAULT LOOKUPS/REFRESH INVENTORY
 
@@ -334,6 +374,10 @@ The following format can be used to list the playbooks in the order in which the
 
 Afterwards, you can run the following command, and the playbooks will be run:
 
+<details><summary><b>Expand code</b></summary>
+
 ```bash
 ansible-playbook main.yaml -i inventory.ini
 ```
+
+ </details>
