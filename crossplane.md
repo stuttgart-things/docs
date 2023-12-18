@@ -189,9 +189,9 @@ spec:
   writeConnectionSecretToRef:
     namespace: default
     name: terraform-workspace-example-inline
+EOF
 
 kubectl describe workspace example-inline | grep Status -A10
-EOF
 ```
 
 ### KUBERNETES DEPLOYMENT EXAMPLE
