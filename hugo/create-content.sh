@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # REWRITING DETAILS
-sed -i 's@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' *.md
+sed -i 's@<details><summary><b>@<details><summary>@g; s@</b></summary>@</summary>@g; s@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' *.md
 
 # COPY HUGO CONTENT
 cp -R hugo/config.yaml ./blog
