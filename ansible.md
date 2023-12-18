@@ -2,7 +2,7 @@
 
 ## WAIT FOR CUSTOM K8S RESOURCE TO BE CREATED/READY 
 
-<details><summary><b>Expand yaml file</b></summary>
+<details><summary><b>Example playbook</b></summary>
 
 ```yaml
 ---
@@ -41,7 +41,7 @@
 
 ### INSTALLATION
 
-<details><summary><b>Expand code</b></summary>
+<details><summary><b>Example installation</b></summary>
 
 ```bash
 sudo apt install python3-pip openjdk-17-jdk maven
@@ -57,7 +57,7 @@ ansible-galaxy collection install community.general ansible.eda
 
 ### INSTALLATION ELASTICSEARCH SOURCE PLUGIN
 
-<details><summary><b>Expand code</b></summary>
+<details><summary><b>Expample installation elasticsearch plugin</b></summary>
 
 ```bash
 pip install aiohttp elasticsearch python-dateutil pyyaml
@@ -68,7 +68,7 @@ ansible-galaxy collection install cloin.eda
 
 ### WEBHOOK RULEBOOK
 
-<details><summary><b>Expand yaml file</b></summary>
+<details><summary><b>Expample webhook rulebook</b></summary>
 
 ```yaml
 ---
@@ -96,7 +96,7 @@ ansible-galaxy collection install cloin.eda
 
 ### ELASTICSEARCH RULEBOOK
 
-<details><summary><b>Expand yaml file</b></summary>
+<details><summary><b>Expample elasticsearch rulebook</b></summary>
 
 ```yaml
 ---
@@ -124,7 +124,7 @@ ansible-galaxy collection install cloin.eda
 
 ### INVENTORY EXAMPLE
 
-<details><summary><b>Expand yaml file</b></summary>
+<details><summary><b>Expapmle inventory</b></summary>
 
 ```yaml
 all:
@@ -137,7 +137,7 @@ all:
 
 ### PLAYBOOK EXAMPLES
 
-<details><summary><b>Expand yaml files</b></summary>
+<details><summary><b>Expample playbook</b></summary>
 
 ```yaml
 - hosts: localhost
@@ -195,7 +195,7 @@ all:
 
 ### RULEBOOK EXECUTION
 
-<details><summary><b>Expand code</b></summary>
+<details><summary><b>Expample rulebook execution</b></summary>
 
 ```bash
 ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
@@ -205,7 +205,7 @@ ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
 
 ### RULEBOOK/EDA TRIGGERING
 
-<details><summary><b>Expand code</b></summary>
+<details><summary><b>Expample rulebook/ EDA triggering</b></summary>
 
 ```bash
 curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.31.103.137:5000/endpoint
@@ -215,7 +215,7 @@ curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.3
 
 ## ANSIBLE-LINT
 
-<details><summary><b>Expand yaml file</b></summary>
+<details><summary><b>Expample ansible linting</b></summary>
 
 ```yaml
 pip3 install ansible-lint
