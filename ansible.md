@@ -57,7 +57,7 @@ ansible-galaxy collection install community.general ansible.eda
 
 ### INSTALLATION ELASTICSEARCH SOURCE PLUGIN
 
-<details><summary><b>Expample installation elasticsearch plugin</b></summary>
+<details><summary><b>Example installation elasticsearch plugin</b></summary>
 
 ```bash
 pip install aiohttp elasticsearch python-dateutil pyyaml
