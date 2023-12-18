@@ -68,7 +68,7 @@ ansible-galaxy collection install cloin.eda
 
 ### WEBHOOK RULEBOOK
 
-<details><summary><b>Expample webhook rulebook</b></summary>
+<details><summary><b>Example webhook rulebook</b></summary>
 
 ```yaml
 ---
@@ -96,7 +96,7 @@ ansible-galaxy collection install cloin.eda
 
 ### ELASTICSEARCH RULEBOOK
 
-<details><summary><b>Expample elasticsearch rulebook</b></summary>
+<details><summary><b>Example elasticsearch rulebook</b></summary>
 
 ```yaml
 ---
@@ -124,7 +124,7 @@ ansible-galaxy collection install cloin.eda
 
 ### INVENTORY EXAMPLE
 
-<details><summary><b>Expapmle inventory</b></summary>
+<details><summary><b>Example inventory</b></summary>
 
 ```yaml
 all:
@@ -137,7 +137,7 @@ all:
 
 ### PLAYBOOK EXAMPLES
 
-<details><summary><b>Expample playbook</b></summary>
+<details><summary><b>Example playbook</b></summary>
 
 ```yaml
 - hosts: localhost
@@ -195,7 +195,7 @@ all:
 
 ### RULEBOOK EXECUTION
 
-<details><summary><b>Expample rulebook execution</b></summary>
+<details><summary><b>Example rulebook execution</b></summary>
 
 ```bash
 ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
@@ -205,7 +205,7 @@ ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
 
 ### RULEBOOK/EDA TRIGGERING
 
-<details><summary><b>Expample rulebook/ EDA triggering</b></summary>
+<details><summary><b>Example rulebook/ EDA triggering</b></summary>
 
 ```bash
 curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.31.103.137:5000/endpoint
@@ -215,7 +215,7 @@ curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.3
 
 ## ANSIBLE-LINT
 
-<details><summary><b>Expample ansible linting</b></summary>
+<details><summary><b>Example ansible linting</b></summary>
 
 ```yaml
 pip3 install ansible-lint
@@ -374,7 +374,7 @@ The following format can be used to list the playbooks in the order in which the
 
 Afterwards, you can run the following command, and the playbooks will be run:
 
-<details><summary><b>Expand code</b></summary>
+<details><summary><b>Example run playbook</b></summary>
 
 ```bash
 ansible-playbook main.yaml -i inventory.ini
