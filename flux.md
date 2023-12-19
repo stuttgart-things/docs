@@ -7,11 +7,18 @@
 
 ### CREATE KEY FOR SOPS W/ AGE
 
+<details><summary><b>Create key for SOPS</b></summary>
+
 ```bash
 age-keygen -o sops.key
 ```
 
+</details>
+
+
 ### CREATE SOPS CONFIG YAML
+
+<details><summary><b>Create SOPS config</b></summary>
 
 ```bash
 AGE_PUB_KEY=$(cat sops.key | grep 'public key' | awk '{ print $4 }')
@@ -22,7 +29,12 @@ creation_rules:
 EOF
 ```
 
+</details>
+
+
 ### EXAMPLE ENCRYPTION
+
+<details><summary><b>Example encryption</b></summary>
 
 ```bash
 cat <<EOF > ./secret.yaml
@@ -37,14 +49,23 @@ EOF
 sops -e ./secret.yaml | tee sops-secret.yaml
 ```
 
+</details>
+
 ### DECRYPTION ON SHELL
+
+<details><summary><b>Decryption on shell</b></summary>
 
 ```bash
 export SOPS_AGE_KEY_FILE=${PWD}/sops.key
 sops --decrypt sops-secret.yaml
 ```
 
+</details>
+
+
 ### DECRYPTION ON FLUX
+
+<details><summary><b>Decryption on flux</b></summary>
 
 ```bash
 kubectl -n flux-system create secret generic sops-age \
@@ -70,9 +91,14 @@ spec:
       name: sops-age
 ```
 
+</details>
+
+
 ## USE AS S3 AS SOURCE
 
 ### CREATE S3 SECRET
+
+<details><summary><b>Create S3 secret</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -89,7 +115,11 @@ stringData:
 EOF
 ```
 
+</details>
+
 ### CREATE S3 BUCKET
+
+<details><summary><b>Create S3 bucket</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -108,8 +138,11 @@ spec:
   bucketName: vsphere-vm
 EOF
 ```
+</details>
 
 ### CREATE S3 KUSTOMIZATION
+
+<details><summary><b>Create S3 kustomization</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -129,6 +162,8 @@ spec:
 EOF
 ```
 
+</details>
+
 ## MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER
 
 ### CREATE PUB CERT AS CM
@@ -137,12 +172,18 @@ EOF
 
 #### VIA KUBECTL
 
+<details><summary><b>Create pub cert via kubectl</b></summary>
+
 ```bash
 kubectl -n <namespace-for-config-map-optional> \
 create configmap ca-pemstore -— from-file=labul-pve.crt
 ```
 
+</details>
+
 #### VIA MANIFEST
+
+<details><summary><b>Create pub cert via manifest</b></summary>
 
 ```yaml
 apiVersion: v1
@@ -158,7 +199,11 @@ data:
     -----END CERTIFICATE-----
 ```
 
+</details>
+
 #### PATCH SOURCE-CONTROLLER KUSTOMIZATION
+
+<details><summary><b>Patch source controller kustomization</b></summary>
 
 ```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -185,6 +230,8 @@ patches:
       kind: Deployment
       name: source-controller
 ```
+
+</details>
 
 ## TROUBLESHOOTING
 
