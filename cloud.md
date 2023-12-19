@@ -106,7 +106,8 @@ cat gcr.json | nerdctl login -u _json_key --password-stdin \eu.gcr.io
 Endpoint: https://eu.gcr.io
 Access ID: _json_key
 
-Access Secret:
+
+<details><summary><b>Access Secret</b></summary>
 
 ```yaml
 {
@@ -122,5 +123,7 @@ Access Secret:
   "client_x509_cert_url": ""
 }
 ```
+
+</details>
 
 </details>
