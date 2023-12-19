@@ -2,6 +2,8 @@
 
 ## IN-CLUSTER APP PROJECT
 
+<details><summary><b>In-cluster app project</b></summary>
+
 ```yaml
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
@@ -29,6 +31,8 @@ spec:
   sourceRepos:
     - '*'
 ```
+
+ </details>
 
 ## ARGOCD-VAULT-PLUGIN
 
