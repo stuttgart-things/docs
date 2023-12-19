@@ -315,7 +315,7 @@ spec:
 
 </details close>
 
-<details open><summary><b>MULTISOURCES HELM + GIT VALUES</b></summary>
+<details><summary><b>MULTISOURCES HELM + GIT VALUES</b></summary>
 
 ```yaml
 ---
@@ -348,11 +348,11 @@ spec:
       selfHeal: true
 ```
 
-</details close>
+</details>
 
 ## APPSET
 
-<details open><summary><b>LIST GENERATOR, BULD ENV VAR + VAULT PLUGIN VALUES</b></summary>
+<details><summary><b>LIST GENERATOR, BULD ENV VAR + VAULT PLUGIN VALUES</b></summary>
 
 ```yaml
 ---
@@ -416,9 +416,9 @@ spec:
           selfHeal: false
 ```
 
-</details close>
+</details>
 
-<details open><summary><b>GIT REPO+PATH</b></summary>
+<details><summary><b>GIT REPO+PATH</b></summary>
 
 ```yaml
 ---
@@ -460,7 +460,7 @@ spec:
 
 </details close>
 
-<details open><summary><b>PULL REQUEST + LIST GENERATOR MATRIX</b></summary>
+<details><summary><b>PULL REQUEST + LIST GENERATOR MATRIX</b></summary>
 
 ```yaml
 ---
