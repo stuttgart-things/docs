@@ -457,13 +457,21 @@ spec:
 
 #### ON CLUSTER
 
+<details><summary><b>Preview changes from kustomization on cluster</b></summary>
+
 ```bash
 flux diff kustomization --path=./clusters/labul/pve/bootstrap flux-system
 flux build kustomization --path=./clusters/labul/pve/bootstrap flux-system
 ```
 
+</details>
+
 #### LOCAL
+
+<details><summary><b>Preview changes from kustomization locally</b></summary>
 
 ```bash
 flux build kustomization vault --path clusters/labul/pve/bootstrap --kustomization-file clusters/labul/pve/bootstrap/infra.yaml --dry-run > ../flux.yaml
 ```
+
+</details>
