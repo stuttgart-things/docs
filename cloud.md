@@ -51,7 +51,7 @@ stringData:
 
 ```bash
 
-| COMMAND | DESCRIPTION | EXAMPLE CALL
+| COMMAND | DESCRIPTION | EXAMPLE CALL |
 |--|--|--|
 | get-caller-identity  | Returns details about the IAM user | aws sts get-caller-identity --output text
 | describe-instances| Display detailed information about all instances that are managed by you| aws ec2 describe-instances --filter Name=tag:Name,Values=dev-server
