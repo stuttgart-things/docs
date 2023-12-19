@@ -235,12 +235,18 @@ patches:
 
 ## TROUBLESHOOTING
 
+<details><summary><b>Troubleshooting</b></summary>
+
 ```bash
 flux get all -A --status-selector ready=false # show all flux objects that are not ready
 kubectl get events -n flux-system --field-selector type=Warning # show flux warning events
 ```
 
+</details>
+
 ## CREATE SECRET FOR KUSTOMIZATION
+
+<details><summary><b>Create secret for kustomization</b></summary>
 
 ```yaml
 apiVersion: v1
@@ -259,7 +265,11 @@ stringData:
   VAULT_PKI_PATH: vault-vsphere.tiab.labda.sva.de
 ```
 
+</details>
+
 ## BOOTRSTAP FROM GITHUB
+
+<details><summary><b>Bootstrap from Github example 1</b></summary>
 
 ```bash
 export KUBECONFIG=<KUBECONFIG>
@@ -267,7 +277,11 @@ export GITHUB_TOKEN=<TOKEN>
 flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test # EXAMPLE
 ```
 
+</details>
+
 ## BOOTRSTAP GITHUB
+
+<details><summary><b>Bootstrap from Github example 2</b></summary>
 
 ```bash
 export KUBECONFIG=<KUBECONFIG>
@@ -275,7 +289,11 @@ export GITLAB_TOKEN=<TOKEN>
 flux bootstrap gitlab --token-auth --hostname=<GITHUB-SERVER> --owner=Lab/stuttgart-things --repository=stuttgart-things --branch=master --path=clusters/labul/vsphere/sthings2 # EXAMPLE
 ```
 
+</details>
+
 ## BOOTRSTAP WITHOUT GIT
+
+<details><summary><b>Bootstrap without git</b></summary>
 
 ```bash
 flux install \
@@ -284,15 +302,23 @@ flux install \
 --components=source-controller,helm-controller
 ```
 
+</details>
+
 ## UNINSTALL FLUX
+
+<details><summary><b>Uninstall flux</b></summary>
 
 ```bash
 flux uninstall --namespace=flux-system
 ```
 
+</details>
+
 ## LIST
 
 ### HELM RELEASES
+
+<details><summary><b>List helm releases</b></summary>
 
 ```bash
 kubectl get hr -A  # LIST ALL HRs
@@ -303,19 +329,31 @@ flux reconcile kustomization vault -n flux-system # RECONCILE KUSTOMIZATION
 flux reconcile source helm argocd  -n argocd # RECONCILE HELM SOURCE
 ```
 
+</details>
+
 ### LIST ALL HELM KUSTOMIZATIONS
+
+<details><summary><b>List helm kustomizations</b></summary>
 
 ```bash
 kubectl get Kustomization -A
 ```
 
+</details>
+
 ### LIST EVENTS/CHECK FOR NEXT RUNS
+
+<details><summary><b>List events</b></summary>
 
 ```bash
 kubectl get events -n flux-system
 ```
 
+</details>
+
 ### OVERWRITE HELM VALUES (EXAMPLE)
+
+<details><summary><b>Overwrite helm values example</b></summary>
 
 #### APP DEFINITION
 
@@ -412,6 +450,8 @@ spec:
     branch: main
   url: https://github.com/stuttgart-things/stuttgart-things.git
 ```
+
+</details>
 
 ### PREVIEWING CHANGES FROM KUSTOMIZATION
 
