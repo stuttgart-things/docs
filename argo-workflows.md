@@ -1,5 +1,31 @@
 # stuttgart-things/docs/argo-workflows
 
+## CREATE ACCESS TOKEN
+
+<details><summary><b>EXAMPLE TOKEN CREATION</b></summary>
+
+```bash
+TOKEN_NAME=workflows
+kubectl create role ${TOKEN_NAME} --verb=list,update --resource=workflows.argoproj.io
+kubectl create sa ${TOKEN_NAME}
+kubectl create rolebinding ${TOKEN_NAME} --role=workflows --serviceaccount=argo:workflows
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${TOKEN_NAME}.service-account-token
+  annotations:
+    kubernetes.io/service-account.name: workflows
+type: kubernetes.io/service-account-token
+EOF
+
+ARGO_TOKEN="Bearer $(kubectl get secret ${TOKEN_NAME}.service-account-token -o=jsonpath='{.data.token}' | base64 --decode)"
+echo ${ARGO_TOKEN}
+```
+
+</details>
+
 ## INSTALL CLI
 
 <details><summary><b>LINUX</b></summary>
@@ -39,7 +65,6 @@ helm upgrade --install argo-workflows argo/argo-workflows --version 0.40.1 --val
 ```
 
 </details>
-
 
 ## WORKFLOW EXAMPLES
 
