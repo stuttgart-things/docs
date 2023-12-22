@@ -1,7 +1,7 @@
 # stuttgart-things/docs/flux
 
 ## USE AGE+SOPS FOR SECRETS
-
+<!-- https://deyan7.de/en/sops-secrets-operations-kubernetes-operator-secure-your-sensitive-data-while-maintaining-ease-of-use/ -->
 [age](https://github.com/getsops/sops/releases) - management of gnupg keyrings and PGP keys
 [sops](https://github.com/FiloSottile/age/releases) - encrypts file while maintaining the original structure
 

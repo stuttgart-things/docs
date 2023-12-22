@@ -1,4 +1,4 @@
-# ARGO-WORKFLOWS
+# stuttgart-things/docs/argo-workflows
 
 ## INSTALL CLI
 
@@ -73,3 +73,52 @@ argo logs hello-workflows -n argo-workflows
 ```
 
 </details>
+
+
+# WORKFLOW TEMPLATE TRIGGERED BY EVENT
+
+
+https://argoproj.github.io/argo-workflows/events/
+
+## WORKFLOW-TEMPLATE
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: my-wf-tmple
+  namespace: argo
+spec:
+  templates:
+    - name: main
+      inputs:
+        parameters:
+          - name: message
+            value: "{{workflow.parameters.message}}"
+      container:
+        image: docker/whalesay:latest
+        command: [cowsay]
+        args: ["{{inputs.parameters.message}}"]
+  entrypoint: main
+```
+
+## WORKFLOW-EVENT-BINDING
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowEventBinding
+metadata:
+  name: event-consumer
+spec:
+  event:
+    # metadata header name must be lowercase to match in selector
+    selector: payload.message != "" && metadata["x-argo-e2e"] == ["true"] && discriminator == "my-discriminator"
+  submit:
+    workflowTemplateRef:
+      name: my-wf-tmple
+    arguments:
+      parameters:
+      - name: message
+        valueFrom:
+          event: payload.message
+```

@@ -67,7 +67,7 @@ cloudinit: |
   runcmd:
     - wget -O /usr/local/share/ca-certificates/labda-vsphere-ca.crt https://vault-vsphere.tiab.labda.sva.de:8200/v1/pki/ca/pem --no-check-certificate
     - update-ca-certificates
-     
+
 ```
 
 </details>
@@ -137,19 +137,72 @@ spec:
 </details>
 
 ```text
-For programmatically creating clusters via rest api calls you need to make sure that every 
+For programmatically creating clusters via rest api calls you need to make sure that every
 cluster you want to create needs theire own and specific MaschinePoolConfig as well as VmwarevsphereConfig, in order to work
-properly. MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide as a global ressource.   
+properly. MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide as a global ressource.
 ```
 
 ## GENERAL
 
+## CLOUD-INIT
+
+### PACKAGES/CMD/ANSIBLE EXAMPLE
+
+<details><summary>EXAMPLE CLOUD-INIT CONFIG</summary>
+
+```yaml
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - git
+  - curl
+  - wget
+  - git
+resize_rootfs: true
+growpart:
+  mode: auto
+  devices: ['/']
+  ignore_growroot_disabled: false
+ansible:
+  package_name: ansible-core
+  install_method: distro
+  pull:
+    url: "https://github.com/stuttgart-things/stuttgart-things.git"
+    playbook_name: ansible/playbooks/base-os-cloudinit.yaml
+  run_ansible:
+    timeout: 5
+  galaxy:
+    actions:
+      - ["ansible-galaxy", "collection", "install", "community.crypto"]
+      - ["ansible-galaxy", "collection", "install", "community.general"]
+      - ["ansible-galaxy", "collection", "install", "ansible.posix"]
+      - ["ansible-galaxy", "install", "git+https://github.com/stuttgart-things/manage-filesystem.git"]
+      - ["ansible-galaxy", "install", "git+https://github.com/stuttgart-things/install-configure-vault.git"]
+      - ["ansible-galaxy", "install", "git+https://github.com/stuttgart-things/install-requirements.git"]
+      - ["ansible-galaxy", "install", "git+https://github.com/stuttgart-things/download-install-binary.git"]
+      - ["ansible-galaxy", "install", " git+https://github.com/stuttgart-things/create-os-user.git"]
+      - ["ansible-galaxy", "install", " git+https://github.com/stuttgart-things/create-send-webhook.git"]
+runcmd:
+  - wget -O /usr/local/share/ca-certificates/labda-vsphere-ca.crt https://vault-vsphere.tiab.labda.sva.de:8200/v1/pki/ca/pem --no-check-certificate
+  - wget -O /usr/local/share/ca-certificates/labul-vsphere-ca.crt https://vault-vsphere.labul.sva.de:8200/v1/pki/ca/pem --no-check-certificate
+  - wget -O /usr/local/share/ca-certificates/labul-ca.crt https://vault.labul.sva.de:8200/v1/pki/ca/pem --no-check-certificate
+  - wget -O /usr/local/share/ca-certificates/labda-ca.crt https://vault.tiab.labda.sva.de:8200/v1/pki/ca/pem --no-check-certificate
+  - update-ca-certificates
+```
+</details>
+
 ### DEBUG CLOUD-INIT
+
+<details><summary>DEBUG W/ SYSTEMD</summary>
 
 ```bash
 sudo systemctl status cloud-final.service
 sudo cat /var/lib/cloud/data/status.json
 ```
+
+</details>
+
 
 ### KUBECONFIG
 

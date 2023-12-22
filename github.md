@@ -1,5 +1,7 @@
 # stuttgart-things/docs/github
 
+<!-- https://www.thisdot.co/blog/creating-your-own-github-action-with-typescript -->
+
 ## GITHUB ACTIONS ON K8S
 
 [Deploying runner scale sets with Actions Runner Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers)
@@ -147,7 +149,7 @@ on:
       name:
         type: choice
         description: Who to greet
-        options: 
+        options:
           - maypayne
           - scorseese
           - deniro
