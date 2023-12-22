@@ -72,7 +72,6 @@ cloudinit: |
 
 </details>
 
-
 <details><summary>CLUSTER</summary>
 
 ```yaml
@@ -142,7 +141,15 @@ For programmatically creating clusters via rest api calls you need to make sure 
 cluster you want to create needs theire own and specific MaschinePoolConfig as well as VmwarevsphereConfig, in order to work
 properly. MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide as a global ressource.   
 ```
+
 ## GENERAL
+
+### DEBUG CLOUD-INIT
+
+```bash
+sudo systemctl status cloud-final.service
+sudo cat /var/lib/cloud/data/status.json
+```
 
 ### KUBECONFIG
 
