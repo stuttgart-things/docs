@@ -2,7 +2,7 @@
 
 ## INSTALL CLI
 
-<details><summary><b>CLI INSTALLATION LINUX</b></summary>
+<details><summary><b>LINUX</b></summary>
 
 ```bash
 curl -sLO https://github.com/argoproj/argo-workflows/releases/download/v3.5.2/argo-linux-amd64.gz
@@ -16,7 +16,12 @@ argo version
 
 ## HELM DEPLOYMENT
 
+<details><summary><b>DEPLOYMENT + VALUES</b></summary>
+
 ```bash
+helm repo add argo https://argoproj.github.io/argo-helm
+
+cat <<EOF > argo-workflows.yaml
 workflow:
   serviceAccount:
     create: true
@@ -28,7 +33,12 @@ controller:
   workflowDefaults:
     spec:
       serviceAccountName: argo-workflows
+EOF
+
+helm upgrade --install argo-workflows argo/argo-workflows --version 0.40.1 --values argo-workflows.yaml -n argo-workflows --create-namespace
 ```
+
+</details>
 
 
 ## WORKFLOW EXAMPLES
@@ -57,6 +67,9 @@ spec:
   steps:
     - - name: hello-world
 EOF
+
+argo list -n argo-workflows
+argo logs hello-workflows -n argo-workflows
 ```
 
 </details>
