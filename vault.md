@@ -435,3 +435,155 @@ bound_service_account_namespaces=tektoncd \
 policies=tektoncd \
 ttl=24h
 ```
+
+### CREATE W/ TERRAFORM
+
+#### TF CODE FOR CREATING K8S FOR NAMESPACE/CLUSTER
+
+<details><summary><b>k8s-auth.tf</b></summary>
+
+```hcl
+# FIX TF CODE OR CREATE SECRET PRIOR TF RUN w/ KUBECTL
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: vault
+#   namespace: kube-system
+#   annotations:
+#     kubernetes.io/service-account.name: vault
+#     kubernetes.io/service-account.namespace: kube-system
+# type: kubernetes.io/service-account-token
+
+# data "kubernetes_secret" "vault" {
+#   metadata {
+#     name      = "vault"
+#     namespace = "kube-system"
+#   }
+# }
+
+resource "kubernetes_manifest" "service_account" {
+  manifest = {
+    "apiVersion" = "v1"
+    "kind"       = "ServiceAccount"
+    "metadata" = {
+      "namespace" = "kube-system"
+      "name"      = "vault"
+    }
+
+    "automountServiceAccountToken" = true
+  }
+
+}
+
+resource "kubernetes_cluster_role_binding" "vault" {
+  metadata {
+    name = "vault-auth"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "system:auth-delegator"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "vault"
+    namespace = "kube-system"
+  }
+
+  depends_on = [
+    kubernetes_manifest.service_account
+  ]
+
+}
+
+
+resource "vault_auth_backend" "kubernetes" {
+  type = "kubernetes"
+  path = "all"
+}
+
+resource "vault_kubernetes_auth_backend_config" "kubernetes" {
+  backend            = vault_auth_backend.kubernetes.path
+  kubernetes_host    = "https://10.100.136.143:6443"
+  kubernetes_ca_cert = "-----BEGIN CERTIFICATE-----\n ... \n-----END CERTIFICATE-----"
+  token_reviewer_jwt = "ey ... wA"
+  disable_iss_validation = "true"
+  disable_local_ca_jwt   = "true"
+}
+
+resource "vault_policy" "secrets" {
+  name = "secrets-access"
+
+  policy = <<EOT
+path "env/*" {
+  capabilities = ["read","list","update","create","delete"]
+}
+EOT
+}
+
+resource "vault_kubernetes_auth_backend_role" "default" {
+  backend                          = vault_auth_backend.kubernetes.path
+  role_name                        = "allow-all"
+  bound_service_account_names      = ["*"]
+  bound_service_account_namespaces = ["*"]
+  token_ttl                        = 7200
+  token_policies                   = ["default", vault_policy.secrets.name]
+}
+
+provider "vault" {
+  address = "https://vault.dev11.4sthings.tiab.ssc.sva.de"
+  token   = "<REPLACE-ME"
+}
+
+provider "kubernetes" {
+  config_context = "default"
+  config_path    = "~/.kube/labda-app"
+}
+```
+
+</details>
+
+
+<details><summary><b>static-secret.yaml</b></summary>
+
+```yaml
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: vault-connection
+  namespace: kube-system
+spec:
+  address: https://vault.dev11.4sthings.tiab.ssc.sva.de
+  skipTLSVerify: true
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: vault-auth11
+  namespace: kube-system
+spec:
+  vaultConnectionRef: vault-connection
+  method: kubernetes
+  mount: all
+  kubernetes:
+    role: allow-all
+    serviceAccount: vault
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: vault-static-secret11
+  namespace: kube-system
+spec:
+  vaultAuthRef: vault-auth11
+  mount: env
+  type: kv-v2
+  path: labul
+  refreshAfter: 10s
+  destination:
+    create: true
+    name: vso-handled-new
+```
+
+</details>
