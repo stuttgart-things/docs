@@ -48,7 +48,7 @@ spec:
         enabled: true
     ingressController:
       enabled: true
-    k8sServiceHost: 127.0.0.1
+    k8sServiceHost: 127.0.0.1 # for HA rke2 clusters use k8s HA API hostname
     k8sServicePort: 6443
     kubeProxyReplacement: true
     l2announcements:
