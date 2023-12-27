@@ -13,7 +13,49 @@ Install cluster /w kudeadm without kube-proxy:
 kubeadm init --skip-phases=addon/kube-proxy
 ```
 
-## Install Cilium /w Helm
+Install cluster /w rke2 without kube-proxy:
+
+Configure rke2:
+
+```yaml
+# /etc/rancher/rke2/config.yaml
+---
+disable:
+  - rke2-ingress-nginx
+cni: cilium
+disable-kube-proxy: true
+```
+
+Configure cilium rke2 manifest:
+
+```yaml
+# /var/lib/rancher/rke2/server/manifests/rke2-cilium-config.yaml
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: rke2-cilium
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    bgp:
+      enabled: false
+    hubble:
+      enabled: true
+      relay:
+        enabled: true
+      ui:
+        enabled: true
+    ingressController:
+      enabled: true
+    k8sServiceHost: 127.0.0.1
+    k8sServicePort: 6443
+    kubeProxyReplacement: true
+    l2announcements:
+      enabled: true
+```
+
+## Install Cilium /w Helm only for ! rke2 clusters
 
 ```bash
 helm repo add cilium https://helm.cilium.io/
