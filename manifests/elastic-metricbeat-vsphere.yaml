@@ -1,0 +1,46 @@
+# ---
+# kind: Secret
+# apiVersion: v1
+# metadata:
+#   name: vsphere-credentials
+#   namespace: elastic-system
+# stringData:
+#   VSPHERE_USER: <REPLACE-ME>
+#   VSPHERE_PASSWORD: <REPLACE-ME>
+---
+apiVersion: beat.k8s.elastic.co/v1beta1
+kind: Beat
+metadata:
+  name: metricbeat
+  namespace: elastic-system
+spec:
+  type: metricbeat
+  version: 7.17.7
+  elasticsearchRef:
+    name: elasticsearch-cluster
+  kibanaRef:
+    name: kibana
+  config:
+    metricbeat:
+      setup.dashboards.enabled: true
+      modules:
+        - module: vsphere
+          enabled: true
+          metricsets: ["datastore", "host", "virtualmachine"]
+          period: 10s
+          hosts: ["https://ul-vc01.labul.sva.de/sdk"]
+          username: "${VSPHERE_USER}"
+          password: "${VSPHERE_PASSWORD}"
+          insecure: true
+          get_custom_fields: true
+  deployment:
+    podTemplate:
+      spec:
+        dnsPolicy: ClusterFirstWithHostNet
+        securityContext:
+          runAsUser: 0
+        containers:
+          - name: metricbeat
+            envFrom:
+              - secretRef:
+                  name: vsphere-credentials

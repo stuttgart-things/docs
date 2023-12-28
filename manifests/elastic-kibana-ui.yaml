@@ -1,0 +1,29 @@
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+  namespace: elastic-system
+spec:
+  version: 7.17.7
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch-cluster
+  podTemplate:
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 500m
+          limits:
+            memory: 2Gi
+            cpu: 1500m
+  http:
+    tls:
+      selfSignedCertificate:
+      disabled: true
+    service:
+      spec:
+        type: LoadBalancer
