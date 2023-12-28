@@ -1,0 +1,20 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: hello-workflows
+  namespace: argo-workflows
+spec:
+  entrypoint: hello-workflows
+  serviceAccountName: argo-workflows
+  templates:
+    - name: hello-workflows
+      container:
+        image: alpine:3.15
+        command: ["echo", "Hello, workflows!"]
+        resources:
+          limits:
+            memory: 32Mi
+            cpu: 100m
+  steps:
+    - - name: hello-world
