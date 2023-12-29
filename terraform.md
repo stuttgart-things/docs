@@ -1,8 +1,51 @@
 # stuttgart-things/docs/terraform
 
+## GENERAL
+
+<details open><summary>INIT|APPLY|DESTROY</summary>
+
+```bash
+terraform init
+terraform verify
+terraform plan
+terraform apply
+terraform destroy
+```
+
+</details close>
+
+<details open><summary>VARIABLES</summary>
+
+```hcl
+# JUST DECLARE
+variable "createDefaultAdminPolicy" { default = false }
+
+# PROPER DECLARATION
+variable "token_max_ttl" {
+  type        = number
+  default     = 0
+  description = "The maximum lifetime for generated tokens in number of seconds. Its current value will be referenced at renewal time."
+}
+
+# LIST OBJECT
+variable "secret_engines" {
+  type = list(object({
+    name        = string
+    path        = string
+    description = string
+    data_json   = string
+  }))
+  default     = []
+  description = "A list of secret path objects"
+}
+```
+
+</details close>
+
+
 ## OUTPUT SENSITIVE DATA
 
-<details open><summary>read-k8s-secret.tf</summary>
+<details open><summary>READ-K8S-SECRET.TF</summary>
 
 ```hcl
 resource "kubernetes_secret" "vault" {
@@ -33,20 +76,9 @@ output "token" {
 }
 ```
 
-</details>
-
-
-<details open><summary>INIT|APPLY|DESTROY</summary>
-
-```bash
-terraform init
-terraform verify
-terraform plan
-terraform apply
-terraform destroy
-```
-
 </details close>
+
+
 
 ## AWS
 
@@ -143,11 +175,9 @@ output "secret_string" {
 
 </details close>
 
-
 ## CREATE INLINE KUBERNETES (YAML) RESOURCES
 
 <details open><summary>akhq_ingress.tf</summary>
-
 ```
 resource "kubectl_manifest" "akhq_ingress" {
   yaml_body = <<YAML
