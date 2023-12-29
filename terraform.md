@@ -43,9 +43,30 @@ variable "secret_engines" {
 </details close>
 
 
-## OUTPUT SENSITIVE DATA
+## SNIPPETS
 
-<details open><summary>READ-K8S-SECRET.TF</summary>
+<details open><summary>READ YAML FIELD FROM FILE</summary>
+
+```hcl
+variable "kubeconfig_path" {
+  type        = string
+  default = "/home/sthings/.kube/labda-app"
+  description = "kubeconfig path"
+}
+
+locals {
+  kubeconfig= yamldecode(file(var.kubeconfig_path))
+}
+
+output "kubeconfig-host" {
+  value = local.kubeconfig.clusters[0].cluster.server
+}
+```
+
+</details close>
+
+
+<details open><summary>READ K8S SECRET</summary>
 
 ```hcl
 resource "kubernetes_secret" "vault" {
@@ -78,10 +99,6 @@ output "token" {
 
 </details close>
 
-
-
-## AWS
-
 <details open><summary>AWS CLI</summary>
 
 ```bash
@@ -91,7 +108,7 @@ aws configure
 
 </details close>
 
-<details open><summary>provider.tf</summary>
+<details open><summary>AWS PROVIDER</summary>
 
 ```
 terraform {
