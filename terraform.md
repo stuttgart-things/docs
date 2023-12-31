@@ -1,6 +1,6 @@
 # stuttgart-things/docs/terraform
 
-## SNIPPETS
+## BASICS
 
 <details><summary><b>INIT|APPLY|DESTROY</b></summary>
 
@@ -248,9 +248,7 @@ EOF
 </details>
 
 
-## OUTPUT/USE SECRET FROM AWS SECRETS MANAGER
-
-<details><summary><b>RANDOM SECRET</b></summary>
+<details><summary><b>OUTPUT/USE SECRET FROM AWS SECRETS MANAGER</b></summary>
 
 ```
 data "aws_secretsmanager_secret" "msk_secrets" {
@@ -269,9 +267,9 @@ output "secret_string" {
 
 </details>
 
-## CREATE INLINE KUBERNETES (YAML) RESOURCES
+## KUBERNETES
 
-<details><summary><b>INLINE INGRESS</b></summary>
+<details><summary><b>CREATE INLINE KUBERNETES (YAML) RESOURCES</b></summary>
 
 ```
 resource "kubectl_manifest" "akhq_ingress" {
@@ -806,9 +804,7 @@ YAML
 ```
 </details>
 
-## HELM CHART DEPLOYMENT
-
-<details><summary><b>HELM PROVIDER EXAMPLE</b></summary>
+<details><summary><b>HELM CHART DEPLOYMENT</b></summary>
 
 ```
 provider "helm" {
