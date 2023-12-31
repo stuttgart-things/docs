@@ -16,6 +16,27 @@ github_urls:
 
 </details>
 
+<details><summary>TEST W/ ASSERT</summary>
+
+```go
+# git_test.go
+import (
+	"testing"
+	"github.com/stretchr/testify/assert"
+)
+
+func TestCloneGitRepository(t *testing.T) {
+
+	assert := assert.New(t)
+
+	_, cloned := CloneGitRepository(repo, branchName, "", nil)
+
+	assert.Equal(cloned, true)
+}
+```
+
+</details>
+
 ## CLI
 
 <details><summary>INIT CLI W/ COBRA</summary>
