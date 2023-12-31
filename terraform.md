@@ -61,6 +61,67 @@ resource "helm_release" "csi" {
 
 </details>
 
+<details><summary><b>CREATE TEPLATED RESOURCE</b></summary>
+
+## TEMPLATE
+
+```yaml
+# ./templates/vault-connection.tpl
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: ${name}
+  namespace: ${namespace}
+spec:
+  address: ${vault_addr}
+  skipTLSVerify: true
+```
+
+## RESOURCE
+
+```hcl
+resource "kubernetes_manifest" "vault_connection" {
+
+  manifest = yamldecode(templatefile(
+    "${path.module}/templates/vault-connection.tpl",
+    {
+      "name"       = "tektoncd"
+      "namespace"  = "default"
+      "vault_addr" = var.vault_addr
+    }
+  ))
+
+}
+```
+
+</details>
+
+<details><summary><b>USE COUNT W/ FOR EACH</b></summary>
+
+```hcl
+resource "kubernetes_manifest" "vault_connection" {
+
+  for_each = {
+    for auth in var.k8s_auths :
+    auth.name => auth
+    if var.vso_enabled[1]
+  }
+
+  manifest = yamldecode(templatefile(
+    "${path.module}/templates/vault-connection.tpl",
+    {
+      "name"       = each.value["name"]
+      "namespace"  = each.value["namespace"]
+      "vault_addr" = var.vault_addr
+    }
+  ))
+
+  depends_on = [helm_release.vso]
+}
+```
+
+</details>
+
 
 <details><summary><b>READ YAML FIELD FROM FILE</b></summary>
 
@@ -142,9 +203,8 @@ terraform {
 
 </details>
 
-## CREATE GENERATED SECRET IN AWS SECRETS MANAGER
 
-<details><summary><b>random-secret-aws.tf</b></summary>
+<details><summary><b>CREATE GENERATED SECRET IN AWS SECRETS MANAGER</b></summary>
 
 ```bash
 mkdir -p ./aws-secrets
@@ -190,7 +250,7 @@ EOF
 
 ## OUTPUT/USE SECRET FROM AWS SECRETS MANAGER
 
-<details><summary><b>random-secret-aws.tf</b></summary>
+<details><summary><b>RANDOM SECRET</b></summary>
 
 ```
 data "aws_secretsmanager_secret" "msk_secrets" {
@@ -260,7 +320,7 @@ YAML
 </details>
 
 
-<details><summary><b>deploy-streamzi-msk.tf</b></summary>
+<details><summary><b>K8S MANIFEST APP DEPLOYMENT</b></summary>
 
 ```yaml
 resource "kubectl_manifest" "template_topic" {
