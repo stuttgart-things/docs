@@ -1,8 +1,8 @@
 # stuttgart-things/docs/terraform
 
-## GENERAL
+## SNIPPETS
 
-<details open><summary>INIT|APPLY|DESTROY</summary>
+<details><summary><b>INIT|APPLY|DESTROY</b></summary>
 
 ```bash
 terraform init
@@ -12,9 +12,9 @@ terraform apply
 terraform destroy
 ```
 
-</details close>
+</details>
 
-<details open><summary>VARIABLES</summary>
+<details><summary><b>VARIABLES</b></summary>
 
 ```hcl
 # JUST DECLARE
@@ -40,12 +40,29 @@ variable "secret_engines" {
 }
 ```
 
-</details close>
+</details>
+
+<details><summary><b>ENABLE/DISABLE RESOURCE CREATION W/ COUNT</b></summary>
+
+```hcl
+variable "csi_enabled" {
+ description = "Enable secrets store csi driver"
+ type        = bool
+ default     = true
+}
+
+resource "helm_release" "csi" {
+  count            =  var.csi_enabled ? 1 : 0
+  name             = "secrets-store-csi-driver"
+  namespace        = "vault"
+  #....
+}
+```
+
+</details>
 
 
-## SNIPPETS
-
-<details open><summary>READ YAML FIELD FROM FILE</summary>
+<details><summary><b>READ YAML FIELD FROM FILE</b></summary>
 
 ```hcl
 variable "kubeconfig_path" {
@@ -63,10 +80,10 @@ output "kubeconfig-host" {
 }
 ```
 
-</details close>
+</details>
 
 
-<details open><summary>READ K8S SECRET</summary>
+<details><summary><b>READ K8S SECRET</b></summary>
 
 ```hcl
 resource "kubernetes_secret" "vault" {
@@ -97,18 +114,18 @@ output "token" {
 }
 ```
 
-</details close>
+</details>
 
-<details open><summary>AWS CLI</summary>
+<details><summary><b>AWS CLI</b></summary>
 
 ```bash
 sudo apt -y install awscli
 aws configure
 ```
 
-</details close>
+</details>
 
-<details open><summary>AWS PROVIDER</summary>
+<details><summary><b>AWS PROVIDER</b></summary>
 
 ```
 terraform {
@@ -123,11 +140,11 @@ terraform {
 }
 ```
 
-</details close>
+</details>
 
 ## CREATE GENERATED SECRET IN AWS SECRETS MANAGER
 
-<details open><summary>random-secret-aws.tf</summary>
+<details><summary><b>random-secret-aws.tf</b></summary>
 
 ```bash
 mkdir -p ./aws-secrets
@@ -168,12 +185,12 @@ resource "aws_secretsmanager_secret_version" "admin_secret_version" {
 EOF
 ```
 
-</details close>
+</details>
 
 
 ## OUTPUT/USE SECRET FROM AWS SECRETS MANAGER
 
-<details open><summary>random-secret-aws.tf</summary>
+<details><summary><b>random-secret-aws.tf</b></summary>
 
 ```
 data "aws_secretsmanager_secret" "msk_secrets" {
@@ -190,11 +207,12 @@ output "secret_string" {
 }
 ```
 
-</details close>
+</details>
 
 ## CREATE INLINE KUBERNETES (YAML) RESOURCES
 
-<details open><summary>akhq_ingress.tf</summary>
+<details><summary><b>INLINE INGRESS</b></summary>
+
 ```
 resource "kubectl_manifest" "akhq_ingress" {
   yaml_body = <<YAML
@@ -239,10 +257,10 @@ YAML
 }
 ```
 
-</details close>
+</details>
 
 
-<details open><summary>deploy-streamzi-msk.tf</summary>
+<details><summary><b>deploy-streamzi-msk.tf</b></summary>
 
 ```yaml
 resource "kubectl_manifest" "template_topic" {
@@ -726,11 +744,11 @@ YAML
 
 }
 ```
-</details close>
+</details>
 
 ## HELM CHART DEPLOYMENT
 
-<details open><summary>helm-akhq.tf</summary>
+<details><summary><b>HELM PROVIDER EXAMPLE</b></summary>
 
 ```
 provider "helm" {
@@ -778,4 +796,4 @@ resource "helm_release" "akhq" {
 
 }
 ```
-</details close>
+</details>
