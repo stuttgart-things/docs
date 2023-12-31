@@ -1,6 +1,6 @@
 # stuttgart-things/docs/terraform
 
-## BASICS
+## GENERAL
 
 <details><summary><b>INIT|APPLY|DESTROY</b></summary>
 
@@ -144,38 +144,7 @@ output "kubeconfig-host" {
 </details>
 
 
-<details><summary><b>READ K8S SECRET</b></summary>
-
-```hcl
-resource "kubernetes_secret" "vault" {
-  metadata {
-    name      = "vault"
-    namespace = "default"
-    annotations = {
-      "kubernetes.io/service-account.name"      = "vault"
-      "kubernetes.io/service-account.namespace" = "default"
-    }
-  }
-  type = "kubernetes.io/service-account-token"
-}
-
-data "kubernetes_secret" "vault" {
-  metadata {
-    name      = "vault"
-    namespace = "default"
-  }
-}
-
-output "ca_crt" {
-  value = nonsensitive(data.kubernetes_secret.vault.data["ca.crt"])
-}
-
-output "token" {
-  value = nonsensitive(data.kubernetes_secret.vault.datoken)
-}
-```
-
-</details>
+## AWS
 
 <details><summary><b>AWS CLI</b></summary>
 
@@ -317,6 +286,39 @@ YAML
 
 </details>
 
+
+<details><summary><b>READ K8S SECRET</b></summary>
+
+```hcl
+resource "kubernetes_secret" "vault" {
+  metadata {
+    name      = "vault"
+    namespace = "default"
+    annotations = {
+      "kubernetes.io/service-account.name"      = "vault"
+      "kubernetes.io/service-account.namespace" = "default"
+    }
+  }
+  type = "kubernetes.io/service-account-token"
+}
+
+data "kubernetes_secret" "vault" {
+  metadata {
+    name      = "vault"
+    namespace = "default"
+  }
+}
+
+output "ca_crt" {
+  value = nonsensitive(data.kubernetes_secret.vault.data["ca.crt"])
+}
+
+output "token" {
+  value = nonsensitive(data.kubernetes_secret.vault.datoken)
+}
+```
+
+</details>
 
 <details><summary><b>K8S MANIFEST APP DEPLOYMENT</b></summary>
 
