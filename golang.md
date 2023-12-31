@@ -1,8 +1,8 @@
 # stuttgart-things/docs/golang
 
-## GORELEASER
+## SNIPPETS
 
-### GITHUB ENTERPRISE
+<details><summary>GORELEASER</summary>
 
 ```yaml
 # .goreleaser.yaml
@@ -14,9 +14,11 @@ github_urls:
   skip_tls_verify: false
 ```
 
-## CLI w/ COBRA
+</details>
 
-### INIT CLI
+## CLI
+
+<details><summary>INIT CLI W/ COBRA</summary>
 
 ```bash
 go install github.com/spf13/cobra-cli@latest
@@ -31,50 +33,50 @@ go install ./${PROJECT_NAME} # build binary to $GOPATH/bin
 go build -o ./${PROJECT_NAME} # build binary to target dir
 ```
 
-### ADD CMD
+</details>
+
+<details><summary>SET DEFAULT CMD W/ COBRA</summary>
+
+```go
+// main.go
+func main() {
+  defCmd:="mydefaultcmd"
+  cmd.Execute(defCmd)
+}
+```
+
+```go
+// root.go
+func Execute(defCmd string) {
+  var cmdFound bool
+  cmd :=rootCmd.Commands()
+
+  for _,a:=range cmd{
+    for _,b:=range os.Args[1:] {
+      if a.Name()==b {
+       cmdFound=true
+        break
+      }
+    }
+  }
+  if !cmdFound {
+    args:=append([]string{defCmd}, os.Args[1:]...)
+    rootCmd.SetArgs(args)
+  }
+  if err := rootCmd.Execute(); err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
+```
+
+</details>
+
+<details><summary>ADD COMMANDS W/ COBRA</summary>
 
 ```bash
 cobra-cli add version
-```
-
-### ADD SUB-CMD
-
-```bash
 cobra-cli add vm
 cobra-cli add create -p 'vmCmd' # like sthings vm create
 ```
 
-## BUILD ARM64 IMAGE W/ NERDCTL
-
-### REGISTER QEMU
-
-```bash
-sudo systemctl start containerd
-sudo nerdctl run --privileged --rm tonistiigi/binfmt --install all
-ls -1 /proc/sys/fs/binfmt_misc/qemu*
-```
-
-### EXAMPLE DOCKERFILE
-
-```bash
-FROM arm64v8/golang:1.20 AS gobuilder
-WORKDIR /tmp/build
-COPY . .
-RUN go build -o app
-
-FROM arm64v8/alpine
-ENTRYPOINT [ "/usr/local/bin/app" ]
-COPY --from=gobuilder /tmp/build/app /usr/local/bin/app
-```
-
-### EXAMPLE BUILD
-
-```bash
-nerdctl build --platform=arm64 --output type=image,name=eu.gcr.io/stuttgart-things/wled-informer:0.1,push=true .
-```
-
-### EXAMPLE RUN
-
-```bash
-sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
-```
+</details>

@@ -1,6 +1,38 @@
 # stuttgart-things/docs/k8s
 
-## NFS CSI
+<details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
+
+```bash
+# REGISTER QEMU
+sudo systemctl start containerd
+sudo nerdctl run --privileged --rm tonistiigi/binfmt --install all
+ls -1 /proc/sys/fs/binfmt_misc/qemu*
+```
+
+```bash
+# EXAMPLE DOCKERFILE
+FROM arm64v8/golang:1.20 AS gobuilder
+WORKDIR /tmp/build
+COPY . .
+RUN go build -o app
+
+FROM arm64v8/alpine
+ENTRYPOINT [ "/usr/local/bin/app" ]
+COPY --from=gobuilder /tmp/build/app /usr/local/bin/app
+```
+
+```bash
+# EXAMPLE BUILD
+nerdctl build --platform=arm64 --output type=image,name=eu.gcr.io/stuttgart-things/wled-informer:0.1,push=true .
+```
+
+```bash
+# EXAMPLE RUN
+sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
+```
+
+</details>
+
 
 ### NFS CSI DEPLOYMENT
 
