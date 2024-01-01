@@ -5,7 +5,7 @@
 <details><summary>GORELEASER</summary>
 
 ```yaml
-# .goreleaser.yaml
+// .goreleaser.yaml
 github_urls:
   api: https://git.company.com/api/v3/
   upload: https://git.company.com/api/uploads/
@@ -18,8 +18,10 @@ github_urls:
 
 <details><summary>TEST W/ ASSERT</summary>
 
+### BOOL
+
 ```go
-# git_test.go
+// git_test.go
 import (
 	"testing"
 	"github.com/stretchr/testify/assert"
@@ -34,6 +36,30 @@ func TestCloneGitRepository(t *testing.T) {
 	assert.Equal(cloned, true)
 }
 ```
+
+### STRING
+
+```go
+func TestReadFileContentFromGitRepo(t *testing.T) {
+
+	gitRepository := "https://github.com/stuttgart-things/kaeffken.git"
+	gitBranch := "main"
+	gitCommitID := "09de9ff7b5c76aff8bb32f68cfb0bbe49cd5a7a8"
+
+	assert := assert.New(t)
+	expectedReadMe := "# kaeffken\ngitops cluster management cli \n"
+
+	repo, _ := CloneGitRepository(gitRepository, gitBranch, gitCommitID, nil)
+	readMe := ReadFileContentFromGitRepo(repo, "README.md")
+	fmt.Println(readMe)
+	fmt.Println(expectedReadMe)
+
+	assert.Equal(readMe, expectedReadMe)
+	fmt.Println("TEST SUCCESSFULLY")
+}
+```
+
+
 
 </details>
 
