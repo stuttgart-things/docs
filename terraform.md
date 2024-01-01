@@ -12,6 +12,8 @@ terraform apply
 terraform destroy
 ```
 
+</details>
+
 <details><summary><b>APPLY W/ VARS</b></summary>
 
 ```bash
