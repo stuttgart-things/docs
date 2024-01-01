@@ -12,6 +12,18 @@ terraform apply
 terraform destroy
 ```
 
+<details><summary><b>APPLY W/ VARS</b></summary>
+
+```bash
+terraform apply \
+-var "github_org=stuttgart-things" \
+-var "github_repository=stuttgart-things" \
+-var "github_token=<TOKEN>" \
+-var "target_path=clusters/labda/vsphere/utah" \
+-var "kubeconfig_path=/home/sthings/.kube/labda-utah" \
+-var "context=utah"
+```
+
 </details>
 
 <details><summary><b>VARIABLES</b></summary>
