@@ -2,6 +2,16 @@
 
 ## SNIPPETS
 
+<details><summary>COMMANDS</summary>
+
+```bash
+# TEST RECURSIVELY
+go test ./... -v 
+```
+
+</details>
+
+
 <details><summary>GORELEASER</summary>
 
 ```yaml
