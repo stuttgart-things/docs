@@ -21,9 +21,6 @@ oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-cont
 
 </details>
 
-
-</details close>
-
 <details><summary>DEPLOY OPENEBS</summary>
 
 ```bash
@@ -31,7 +28,7 @@ helm repo add openebs https://openebs.github.io/charts
 helm install openebs openebs/openebs --version 3.9.0 -n openebs --create-namespace
 ```
 
-</details close>
+</details>
 
 <details><summary>DEPLOY K8S AUTOSCALINGRUNNERSET</summary>
 
@@ -68,7 +65,7 @@ helm upgrade --install k8s-docs \
 oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --version 0.6.1
 ```
 
-</details close>
+</details>
 
 <details><summary>TEST PIPELINE</summary>
 
@@ -90,7 +87,7 @@ jobs:
           ls -lta
 ```
 
-</details close>
+</details>
 
 ## GITHUB CLI
 
@@ -100,7 +97,7 @@ jobs:
 gh pr create -t "tekton-test1" -b "added git tasks to taskfile"
 ```
 
-</details close>
+</details>
 
 <details><summary>CREATE RELEASE</summary>
 
@@ -108,7 +105,7 @@ gh pr create -t "tekton-test1" -b "added git tasks to taskfile"
 gh release create {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION_NUMBER }} --notes "released chart artifcact for {{ .PROJECT }}" {{ .PACKAGE }}
 ```
 
-</details close>
+</details>
 
 <details><summary>DELETE RELEASE</summary>
 
@@ -116,7 +113,7 @@ gh release create {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION_NUMBER }} -y || true
 ```
 
-</details close>
+</details>
 
 <details><summary>AUTO MERGE/REBASE PR</summary>
 
@@ -125,29 +122,125 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --delete-branch
 ```
 
-</details close>
+</details>
 
 
 ## GITHUB ACTIONS
 
-### EXAMPLES
+### SNIPPETS
 
-<details><summary>TEST-WORKFLOW</summary>
+<details><summary>K8S WORKFLOW-EXAMPLE</summary>
 
 ```yaml
-name: Actions Runner Controller Demo
+---
+name: Build & Verify Terraform Module
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: arc-runner-set
+  Terraform-Validate:
+    runs-on: arc-runner-scale-set-vault-base-setup
+    container:
+      image: hashicorp/terraform:1.6
+    environment: k8s
+    continue-on-error: false
     steps:
-      - run: echo "🎉 This job uses runner scale set runners!"
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+      - run: |
+          terraform init
+          terraform fmt
+          terraform validate
 ```
 
-</details close>
+</details>
 
-<details><summary>MULTIPLE CHOICE INPUTS</summary>
+<details><summary>WORKFLOW REPOSITORY (STORES THE WORKFLOW)</summary>
+
+```yaml
+---
+name: Build & Verify Terraform Module
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: true
+        type: string
+      terraform-version:
+        default: 1.6
+        required: true
+        type: string
+      tflint-version:
+        default: v0.50.0
+        required: true
+        type: string
+      environment-name:
+        default: k8s
+        required: true
+        type: string
+      continue-error:
+        default: false
+        required: true
+        type: boolean
+
+jobs:
+  Terraform-Validate:
+    runs-on: ${{ inputs.runs-on }}
+    container:
+      image: hashicorp/terraform:${{ inputs.terraform-version }}
+    environment: ${{ inputs.environment-name }}
+    continue-on-error: ${{ inputs.continue-error }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+      - run: |
+          terraform init
+          terraform fmt
+          terraform validate
+
+  Terraform-Lint:
+    runs-on: arc-runner-scale-set-vault-base-setup
+    container:
+      image: ghcr.io/terraform-linters/tflint:${{ inputs.tflint-version }}
+    environment: k8s
+    continue-on-error: false
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.1
+      - run: |
+          tflint --recursive
+```
+
+</details>
+
+<details><summary>CODE REPOSITORY (IMPORTS THE WORKFLOW)</summary>
+
+```yaml
+name: Terraform
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  validate-terraform:
+    if: github.event.ref == 'refs/heads/main'
+    name: Valdiate
+    uses: stuttgart-things/stuttgart-things/.github/workflows/validate-terraform.yaml@main
+    with:
+      environment-name: k8s
+      runs-on: arc-runner-scale-set-flux2-cluster-bootstrap
+      terraform-version: 1.6
+      tflint-version: v0.50.0
+      continue-error: false
+```
+
+<details><summary>MULTIPLE CHOICE INPUTS (DISPATCH)</summary>
 
 ```yaml
 on:
@@ -168,9 +261,7 @@ jobs:
       run: echo ${{ github.event.inputs.name }}"
 ```
 
-</details close>
-
-
+</details>
 
 <details><summary>DEFAULTS FOR INPUTS</summary>
 
@@ -188,50 +279,7 @@ jobs:
       echo "Name: $name"
 ```
 
-</details close>
-
-<details><summary>WORKFLOW</summary>
-
-```yaml
-name: Run git workflow
-on:
-  workflow_dispatch:
-    inputs:
-      dev-cleanup:
-        description: "Dev: Check to enable deletion of the deployment"
-        required: false
-        type: boolean
-        default: false
-  push:
-    branches: [ main ]
-
-# USE IN MAIN BRANCH ONLY
-build-helm-staging:
-  if: github.event.ref == 'refs/heads/main'
-  name: Staging
-  needs:
-    - Init
-  uses: ./.github/workflows/helm.yaml
-  with:
-    environment-name: dev
-    cancel-concurrent: false
-    branch-name: ${{ needs.Init.outputs.branch_name }}
-  secrets: inherit
-
-build-helm-production:
-  name: Production
-  needs:
-    - Init
-    - Linting-staging
-  uses: ./.github/workflows/helm.yaml
-  with:
-    environment-name: production
-    cancel-concurrent: true
-    branch-name: ${{ needs.Init.outputs.branch_name }}
-  secrets: inherit
-```
-
-</details close>
+</details>
 
 <details><summary>helm-job.yaml</summary>
 
@@ -255,7 +303,7 @@ jobs:
         uses: mamezou-tech/setup-helmfile@v1.2.0
 ```
 
-</details close>
+</details>
 
 ## GITCONFIG
 
@@ -277,7 +325,7 @@ cat ~/.gitconfig
         email = patrick.hermann@sva.de
 ```
 
-</details close>
+</details>
 
 ## HUGO MARKDOWN STATIC SITE GENERATOR
 
@@ -288,7 +336,7 @@ export SITE_NAME=BLOG
 nerdctl run --user $(id -u):$(id -g) --rm -v $(pwd):/src klakegg/hugo:0.107.0-ext-alpine new site ${SITE_NAME} > --format yaml
 ```
 
-</details close>
+</details>
 
 <details><summary>CLONE THEME + CREATE CONFIG</summary>
 
@@ -306,7 +354,7 @@ theme: hugo-book
 EOF
 ```
 
-</details close>
+</details>
 
 <details><summary>RUN HUGO SITE</summary>
 
@@ -319,7 +367,7 @@ cp -R themes/hugo-book/exampleSite/content.en/* ./content
 nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd)/blog:/src klakegg/hugo:0.107.0-ext-alpine server
 ```
 
-</details close>
+</details>
 
 <details><summary>BUILD STATIC CONTENT</summary>
 
@@ -327,7 +375,7 @@ nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd)/blog:/src klake
 nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd):/src klakegg/hugo:0.107.0-ext-alpine --verbose --destination public
 ```
 
-</details close>
+</details>
 
 <details><summary>RUN/VIEW STATIC CONTENT W/ NGINX</summary>
 
@@ -335,7 +383,7 @@ nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd):/src klakegg/hu
 sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html nginx
 ```
 
-</details close>
+</details>
 
 <details><summary>YAML LINT</summary>
 
@@ -343,4 +391,4 @@ sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html
 nerdctl run -it -v ./docs:/manifests cytopia/yamllint -- /manifests
 ```
 
-</details close>
+</details>
