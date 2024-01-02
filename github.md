@@ -4,9 +4,13 @@
 
 ## GITHUB ACTIONS ON K8S
 
+<details><summary>INSTALL OPERATOR SDK</summary>
+
 [Deploying runner scale sets with Actions Runner Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers)
 
-<details open><summary><b>DEPLOY GHA SCALE SET CONTROLLER</b></summary>
+</details>
+
+<details><summary>DEPLOY GHA SCALE SET CONTROLLER</summary>
 
 ```bash
 helm upgrade --install arc \
@@ -15,9 +19,12 @@ helm upgrade --install arc \
 oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
 ```
 
+</details>
+
+
 </details close>
 
-<details open><summary><b>DEPLOY OPENEBS</b></summary>
+<details><summary>DEPLOY OPENEBS</summary>
 
 ```bash
 helm repo add openebs https://openebs.github.io/charts
@@ -26,7 +33,7 @@ helm install openebs openebs/openebs --version 3.9.0 -n openebs --create-namespa
 
 </details close>
 
-<details open><summary><b>DEPLOY K8S AUTOSCALINGRUNNERSET</b></summary>
+<details><summary>DEPLOY K8S AUTOSCALINGRUNNERSET</summary>
 
 ```bash
 cat <<EOF > ./k8s-arc-scale-values.yaml
@@ -63,7 +70,7 @@ oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --ve
 
 </details close>
 
-<details open><summary><b>TEST PIPELINE</b></summary>
+<details><summary>TEST PIPELINE</summary>
 
 ```yaml
 name: ACTIONS RUNNER K8S SMOKE TEST
@@ -87,7 +94,7 @@ jobs:
 
 ## GITHUB CLI
 
-<details open><summary><b>CREATE PULL REQUEST</b></summary>
+<details><summary>CREATE PULL REQUEST</summary>
 
 ```bash
 gh pr create -t "tekton-test1" -b "added git tasks to taskfile"
@@ -95,7 +102,7 @@ gh pr create -t "tekton-test1" -b "added git tasks to taskfile"
 
 </details close>
 
-<details open><summary><b>CREATE RELEASE</b></summary>
+<details><summary>CREATE RELEASE</summary>
 
 ```bash
 gh release create {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION_NUMBER }} --notes "released chart artifcact for {{ .PROJECT }}" {{ .PACKAGE }}
@@ -103,7 +110,7 @@ gh release create {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 
 </details close>
 
-<details open><summary><b>DELETE RELEASE</b></summary>
+<details><summary>DELETE RELEASE</summary>
 
 ```bash
 gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION_NUMBER }} -y || true
@@ -111,7 +118,7 @@ gh release delete {{ .PROJECT }}-{{ .VERSION_NUMBER_PREFIX }}{{ .UPDATED_VERSION
 
 </details close>
 
-<details open><summary><b>AUTO MERGE/REBASE PR</b></summary>
+<details><summary>AUTO MERGE/REBASE PR</summary>
 
 ```bash
 # GET LATEST PR AND AUTO MERGE + DELETE BRANCH
@@ -125,7 +132,7 @@ gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --d
 
 ### EXAMPLES
 
-<details open><summary><b>TEST-WORKFLOW</b></summary>
+<details><summary>TEST-WORKFLOW</summary>
 
 ```yaml
 name: Actions Runner Controller Demo
@@ -140,7 +147,7 @@ jobs:
 
 </details close>
 
-<details open><summary><b>MULTIPLE CHOICE INPUTS</b></summary>
+<details><summary>MULTIPLE CHOICE INPUTS</summary>
 
 ```yaml
 on:
@@ -165,7 +172,7 @@ jobs:
 
 
 
-<details open><summary><b>DEFAULTS FOR INPUTS</b></summary>
+<details><summary>DEFAULTS FOR INPUTS</summary>
 
 ```yaml
 # FOR EXAMPLE WHEN USING WORFLOW DISPATCH AND GIT TRIGGERS TO SET A DEFAULT VALUE
@@ -183,7 +190,7 @@ jobs:
 
 </details close>
 
-<details open><summary><b>WORKFLOW</b></summary>
+<details><summary>WORKFLOW</summary>
 
 ```yaml
 name: Run git workflow
@@ -226,7 +233,7 @@ build-helm-production:
 
 </details close>
 
-<details open><summary><b>helm-job.yaml</b></summary>
+<details><summary>helm-job.yaml</summary>
 
 ```yaml
 on:
@@ -252,7 +259,7 @@ jobs:
 
 ## GITCONFIG
 
-<details open><summary><b>EXAMPLE CONFIG</b></summary>
+<details><summary>EXAMPLE CONFIG</summary>
 
 ```bash
 cat ~/.gitconfig
@@ -274,7 +281,7 @@ cat ~/.gitconfig
 
 ## HUGO MARKDOWN STATIC SITE GENERATOR
 
-<details open><summary><b>CREATE HUGO SITE</b></summary>
+<details><summary>CREATE HUGO SITE</summary>
 
 ```bash
 export SITE_NAME=BLOG
@@ -283,7 +290,7 @@ nerdctl run --user $(id -u):$(id -g) --rm -v $(pwd):/src klakegg/hugo:0.107.0-ex
 
 </details close>
 
-<details open><summary><b>CLONE THEME + CREATE CONFIG</b></summary>
+<details><summary>CLONE THEME + CREATE CONFIG</summary>
 
 ```bash
 export SITE_NAME=BLOG
@@ -301,7 +308,7 @@ EOF
 
 </details close>
 
-<details open><summary><b>RUN HUGO SITE</b></summary>
+<details><summary>RUN HUGO SITE</summary>
 
 ```bash
 export SITE_NAME=BLOG
@@ -314,7 +321,7 @@ nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd)/blog:/src klake
 
 </details close>
 
-<details open><summary><b>BUILD STATIC CONTENT</b></summary>
+<details><summary>BUILD STATIC CONTENT</summary>
 
 ```bash
 nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd):/src klakegg/hugo:0.107.0-ext-alpine --verbose --destination public
@@ -322,7 +329,7 @@ nerdctl run --user $(id -u):$(id -g) --rm -p 1315:1313 -v $(pwd):/src klakegg/hu
 
 </details close>
 
-<details open><summary><b>RUN/VIEW STATIC CONTENT W/ NGINX</b></summary>
+<details><summary>RUN/VIEW STATIC CONTENT W/ NGINX</summary>
 
 ```bash
 sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html nginx
@@ -330,7 +337,7 @@ sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html
 
 </details close>
 
-<details open><summary><b>YAML LINT</b></summary>
+<details><summary>YAML LINT</summary>
 
 ```bash
 nerdctl run -it -v ./docs:/manifests cytopia/yamllint -- /manifests

@@ -1,6 +1,6 @@
 # stuttgart-things/docs/golang-k8s-operator
 
-## INSTALL OPERATOR SDK
+<details><summary>INSTALL OPERATOR SDK</summary>
 
 ```bash
 OPERATOR_SDK_VERSION=v1.28.1
@@ -11,7 +11,9 @@ go version
 operator-sdk version
 ```
 
-## INIT/SCAFFOLD OPERATOR STRUCTURE
+</details>
+
+<details><summary>INIT/SCAFFOLD OPERATOR STRUCTURE</summary>
 
 ```bash
 mkdir -p ~/projects/go/src/shipyard-operator && ~/projects/go/src/shipyard-operator
@@ -27,46 +29,62 @@ go mod tidy
 go get sigs.k8s.io/controller-runtime@v0.14.1
 ```
 
-## CREATE API/KIND
+</details>
+
+<details><summary>CREATE API/KIND</summary>
 
 ```bash
 operator-sdk create api --group machineshop --version v1beta1 --kind Ansible #example
 ```
 
-## EDIT TYPES
+</details>
+
+<details><summary>EDIT TYPES</summary>
 
 ```bash
 <OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
+```
 
-# EXAMPLE STRUCT SNIPPET
-...
+</details>
+
+<details><summary>EXAMPLE STRUCT SNIPPET</summary>
+
+```go
+//...
 type AnsibleSpec struct {
 	// +kubebuilder:default:="localhost"
 	Hosts string   `json:"hosts,omitempty"`
 	Vars  []string `json:"vars"`
 	Roles []string `json:"roles,omitempty"`
 }
-...
+```
+//...
 
-# EXAMPLE STATUS STRUCT SNIPPET
+</details>
+
+<details><summary>EXAMPLE STATUS STRUCT SNIPPET</summary>
+
+```go
 // TERRAFORMSTATUS DEFINES THE OBSERVED STATE OF TERRAFORM
 type TerraformStatus struct {
 	Conditions []metav1.Condition `json:"conditions,omitempty" patchStrategy:"merge" patchMergeKey:"type" protobuf:"bytes,1,rep,name=conditions"`
 }
-
 ```
 
-## CREATE MANIFESTS
+</details>
+
+<details><summary>CREATE MANIFESTS</summary>
 
 ```bash
 make manifests
 ```
 
-## EDIT CONTROLLER
+</details>
 
-```bash
-<OPERATOR-PATH>/controllers/<KIND>_controller.go
+<details><summary>EDIT CONTROLLER</summary>
 
+```go
+//<OPERATOR-PATH>/controllers/<KIND>_controller.go
 # EXAMPLE CONTROLLER SNIPPET
 func (r *ShipyardTerraformReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
@@ -82,17 +100,23 @@ func (r *ShipyardTerraformReconciler) Reconcile(ctx context.Context, req ctrl.Re
 		Message: fmt.Sprintf(tfOperation + " operation was started for " + terraformCR.Name)})
 ...
 }
-
 ```
 
-## CREATE CONTAINER IMAGE
+</details>
+
+<details><summary>CREATE CONTAINER IMAGE</summary>
 
 ```bash
 nerdctl build -t <IMG-ADDRESS:IMG-TAG> . && nerdctl push <IMG-ADDRESS:IMG-TAG>
 ```
 
-## DEPLOY
+</details>
+
+
+<details><summary>DEPLOY</summary>
 
 ```bash
 make deploy IMG=<IMG-ADDRESS:IMG-TAG>
 ```
+
+</details>
