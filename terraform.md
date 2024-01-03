@@ -114,6 +114,26 @@ variable "bootstrap" {
 
 </details>
 
+<details><summary><b>OUTPUTS</b></summary>
+
+```hcl
+# LIST
+output "ip" {
+  value = vsphere_virtual_machine.vm[*].default_ip_address
+}
+
+# FOR EACH
+output "role_id" {
+  description = "Output of role id"
+  value = [
+    for role in vault_approle_auth_backend_role.approle : role.role_id
+  ]
+}
+```
+
+</details>
+
+
 <details><summary><b>ENABLE/DISABLE RESOURCE CREATION W/ COUNT</b></summary>
 
 ```hcl
