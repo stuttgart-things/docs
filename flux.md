@@ -2,6 +2,32 @@
 
 ## SNIPPETS
 
+<details><summary>BOOTRSTRAP</summary>
+
+```bash
+# BOOTRSTRAP GITHUB
+export KUBECONFIG=<KUBECONFIG>
+export GITHUB_TOKEN=<TOKEN>
+flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test # EXAMPLE
+```
+
+```bash
+# BOOTRSTRAP GITLAB
+export KUBECONFIG=<KUBECONFIG>
+export GITLAB_TOKEN=<TOKEN>
+flux bootstrap gitlab --token-auth --hostname=<GITHUB-SERVER> --owner=Lab/stuttgart-things --repository=stuttgart-things --branch=master --path=clusters/labul/vsphere/sthings2 # EXAMPLE
+```
+
+```bash
+# BOOTRSTAP WITHOUT GIT
+flux install \
+--namespace=flux-system \
+--network-policy=false \
+--components=source-controller,helm-controller
+```
+
+</details>
+
 <details><summary>TROUBLESHOOT HELMRELEASES</summary>
 
 ```bash
@@ -383,49 +409,10 @@ stringData:
 
 </details>
 
-## BOOTRSTAP FROM GITHUB
-
-<details><summary><b>Bootstrap from Github example 1</b></summary>
-
-```bash
-export KUBECONFIG=<KUBECONFIG>
-export GITHUB_TOKEN=<TOKEN>
-flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test # EXAMPLE
-```
-
-</details>
-
-## BOOTRSTAP GITHUB
-
-<details><summary><b>Bootstrap from Github example 2</b></summary>
-
-```bash
-export KUBECONFIG=<KUBECONFIG>
-export GITLAB_TOKEN=<TOKEN>
-flux bootstrap gitlab --token-auth --hostname=<GITHUB-SERVER> --owner=Lab/stuttgart-things --repository=stuttgart-things --branch=master --path=clusters/labul/vsphere/sthings2 # EXAMPLE
-```
-
-</details>
-
-## BOOTRSTAP WITHOUT GIT
-
-<details><summary><b>Bootstrap without git</b></summary>
-
-```bash
-flux install \
---namespace=flux-system \
---network-policy=false \
---components=source-controller,helm-controller
-```
-
-</details>
 
 
 
 
-
-
-</details>
 
 ### PREVIEWING CHANGES FROM KUSTOMIZATION
 
