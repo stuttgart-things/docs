@@ -1,5 +1,113 @@
 # stuttgart-things/docs/flux
 
+## SNIPPETS
+
+<details><summary>TROUBLESHOOT HELMRELEASES</summary>
+
+```bash
+kubectl get hr -A  # LIST ALL HRs
+flux suspend hr metallb-configuration -n metallb-system  # SUSPEND HR
+flux resume hr metallb-configuration -n metallb-system  # RESUME HR
+flux delete hr metallb-configuration -n metallb-system  # NOTHING ELSE MATTERS
+flux reconcile kustomization vault -n flux-system # RECONCILE KUSTOMIZATION
+flux reconcile source helm argocd  -n argocd # RECONCILE HELM SOURCE
+```
+
+</details>
+
+
+## UNINSTALL FLUX
+
+<details><summary>UNINSTALL FLUX</summary>
+
+```bash
+flux uninstall --namespace=flux-system
+```
+
+</details>
+
+<details><summaryLIST EVENTS/CHECK FOR NEXT RUNS</summary>
+
+```bash
+kubectl get events -n flux-system
+```
+
+</details>
+
+<details><summary>ADD GITREPOSITORY AS YAML</summary>
+
+```yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: stuttgart-things-github
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  url: https://github.com/stuttgart-things/stuttgart-things.git
+```
+
+</details>
+
+
+<details><summary>USE AS S3 AS SOURCE</summary>
+
+```bash
+# CREATE S3 SECRET
+kubectl apply -f - <<EOF
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: artifacts-labul-automation-secret
+  namespace: flux-system
+type: Opaque
+stringData:
+  accesskey: flux
+  secretkey: <${SECRET}
+EOF
+
+# CREATE S3 BUCKET
+kubectl apply -f - <<EOF
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: Bucket
+metadata:
+  name: artifacts-labul-automation
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  endpoint: artifacts.automation.sthings-vsphere.labul.sva.de
+  insecure: false
+  secretRef:
+    name: artifacts-labul-automation-secret
+  bucketName: vsphere-vm
+EOF
+
+# CREATE S3 KUSTOMIZATION
+kubectl apply -f - <<EOF
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: terraform
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  prune: true
+  path: ./
+  sourceRef:
+    kind: Bucket
+    name: artifacts-labul-automation
+EOF
+```
+
+</details>
+
+
+
 ## USE AGE+SOPS FOR SECRETS
 <!-- https://deyan7.de/en/sops-secrets-operations-kubernetes-operator-secure-your-sensitive-data-while-maintaining-ease-of-use/ -->
 [age](https://github.com/getsops/sops/releases) - management of gnupg keyrings and PGP keys
@@ -94,75 +202,7 @@ spec:
 </details>
 
 
-## USE AS S3 AS SOURCE
-
-### CREATE S3 SECRET
-
-<details><summary><b>Create S3 secret</b></summary>
-
-```bash
-kubectl apply -f - <<EOF
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: artifacts-labul-automation-secret
-  namespace: flux-system
-type: Opaque
-stringData:
-  accesskey: flux
-  secretkey: <${SECRET}
-EOF
-```
-
-</details>
-
-### CREATE S3 BUCKET
-
-<details><summary><b>Create S3 bucket</b></summary>
-
-```bash
-kubectl apply -f - <<EOF
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: Bucket
-metadata:
-  name: artifacts-labul-automation
-  namespace: flux-system
-spec:
-  interval: 5m0s
-  endpoint: artifacts.automation.sthings-vsphere.labul.sva.de
-  insecure: false
-  secretRef:
-    name: artifacts-labul-automation-secret
-  bucketName: vsphere-vm
-EOF
-```
-</details>
-
-### CREATE S3 KUSTOMIZATION
-
-<details><summary><b>Create S3 kustomization</b></summary>
-
-```bash
-kubectl apply -f - <<EOF
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: terraform
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  prune: true
-  path: ./
-  sourceRef:
-    kind: Bucket
-    name: artifacts-labul-automation
-EOF
-```
-
-</details>
+#
 
 ## MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER
 
@@ -304,52 +344,7 @@ flux install \
 
 </details>
 
-## UNINSTALL FLUX
 
-<details><summary><b>Uninstall flux</b></summary>
-
-```bash
-flux uninstall --namespace=flux-system
-```
-
-</details>
-
-## LIST
-
-### HELM RELEASES
-
-<details><summary><b>List helm releases</b></summary>
-
-```bash
-kubectl get hr -A  # LIST ALL HRs
-flux suspend hr metallb-configuration -n metallb-system  # SUSPEND HR
-flux resume hr metallb-configuration -n metallb-system  # RESUME HR
-flux delete hr metallb-configuration -n metallb-system  # NOTHING ELSE MATTERS
-flux reconcile kustomization vault -n flux-system # RECONCILE KUSTOMIZATION
-flux reconcile source helm argocd  -n argocd # RECONCILE HELM SOURCE
-```
-
-</details>
-
-### LIST ALL HELM KUSTOMIZATIONS
-
-<details><summary><b>List helm kustomizations</b></summary>
-
-```bash
-kubectl get Kustomization -A
-```
-
-</details>
-
-### LIST EVENTS/CHECK FOR NEXT RUNS
-
-<details><summary><b>List events</b></summary>
-
-```bash
-kubectl get events -n flux-system
-```
-
-</details>
 
 ### OVERWRITE HELM VALUES (EXAMPLE)
 
@@ -436,20 +431,7 @@ spec:
         namespace: vault
 ```
 
-#### ADD GitRepository
 
-```yaml
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
-metadata:
-  name: stuttgart-things-github
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  ref:
-    branch: main
-  url: https://github.com/stuttgart-things/stuttgart-things.git
-```
 
 </details>
 
