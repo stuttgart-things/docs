@@ -28,10 +28,11 @@ flux install \
 
 </details>
 
-<details><summary>TROUBLESHOOT HELMRELEASES</summary>
+<details><summary>TROUBLESHOOTING</summary>
 
 ```bash
-kubectl get events -n flux-system
+flux get all -A --status-selector ready=false # show all flux objects that are not ready
+kubectl get events -n flux-system --field-selector type=Warning # show flux warning events
 ```
 
 ```bash
@@ -304,17 +305,11 @@ spec:
 </details>
 
 
-#
-
-## MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER
-
-### CREATE PUB CERT AS CM
+<details><summary><b>MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER</b></summary>
 
 [issue](https://github.com/fluxcd/flux2/issues/3417)
 
-#### VIA KUBECTL
-
-<details><summary><b>Create pub cert via kubectl</b></summary>
+<details><summary><b>CREATE PUB CERT VIA KUBECTL</b></summary>
 
 ```bash
 kubectl -n <namespace-for-config-map-optional> \
@@ -323,9 +318,7 @@ create configmap ca-pemstore -— from-file=labul-pve.crt
 
 </details>
 
-#### VIA MANIFEST
-
-<details><summary><b>Create pub cert via manifest</b></summary>
+<details><summary><b>CREATE PUB CERT VIA MANIFEST</b></summary>
 
 ```yaml
 apiVersion: v1
@@ -375,17 +368,6 @@ patches:
 
 </details>
 
-## TROUBLESHOOTING
-
-<details><summary><b>Troubleshooting</b></summary>
-
-```bash
-flux get all -A --status-selector ready=false # show all flux objects that are not ready
-kubectl get events -n flux-system --field-selector type=Warning # show flux warning events
-```
-
-</details>
-
 ## CREATE SECRET FOR KUSTOMIZATION
 
 <details><summary><b>Create secret for kustomization</b></summary>
@@ -409,10 +391,7 @@ stringData:
 
 </details>
 
-
-
-
-
+</details>
 
 ### PREVIEWING CHANGES FROM KUSTOMIZATION
 
