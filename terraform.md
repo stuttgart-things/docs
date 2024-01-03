@@ -28,6 +28,43 @@ terraform apply \
 
 </details>
 
+<details><summary><b>PROVIDER</b></summary>
+
+```hcl
+terraform {
+  required_version = ">= 1.6.5"
+
+  required_providers {
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.24.0"
+    }
+
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.14.0"
+    }
+
+    vault = {
+      source  = "hashicorp/vault"
+      version = ">= 3.21.0"
+    }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 2.12.1"
+    }
+
+    local = {
+      source  = "hashicorp/local"
+      version = "2.4.1"
+    }
+  }
+}
+```
+
+</details>
+
 <details><summary><b>VARIABLES</b></summary>
 
 ```hcl
@@ -51,6 +88,27 @@ variable "secret_engines" {
   }))
   default     = []
   description = "A list of secret path objects"
+}
+
+# NUMBER
+variable "vm_memory" {
+  default     = 4096
+  type        = number
+  description = "amount of memory of the vm"
+}
+
+# STRING
+variable "vsphere_vm_template" {
+  default     = false
+  type        = string
+  description = "name of vsphere vm template"
+}
+
+# LIST
+variable "bootstrap" {
+  description = "Bootstrap os"
+  type        = list(string)
+  default     = ["whoami", "hostname"]
 }
 ```
 
