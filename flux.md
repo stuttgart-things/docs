@@ -46,6 +46,41 @@ flux reconcile source helm argocd  -n argocd # RECONCILE HELM SOURCE
 
 </details>
 
+<details><summary>PATCH VERSION OF HELMRELEASE</summary>
+
+```yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: tekton-pipelines
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: stuttgart-things-github
+  path: ./apps/tekton
+  prune: true
+  wait: true
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: vault-flux-secrets
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/chart/spec/version
+          value: v0.53.4
+      target:
+        kind: HelmRelease
+        name: tekton-pipelines
+        namespace: tekton-pipelines
+```
+
+</details>
+
 <details><summary>UNINSTALL FLUX</summary>
 
 ```bash
