@@ -5,9 +5,9 @@
 <details><summary><b>INSTALL PUB CERTS PROXMOX</b></summary>
 
 ```bash
-mkdir -p /etc/pve/nodes/sthings-pve1/certificates/custom
+mkdir -p /etc/pve/nodes/<node>/certificates/custom
 
-wget -O /etc/pve/nodes/sthings-pve1/certificates/custom/custom-ca.crt https://<vault url>:8200/v1/pki/ca/pem --no-check-certificate
+wget -O /etc/pve/nodes/<node>/certificates/custom/custom-ca.crt https://<vault url>:8200/v1/pki/ca/pem --no-check-certificate
 ```
 
 </details>
@@ -32,8 +32,8 @@ pve -> datacenter -> Metric Server -> add
 |Server|<influxdb.ingress address>|Organization|influxdata|
 |Port|443|Bucket|_monitoring|
 |Protocol|HTTPS|Token|<32bit Token>|
-|API Path Prefix|  |Batch Size (b)|default|
-|Timeout (s)|default(1)|MTU|default|
+|API Path Prefix|leave empty|Batch Size (b)|leave default|
+|Timeout (s)|leave default|MTU|leave default|
 |Verify Certificate|Yes|  |  |
 
 </details>
@@ -63,7 +63,7 @@ Query language -> Flux
 |Organization|influxdata|
 |Token|<InfluxDB Admin's Token>|
 |Default Bucket|_monitoring|
-|Min time interval|default|
-|Max series|default|
+|Min time interval|leave default|
+|Max series|leave default|
 
 </details>
