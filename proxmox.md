@@ -61,7 +61,7 @@ Query language -> Flux
 |InfluxDB Details||
 |---|---|
 |Organization|influxdata|
-|Token|<admin Token>|
+|Token|<InfluxDB Admin's Token>|
 |Default Bucket|_monitoring|
 |Min time interval|default|
 |Max series|default|
