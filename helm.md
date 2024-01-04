@@ -1,5 +1,15 @@
 # stuttgart-things/docs/helm
 
+## SNIPPETS
+
+<details><summary>HELM PACKAGE</summary>
+
+```bash
+helm package <DIR-TO-HELM-CHART>
+```
+
+</details>
+
 ## HELMFILE
 
 <details><summary>SET VAULT CONNECTION</summary>
@@ -29,11 +39,6 @@ helmfile sync --environment labul-pve-dev
 
 </details>
 
-## HELM PACKAGE
-
-```bash
-helm package <DIR-TO-HELM-CHART>
-```
 
 ## HELM REGISTRY LOGIN
 
