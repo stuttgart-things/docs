@@ -18,6 +18,28 @@ wget -O /etc/pve/nodes/<node>/certificates/custom/custom-ca.crt https://<vault u
 
 <details><summary><b>DEPLOY INFLUXDB</b></summary>
 
+```bash
+helm repo add influxdata https://helm.influxdata.com/
+
+helm upgrade --install influxdb2 influxdata/influxdb2 \
+-n influxdb --create-namespace --version 2.1.2 \
+-f - <<EOF
+---
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 12Gi
+ingress:
+  enabled: true
+  tls: true
+  hostname: influxdb.automation.sthings-vsphere.labul.sva.de
+  className: nginx
+  secretName: influxdb-ingress-tls
+service:
+  type: ClusterIP
+EOF
+```
+
 </details>
 
 <details><summary><b>CONFIGURE INFLUXDB</b></summary>
