@@ -114,6 +114,40 @@ variable "bootstrap" {
 
 </details>
 
+<details><summary><b>VARIABLE VALIDATION</b></summary>
+
+```hcl
+# STRING REGEX
+variable "vsphere_vm_name" {
+  default     = "terraform-vm"
+  type        = string
+  description = "name of vsphere virtual machine"
+
+  validation {
+    condition     = can(regex("^[a-zA-Z][a-zA-Z\\-\\0-9]{1,32}$", var.vsphere_vm_name))
+    error_message = "VM name must start with letter, only contain letters, numbers, dashes, and must be between 1 and 32 characters."
+  }
+
+}
+
+# ALLOWED NUMBER(S)
+variable "vm_num_cpus" {
+  default     = 4
+  type        = number
+  description = "amount of cpus from the vm"
+
+  validation {
+    condition     = contains([2, 4, 6, 8, 10, 12, 16], var.vm_num_cpus)
+    error_message = "Valid values for vm_num_cpus are (2, 4, 6, 8, 10, 12, 16)"
+  }
+
+}
+
+
+```
+
+</details>
+
 <details><summary><b>OUTPUTS</b></summary>
 
 ```hcl
