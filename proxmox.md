@@ -24,13 +24,25 @@ BUCKET/TOKEN ETC..
 
 <details><summary><b>CONFIGURE METRIC SHIPPING ON PROXMOX WEB UI</b></summary>
 
-Grafana -> Add new connection -> influxdb
+pve -> datacenter -> Metric Server -> add
+
+|  |  |  |  |
+|--|--|--|--|
+|Name|influxdb-automation|Enabled|YES|
+|Server|<influxdb.ingress address>|Organization|influxdata|
+|Port|443|Bucket|_monitoring|
+|Protocol|HTTPS|Token|<32bit Token>|
+|API Path Prefix|  |Batch Size (b)|default|
+|Timeout (s)|default(1)|MTU|default|
+|Verify Certificate|Yes|  |  |
 
 </details>
 
 <details><summary><b>CONFIGURE GRAFANA DASHBOARD</b></summary>
 
-Change Query language
+Grafana -> Add new connection -> influxdb
+
+Change Query language  
 Query language -> Flux
 
 |HTTP|  |
