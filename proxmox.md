@@ -5,8 +5,12 @@
 <details><summary><b>INSTALL PUB CERTS PROXMOX</b></summary>
 
 ```bash
+# Folder need to be created for certificates
 mkdir -p /etc/pve/nodes/<node>/certificates/custom
 
+# Copy certificate into folder,
+# in this case wget is used
+# (local files can also be copied from client)
 wget -O /etc/pve/nodes/<node>/certificates/custom/custom-ca.crt https://<vault url>:8200/v1/pki/ca/pem --no-check-certificate
 ```
 
