@@ -1,5 +1,16 @@
 # stuttgart-things/docs/k8s
 
+<details><summary>PORTFORWARD LONGHORN</summary>
+
+```bash
+kubectl --namespace longhorn-system port-forward --address 0.0.0.0 service/longhorn-frontend 5080:80
+# CHECK LOCALHOST/FQDN
+# e.g. http://nashville.tiab.labda.sva.de:5080/#/dashboard
+# e.g. http://localhost:5080/#/dashboard
+```
+
+</details>
+
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
 
 ```bash
