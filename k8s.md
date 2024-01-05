@@ -9,6 +9,15 @@ kubectl delete po influxdb-influxdb2-0 --force -n influxdb
 
 </details>
 
+<details><summary>HELM STATUS</summary>
+
+```bash
+helm status vault -n vault
+helm get manifest vault -n vault
+```
+
+</details>
+
 <details><summary>PORTFORWARD LONGHORN</summary>
 
 ```bash
