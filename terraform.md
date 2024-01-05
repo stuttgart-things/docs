@@ -30,6 +30,13 @@ module "labda-vm" {
   source                  = "github.com/stuttgart-things/vsphere-vm.git" # SSH
 ```
 
+```hcl
+# AS ZIP
+module "labda-vm" {
+  source                  = "https://github.com/stuttgart-things/vsphere-vm/releases/download/vsphere-vm-2.6.1/vsphere-vm.zip"
+```
+
+
 </details>
 
 <details><summary><b>PACKAGE MODULE</b></summary>
