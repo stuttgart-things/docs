@@ -1,5 +1,14 @@
 # stuttgart-things/docs/k8s
 
+<details><summary>FORCE DELETE POD</summary>
+
+```bash
+# e.g. influxdb (stuck in deleting phase)
+kubectl delete po influxdb-influxdb2-0 --force -n influxdb
+```
+
+</details>
+
 <details><summary>PORTFORWARD LONGHORN</summary>
 
 ```bash
