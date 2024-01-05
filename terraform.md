@@ -15,6 +15,23 @@ terraform destroy
 
 </details>
 
+<details><summary><b>REFRENCE MODULE</b></summary>
+
+```hcl
+# LOCAL
+module "labda-vm" {
+  source                  = "./vsphere-vm"
+```
+
+```hcl
+# FROM GIT
+module "labda-vm" {
+  source                  = "github.com/stuttgart-things/vsphere-vm"
+```
+
+</details>
+
+
 <details><summary><b>APPLY W/ VARS</b></summary>
 
 ```bash
