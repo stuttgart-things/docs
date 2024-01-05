@@ -24,9 +24,10 @@ module "labda-vm" {
 ```
 
 ```hcl
-# FROM GIT
+# FROM GITHUB
 module "labda-vm" {
-  source                  = "github.com/stuttgart-things/vsphere-vm"
+  source                  = "github.com/stuttgart-things/vsphere-vm" # HTTPS
+  source                  = "github.com/stuttgart-things/vsphere-vm.git" # SSH
 ```
 
 </details>
