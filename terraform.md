@@ -32,6 +32,18 @@ module "labda-vm" {
 
 </details>
 
+<details><summary><b>PACKAGE MODULE</b></summary>
+
+```bash
+# CHANGE TO MODULE DIR
+cd ~/projects/terraform/vsphere-vm/
+zip -r vsphere-vm.zip * -j 
+gh release create vsphere-vm-2.6.1 --notes "released module tesed with provider 2.6.1" vsphere-vm.zip
+
+# RELEASED ARTIFACT
+https://github.com/stuttgart-things/vsphere-vm/releases/download/vsphere-vm-2.6.1/vsphere-vm.zip
+```
+</details>
 
 <details><summary><b>APPLY W/ VARS</b></summary>
 
