@@ -10,6 +10,38 @@ helm package <DIR-TO-HELM-CHART>
 
 </details>
 
+<details><summary>HELM REGISTRY LOGIN</summary>
+
+```bash
+helm registry login -u sthings -p <REPLACE-ME> scr.tiab.labda.sva.de
+```
+
+</details>
+
+<details><summary>PUSH CHART TO HARBOR</summary>
+
+```bash
+helm push sthings-demo-news-0.1.0.tgz oci://scr.tiab.labda.sva.de/sthings-k8s-operator/
+```
+
+</details>
+
+<details><summary>PULL CHART FROM HARBOR</summary>
+
+```bash
+helm pull oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --version 0.1.0
+```
+
+</details>
+
+<details><summary>INSTALL CHART FROM OCI/HARBOR</summary>
+
+```bash
+helm install --upgrade sthings-operator oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --version 0.1.0
+```
+
+</details>
+
 ## HELMFILE
 
 <details><summary>SET VAULT CONNECTION</summary>
@@ -38,31 +70,6 @@ helmfile sync --environment labul-pve-dev
 ```
 
 </details>
-
-
-## HELM REGISTRY LOGIN
-
-```bash
-helm registry login -u sthings -p <REPLACE-ME> scr.tiab.labda.sva.de
-```
-
-## PUSH CHART TO HARBOR
-
-```bash
-helm push sthings-demo-news-0.1.0.tgz oci://scr.tiab.labda.sva.de/sthings-k8s-operator/
-```
-
-## PULL CHART FROM HARBOR
-
-```bash
-helm pull oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --version 0.1.0
-```
-
-## INSTALL CHART FROM OCI/HARBOR
-
-```bash
-helm install --upgrade sthings-operator oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --version 0.1.0
-```
 
 <details><summary><b>FUNCTION</b></summary>
 
