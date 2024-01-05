@@ -143,8 +143,6 @@ variable "vm_num_cpus" {
   }
 
 }
-
-
 ```
 
 </details>
@@ -177,7 +175,11 @@ path = "cluster_name-${each.value["name"]}"
 
 // STRING + VAR
 path = "my\.${var.hosted_zone}"
+
+// VAR + STRING + VAR
+path =  "${var.cluster_name}-${each.value["name"]}"
 ```
+
 
 </details>
 
