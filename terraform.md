@@ -6,6 +6,7 @@
 
 ```bash
 terraform init
+terraform init --upgrade # REDOWNLOAD MODULE / UPGRADE PROVIDERS
 terraform verify
 terraform plan
 terraform apply
@@ -163,6 +164,19 @@ output "role_id" {
     for role in vault_approle_auth_backend_role.approle : role.role_id
   ]
 }
+```
+
+</details>
+
+
+<details><summary><b>COMBINE VARIABLE AND STRING</b></summary>
+
+```hcl
+// STRING + FOREACH
+path = "cluster_name-${each.value["name"]}"
+
+// STRING + VAR
+path = "my\.${var.hosted_zone}"
 ```
 
 </details>
