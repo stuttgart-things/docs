@@ -2,6 +2,16 @@
 
 ## SNIPPETS
 
+<details><summary><b>RENDER/INSTALL/APPLY</b></summary>
+
+```bash
+helm template <CHART>
+helm upgrade --install test <CHART> -n test --create-namespace
+helm template <CHART> | kubectl apply -f -
+```
+
+</details>
+
 <details><summary>HELM PACKAGE</summary>
 
 ```bash
@@ -38,35 +48,6 @@ helm pull oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --v
 
 ```bash
 helm install --upgrade sthings-operator oci://scr.tiab.labda.sva.de/sthings-k8s-operator/sthings-demo-news --version 0.1.0
-```
-
-</details>
-
-## HELMFILE
-
-<details><summary>SET VAULT CONNECTION</summary>
-
-```bash
-export VAULT_ADDR=https://${VAULT_FQDN}}
-export VAULT_NAMESPACE=root
-
-# APPROLE AUTH
-export VAULT_AUTH_METHOD=approle
-export VAULT_ROLE_ID=${VAULT_ROLE_ID}
-export VAULT_SECRET_ID=${VAULT_SECRET_ID}
-
-# TOKEN AUTH
-export VAULT_AUTH_METHOD=token #default
-export VAULT_TOKEN=${VAULT_TOKEN}
-```
-
-</details>
-
-<details><summary>RENDER/APPLY</summary>
-
-```bash
-helmfile template --environment labul-pve-dev
-helmfile sync --environment labul-pve-dev
 ```
 
 </details>
@@ -206,12 +187,31 @@ runs:
 
 </details>
 
-<details><summary><b>RENDER/INSTALL/APPLY</b></summary>
+## HELMFILE
+
+<details><summary>SET VAULT CONNECTION</summary>
 
 ```bash
-helm template <CHART>
-helm upgrade --install test <CHART> -n test --create-namespace
-helm template <CHART> | kubectl apply -f -
+export VAULT_ADDR=https://${VAULT_FQDN}}
+export VAULT_NAMESPACE=root
+
+# APPROLE AUTH
+export VAULT_AUTH_METHOD=approle
+export VAULT_ROLE_ID=${VAULT_ROLE_ID}
+export VAULT_SECRET_ID=${VAULT_SECRET_ID}
+
+# TOKEN AUTH
+export VAULT_AUTH_METHOD=token #default
+export VAULT_TOKEN=${VAULT_TOKEN}
+```
+
+</details>
+
+<details><summary>RENDER/APPLY</summary>
+
+```bash
+helmfile template --environment labul-pve-dev
+helmfile sync --environment labul-pve-dev
 ```
 
 </details>
