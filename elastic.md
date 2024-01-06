@@ -469,15 +469,15 @@ curl -u "elastic:${ELASTIC_PASSWORD}" -k "https://localhost:9200"
 <details><summary><b>CREATE W/ CURL</b></summary>
 
 ```json
-curl --insecure -u "elastic:${ELASTIC_PASSWORD}" -X PUT "https://localhost:9200/_ilm/policy/rollover-metricbeat?pretty" -H 'Content-Type: application/json' -d'
+curl --insecure -u "elastic:${ELASTIC_PASSWORD}" -X PUT "https://localhost:9200/_ilm/policy/metricbeat?pretty" -H 'Content-Type: application/json' -d'
 {
   "policy": {
     "phases": {
       "hot": {
         "actions": {
           "rollover": {
-            "max_age": "14d",
-            "max_primary_shard_size": "50gb",
+            "max_age": "2d",
+            "max_primary_shard_size": "1gb",
             "max_size": "3gb"
           },
           "set_priority": {
@@ -486,17 +486,8 @@ curl --insecure -u "elastic:${ELASTIC_PASSWORD}" -X PUT "https://localhost:9200/
         },
         "min_age": "0ms"
       },
-      "cold": {
-        "min_age": "14d",
-        "actions": {
-          "set_priority": {
-            "priority": 0
-          },
-          "freeze": {}
-        }
-      },
       "delete": {
-        "min_age": "90d",
+        "min_age": "3d",
         "actions": {
           "delete": {}
         }
