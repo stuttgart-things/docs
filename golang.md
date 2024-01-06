@@ -110,7 +110,7 @@ func TestVerifyValues(t *testing.T) {
 go install github.com/spf13/cobra-cli@latest
 PROJECT_NAME=toolkit-chart-creator
 mkdir ./${PROJECT_NAME} && cd ${PROJECT_NAME}
-go mod init ${PROJECT_NAME}
+go mod init ${PROJECT_NAME} # or w/ github: go mod init github.com/stuttgart-things/kaeffken
 cobra-cli init
 
 # install locally
@@ -227,6 +227,22 @@ values["rootPath"], _ = cmd.LocalFlags().GetString("root")
 ```
 
 </details>
+
+<details><summary>FILENAME/DIR FROM PATH</summary>
+
+```go
+import (
+  "path/filepath"
+)
+//..
+path := filepath.Base("/this/that/hello.yaml")
+dir := filepath.Dir("/this/that/hello.yaml")
+
+fmt.Println(path) # /this/that/
+fmt.Println(dir) # hello.yaml
+```
+</details>
+
 
 <details><summary>LOOPS</summary>
 
