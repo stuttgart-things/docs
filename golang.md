@@ -14,6 +14,24 @@ go test ./... -v
 
 <details><summary>GORELEASER</summary>
 
+```bash
+# INSTALL
+go install github.com/goreleaser/goreleaser@v1.23.0 #@latest
+```
+
+```bash
+# INIT
+goreleaser init
+git add .goreleaser.yaml
+git commit -am 'added goreleaser' && git push
+goreleaser release --snapshot --clean
+goreleaser check
+git tag -a v0.1.0 -m "First release"
+git push origin v0.1.0
+goreleaser release
+```
+
+
 ```yaml
 // .goreleaser.yaml
 github_urls:
