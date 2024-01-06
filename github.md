@@ -158,6 +158,38 @@ jobs:
 
 </details>
 
+<details><summary>DISPATCH/INPUTS/USES EXAMPLE</summary>
+
+```yaml
+---
+name: Release Terraform
+on:
+  workflow_dispatch:
+    inputs:
+      release-tag:
+        required: true
+        type: string
+      release-message:
+        required: true
+        type: string
+
+jobs:
+  release-terraform:
+    if: github.event.ref == 'refs/heads/main'
+    name: Valdiate
+    uses: stuttgart-things/stuttgart-things/.github/workflows/release-terraform.yaml@main  
+    with:
+      module-name: vsphere-vm
+      tag-name: "${{ github.event.inputs.release-tag }}"
+      release-message: "${{ github.event.inputs.release-message }}"
+      environment-name: k8s
+      runs-on: arc-runner-scale-set-vsphere-vm
+      continue-error: false
+```
+
+</details>
+
+
 <details><summary>WORKFLOW REPOSITORY (STORES THE WORKFLOW)</summary>
 
 ```yaml
