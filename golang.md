@@ -69,8 +69,6 @@ func TestReadFileContentFromGitRepo(t *testing.T) {
 }
 ```
 
-
-
 </details>
 
 ## CLI
@@ -134,6 +132,72 @@ func Execute(defCmd string) {
 cobra-cli add version
 cobra-cli add vm
 cobra-cli add create -p 'vmCmd' # like sthings vm create
+```
+
+</details>
+
+<details><summary>CMD/PERSISTENT FLAGS</summary>
+
+```go
+// cmd/get.go
+//..
+Run: func(cmd *cobra.Command, args []string) {
+  // READ FLAGS
+  authMethod, _ := cmd.LocalFlags().GetString("auth")
+  b64DecodeOption, _ := cmd.LocalFlags().GetBool("b64")
+
+// DECLARE FLAGS AND DEFAULTS
+func init() {
+  rootCmd.AddCommand(getCmd)
+  getCmd.Flags().String("auth", "approle", "vault auth method")
+  getCmd.Flags().Bool("b64", false, "decode base64 for output")
+}
+```
+
+```go
+// root.go
+//..
+var (
+  gitRepository string
+  enableVault   bool
+)
+
+// DECLARE FLAGS AND DEFAULTS
+func init() {
+  rootCmd.PersistentFlags().StringVar(&gitRepository, "git", "https://github.com/stuttgart-things/stuttgart-things.git", "source git repository")
+  rootCmd.PersistentFlags().BoolVar(&enableVault, "vault", true, "Enable vault lookups")
+}
+```
+
+</details>
+
+## SYNTAX
+
+<details><summary>MAPS</summary>
+
+```go
+// STRING MAP
+
+// DECLARE
+var (
+  values = make(map[string]string)
+)
+// ADD VALUE
+values["rootPath"], _ = cmd.LocalFlags().GetString("root")
+```
+
+</details>
+
+<details><summary>LOOPS</summary>
+
+```go
+// LOOP OVER STRING MAP + LOG ALL KEYS AND VALUES
+values := make(map[string]string)
+values["NAME] = "PATRICK"
+
+for key, value := range values {
+  log.Info(strings.ToUpper(key)+": ", value)
+}
 ```
 
 </details>
