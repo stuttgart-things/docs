@@ -67,6 +67,7 @@ func TestReadFileContentFromGitRepo(t *testing.T) {
 	assert.Equal(readMe, expectedReadMe)
 	fmt.Println("TEST SUCCESSFULLY")
 }
+```
 
 ### TABLE DRIVEN BOOL
 
@@ -97,9 +98,6 @@ func TestVerifyValues(t *testing.T) {
 	}
 
 }
-```go
-
-
 ```
 
 </details>
