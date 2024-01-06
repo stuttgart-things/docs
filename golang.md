@@ -238,8 +238,8 @@ import (
 path := filepath.Base("/this/that/hello.yaml")
 dir := filepath.Dir("/this/that/hello.yaml")
 
-fmt.Println(path) # /this/that/
-fmt.Println(dir) # hello.yaml
+fmt.Println(path) // /this/that/
+fmt.Println(dir) // hello.yaml
 ```
 </details>
 
