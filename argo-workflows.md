@@ -105,7 +105,7 @@ argo logs hello-workflows -n argo-workflows
 
 https://argoproj.github.io/argo-workflows/events/
 
-## WORKFLOW-TEMPLATE
+<details><summary><b>WORKFLOW-TEMPLATE</b></summary>
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -127,7 +127,9 @@ spec:
   entrypoint: main
 ```
 
-## WORKFLOW-EVENT-BINDING
+</details>
+
+<details><summary><b>WORKFLOW-EVENT-BINDING</b></summary>
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -147,3 +149,5 @@ spec:
         valueFrom:
           event: payload.message
 ```
+
+</details>
