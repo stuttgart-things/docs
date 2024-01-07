@@ -1,6 +1,8 @@
 # stuttgart-things/docs/crossplane
 
-##  Terminology
+##  TERMINOLOGY
+
+<details><summary><b>OVERVIEW</b></summary>
 
 | KIND  | DESCRIPTION                                                          |
 |----------|----------------------------------------------------------------------|
@@ -10,15 +12,20 @@
 | CompositeResourceDefinition | There isn't a direct analog to XRDs in the Helm ecosystem, but they're a little bit like the variable blocks in a Terraform module that define which variables exist, whether those variables are strings or integers, whether they're required or optional, etc. |
 | Composite Resource Claim  | Claims map to the same concepts as described above under the composite resource heading; i.e. tfvars files and Helm values.yaml files. Imagine that some tfvars files and some values.yaml files were only accessible to the platform team while others were offered to application teams; that's the difference between a composite resource and a claim. |
 
+</details>
 
-## CLI INSTALLATION
+##  DEPLOYMENT
+
+<details><summary><b>CLI INSTALLATION</b></summary>
 
 ```bash
 curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh" | sh
 sudo mv crossplane /usr/local/bin
 ```
 
-## DEPLOYMENT W/ HELM
+</details>
+
+<details><summary><b>DEPLOYMENT W/ HELM</b></summary>
 
 [provider-helm](https://github.com/crossplane-contrib/provider-helm/tree/master)
 
@@ -33,9 +40,11 @@ crossplane-stable/crossplane --version 1.14.3
 kubectl api-resources | grep upbound
 ```
 
-## EXAMPLE HELM PROVIDER
+</details>
 
-### DEPLOY HELM PROVIDER
+## HELM PROVIDER
+
+<details><summary><b>HELM PROVIDER INSTALLATION</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -48,11 +57,12 @@ spec:
 EOF
 ```
 
-### IN-CLUSTER PROVIDER CONFIGURATION
+</details>
 
-DEPLOY HELM RELEASES ON THE SAME CLUSTER CROSSPLANE IS RUNNING ON
+<details><summary><b>IN-CLUSTER PROVIDER CONFIGURATION</b></summary>
 
 ```bash
+# DEPLOY HELM RELEASES ON THE SAME CLUSTER CROSSPLANE IS RUNNING ON
 SA=$(kubectl -n crossplane-system get sa -o name | grep provider-helm | sed -e 's|serviceaccount\/|crossplane-system:|g')
 kubectl create clusterrolebinding provider-helm-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}"
 
@@ -67,7 +77,9 @@ spec:
 EOF
 ```
 
-### DEPLOY RELEASE
+</details>
+
+<details><summary><b>DEPLOY HELM RELEASE</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -95,11 +107,16 @@ spec:
 EOF
 ```
 
-### VERIFY RELEASE
+</details>
+
+<details><summary><b>VERIFY RELEASE</b></summary>
 
 ```bash
 kubectl get Release
 ```
+
+</details>
+
 
 ## TERRAFORM PROVIDER
 
