@@ -35,7 +35,7 @@ helm repo add crossplane-stable https://charts.crossplane.io/stable && helm repo
 
 helm upgrade --install crossplane --wait \
 --namespace crossplane-system \
-crossplane-stable/crossplane --version 1.14.3
+crossplane-stable/crossplane --version 1.14.5
 
 kubectl api-resources | grep upbound
 ```
@@ -120,7 +120,7 @@ kubectl get Release
 
 ## TERRAFORM PROVIDER
 
-### PROVIDER DEPLOYMENT + PROVIDER CONFIG (K8S STATE)
+<details><summary><b>PROVIDER DEPLOYMENT + PROVIDER CONFIG (K8S STATE)</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -129,7 +129,7 @@ kind: Provider
 metadata:
   name: provider-terraform
 spec:
-  package: xpkg.upbound.io/upbound/provider-terraform:v0.11.0
+  package: xpkg.upbound.io/upbound/provider-terraform:v0.13.0
 EOF
 
 sleep 20s
@@ -149,7 +149,12 @@ spec:
       }
     }
 EOF
+```
+</details>
 
+<details><summary><b>CREATE TERRAFORM SERVICE ACCOUNT</b></summary>
+
+```bash
 TERRAFORM_SERVICE_ACCOUNT=$(kubectl -n crossplane-system get sa -ojson | jq -r '.items | map(.metadata.name | select(startswith("provider-terraform"))) | .[0]')
 
 kubectl apply -f - <<EOF
@@ -185,6 +190,9 @@ subjects:
   namespace: crossplane-system
 EOF
 ```
+
+</details>
+
 
 ### INLINE WORKSPACE-EXAMPLE
 
