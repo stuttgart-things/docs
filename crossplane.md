@@ -193,8 +193,7 @@ EOF
 
 </details>
 
-
-### INLINE WORKSPACE-EXAMPLE
+<details><summary><b>INLINE WORKSPACE EXAMPLE</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -203,7 +202,7 @@ kind: Workspace
 metadata:
   name: example-inline
   annotations:
-    crossplane.io/external-name: coolbucket
+    crossplane.io/external-name: hello
 spec:
   forProvider:
     source: Inline
@@ -215,9 +214,18 @@ spec:
     namespace: default
     name: terraform-workspace-example-inline
 EOF
+```
 
+</details>
+
+<details><summary><b>GET TERRAFORM WORKSPACE STATUS</b></summary>
+
+```bash
 kubectl describe workspace example-inline | grep Status -A10
 ```
+
+</details>
+
 
 ### KUBERNETES DEPLOYMENT EXAMPLE
 
