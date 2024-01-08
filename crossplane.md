@@ -152,6 +152,129 @@ EOF
 ```
 </details>
 
+<details><summary><b>INLINE WORKSPACE MODULE REFRENCE</b></summary>
+
+<details><summary><b>CREATE TFVARS AS SECRET</b></summary>
+
+```bash
+# CREATE terraform.tfvars
+cat <<EOF > terraform.tfvars
+vsphere_user = "<USER>"
+vsphere_password = "<PASSWORD>"
+vm_ssh_user = "<SSH_USER>"
+vm_ssh_password = "<SSH_PASSWORD>"
+EOF
+```
+
+```bash
+# CREATE SECRET
+kubectl create secret generic vsphere-tfvars --from-file=terraform.tfvars
+```
+
+</details>
+
+
+<details><summary><b>DEFINE (INLINE) WORKSPACE</b></summary>
+
+```yaml
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: vsphere-vm-labda-1
+  annotations:
+    crossplane.io/external-name: vsphere-vm-labda-1
+spec:
+  forProvider:
+    source: Inline
+    module: |
+      module "labda-vm" {
+        source = "github.com/stuttgart-things/vsphere-vm"
+        vm_count               = 1
+        vsphere_vm_name        = "michigan3"
+        vm_memory              = 6144
+        vm_disk_size           = "64"
+        vm_num_cpus            = 6
+        firmware               = "bios"
+        vsphere_vm_folder_path = "stuttgart-things/testing"
+        vsphere_datacenter     = "/NetApp-HCI-Datacenter"
+        vsphere_datastore      = "/NetApp-HCI-Datacenter/datastore/DatastoreCluster/NetApp-HCI-Datastore-02"
+        vsphere_resource_pool  = "Resources"
+        vsphere_network        = "/NetApp-HCI-Datacenter/network/tiab-prod"
+        vsphere_vm_template    = "/NetApp-HCI-Datacenter/vm/stuttgart-things/vm-templates/ubuntu23"
+        vm_ssh_user            = var.vm_ssh_user
+        vm_ssh_password        = var.vm_ssh_password
+        bootstrap              = ["echo STUTTGART-THINGS"]
+        annotation             = "VSPHERE-VM BUILD w/ TERRAFORM CROSSPLANE PROVIDER FOR STUTTGART-THINGS"
+      }
+
+      provider "vsphere" {
+        user                 = var.vsphere_user
+        password             = var.vsphere_password
+        vsphere_server       = var.vsphere_server
+        allow_unverified_ssl = true
+      }
+
+      variable "vsphere_server" {
+        type        = string
+        default     = false
+        description = "vsphere server"
+      }
+
+      variable "vsphere_user" {
+        type        = string
+        default     = false
+        description = "password of vsphere user"
+      }
+
+      variable "vsphere_password" {
+        type        = string
+        default     = false
+        description = "password of vsphere user"
+      }
+
+      variable "vm_ssh_user" {
+        type        = string
+        default     = false
+        description = "username of ssh user for vm"
+      }
+
+      variable "vm_ssh_password" {
+        type        = string
+        default     = false
+        description = "password of ssh user for vm"
+      }
+
+    varFiles:
+      - source: SecretKey
+        secretKeyRef:
+          namespace: default
+          name: vsphere-tfvars
+          key: terraform.tfvars
+  writeConnectionSecretToRef:
+    namespace: default
+    name: terraform-workspace-vsphere-vm-labda-1
+```
+
+</details>
+
+<details><summary><b>CREATE WORKSPACE</b></summary>
+
+```bash
+kubectl apply -f <WORKSPACE-DEFINITION>.yaml
+```
+
+</details>
+
+<details><summary><b>DELETE WORKSPACE</b></summary>
+
+```bash
+kubectl delete workspace vsphere-vm-labda-1
+```
+
+</details>
+
+</details>
+
 <details><summary><b>CREATE TERRAFORM SERVICE ACCOUNT</b></summary>
 
 ```bash
