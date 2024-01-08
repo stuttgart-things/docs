@@ -120,7 +120,7 @@ kubectl get Release
 
 ## TERRAFORM PROVIDER
 
-<details><summary><b>PROVIDER DEPLOYMENT + PROVIDER CONFIG (K8S STATE)</b></summary>
+<details><summary><b>PROVIDER DEPLOYMENT</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -131,9 +131,13 @@ metadata:
 spec:
   package: xpkg.upbound.io/upbound/provider-terraform:v0.13.0
 EOF
+```
 
-sleep 20s
+</details>
 
+<details><summary><b>PROVIDER CONFIG (K8S STATE)</b></summary>
+
+```bash
 kubectl apply -f - <<EOF
 apiVersion: tf.upbound.io/v1beta1
 kind: ProviderConfig
