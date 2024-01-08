@@ -325,6 +325,10 @@ roleRef:
 
 <details><summary><b>CR FILEBEAT - CLUSTER LOGGING</b></summary>
 
+[filebeat-kubernetes](https://stackoverflow.com/questions/60566173/how-we-can-filter-namespace-in-filebeat-kubernetes)
+[filebeat-kubernetes](https://faun.pub/eck-logging-11017202cb19)
+
+
 ```yaml
 ---
 apiVersion: beat.k8s.elastic.co/v1beta1
@@ -499,23 +503,16 @@ curl --insecure -u "elastic:${ELASTIC_PASSWORD}" -X PUT "https://localhost:9200/
 
 </details>
 
-## EXPORT/IMPORT DASHBOARDS FROM/TO KIBANA
-
-### EXPORT
+<details><summary><b>EXPORT/IMPORT DASHBOARDS FROM/TO KIBANA</b></summary>
 
 ```bash
+# EXPORT
 curl http://10.31.103.144:32241/s/sthings/api/kibana/dashboards/export?dashboard=314b4030-d936-11ed-9bb1-4bda85068abe > export.json
 ```
 
-### IMPORT
-
 ```bash
+# IMPORT
 curl -k -H "Content-Type: application/json" \
 -H "kbn-xsrf: true" https://kibana.dev2.sthings-pve.labul.sva.de/s/sthings/api/kibana/dashboards/import 20 \
 --data-binary @export.json
 ```
-
-### FILEBEAT
-
-[filebeat-kubernetes](https://stackoverflow.com/questions/60566173/how-we-can-filter-namespace-in-filebeat-kubernetes)
-[filebeat-kubernetes](https://faun.pub/eck-logging-11017202cb19)
