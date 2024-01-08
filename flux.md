@@ -79,6 +79,8 @@ spec:
         namespace: tekton-pipelines
 ```
 
+</details>
+
 <details><summary>ADD HEALTH CHECKS TO HELMRELEASE</summary>
 
 ```yaml
