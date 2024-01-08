@@ -293,7 +293,7 @@ kubectl delete workspace <WORKSPACE_NAME>
 
 </details>
 
-<details><summary><b>CREATE TERRAFORM SERVICE ACCOUNT</b></summary>
+<details><summary><b>CREATE CLUSTER ROLE FOR TERRAFORM SERVICE ACCOUNT</b></summary>
 
 ```bash
 TERRAFORM_SERVICE_ACCOUNT=$(kubectl -n crossplane-system get sa -ojson | jq -r '.items | map(.metadata.name | select(startswith("provider-terraform"))) | .[0]')
@@ -334,8 +334,7 @@ EOF
 
 </details>
 
-
-### KUBERNETES DEPLOYMENT EXAMPLE
+<details><summary><b>TERRAFORM KUBERNETES DEPLOYMENT EXAMPLE</b></summary>
 
 ```
 ### CREATE SAMPLE CRD
@@ -370,7 +369,9 @@ spec:
 EOF
 ```
 
-### CREATE SAMPLE COMPOSITION
+</details>
+
+<details><summary><b>CREATE SAMPLE COMPOSITION</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -407,7 +408,9 @@ spec:
 EOF
 ```
 
-### CREATE SAMPLE CLAIM
+</details>
+
+<details><summary><b>CREATE SAMPLE CLAIM</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -422,8 +425,12 @@ spec:
 EOF
 ```
 
-### VERIFY
+</details>
+
+<details><summary><b>VERIFY CLAIM</b></summary>
 
 ```bash
 kubectl get NginxApp
 ```
+
+</details>
