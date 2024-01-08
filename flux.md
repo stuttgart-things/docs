@@ -142,8 +142,6 @@ stringData:
 
 </details>
 
-</details>
-
 <details><summary>UNINSTALL FLUX</summary>
 
 ```bash
