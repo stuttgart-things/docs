@@ -152,8 +152,6 @@ EOF
 ```
 </details>
 
-<details><summary><b>INLINE WORKSPACE MODULE REFRENCE</b></summary>
-
 <details><summary><b>CREATE TFVARS AS SECRET</b></summary>
 
 ```bash
@@ -173,8 +171,7 @@ kubectl create secret generic vsphere-tfvars --from-file=terraform.tfvars
 
 </details>
 
-
-<details><summary><b>DEFINE (INLINE) WORKSPACE</b></summary>
+<details><summary><b>DEFINE INLINE WORKSPACE W/ MODULE CALL</b></summary>
 
 ```yaml
 apiVersion: tf.upbound.io/v1beta1
@@ -270,8 +267,6 @@ kubectl apply -f <WORKSPACE-DEFINITION>.yaml
 ```bash
 kubectl delete workspace vsphere-vm-labda-1
 ```
-
-</details>
 
 </details>
 
