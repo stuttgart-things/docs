@@ -121,7 +121,7 @@ spec:
 
 </details>
 
-<details><summary><b>CREATE SECRET FOR KUSTOMIZATION</b></summary>
+<details><summary>CREATE SECRET FOR KUSTOMIZATION</summary>
 
 ```yaml
 apiVersion: v1
