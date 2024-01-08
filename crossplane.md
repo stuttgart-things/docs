@@ -152,6 +152,31 @@ EOF
 ```
 </details>
 
+<details><summary><b>INLINE WORKSPACE EXAMPLE</b></summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: example-inline
+  annotations:
+    crossplane.io/external-name: hello
+spec:
+  forProvider:
+    source: Inline
+    module: |
+      output "hello_world" {
+        value = "Hello, World!"
+      }
+  writeConnectionSecretToRef:
+    namespace: default
+    name: terraform-workspace-example-inline
+EOF
+```
+
+</details>
+
 <details><summary><b>CREATE TFVARS AS SECRET</b></summary>
 
 ```bash
@@ -254,18 +279,12 @@ spec:
 
 </details>
 
-<details><summary><b>CREATE WORKSPACE</b></summary>
+<details><summary><b>APPLY/STATUS/DESTORY</b></summary>
 
 ```bash
 kubectl apply -f <WORKSPACE-DEFINITION>.yaml
-```
-
-</details>
-
-<details><summary><b>DELETE WORKSPACE</b></summary>
-
-```bash
-kubectl delete workspace vsphere-vm-labda-1
+kubectl describe workspace <WORKSPACE_NAME> | grep Status -A10
+kubectl delete workspace <WORKSPACE_NAME>
 ```
 
 </details>
@@ -311,44 +330,10 @@ EOF
 
 </details>
 
-<details><summary><b>INLINE WORKSPACE EXAMPLE</b></summary>
-
-```bash
-kubectl apply -f - <<EOF
-apiVersion: tf.upbound.io/v1beta1
-kind: Workspace
-metadata:
-  name: example-inline
-  annotations:
-    crossplane.io/external-name: hello
-spec:
-  forProvider:
-    source: Inline
-    module: |
-      output "hello_world" {
-        value = "Hello, World!"
-      }
-  writeConnectionSecretToRef:
-    namespace: default
-    name: terraform-workspace-example-inline
-EOF
-```
-
-</details>
-
-<details><summary><b>GET TERRAFORM WORKSPACE STATUS</b></summary>
-
-```bash
-kubectl describe workspace example-inline | grep Status -A10
-```
-
-</details>
-
 
 ### KUBERNETES DEPLOYMENT EXAMPLE
 
 ```
-
 ### CREATE SAMPLE CRD
 
 ```bash
