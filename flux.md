@@ -79,6 +79,67 @@ spec:
         namespace: tekton-pipelines
 ```
 
+<details><summary>ADD HEALTH CHECKS TO HELMRELEASE</summary>
+
+```yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: crossplane
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/crossplane
+  prune: true
+  wait: true
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/chart/spec/version
+          value: 1.14.5
+      target:
+        kind: HelmRelease
+        name: crossplane-deployment
+        namespace: crossplane-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta1
+      kind: HelmRelease
+      name: crossplane-deployment
+      namespace: crossplane-system
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: crossplane
+      namespace: crossplane-system
+```
+
+</details>
+
+<details><summary><b>CREATE SECRET FOR KUSTOMIZATION</b></summary>
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault
+  namespace: flux-system
+type: Opaque
+stringData:
+  VAULT_ADDR: https://vault-vsphere.tiab.labda.sva.de:8200
+  VAULT_TOKEN: ""
+  VAULT_ROLE_ID: ""
+  VAULT_SECRET_ID: ""
+  VAULT_NAMESPACE: root
+  VAULT_CA_BUNDLE: ""
+  VAULT_PKI_PATH: vault-vsphere.tiab.labda.sva.de
+```
+
+</details>
+
 </details>
 
 <details><summary>UNINSTALL FLUX</summary>
@@ -251,9 +312,8 @@ EOF
 [age](https://github.com/getsops/sops/releases) - management of gnupg keyrings and PGP keys
 [sops](https://github.com/FiloSottile/age/releases) - encrypts file while maintaining the original structure
 
-### CREATE KEY FOR SOPS W/ AGE
 
-<details><summary><b>Create key for SOPS</b></summary>
+<details><summary><b>CREATE KEY FOR SOPS W/ AGE</b></summary>
 
 ```bash
 age-keygen -o sops.key
@@ -261,10 +321,7 @@ age-keygen -o sops.key
 
 </details>
 
-
-### CREATE SOPS CONFIG YAML
-
-<details><summary><b>Create SOPS config</b></summary>
+<details><summary><b>CREATE SOPS CONFIG YAML</b></summary>
 
 ```bash
 AGE_PUB_KEY=$(cat sops.key | grep 'public key' | awk '{ print $4 }')
@@ -277,10 +334,7 @@ EOF
 
 </details>
 
-
-### EXAMPLE ENCRYPTION
-
-<details><summary><b>Example encryption</b></summary>
+<details><summary><b>EXAMPLE ENCRYPTION</b></summary>
 
 ```bash
 cat <<EOF > ./secret.yaml
@@ -297,9 +351,7 @@ sops -e ./secret.yaml | tee sops-secret.yaml
 
 </details>
 
-### DECRYPTION ON SHELL
-
-<details><summary><b>Decryption on shell</b></summary>
+<details><summary><b>DECRYPTION ON SHELL</b></summary>
 
 ```bash
 export SOPS_AGE_KEY_FILE=${PWD}/sops.key
@@ -308,10 +360,7 @@ sops --decrypt sops-secret.yaml
 
 </details>
 
-
-### DECRYPTION ON FLUX
-
-<details><summary><b>Decryption on flux</b></summary>
+<details><summary><b>DECRYPTION ON FLUX</b></summary>
 
 ```bash
 kubectl -n flux-system create secret generic sops-age \
@@ -339,8 +388,7 @@ spec:
 
 </details>
 
-
-<details><summary><b>MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER</b></summary>
+## MOUNT CUSTOM CERTIFICAT IN SOURCE CONTROLLER
 
 [issue](https://github.com/fluxcd/flux2/issues/3417)
 
@@ -371,9 +419,7 @@ data:
 
 </details>
 
-#### PATCH SOURCE-CONTROLLER KUSTOMIZATION
-
-<details><summary><b>Patch source controller kustomization</b></summary>
+<details><summary><b>PATCH SOURCE-CONTROLLER KUSTOMIZATION</b></summary>
 
 ```yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
@@ -403,36 +449,7 @@ patches:
 
 </details>
 
-## CREATE SECRET FOR KUSTOMIZATION
-
-<details><summary><b>Create secret for kustomization</b></summary>
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: vault
-  namespace: flux-system
-type: Opaque
-stringData:
-  VAULT_ADDR: https://vault-vsphere.tiab.labda.sva.de:8200
-  VAULT_TOKEN: ""
-  VAULT_ROLE_ID: ""
-  VAULT_SECRET_ID: ""
-  VAULT_NAMESPACE: root
-  VAULT_CA_BUNDLE: ""
-  VAULT_PKI_PATH: vault-vsphere.tiab.labda.sva.de
-```
-
-</details>
-
-</details>
-
-### PREVIEWING CHANGES FROM KUSTOMIZATION
-
-#### ON CLUSTER
-
-<details><summary><b>Preview changes from kustomization on cluster</b></summary>
+<details><summary><b>PREVIEWING CHANGES FROM KUSTOMIZATION ON CLUSTER</b></summary>
 
 ```bash
 flux diff kustomization --path=./clusters/labul/pve/bootstrap flux-system
@@ -441,9 +458,7 @@ flux build kustomization --path=./clusters/labul/pve/bootstrap flux-system
 
 </details>
 
-#### LOCAL
-
-<details><summary><b>Preview changes from kustomization locally</b></summary>
+<details><summary><b>PREVIEW CHANGES FROM KUSTOMIZATION LOCALLY</b></summary>
 
 ```bash
 flux build kustomization vault --path clusters/labul/pve/bootstrap --kustomization-file clusters/labul/pve/bootstrap/infra.yaml --dry-run > ../flux.yaml
