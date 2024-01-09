@@ -13,9 +13,59 @@ go test ./... -v
 
 <details><summary>GO BUILD</summary>
 
+## GO INSTALL
+
 ```bash
-# BUILD GOLANG
+# GOLANG INSTALL FOR LINUX IN CURRENT DIR ./ (EXAMPLE)
+go install
+```
+
+## GO BUILD
+
+```bash
+# BUILD GOLANG FOR LINUX IN CURRENT DIR ./ (EXAMPLE)
 CGO_ENABLED=0 go build -buildvcs=false -o /bin/machineShop
+
+# BUILD GOLANG FOR LINUX IN DIFFRENT DIR (EXAMPLE)
+CGO_ENABLED=0 go build -o /bin/stcTestProducer tests/testProducer.go
+```
+
+## BUILD W/ LDFLAGS (E.G. VERSION INFORMATION GIVEN AT BUILD TIME)
+
+```bash
+CGO_ENABLED=0 go build -o /bin/stageTime-creator \
+-ldflags="-X ${GO_MODULE}/internal.version=${VERSION} -X ${GO_MODULE}/internal.date=${BUILD_DATE} -X 
+```
+
+## BUILD W/ DOCKERFILE (MULTISTAGE)
+
+```
+FROM golang:1.21.4 AS builder
+LABEL maintainer="Patrick Hermann patrick.hermann@sva.de"
+
+ARG GO_MODULE="github.com/stuttgart-things/stageTime-creator"
+ARG VERSION=""
+ARG BUILD_DATE=""
+ARG COMMIT=""
+
+WORKDIR /src/
+COPY . .
+
+RUN go mod tidy
+RUN CGO_ENABLED=0 go build -o /bin/stageTime-creator \
+    -ldflags="-X ${GO_MODULE}/internal.version=${VERSION} -X ${GO_MODULE}/internal.date=${BUILD_DATE} -X ${GO_MODULE}/internal.commit=${COMMIT}"
+
+RUN CGO_ENABLED=0 go build -o /bin/stcTestProducer tests/testProducer.go
+RUN CGO_ENABLED=0 go build -o /bin/stcTestConsumer tests/testConsumer.go
+
+FROM alpine:3.18.4
+COPY --from=builder /bin/stageTime-creator /bin/stageTime-creator
+
+# FOR SERVICE TESTING
+COPY --from=builder /bin/stcTestProducer /bin/stcTestProducer
+COPY --from=builder /bin/stcTestConsumer /bin/stcTestConsumer
+
+ENTRYPOINT ["stageTime-creator"]
 ```
 
 </details>
