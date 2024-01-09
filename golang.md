@@ -2,7 +2,7 @@
 
 ## SNIPPETS
 
-<details><summary>GO TEST</summary>
+<details><summary>TEST</summary>
 
 ```bash
 # TEST RECURSIVELY
@@ -11,7 +11,7 @@ go test ./... -v
 
 </details>
 
-<details><summary>GO BUILD</summary>
+<details><summary>BUILD</summary>
 
 ## GO INSTALL
 
