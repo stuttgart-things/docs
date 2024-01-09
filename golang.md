@@ -2,7 +2,7 @@
 
 ## SNIPPETS
 
-<details><summary>COMMANDS</summary>
+<details><summary>GO TEST</summary>
 
 ```bash
 # TEST RECURSIVELY
@@ -10,6 +10,16 @@ go test ./... -v
 ```
 
 </details>
+
+<details><summary>GO BUILD</summary>
+
+```bash
+# BUILD GOLANG
+CGO_ENABLED=0 go build -buildvcs=false -o /bin/machineShop
+```
+
+</details>
+
 
 <details><summary>GOLINT</summary>
 
