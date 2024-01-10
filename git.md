@@ -5,19 +5,22 @@
 <details><summary>BRANCHES</summary>
 
 ```bash
-# List all existing branches
+# LIST ALL EXISTING BRANCHES
 git branch
 
-# Switch your HEAD to branch
+# DELETE LOCAL BRANCH
+git branch -d [branch]
+
+# SWITCH YOUR HEAD TO BRANCH
 git checkout [branch]
 
-# Create a new branch based on your current HEAD
+# CREATE A NEW BRANCH BASED ON YOUR CURRENT HEAD
 git branch [new-branch]
 
-# Create a new branch based on your current HEAD and switch
+# CREATE A NEW BRANCH BASED ON YOUR CURRENT HEAD AND SWITCH
 git checkout -b [new-branch]
 
-# Push local branch to remote branch
+# PUSH LOCAL BRANCH TO REMOTE BRANCH
 git push -u origin [new-branch]
 ```
 
