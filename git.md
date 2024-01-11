@@ -25,3 +25,31 @@ git push -u origin [new-branch]
 ```
 
 </details>
+
+<details><summary>TAGS</summary>
+
+```bash
+# PULL/FETCH TAGS
+git fetch --tags --force
+git pull --tags
+
+# LIST TAGS
+git tag
+
+# CREATE LOCAL TAG
+git tag [tagname]
+
+# PUSH SINGLE TAG TO REMOTE
+git push origin [tagname]
+
+# PUSH ALL TAGS TO REMOTE
+git push origin --tags
+
+# DELETE LOCAL TAG
+git tag --delete [tagname]
+
+# DELETE REMOTE TAG '1.0.0'
+git push origin :refs/tags/1.0.0
+```
+
+</details>
