@@ -70,7 +70,6 @@ ENTRYPOINT ["stageTime-creator"]
 
 </details>
 
-
 <details><summary>GOLINT</summary>
 
 ```bash
@@ -689,6 +688,21 @@ mandatoryFlags := []string{"repository", "branch", "clusterName", "envPath"}
 
 </details>
 
+<details><summary>MULTILINESTRING DEFINITION</summary>
+
+```go
+validManifest := `apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-config-1
+data:
+  enemies: aliens
+  lives: "5"
+`
+```
+
+</details>
+
 <details><summary>MAPS</summary>
 
 ```go
@@ -733,3 +747,42 @@ for key, value := range values {
 ```
 
 </details>
+
+## K8S
+
+<details><summary>VERIFY YAML DEFINITION W/ RESOURCE DEFINITION</summary>
+
+```go
+import (
+	"gopkg.in/yaml.v2"
+	v1 "k8s.io/api/batch/v1"
+)
+
+var (
+    validJobManifest = `apiVersion: batch/v1
+kind: Job
+metadata:
+  name: node-app-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: node-app-job
+          image: alpine
+          command: ["echo", "Welcome to my Node app"]
+      restartPolicy: Never
+`
+
+func VerifyYamlJobDefinition(jobManifest string) (bool, error) {
+
+	job := &v1.Job{}
+	err := yaml.Unmarshal([]byte(jobManifest), job)
+	if err != nil {
+		return false, err
+	}
+
+	return true, nil
+}
+```
+
+
