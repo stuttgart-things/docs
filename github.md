@@ -272,6 +272,8 @@ jobs:
       continue-error: false
 ```
 
+</details>
+
 <details><summary>MULTIPLE CHOICE INPUTS (DISPATCH)</summary>
 
 ```yaml
@@ -313,7 +315,30 @@ jobs:
 
 </details>
 
-<details><summary>helm-job.yaml</summary>
+<details><summary>DECLARE GLOBAL VARIABLES</summary>
+
+```yaml
+#..
+env:
+  TEMPLATE_DIR: machineShop/templates
+  DESTINATION_DIR: clusters
+jobs:
+#..
+    steps:
+    #..
+      - run: |
+          machineShop render \
+          --source local \
+          --template ${TEMPLATE_DIR}/packer-${{ inputs.os-version }}-${{ inputs.cloud }}.yaml \
+          --values "provisioning=${{ inputs.ansible-provisioning }}, date=$(date '+%Y-%m-%d-%H-%M-%S'), dateShort=$(date '+%Y-%m-%d'), env=${{ inputs.env }}" \
+          --output file \
+          --destination ${DESTINATION_DIR}/${{ inputs.env }}/${{ inputs.cloud }}/bootstrap/packer-${{ inputs.os-version }}-${{ inputs.ansible-provisioning }}.yaml
+          #..
+```
+
+</details>
+
+<details><summary>HELMFILE ACTION</summary>
 
 ```yaml
 on:
