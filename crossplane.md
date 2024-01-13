@@ -334,9 +334,9 @@ EOF
 
 </details>
 
-<details><summary><b>CREATE COMPOSITERESOURCEDEFINITION</b></summary>
+<details><summary><b>CREATE COMPOSITE-RESOURCE-DEFINITION</b></summary>
 
-```yaml
+```bash
 kubectl apply -f - <<EOF
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
@@ -363,6 +363,7 @@ spec:
             properties:
               env:
                 type: string
+EOF
 ```
 
 </details>
