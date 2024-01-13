@@ -334,12 +334,9 @@ EOF
 
 </details>
 
-<details><summary><b>TERRAFORM KUBERNETES DEPLOYMENT EXAMPLE</b></summary>
+<details><summary><b>CREATE COMPOSITERESOURCEDEFINITION</b></summary>
 
-```
-### CREATE SAMPLE CRD
-
-```bash
+```yaml
 kubectl apply -f - <<EOF
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
@@ -366,7 +363,6 @@ spec:
             properties:
               env:
                 type: string
-EOF
 ```
 
 </details>
