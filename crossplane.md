@@ -200,6 +200,8 @@ kubectl create secret generic vsphere-tfvars --from-file=terraform.tfvars
 
 </details>
 
+### EXAMPLE1: VSPHERE-VM
+
 <details><summary><b>DEFINE INLINE WORKSPACE W/ MODULE CALL</b></summary>
 
 ```yaml
@@ -665,6 +667,17 @@ spec:
 
 </details>
 
+<details><summary><b>VERIFY CLAIM/COMPOSITE/WORKSPACE</b></summary>
+
+```bash
+kubectl get claim # describe claim <CLAIM-NAME>
+kubectl get composite # describe composite <COMPOSITE-NAME>
+kubectl get workspace # describe workspace <WORKSPACE-NAME>
+```
+
+</details>
+
+### EXAMPLE2: K8S-RESOURCE
 
 <details><summary><b>CREATE CLUSTER ROLE FOR TERRAFORM SERVICE ACCOUNT</b></summary>
 
@@ -740,6 +753,7 @@ EOF
 ```
 
 </details>
+
 
 <details><summary><b>CREATE SAMPLE COMPOSITION</b></summary>
 
