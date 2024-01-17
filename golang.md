@@ -706,14 +706,31 @@ data:
 <details><summary>MAPS</summary>
 
 ```go
-// STRING MAP
+# STRING MAP
 
 // DECLARE
 var (
   values = make(map[string]string)
 )
+
 // ADD VALUE
 values["rootPath"], _ = cmd.LocalFlags().GetString("root")
+
+// DECLARE + ADD VALUES
+m := map[string]string{"name": "patrick", "color": "blue"}
+
+// LOOP OVER KEY+VALUES
+for k, v := range m {
+  fmt.Printf("key[%s] value[%s]\n", k, v)
+}
+
+// LOOP OVER KEYS ONLY
+for k := range m {
+  fmt.Printf("key[%s] value[%s]\n", k, m[k])
+}
+
+// COMPARE MAPS (EQUIVALENCE)
+reflect.DeepEqual(map1, map2)
 ```
 
 </details>
