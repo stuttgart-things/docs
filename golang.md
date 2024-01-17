@@ -577,6 +577,35 @@ func TestVerifyValues(t *testing.T) {
 
 </details>
 
+<details><summary>TEST W/ DEEPEQUAL</summary>
+
+### COMPARE SLICES/MAPS FOR BEEING EQUAL
+
+```go
+// validation_test.go
+func TestValidateTemplateData(t *testing.T) {
+
+	type test struct {
+		scanText    string
+		testPattern string
+		want        []string
+	}
+
+	tests := []test{
+		{scanText: "whatever {{ .Kind1 }}", testPattern: `\{\{(.*?)\}\}`, want: []string{"{{ .Kind1 }}"}},
+		{scanText: "{{ .Name }}", testPattern: `\{\{(.*?)\}\}`, want: []string{"{{ .Name }}"}},
+	}
+	for _, tc := range tests {
+		scanresult := GetAllRegexMatches(tc.scanText, tc.testPattern)
+		if !reflect.DeepEqual(scanresult, tc.want) {
+			t.Errorf("error")
+		}
+	}
+}
+```
+
+</details>
+
 ## CLI
 
 <details><summary>INIT CLI W/ COBRA</summary>
