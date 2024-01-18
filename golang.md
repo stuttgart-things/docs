@@ -796,6 +796,35 @@ for key, value := range values {
 
 ## K8S
 
+<details><summary>CREATE JOB OBJECT FROM UNSTRUCTURED OBJECT</summary>
+
+```go
+
+import (
+	batchv1 "k8s.io/api/batch/v1"
+)
+
+func CreateJobFromUnstructuredObj(obj interface{}) (job *batchv1.Job) {
+
+	job = new(batchv1.Job)
+
+	createdUnstructuredObj, err := runtime.DefaultUnstructuredConverter.ToUnstructured(obj)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = runtime.DefaultUnstructuredConverter.FromUnstructured(createdUnstructuredObj, &job)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return
+
+}
+```
+
+</details>
+
 <details><summary>VERIFY YAML DEFINITION W/ RESOURCE DEFINITION</summary>
 
 ```go
