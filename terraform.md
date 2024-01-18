@@ -148,6 +148,13 @@ variable "bootstrap" {
   type        = list(string)
   default     = ["whoami", "hostname"]
 }
+
+# LIST WITH NUMBER
+variable "sg_ports" {
+  type = list(number)
+  default = [ 443,80,8080 ]
+  description = "list of ingress ports"
+}
 ```
 
 </details>
