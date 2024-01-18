@@ -116,7 +116,7 @@ TASKS:
     ```bash
     mkdir -p ./kustomize/base
     mkdir -p ./kustomize/overlays/dev
-    cat <<EOF >./kustomize/dev/kustomization.yaml
+    cat <<EOF >./kustomize/overlays/dev/kustomization.yaml
     apiVersion: kustomize.config.k8s.io/v1beta1
     kind: Kustomization
 
@@ -129,7 +129,7 @@ TASKS:
     ```
 
     ```bash
-    cat <<EOF >./kustomize/dev/deploy-patch.yaml
+    cat <<EOF >./kustomize/overlays/dev/deploy-patch.yaml
     apiVersion: apps/v1
     kind: Deployment
     metadata:
