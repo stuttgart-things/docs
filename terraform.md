@@ -282,6 +282,25 @@ resource "kubernetes_manifest" "vault_connection" {
 
 </details>
 
+<details><summary><b>LOOP FOR EACH</b></summary>
+  
+  ```hcl
+  resource "aws_security_group" "demo-security-group" {
+  name = "demo-security-group"
+
+  dynamic "ingress" {
+    for_each = var.sg_ports
+    content {
+      from_port = ingress.value
+      protocol = "tcp"
+      to_port = ingress.value
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+}
+```
+ </details>
+ 
 <details><summary><b>USE COUNT W/ FOR EACH</b></summary>
 
 ```hcl
