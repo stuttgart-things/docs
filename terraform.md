@@ -15,6 +15,56 @@ terraform destroy
 
 </details>
 
+<details><summary><b>CREATE MODULE</b></summary>
+
+```go
+# MODULE CALL
+# ./module/main.tf
+terraform {
+  required_providers {
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.6"
+    }
+  }
+}
+
+resource "random_string" "module1_random" {
+  length           = var.length
+  special          = true
+  override_special = "/@£$"
+}
+
+output "random_string" {
+  value = random_string.module1_random
+}
+
+variable "length" {
+  type        = number
+  default     = 3
+  description = "Length of the random string "
+}
+```
+
+### CALLING MODULE W/ VARIABLE 
+
+```go
+# MODULE CALL
+# ./module-call/call.tf
+module "random" {
+  source = "../module"
+  length = 5
+}
+
+# USE OUTPUT FROM MODULE OUTPUT
+output "random_string" {
+  value = "${module.random.random_string}"
+}
+```
+
+
+</details>
+
 <details><summary><b>REFRENCE MODULE</b></summary>
 
 ```hcl
@@ -35,7 +85,6 @@ module "labda-vm" {
 module "labda-vm" {
   source                  = "https://github.com/stuttgart-things/vsphere-vm/releases/download/vsphere-vm-2.6.1/vsphere-vm.zip"
 ```
-
 
 </details>
 
