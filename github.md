@@ -99,6 +99,14 @@ gh pr create -t "tekton-test1" -b "added git tasks to taskfile"
 
 </details>
 
+<details><summary>MERGE PULL REQUEST</summary>
+
+```bash
+gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --delete-branch
+```
+
+</details>
+
 <details><summary>CREATE RELEASE</summary>
 
 ```bash
