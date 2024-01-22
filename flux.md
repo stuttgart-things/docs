@@ -31,8 +31,9 @@ flux install \
 <details><summary>TROUBLESHOOTING</summary>
 
 ```bash
-flux get all -A --status-selector ready=false # show all flux objects that are not ready
+kubectl get kustomization -A
 kubectl get events -n flux-system --field-selector type=Warning # show flux warning events
+flux get all -A --status-selector ready=false # show all flux objects that are not ready
 ```
 
 ```bash
