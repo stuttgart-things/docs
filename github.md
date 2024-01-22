@@ -323,6 +323,41 @@ jobs:
 
 </details>
 
+<details><summary>USE INLINE GITHUB SCRIPT FOR SETTING A GIT TAG</summary>
+
+```yaml
+name: Create-Git-Tag
+on:
+  workflow_dispatch:
+    inputs:
+      tag-name:
+        required: true
+        type: string
+
+jobs:
+  Create-Git-Tag:
+    permissions:
+      contents: write
+    runs-on: arc-runner-scale-set-kaeffken
+    container:
+      image: alpine:3.19.0
+    environment: k8s
+    steps:
+      - name: Create Tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/v${{ inputs.tag-name }}',
+              sha: context.sha
+            })
+```
+
+</details>
+
+
 <details><summary>DECLARE GLOBAL VARIABLES</summary>
 
 ```yaml
