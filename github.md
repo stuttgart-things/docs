@@ -197,6 +197,46 @@ jobs:
 
 </details>
 
+<details><summary>DISPATCH WORKFLOW W/ INPUT, IF AND NEEDS</summary>
+```
+---
+name: Release-Golang
+on:
+  workflow_dispatch:
+    inputs:
+      release-tag:
+        required: false
+        type: string
+  push:
+    tags:
+      - '*'
+jobs:
+  Create-Git-Tag:
+    name: Release Golang
+    uses: stuttgart-things/stuttgart-things/.github/workflows/git-tag.yaml@main
+    if: github.ref_type != 'tag' && github.event.inputs.release-tag != ''
+    with:
+      tag-name: ${{ github.event.inputs.release-tag }}
+      environment-name: k8s
+      runs-on: arc-runner-scale-set-kaeffken
+      alpine-version: 3.19.0
+      continue-error: false
+    secrets: inherit
+
+  Release-Golang-Binaries:
+    name: Release Golang
+    uses: stuttgart-things/stuttgart-things/.github/workflows/release-golang.yaml@main
+    if: always()
+    needs: Create-Git-Tag
+    with:
+      module-name: kaeffken
+      environment-name: k8s
+      runs-on: arc-runner-scale-set-kaeffken
+      goreleaser-version: v1.23.0
+      golang-version: "1.21.5"
+    secrets: inherit
+```
+</details>
 
 <details><summary>WORKFLOW REPOSITORY (STORES THE WORKFLOW)</summary>
 
