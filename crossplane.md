@@ -200,6 +200,65 @@ kubectl create secret generic vsphere-tfvars --from-file=terraform.tfvars
 
 </details>
 
+<details><summary><b>MODULE WORKSPACE EXAMPLE</b></summary>
+
+```yaml
+---
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: appserver
+  annotations:
+    crossplane.io/external-name: pve-vm
+spec:
+  providerConfigRef:
+    name: terraform-default
+  forProvider:
+    source: Remote
+    module: git::https://github.com/stuttgart-things/proxmox-vm.git?ref=v2.9.14-1.5.5
+    vars:
+      - key: vm_count
+        value: "1"
+      - key: vm_num_cpus
+        value: "4"
+      - key: vm_memory
+        value: "4096"
+      - key: vm_name
+        value: appserver
+      - key: vm_template
+        value: ubuntu22
+      - key: pve_network
+        value: vmbr103
+      - key: pve_datastore
+        value: v3700
+      - key: vm_disk_size
+        value: 128G
+      - key: pve_folder_path
+        value: stuttgart-things
+      - key: pve_cluster_node
+        value: sthings-pve1
+    varFiles:
+      - source: SecretKey
+        secretKeyRef:
+          namespace: default
+          name: pve-tfvars
+          key: terraform.tfvars
+  writeConnectionSecretToRef:
+    namespace: default
+    name: terraform-workspace-appserver
+```
+
+```hcl
+# tfvars
+pve_api_url="<API-URL>"
+pve_api_user="<API-USER>"
+pve_api_password="<API-PASSWORD>"
+vm_ssh_user="<SSH-USER>"
+vm_ssh_password="<SSH-PASSWORD>"
+```
+
+</details>
+
 ### EXAMPLE1: VSPHERE-VM
 
 <details><summary><b>DEFINE INLINE WORKSPACE W/ MODULE CALL</b></summary>
