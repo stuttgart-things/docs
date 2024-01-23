@@ -344,6 +344,68 @@ spec:
 
 </details>
 
+<details><summary><b>BETTER AS INLINE: DEFINE WORKSPACE W/ MODULE CALL</b></summary>
+
+```yaml
+---
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: dallas52
+  annotations:
+    crossplane.io/external-name: vsphere-vm
+spec:
+  providerConfigRef:
+    name: terraform-default
+  forProvider:
+    source: Remote
+    module: git::https://github.com/stuttgart-things/vsphere-vm.git?ref=v1.6.6-2.6.1
+    vars:
+      - key: vm_count
+        value: "1"
+      - key: vsphere_vm_name
+        value: dallas52
+      - key: vm_memory
+        value: "6144"
+      - key: vm_disk_size
+        value: "64"
+      - key: vm_num_cpus
+        value: "6"
+      - key: firmware
+        value: bios
+      - key: vsphere_vm_folder_path
+        value: phermann/testing
+      - key: vsphere_datacenter
+        value: /LabUL
+      - key: vsphere_datastore
+        value: /LabUL/datastore/UL-ESX-SAS-02
+      - key: vsphere_resource_pool
+        value: /LabUL/host/Cluster01/Resources
+      - key: vsphere_network
+        value: /LabUL/network/LAB-10.31.103
+      - key: vsphere_vm_template
+        value: /LabUL/vm/phermann/vm-templates/ubuntu22
+      - key: bootstrap
+        value: '["echo STUTTGART-THINGS"]'
+      - key: annotation
+        value: VSPHERE-VM BUILD w/ CROSSPLANE FOR STUTTGART-THINGS
+      - key: unverified_ssl
+        value: "true"
+    varFiles:
+      - source: SecretKey
+        secretKeyRef:
+          namespace: default
+          name: vsphere-labul-tfvars
+          key: vsphere-labul.tfvars
+  writeConnectionSecretToRef:
+    namespace: default
+    name: terraform-workspace-dallas52
+```
+
+</details>
+
+
+
 <details><summary><b>APPLY/STATUS/DESTORY</b></summary>
 
 ```bash
@@ -361,15 +423,15 @@ kubectl delete workspace <WORKSPACE_NAME>
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: xvmspherevms.resources.stuttgart-things.com
+  name: xvspherevms.resources.stuttgart-things.com
 spec:
   group: resources.stuttgart-things.com
   names:
     kind: XVsphereVM
-    plural: xvmspherevms
+    plural: xvspherevms
   claimNames:
     kind: VsphereVM
-    plural: vmspherevms
+    plural: vspherevms
   versions:
     - name: v1alpha1
       served: true
@@ -387,35 +449,52 @@ spec:
                     count:
                       type: string
                       default: "1"
-                    os:
-                      type: string
                     name:
                       type: string
-                    cpu:
-                      type: string
-                      default: "8"
                     ram:
                       type: string
-                      default: "6144"
+                      default: "4096"
                     disk:
                       type: string
                       default: "64"
-                    templatepath:
+                    cpu:
+                      type: string
+                      default: "4"
+                    firmware:
+                      type: string
+                      default: "bios"
+                    folderPath:
+                      type: string
+                    datacenter:
+                      type: string
+                    datastore:
+                      type: string
+                    resourcePool:
                       type: string
                     network:
                       type: string
-                    folder:
+                    template:
                       type: string
+                    bootstrap:
+                      type: string
+                      default: '["echo STUTTGART-THINGS"]'
+                    annotation:
+                      type: string
+                      default: VSPHERE-VM BUILD w/ CROSSPLANE FOR STUTTGART-THINGS
+                    unverifiedSsl:
+                      type: string
+                      default: "true"
                   required:
-                    - count
-                    - os
                     - name
-                    - cpu
                     - ram
                     - disk
-                    - templatepath
+                    - cpu
+                    - folderPath
+                    - datacenter
+                    - datastore
+                    - resourcePool
                     - network
-                    - folder
+                    - template
                 tfvars:
                   type: object
                   properties:
@@ -439,10 +518,18 @@ spec:
                       default: default
                   required:
                     - name
+                providerRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                  required:
+                    - name
               required:
                 - vm
                 - tfvars
                 - connectionSecret
+                - providerRef
 ```
 
 </details>
@@ -456,7 +543,7 @@ kind: Composition
 metadata:
   name: vsphere-vm
   labels:
-    crossplane.io/xrd: xvmspherevms.resources.stuttgart-things.com
+    crossplane.io/xrd: xvspherevms.resources.stuttgart-things.com
 spec:
   compositeTypeRef:
     apiVersion: resources.stuttgart-things.com/v1alpha1
@@ -470,184 +557,105 @@ spec:
           annotations:
             crossplane.io/external-name: vsphere-vm
         spec:
+          providerConfigRef:
+            name: terraform-default
           writeConnectionSecretToRef:
             name: vsphere-vm-test
             namespace: crossplane-system
           forProvider:
-            source: Inline
+            source: Remote
+            module: git::https://github.com/stuttgart-things/vsphere-vm.git?ref=v1.6.6-2.6.1
             vars:
-              - key: vmcount
+              - key: vm_count
                 type: integer
-              - key: os
+                value: "1"
+              - key: vsphere_vm_name
                 type: string
-              - key: name
-                type: string
-              - key: cpu
+              - key: vm_memory
                 type: integer
-              - key: ram
+                value: "4096"
+              - key: vm_disk_size
+                type: integer
+                value: "64"
+              - key: vm_num_cpus
+                type: integer
+                value: "4"
+              - key: firmware
                 type: string
-              - key: disk
+                value: bios
+              - key: vsphere_vm_folder_path
                 type: string
-              - key: templatepath
+              - key: vsphere_datacenter
                 type: string
-              - key: network
+              - key: vsphere_datastore
                 type: string
-              - key: folder
+              - key: vsphere_resource_pool
                 type: string
+              - key: vsphere_network
+                type: string
+              - key: vsphere_vm_template
+                type: string
+              - key: bootstrap
+                type: string
+                value: '["echo STUTTGART-THINGS"]'
+              - key: annotation
+                type: string
+                value: VSPHERE-VM BUILD w/ CROSSPLANE FOR STUTTGART-THINGS
+              - key: unverified_ssl
+                type: string
+                value: "true"
             varFiles:
               - source: SecretKey
                 secretKeyRef:
                   namespace: default
                   name: vsphere-tfvars
                   key: terraform.tfvars
-            module: |
-              module "vsphere-vm" {
-                source = "github.com/stuttgart-things/vsphere-vm"
-                vm_count               = var.vmcount
-                vsphere_vm_name        = var.name
-                vm_memory              = var.ram
-                vm_num_cpus            = var.cpu
-                vm_disk_size           = var.disk
-                firmware               = var.firmware
-                vsphere_vm_folder_path = var.folder
-                vsphere_datacenter     = var.vsphere_datacenter
-                vsphere_datastore      = var.vsphere_datastore
-                vsphere_resource_pool  = var.vsphere_resource_pool
-                vsphere_network        = var.network
-                vsphere_vm_template    = "${var.templatepath}/${var.os}"
-                vm_ssh_user            = var.ssh_user
-                vm_ssh_password        = var.ssh_password
-                bootstrap              = var.bootstrapcmd
-                annotation             = var.annotation
-              }
-
-              variable "os" {
-                description = "Name/version of vm template"
-                type        = string
-                default     = false
-              }
-
-              variable "templatepath" {
-                description = "Path to vm-template"
-                type        = string
-                default     = false
-              }
-
-              variable "network" {
-                description = "Bootstrap os"
-                type        = string
-                default     = false
-              }
-
-              variable "bootstrapcmd" {
-                description = "Bootstrap os"
-                type        = list(string)
-                default     = ["whoami", "hostname"]
-              }
-
-              variable "annotation" {
-                description = "Bootstrap os"
-                type        = string
-                default     = "VSPHERE-VM BUILD w/ TERRAFORM CROSSPLANE PROVIDER FOR STUTTGART-THINGS"
-              }
-
-              variable "folder" {
-                default     = false
-                type        = string
-                description = "target (vm) folder path of vsphere virtual machine"
-              }
-
-              variable "firmware" {
-                default     = "bios"
-                type        = string
-                description = "The firmware interface to use on the virtual machine. Can be one of bios or EFI. Default: bios"
-              }
-
-              provider "vsphere" {
-                user                 = var.vsphere_user
-                password             = var.vsphere_password
-                vsphere_server       = var.vsphere_server
-                allow_unverified_ssl = true
-              }
-
-              variable "name" {
-                type        = string
-                default     = false
-                description = "vm name"
-              }
-
-              variable "vmcount" {
-                default     = 1
-                type        = number
-                description = "amount of vms"
-              }
-
-              variable "vsphere_server" {
-                type        = string
-                default     = false
-                description = "vsphere server"
-              }
-
-              variable "vsphere_datacenter" {
-                default     = false
-                type        = string
-                description = "name of datacenter"
-              }
-
-              variable "vsphere_datastore" {
-                default     = false
-                type        = string
-                description = "name of vsphere datastore"
-              }
-
-              variable "vsphere_resource_pool" {
-                default     = false
-                type        = string
-                description = "name of resource_pool"
-              }
-
-              variable "vsphere_user" {
-                type        = string
-                default     = false
-                description = "password of vsphere user"
-              }
-
-              variable "vsphere_password" {
-                type        = string
-                default     = false
-                description = "password of vsphere user"
-              }
-
-              variable "ssh_user" {
-                type        = string
-                default     = false
-                description = "username of ssh user for vm"
-              }
-
-              variable "ssh_password" {
-                type        =  string
-                default     = false
-                description = "password of ssh user for vm"
-              }
-
-              variable "ram" {
-                default     = 4096
-                type        = number
-                description = "amount of memory of the vm"
-              }
-
-              variable "disk" {
-                default     = "32"
-                type        = string
-                description = "size of disk"
-              }
-
-              variable "cpu" {
-                default     = 4
-                type        = number
-                description = "amount of cpus from the vm"
-              }
       patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.count
+          toFieldPath: spec.forProvider.vars[0].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.name
+          toFieldPath: spec.forProvider.vars[1].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.ram
+          toFieldPath: spec.forProvider.vars[2].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.disk
+          toFieldPath: spec.forProvider.vars[3].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.cpu
+          toFieldPath: spec.forProvider.vars[4].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.firmware
+          toFieldPath: spec.forProvider.vars[5].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.folderPath
+          toFieldPath: spec.forProvider.vars[6].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.datacenter
+          toFieldPath: spec.forProvider.vars[7].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.datastore
+          toFieldPath: spec.forProvider.vars[8].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.resourcePool
+          toFieldPath: spec.forProvider.vars[9].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.network
+          toFieldPath: spec.forProvider.vars[10].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.template
+          toFieldPath: spec.forProvider.vars[11].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.bootstrap
+          toFieldPath: spec.forProvider.vars[12].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.annotation
+          toFieldPath: spec.forProvider.vars[13].value
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.vm.unverifiedSsl
+          toFieldPath: spec.forProvider.vars[14].value
         - type: FromCompositeFieldPath
           fromFieldPath: spec.tfvars.secretName
           toFieldPath: spec.forProvider.varFiles[0].secretKeyRef.name
@@ -658,38 +666,14 @@ spec:
           fromFieldPath: spec.tfvars.secretKey
           toFieldPath: spec.forProvider.varFiles[0].secretKeyRef.key
         - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.count
-          toFieldPath: spec.forProvider.vars[0].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.os
-          toFieldPath: spec.forProvider.vars[1].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.name
-          toFieldPath: spec.forProvider.vars[2].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.cpu
-          toFieldPath: spec.forProvider.vars[3].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.ram
-          toFieldPath: spec.forProvider.vars[4].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.disk
-          toFieldPath: spec.forProvider.vars[5].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.templatepath
-          toFieldPath: spec.forProvider.vars[6].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.network
-          toFieldPath: spec.forProvider.vars[7].value
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.vm.folder
-          toFieldPath: spec.forProvider.vars[8].value
-        - type: FromCompositeFieldPath
           fromFieldPath: spec.connectionSecret.name
           toFieldPath: spec.writeConnectionSecretToRef.name
         - type: FromCompositeFieldPath
           fromFieldPath: spec.connectionSecret.namespace
           toFieldPath: spec.writeConnectionSecretToRef.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.providerRef.name
+          toFieldPath: spec.providerConfigRef.name
 ```
 
 </details>
@@ -701,24 +685,33 @@ spec:
 apiVersion: resources.stuttgart-things.com/v1alpha1
 kind: VsphereVM
 metadata:
-  name: vsphere-vm-claim-11
+  name: torronto
+  namespace: default
 spec:
+  providerRef:
+    name: terraform-default
   vm:
     count: "1"
-    os: ubuntu23
-    name: michigan15
-    cpu: "4"
+    name: torronto
     ram: "4096"
-    disk: "96"
-    templatepath: "/NetApp-HCI-Datacenter/vm/stuttgart-things/vm-templates"
-    network: "/NetApp-HCI-Datacenter/network/tiab-prod"
-    folder: "stuttgart-things/testing"
+    disk: "32"
+    cpu: "8"
+    firmware: bios
+    folderPath: phermann/testing
+    datacenter: /LabUL
+    datastore: /LabUL/datastore/UL-ESX-SAS-02
+    resourcePool: /LabUL/host/Cluster01/Resources
+    network: /LabUL/network/LAB-10.31.103
+    template: /LabUL/vm/phermann/vm-templates/ubuntu22
+    bootstrap: '["echo STUTTGART-THINGS"]'
+    annotation: VSPHERE-VM BUILD w/ CROSSPLANE FOR STUTTGART-THINGS
+    unverifiedSsl: "true"
   tfvars:
-    secretName: vsphere-tfvars
+    secretName: vsphere-labul-tfvars
     secretNamespace: default
-    secretKey: terraform.tfvars
+    secretKey: vsphere-labul.tfvars
   connectionSecret:
-    name: michigan15-vm
+    name: torronto
     namespace: default
   compositionRef:
     name: vsphere-vm
@@ -729,9 +722,11 @@ spec:
 <details><summary><b>VERIFY CLAIM/COMPOSITE/WORKSPACE</b></summary>
 
 ```bash
-kubectl get claim # describe claim <CLAIM-NAME>
-kubectl get composite # describe composite <COMPOSITE-NAME>
-kubectl get workspace # describe workspace <WORKSPACE-NAME>
+kubectl get crossplane # get all crossplane resources
+kubectl get claim # get claims
+kubectl get composite # get composite
+kubectl get workspace # get workspace
+kubectl describe workspace # describe workspace <WORKSPACE-NAME>
 ```
 
 </details>
