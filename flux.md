@@ -28,6 +28,17 @@ flux install \
 
 </details>
 
+<details><summary>RECONCILE SOURCE</summary>
+
+```bash 
+# RECONCILE DEFAULT GIT CLUSTER FOLDER (flux-system)
+flux reconcile source git flux-system 
+flux reconcile kustomization flux-system -n flux-system
+kubectl get kustomization -A
+```
+</details>
+
+
 <details><summary>TROUBLESHOOTING</summary>
 
 ```bash
@@ -35,6 +46,9 @@ kubectl get kustomization -A
 kubectl get events -n flux-system --field-selector type=Warning # show flux warning events
 flux get all -A --status-selector ready=false # show all flux objects that are not ready
 ```
+
+
+
 
 ```bash
 kubectl get hr -A  # LIST ALL HRs
