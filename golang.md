@@ -715,6 +715,44 @@ func init() {
 mandatoryFlags := []string{"repository", "branch", "clusterName", "envPath"}
 ```
 
+```go
+// APPEND TO STRING SLICE IN LOOP
+var prStatus []string
+
+for _, name := range stagePipelineRuns {
+  pipelineRunStatusFromRedis := server.GetPipelineRunStatus(name+"-status", redisJSONHandler)
+  prStatus = append(prStatus, fmt.Sprintln(pipelineRunStatusFromRedis))
+}
+
+fmt.Println("ALL STAUS", prStatus)
+```
+
+```go
+// INT SLICE
+numbers := []int{1, 2}
+numbers = append(a, 3, 4) // numbers == [3 4]
+
+// LOOP
+for i, v := range numbers {
+  fmt.Printf("index: %d, value: %d\n", i, v)
+}
+
+// INCREMENT IN LOOP
+sum := 0
+
+for _,element := range numbers{
+  sum += element
+}
+```
+
+```go
+// FILL SLICE IN LOOP
+a := []int{1, 2}
+a = append(a, 3, 4) // a == [3 4]
+```
+
+
+
 </details>
 
 <details><summary>MULTILINESTRING DEFINITION</summary>
