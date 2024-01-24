@@ -12,6 +12,15 @@ helm template <CHART> | kubectl apply -f -
 
 </details>
 
+<details><summary>STATUS</summary>
+
+```bash
+helm status vault -n vault
+helm get manifest vault -n vault
+```
+
+</details>
+
 <details><summary>HELM PACKAGE</summary>
 
 ```bash
