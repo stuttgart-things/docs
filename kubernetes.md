@@ -1,24 +1,19 @@
 # stuttgart-things/docs/k8s
 
+## SNIPPETS
+
+<details><summary>KUBECTL</summary>
+
 <details><summary>FORCE DELETE POD</summary>
 
 ```bash
-# e.g. influxdb (stuck in deleting phase)
+# E.G. INFLUXDB (STUCK IN DELETING PHASE)
 kubectl delete po influxdb-influxdb2-0 --force -n influxdb
 ```
 
 </details>
 
-<details><summary>HELM STATUS</summary>
-
-```bash
-helm status vault -n vault
-helm get manifest vault -n vault
-```
-
-</details>
-
-<details><summary>PORTFORWARD LONGHORN</summary>
+<details><summary>PORTFORWARDING</summary>
 
 ```bash
 kubectl --namespace longhorn-system port-forward --address 0.0.0.0 service/longhorn-frontend 5080:80
@@ -28,6 +23,12 @@ kubectl --namespace longhorn-system port-forward --address 0.0.0.0 service/longh
 ```
 
 </details>
+
+
+</details>
+
+
+
 
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
 
@@ -63,14 +64,13 @@ sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
 </details>
 
 
-### NFS CSI DEPLOYMENT
+<details><summary>STORAGECLASS EXAMPLE</summary>
 
 ```bash
+# NFS CSI DEPLOYMENT
 helm repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
 helm upgrade --install csi-driver-nfs csi-driver-nfs/csi-driver-nfs --namespace kube-system --version v4.5.0
 ```
-
-### STORAGECLASS EXAMPLE
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -109,6 +109,7 @@ volumeBindingMode: Immediate
 ### PVC EXAMPLE
 
 ```yaml
+# PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -121,6 +122,31 @@ spec:
     requests:
       storage: 3Gi
 ```
+
+```yaml
+# POD FOR MOUNTING PVC
+apiVersion: v1
+kind: Pod
+metadata:
+  name: task-pv-pod
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+        claimName: task-pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+```
+
+</details>
+
 
 ## SAST W/ POLARIS
 
