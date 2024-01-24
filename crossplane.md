@@ -42,6 +42,64 @@ kubectl api-resources | grep upbound
 
 </details>
 
+<details><summary><b>TROUBLESHOOTING</b></summary>
+
+```bash
+# DEBUG PROVIDER RELATED ISSUES
+kubectl describe providerrevisions
+
+# GET PACKAGE REVISION
+kubectl get pkgrev
+```
+
+</details>
+
+<details><summary><b>ADD CUSTOM-CA</b></summary>
+
+```yaml
+# CABUNDLE AS CM
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cert-bundle
+  namespace: crossplane-system
+data:
+  ca-certificates.crt: |-
+    -----BEGIN CERTIFICATE-----
+    MIIFijCCA3KgAwIBA #..
+```
+
+```yaml
+# CONTROLLER CONFIG
+apiVersion: pkg.crossplane.io/v1alpha1
+kind: ControllerConfig
+metadata:
+  name: cert-bundle
+spec:
+  volumeMounts:
+    - name: cert-bundle
+      mountPath: /etc/ssl/certs
+  volumes:
+    - name: cert-bundle
+      configMap:
+        name: cert-bundle
+```
+
+```yaml
+# CONTROLLER REF
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-terraform
+spec:
+  package: xpkg.upbound.io/upbound/provider-terraform:v0.13.0
+  controllerConfigRef:
+    name: cert-bundle
+```
+
+</details>
+
+
 ## HELM PROVIDER
 
 <details><summary><b>HELM PROVIDER INSTALLATION</b></summary>
