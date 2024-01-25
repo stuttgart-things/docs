@@ -50,6 +50,9 @@ kubectl describe providerrevisions
 
 # GET PACKAGE REVISION
 kubectl get pkgrev
+
+# LIST PROVIDERS
+kubectl get providers.pkg.crossplane.io -A
 ```
 
 </details>
@@ -216,6 +219,49 @@ spec:
 EOF
 ```
 </details>
+
+<details><summary><b>PROVIDER CONFIG (S3 MINIO STATE)</b></summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: s3
+  namespace: crossplane-system
+type: Opaque
+stringData:
+  AWS_ACCESS_KEY_ID: <ACCESS-KEY>
+  AWS_SECRET_ACCESS_KEY: <SECRET-ACCESS-KEY>
+EOF
+```
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: tf.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: artifacts-labul-vsphere
+  namespace: default
+spec:
+  configuration: |
+    terraform {
+      backend "s3" {
+        endpoint = "https://artifacts.automation.sthings-vsphere.labul.sva.de"
+        key = "terraform2.tfstate"
+        region = "main"
+        bucket = "terraform"
+        skip_credentials_validation = true
+        skip_metadata_api_check = true
+        skip_region_validation = true
+        force_path_style = true
+      }
+    }
+EOF
+```
+</details>
+
+
 
 <details><summary><b>INLINE WORKSPACE EXAMPLE</b></summary>
 
