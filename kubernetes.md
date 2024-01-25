@@ -22,6 +22,18 @@ kubectl --namespace longhorn-system port-forward --address 0.0.0.0 service/longh
 
 </details>
 
+<details><summary>GET/DELETE ALL PODS OLDER THAN 24HOURS</summary>
+
+```bash
+# LIST ALL PODS OLDER THAN 1 DAY
+kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $0}'
+
+# DELETE ALL PODS OLDER THAN 1 DAY
+kubectl -n tektoncd delete pod $(kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $1}')
+```
+
+</details>
+
 <details><summary>STORAGECLASS EXAMPLE</summary>
 
 ```bash
@@ -139,16 +151,34 @@ sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
 
 </details>
 
+# CLIS
 
+<details><summary>SAST W/ POLARIS</summary>
 
-
-## SAST W/ POLARIS
-
-```bash
-polaris audit nginx.yaml --only-show-failed-tests --severity error
+```yaml
+# EXAMPLE POD.YAML
+cat <<EOF > /tmp/pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+EOF
 ```
 
-## VCLUSTER
+```bash
+# CHECK POD.YAML
+polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity error
+```
+
+</details>
+
+<details><summary>VCLUSTER</summary>
 
 ```bash
 vcluster create my-vcluster --expose --set storage.className=openebs-hostpath
@@ -156,11 +186,12 @@ vcluster disconnect
 vcluster connect my-vcluster -n vcluster-my-vcluster
 ```
 
-## OCI ARTIFACTS W/ ORAS
+</details>
 
-### PUSH
+<details><summary>OCI ARTIFACTS W/ ORAS</summary>
 
 ```bash
+# PUSH
 oras login zot.maverick.sthings-pve.labul.sva.de
 echo "hello world" > artifact.txt
 oras push zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1 \
@@ -168,21 +199,13 @@ oras push zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1 \
 artifact.txt:text/plain
 ```
 
-### PULL
 
 ```bash
+# PULL
 oras pull zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1
 ```
 
-## GET/DELETE ALL PODS OLDER THAN 24HOURS
-
-```bash
-# LIST ALL PODS OLDER THAN 1 DAY
-kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $0}'
-
-# DELETE ALL PODS OLDER THAN 1 DAY
-kubectl -n tektoncd delete pod $(kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $1}')
-```
+</details>
 
 ## DEPLOY VPA + PROMETHEUS
 
