@@ -1,8 +1,33 @@
 # stuttgart-things/docs/ansible
 
-## WAIT FOR CUSTOM K8S RESOURCE TO BE CREATED/READY 
+## TASK-SNIPPETS
 
-<details><summary><b>Example playbook</b></summary>
+<details><summary><b>LOOP OVER DICT</b></summary>
+
+```yaml
+---
+- hosts: localhost
+  vars:
+    organizations:
+      stuttgartThings:
+        name: stuttgart-things
+        description: stuttgart-things organization
+        state: present
+
+  tasks:
+    - name: Create organizations
+      awx.awx.organization:
+        name: "{{ item.value.name }}"
+        description: "{{ item.value.description }}"
+        state: "{{ item.value.state }}"
+        validate_certs: no
+      loop: "{{ lookup('dict', organizations, wantlist=True) }}"
+```
+
+</details>
+
+
+<details><summary><b>WAIT FOR CUSTOM K8S RESOURCE TO BE CREATED/READY</b></summary>
 
 ```yaml
 ---
