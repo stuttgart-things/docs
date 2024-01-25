@@ -83,6 +83,9 @@ spec:
     - name: cert-bundle
       configMap:
         name: cert-bundle
+  envFrom:
+    - secretRef:
+        name: s3
 ```
 
 ```yaml
