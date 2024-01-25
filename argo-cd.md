@@ -313,7 +313,7 @@ spec:
       selfHeal: true
 ```
 
-</details close>
+</details>
 
 <details><summary><b>MULTISOURCES HELM + GIT VALUES</b></summary>
 
