@@ -151,6 +151,57 @@ spec:
 
 ## APPSET
 
+<details><summary><b>PULL REQUEST + KUSTOMIZE</b></summary>
+
+```yaml
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: stagetime-importer-pullrequest
+  namespace: argocd
+spec:
+  generators:
+    - pullRequest:
+        github:
+          owner: stuttgart-things
+          repo: stagetime-server
+          tokenRef:
+            secretName: github
+            key: GITHUB_TOKEN
+          # labels:
+          #   - build # label on PR that trigger review app
+        requeueAfterSeconds: 300
+  template:
+    metadata:
+      name: 'stagetime-importer-{{ branch }}-{{ number }}'
+      namespace: argocd
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default
+      syncPolicy:
+        automated:
+          prune: true
+      destination:
+        namespace: default
+        server: https://kubernetes.default.svc
+      source:
+        repoURL: https://github.com/stuttgart-things/stageTime-server.git
+        targetRevision: '{{ head_sha }}'
+        path: tests/cluster-importer
+        kustomize:
+          patches:
+            - target:
+                kind: Pod
+              patch: |-
+                - op: replace
+                  path: /metadata/name
+                  value: revisionrun-importer-{{ number }}
+```
+
+</details>
+
 <details><summary><b>LIST GENERATOR, BULD ENV VAR + VAULT PLUGIN VALUES</b></summary>
 
 ```yaml
