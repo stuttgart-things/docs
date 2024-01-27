@@ -34,6 +34,15 @@ kubectl -n tektoncd delete pod $(kubectl -n tektoncd get pod | awk 'match($5,/[0
 
 </details>
 
+<details><summary>COPY FILE FROM POD TO FILESYSTEM/summary>
+
+```bash
+# EXAMPLE COPY
+kubectl -n crossplane-system cp provider-terraform-e816b322200e-7564f79bc4-2ggvn:/etc/ssl/certs/ca-certificates.crt ./ca-certificates.crt
+```
+
+</details>
+
 <details><summary>DELETE NAMESPACE STUCKING IN DELETION</summary>
 
 ```bash
