@@ -154,6 +154,7 @@ EOF
 ```
 
 ```bash
+kubectl apply -f - <<EOF
 apiVersion: kubernetes.crossplane.io/v1alpha2
 kind: Object
 metadata:
@@ -238,6 +239,7 @@ spec:
             value:
               - "initial_master_node+[\"sandiego.labul.sva.de\"]"
               - "additional_master_nodes+[\"\"]"
+EOF
 ```
 </details>
 
