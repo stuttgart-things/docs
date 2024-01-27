@@ -105,10 +105,60 @@ spec:
 
 </details>
 
+## KUBERNETES PROVIDER
+
+<details><summary>PROVIDER CONFIG (KUBECONFIG)</summary>
+
+```bash
+# CREATE KUBECONFIG SECRET FROM LOCAL FILE 
+kubectl -n crossplane-system create secret generic kubeconfig-dev43 --from-file=/home/sthings/.kube/pve-dev43
+```
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: kubernetes-dev43
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: kubeconfig-dev43
+      key: pve-dev43
+EOF
+```
+
+</details>
+
+<details><summary>OBJECT EXAMPLES</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: sample-namespace
+spec:
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        labels:
+          example: "true"
+  providerConfigRef:
+    name: kubernetes-dev43
+EOF
+```
+
+</details>
+
 
 ## HELM PROVIDER
 
-<details><summary><b>HELM PROVIDER INSTALLATION</b></summary>
+<details><summary>HELM PROVIDER INSTALLATION</summary>
 
 ```bash
 kubectl apply -f - <<EOF
