@@ -34,7 +34,7 @@ kubectl -n tektoncd delete pod $(kubectl -n tektoncd get pod | awk 'match($5,/[0
 
 </details>
 
-<details><summary>COPY FILE FROM POD TO FILESYSTEM/summary>
+<details><summary>COPY FILE FROM POD TO FILESYSTEM</summary>
 
 ```bash
 # EXAMPLE COPY
