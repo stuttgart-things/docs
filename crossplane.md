@@ -153,6 +153,96 @@ spec:
 EOF
 ```
 
+```bash
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: sandiego-rke2
+spec:
+  providerConfigRef:
+    name: kubernetes-labul-bootstrap
+  forProvider:
+    manifest:
+      apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata:
+        namespace: tektoncd
+      spec:
+        pipelineRef:
+          resolver: git
+          params:
+            - name: url
+              value: https://github.com/stuttgart-things/stuttgart-things.git
+            - name: revision
+              value: rancher-280
+            - name: pathInRepo
+              value: stageTime/pipelines/execute-ansible-playbooks.yaml
+        workspaces:
+          - name: shared-workspace
+            volumeClaimTemplate:
+              spec:
+                storageClassName: openebs-hostpath
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 20Mi
+        params:
+          - name: ansibleWorkingImage
+            value: "eu.gcr.io/stuttgart-things/sthings-ansible:9.1.0"
+          - name: createInventory
+            value: "true"
+          - name: gitRepoUrl
+            value: https://github.com/stuttgart-things/stuttgart-things.git
+          - name: gitRevision
+            value: "rancher-280"
+          - name: gitWorkspaceSubdirectory
+            value: "/ansible/rke2"
+          - name: vaultSecretName
+            value: vault
+          - name: installExtraRoles
+            value: "true"
+          - name: ansibleExtraRoles
+            value:
+              - "https://github.com/stuttgart-things/install-requirements.git"
+              - "https://github.com/stuttgart-things/manage-filesystem.git"
+              - "https://github.com/stuttgart-things/install-configure-vault.git"
+              - "https://github.com/stuttgart-things/deploy-configure-rke"
+          - name: ansiblePlaybooks
+            value:
+              - "ansible/playbooks/prepare-env.yaml"
+              - "ansible/playbooks/base-os.yaml"
+              - "ansible/playbooks/deploy-rke2.yaml"
+              - "ansible/playbooks/upload-kubeconfig-vault.yaml"
+          - name: ansibleVarsFile
+            value:
+              - "manage_filesystem+-true"
+              - "update_packages+-true"
+              - "install_requirements+-true"
+              - "install_motd+-true"
+              - "username+-sthings"
+              - "lvm_home_sizing+-'15%'"
+              - "lvm_root_sizing+-'35%'"
+              - "lvm_var_sizing+-'50%'"
+              - "send_to_msteams+-true"
+              - "reboot_all+-false"
+              - "cluster_name+-sandiego"
+              - "rke2_k8s_version+-1.27.7"
+              - "rke2_release_kind+-rke2r2"
+              - "cluster_setup+-singleode"
+              - "target_host+-sandiego.labul.sva.de"
+              - "kubeconfig_path+-/etc/rancher/rke2/rke2.yaml"
+              - "secret_path_kubeconfig+-kubeconfigs"
+              # - "pause_time+-10"
+          - name: ansibleVarsInventory
+            value:
+              - "initial_master_node+[\"sandiego.labul.sva.de\"]"
+              - "additional_master_nodes+[\"\"]"
+```
+</details>
+
+<details><summary>COMPOSITION</summary>
+
 </details>
 
 
