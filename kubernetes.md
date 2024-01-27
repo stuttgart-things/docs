@@ -34,6 +34,24 @@ kubectl -n tektoncd delete pod $(kubectl -n tektoncd get pod | awk 'match($5,/[0
 
 </details>
 
+<details><summary>DELETE NAMESPACE STUCKING IN DELETION</summary>
+
+```bash
+# OPTION 1
+NAMESPACE=crossplane-system # EXAMPLE
+kubectl get namespace ${NAMESPACE} -o json \
+  | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+  | kubectl replace --raw /api/v1/namespaces/${NAMESPACE}/finalize -f -
+```
+
+```bash
+# OPTION 2
+kubectl get apiservice|grep False
+kubectl delete APIServices v1alpha1.apps.kio.kasten.io # EXAMPLE
+```
+
+</details>
+
 <details><summary>STORAGECLASS EXAMPLE</summary>
 
 ```bash
