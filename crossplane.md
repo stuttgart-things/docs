@@ -280,7 +280,7 @@ EOF
 ```
 </details>
 
-<details><summary>CRD EXAMPLES</summary>
+<details><summary>CRD-EXAMPLES</summary>
 
 ```yaml
 apiVersion: apiextensions.crossplane.io/v1
@@ -320,7 +320,39 @@ spec:
                 - pipelineRunName
 ```
 
+<details><summary>STRING-DEFINITION</summary>
+
+```yaml
+# STRING
+properties:
+  spec:
+    type: object
+    properties:
+      pipelineRunName:
+        type: string
+        description: Name of pipelineRun resource
+```
+
 </details>
+
+<details><summary>STRING-ARRAY-DEFINITION</summary>
+
+```yaml
+# STRING ARRAY
+      playbooks:
+        type: array
+        description: Ansible playbooks
+        items:
+          type: string
+        default:
+          - "ansible/playbooks/prepare-env.yaml"
+          - "ansible/playbooks/base-os.yaml"
+```
+
+</details>
+
+</details>
+
 
 <details><summary>COMPOSITION EXAMPLES</summary>
 
