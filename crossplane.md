@@ -107,6 +107,21 @@ spec:
 
 ## KUBERNETES PROVIDER
 
+<details><summary>KUBERNETES PROVIDER INSTALLATION</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-kubernetes
+spec:
+  package: "crossplanecontrib/provider-kubernetes:v0.11.2" # main for latest
+EOF
+```
+
+</details>
+
 <details><summary>PROVIDER CONFIG (KUBECONFIG)</summary>
 
 ```bash
@@ -128,6 +143,28 @@ spec:
       name: kubeconfig-dev43
       key: pve-dev43
 EOF
+```
+
+</details>
+
+<details><summary>PROVIDER CONFIG (INCLUSTER)</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: kubernetes-incluster
+spec:
+  credentials:
+    source: InjectedIdentity
+EOF
+```
+
+```bash
+# ADDC SERVICE ACCOUNT CLUSTERROLEBINDING
+SA=$(kubectl -n crossplane-system get sa -o name | grep provider-kubernetes | sed -e 's|serviceaccount\/|crossplane-system:|g')
+kubectl create clusterrolebinding provider-kubernetes-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}"
 ```
 
 </details>
