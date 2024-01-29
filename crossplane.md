@@ -436,6 +436,12 @@ spec:
 kubectl get crossplane # GET ALL
 kubectl get object -A # GET ALL OBJECTS IN CLUSTER
 kubectl get providerconfigusage.kubernetes.crossplane.io # GET PROVIDERUSAGE
+kubectl get compositionrevision.apiextensions.crossplane.io -A
+kubectl describe compositionrevision.apiextensions.crossplane.io/
+
+# RENDERING PROBLEMS
+kubectl get composite
+kubectl describe xbaseosrun.resources.stuttgart-things.com/<COMPOSITE-NAME>
 ```
 
 </details>
