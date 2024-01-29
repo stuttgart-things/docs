@@ -105,6 +105,19 @@ spec:
 
 </details>
 
+## GENERAL
+
+<details><summary>PATCHES</summary>
+
+```bash
+https://github.com/crossplane/crossplane/issues/2072
+https://vrelevant.net/crossplane-composition-patches-combine-patches/
+https://vrelevant.net/crossplane-composition-patches-fromcompositefieldpath/
+```
+
+</details>
+
+
 ## KUBERNETES PROVIDER
 
 <details><summary>KUBERNETES PROVIDER INSTALLATION</summary>
