@@ -2,6 +2,15 @@
 
 ## SNIPPETS
 
+<details><summary>CONCATENATE STRING AND INT</summary>
+
+```python3
+now = datetime.now()
+scan_id = f'{now.year}-{now.month}-{now.day}-{now.minute}-{now.second}'
+```
+
+</details>
+
 <details><summary>INLINE JINJA RENDERING</summary>
 
 ```python3
@@ -17,6 +26,38 @@ print(msg)
 
 
 <details><summary>FILE TEMPLATE RENDERING</summary>
+
+## EXAMPLE 1
+
+```bash
+# template.json
+#...
+"source": "url",
+          "type": "json",
+          "url": "{{ uploaded_data_url }}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+#..
+```
+
+```python3
+# RENDER GRAFANA TEMPLATE/DASHBOARD
+environment = Environment(loader=FileSystemLoader(current_dir+'/'))
+template = environment.get_template(grafana_template_filename)
+rendered_template = template.render(
+    uploaded_data_url = upload_address + "/" +data_json_outputfile
+)
+
+print(rendered_template)
+
+# WRITE RENDERED TEMPLATE TO DISK
+file_object = open(template_json_outputfile, "w")
+file_object.write(rendered_template)
+file_object.close()
+```
+
+## EXAMPLE 2
 
 ```bash
 # message.txt
