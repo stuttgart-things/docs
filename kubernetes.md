@@ -209,7 +209,7 @@ polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity err
 
 ## MICROSERVICES
 
-<details><summary>DEPLOY SFTP/HTPPS CADDY-WEBSERVER</summary>
+<details><summary>DEPLOY SFTP/HTTPS CADDY-WEBSERVER</summary>
 
 ```yaml
 ---
@@ -367,7 +367,7 @@ spec:
 
 ```bash
 # UPLOAD FILE
-sudo apt install lftp
+sudo apt -y install lftp
 touch ./bla.txt && echo hello > ./bla.txt # JUST A FILE EXAMPLE
 lftp sftp://ankit:<PASSWORD>@10.31.101.17 -e "cd /var/www/html/; put bla.txt; bye"
 
