@@ -205,6 +205,179 @@ polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity err
 
 </details>
 
+
+
+## MICROSERVICES
+
+<details><summary>DEPLOY SFTP/HTPPS CADDY-WEBSERVER</summary>
+
+```yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-server
+  labels:
+    app: file-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: file-server
+  template:
+    metadata:
+      labels:
+        app: file-server
+    spec:
+      securityContext:
+        fsGroup: 911 # ssh server user
+      containers:
+      - name: caddy
+        image: caddy:2.6.4
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: file-server
+          mountPath: /var/www/html/
+          subPath: public
+        - name: caddyfile
+          mountPath: /etc/caddy/Caddyfile
+          subPath: Caddyfile
+      - name: openssh-server
+        image: linuxserver/openssh-server:version-9.0_p1-r2
+        ports:
+        - containerPort: 2222
+        env:
+        - name: USER_NAME
+          value: "ankit"
+        - name: PUBLIC_KEY
+          value: ""
+        - name: PASSWORD_ACCESS
+          value: "true"
+        - name: USER_PASSWORD
+          value: "<CHANGEME>"
+        volumeMounts:
+        - name: file-server
+          mountPath: /var/www/html/
+          subPath: public
+      volumes:
+      - name: file-server
+        persistentVolumeClaim:
+          claimName: file-server-pvc
+      - name: caddyfile
+        configMap:
+          name: caddyfile-v3
+          defaultMode: 0644
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddyfile-v3
+data:
+  Caddyfile: |
+    :80 {
+            # Set this path to your site's directory.
+            root * /var/www/html
+            # Enable the static file server, with file browsing
+            file_server browse
+    }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: file-server-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2G
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: file-server-http
+  labels:
+    app: file-server-http
+spec:
+  type: ClusterIP
+  selector:
+    app: file-server
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: file-server-ssh
+  labels:
+    app: file-server-ssh
+spec:
+  type: LoadBalancer
+  selector:
+    app: file-server
+  ports:
+  - name: ssh
+    port: 22
+    targetPort: 2222
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: files-ingress-tls
+  namespace: default
+spec:
+  commonName: files.dev43.sthings-pve.labul.sva.de
+  dnsNames:
+    - files.dev43.sthings-pve.labul.sva.de
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer-approle
+  secretName: files-ingress-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: files-ingress
+  namespace: default
+  labels:
+    app: file-server-ssh
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: files.dev43.sthings-pve.labul.sva.de
+      http:
+        paths:
+          - backend:
+              service:
+                name: file-server-http
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+      - files.dev43.sthings-pve.labul.sva.de
+      secretName: files-ingress-tls
+```
+
+```bash
+# UPLOAD FILE
+sudo apt install lftp
+touch ./bla.txt && echo hello > ./bla.txt # JUST A FILE EXAMPLE
+lftp sftp://ankit:<PASSWORD>@10.31.101.17 -e "cd /var/www/html/; put bla.txt; bye"
+
+# DOWNLOAD/ACCESS FILE VIA HTTPS
+wget wget https://files.dev43.sthings-pve.labul.sva.de/bla.txt
+```
+
+
+</details>
+
 <details><summary>VCLUSTER</summary>
 
 ```bash
@@ -233,6 +406,8 @@ oras pull zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1
 ```
 
 </details>
+
+
 
 ## DEPLOY VPA + PROMETHEUS
 
