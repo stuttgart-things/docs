@@ -548,3 +548,41 @@ curl -sfL https://get.rke2.io | sh -
 ```bash
 systemctl enable --now rke2-server.service
 ```
+
+### RANCHER ADD CERTS w/ PRIVATE CA
+
+[rancher-certificate](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate)
+
+#### CREATE
+
+```bash
+kubectl -n cattle-system create secret tls tls-rancher-ingress \
+--cert=tls.crt \
+--key=tls.key
+
+kubectl -n cattle-system create secret generic tls-ca \
+--from-file=cacerts.pem
+```
+
+#### HELM VALUES
+
+```yaml
+#..
+ingress:
+  tls:
+    source: secret
+privateCA: true
+```
+
+#### UDPATE/UPGRADE CERTS
+
+```bash
+kubectl -n cattle-system create secret generic tls-ca \
+--from-file=cacerts.pem
+
+kubectl -n cattle-system create secret generic tls-ca \
+--from-file=cacerts.pem \
+--dry-run --save-config -o yaml | kubectl apply -f -
+
+kubectl rollout restart deploy/rancher -n cattle-system
+```
