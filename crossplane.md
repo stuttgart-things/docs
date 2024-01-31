@@ -105,10 +105,395 @@ spec:
 
 </details>
 
+## GENERAL
+
+<details><summary>PATCHES</summary>
+
+```bash
+https://github.com/crossplane/crossplane/issues/2072
+https://vrelevant.net/crossplane-composition-patches-combine-patches/
+https://vrelevant.net/crossplane-composition-patches-fromcompositefieldpath/
+```
+
+</details>
+
+
+## KUBERNETES PROVIDER
+
+<details><summary>KUBERNETES PROVIDER INSTALLATION</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-kubernetes
+spec:
+  package: "crossplanecontrib/provider-kubernetes:v0.11.2" # main for latest
+EOF
+```
+
+</details>
+
+<details><summary>PROVIDER CONFIG (KUBECONFIG)</summary>
+
+```bash
+# CREATE KUBECONFIG SECRET FROM LOCAL FILE 
+kubectl -n crossplane-system create secret generic kubeconfig-dev43 --from-file=/home/sthings/.kube/pve-dev43
+```
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: kubernetes-dev43
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: kubeconfig-dev43
+      key: pve-dev43
+EOF
+```
+
+</details>
+
+<details><summary>PROVIDER CONFIG (INCLUSTER)</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: kubernetes-incluster
+spec:
+  credentials:
+    source: InjectedIdentity
+EOF
+```
+
+```bash
+# ADDC SERVICE ACCOUNT CLUSTERROLEBINDING
+SA=$(kubectl -n crossplane-system get sa -o name | grep provider-kubernetes | sed -e 's|serviceaccount\/|crossplane-system:|g')
+kubectl create clusterrolebinding provider-kubernetes-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}"
+```
+
+</details>
+
+<details><summary>OBJECT EXAMPLES</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: sample-namespace
+spec:
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        labels:
+          example: "true"
+  providerConfigRef:
+    name: kubernetes-dev43
+EOF
+```
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: sandiego-rke2
+spec:
+  providerConfigRef:
+    name: kubernetes-labul-bootstrap
+  forProvider:
+    manifest:
+      apiVersion: tekton.dev/v1
+      kind: PipelineRun
+      metadata:
+        namespace: tektoncd
+      spec:
+        pipelineRef:
+          resolver: git
+          params:
+            - name: url
+              value: https://github.com/stuttgart-things/stuttgart-things.git
+            - name: revision
+              value: rancher-280
+            - name: pathInRepo
+              value: stageTime/pipelines/execute-ansible-playbooks.yaml
+        workspaces:
+          - name: shared-workspace
+            volumeClaimTemplate:
+              spec:
+                storageClassName: openebs-hostpath
+                accessModes:
+                  - ReadWriteOnce
+                resources:
+                  requests:
+                    storage: 20Mi
+        params:
+          - name: ansibleWorkingImage
+            value: "eu.gcr.io/stuttgart-things/sthings-ansible:9.1.0"
+          - name: createInventory
+            value: "true"
+          - name: gitRepoUrl
+            value: https://github.com/stuttgart-things/stuttgart-things.git
+          - name: gitRevision
+            value: "rancher-280"
+          - name: gitWorkspaceSubdirectory
+            value: "/ansible/rke2"
+          - name: vaultSecretName
+            value: vault
+          - name: installExtraRoles
+            value: "true"
+          - name: ansibleExtraRoles
+            value:
+              - "https://github.com/stuttgart-things/install-requirements.git"
+              - "https://github.com/stuttgart-things/manage-filesystem.git"
+              - "https://github.com/stuttgart-things/install-configure-vault.git"
+              - "https://github.com/stuttgart-things/deploy-configure-rke"
+          - name: ansiblePlaybooks
+            value:
+              - "ansible/playbooks/prepare-env.yaml"
+              - "ansible/playbooks/base-os.yaml"
+              - "ansible/playbooks/deploy-rke2.yaml"
+              - "ansible/playbooks/upload-kubeconfig-vault.yaml"
+          - name: ansibleVarsFile
+            value:
+              - "manage_filesystem+-true"
+              - "update_packages+-true"
+              - "install_requirements+-true"
+              - "install_motd+-true"
+              - "username+-sthings"
+              - "lvm_home_sizing+-'15%'"
+              - "lvm_root_sizing+-'35%'"
+              - "lvm_var_sizing+-'50%'"
+              - "send_to_msteams+-true"
+              - "reboot_all+-false"
+              - "cluster_name+-sandiego"
+              - "rke2_k8s_version+-1.27.7"
+              - "rke2_release_kind+-rke2r2"
+              - "cluster_setup+-singleode"
+              - "target_host+-sandiego.labul.sva.de"
+              - "kubeconfig_path+-/etc/rancher/rke2/rke2.yaml"
+              - "secret_path_kubeconfig+-kubeconfigs"
+              # - "pause_time+-10"
+          - name: ansibleVarsInventory
+            value:
+              - "initial_master_node+[\"sandiego.labul.sva.de\"]"
+              - "additional_master_nodes+[\"\"]"
+EOF
+```
+</details>
+
+<details><summary>CRD-EXAMPLES</summary>
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xbaseosruns.resources.stuttgart-things.com
+spec:
+  connectionSecretKeys:
+    - kubeconfig
+  group: resources.stuttgart-things.com
+  names:
+    kind: XBaseOsRun
+    plural: xbaseosruns
+  claimNames:
+    kind: BaseOsRun
+    plural: baseosruns
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          description: A BaseOsRun is a composite resource that represents a Tekton PipelineRun provisioning a base setup on a given set of virual machines
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                pipelineRunName:
+                  type: string
+                  description: Name of pipelineRun resource
+                pipelineNamespace:
+                  type: string
+                  default: tektoncd
+                  description: Namespace of pipelineRun resource
+              required:
+                - pipelineRunName
+```
+
+<details><summary>STRING-DEFINITION</summary>
+
+```yaml
+# STRING
+properties:
+  spec:
+    type: object
+    properties:
+      pipelineRunName:
+        type: string
+        description: Name of pipelineRun resource
+```
+
+</details>
+
+<details><summary>STRING-ARRAY-DEFINITION</summary>
+
+```yaml
+# STRING ARRAY
+      playbooks:
+        type: array
+        description: Ansible playbooks
+        items:
+          type: string
+        default:
+          - "ansible/playbooks/prepare-env.yaml"
+          - "ansible/playbooks/base-os.yaml"
+```
+
+</details>
+
+</details>
+
+
+<details><summary>COMPOSITION EXAMPLES</summary>
+
+```yaml
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: baseos-run
+  labels:
+    crossplane.io/xrd: xbaseosruns.resources.stuttgart-things.com
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: resources.stuttgart-things.com/v1alpha1
+    kind: XBaseOsRun
+  resources:
+    - base:
+        apiVersion: kubernetes.crossplane.io/v1alpha2
+        kind: Object
+        spec:
+          providerConfigRef:
+            name: kubernetes-labul-bootstrap
+          forProvider:
+            manifest:
+              apiVersion: tekton.dev/v1
+              kind: PipelineRun
+              metadata:
+                name: guestbook
+                namespace: tektoncd
+              spec:
+                pipelineRef:
+                  resolver: git
+                  params:
+                    - name: url
+                      value: https://github.com/stuttgart-things/stuttgart-things.git
+                    - name: revision
+                      value: rancher-280
+                    - name: pathInRepo
+                      value: stageTime/pipelines/execute-ansible-playbooks.yaml
+                workspaces:
+                  - name: shared-workspace
+                    volumeClaimTemplate:
+                      spec:
+                        storageClassName: openebs-hostpath
+                        accessModes:
+                          - ReadWriteOnce
+                        resources:
+                          requests:
+                            storage: 20Mi
+                params:
+                  - name: ansibleWorkingImage
+                    value: "eu.gcr.io/stuttgart-things/sthings-ansible:9.1.0"
+                  - name: createInventory
+                    value: "true"
+                  - name: gitRepoUrl
+                    value: https://github.com/stuttgart-things/stuttgart-things.git
+                  - name: gitRevision
+                    value: "rancher-280"
+                  - name: gitWorkspaceSubdirectory
+                    value: "/ansible/rke2"
+                  - name: vaultSecretName
+                    value: vault
+                  - name: installExtraRoles
+                    value: "true"
+                  - name: ansibleExtraRoles
+                    value:
+                      - "https://github.com/stuttgart-things/install-requirements.git"
+                      - "https://github.com/stuttgart-things/manage-filesystem.git"
+                      - "https://github.com/stuttgart-things/install-configure-vault.git"
+                      - "https://github.com/stuttgart-things/deploy-configure-rke"
+                  - name: ansiblePlaybooks
+                    value:
+                      - "ansible/playbooks/prepare-env.yaml"
+                      - "ansible/playbooks/base-os.yaml"
+                      - "ansible/playbooks/deploy-rke2.yaml"
+                      - "ansible/playbooks/upload-kubeconfig-vault.yaml"
+                  - name: ansibleVarsFile
+                    value:
+                      - "manage_filesystem+-true"
+                      - "update_packages+-true"
+                      - "install_requirements+-true"
+                      - "install_motd+-true"
+                      - "username+-sthings"
+                      - "lvm_home_sizing+-'15%'"
+                      - "lvm_root_sizing+-'35%'"
+                      - "lvm_var_sizing+-'50%'"
+                      - "send_to_msteams+-true"
+                      - "reboot_all+-false"
+                      - "cluster_name+-sandiego"
+                      - "rke2_k8s_version+-1.27.7"
+                      - "rke2_release_kind+-rke2r2"
+                      - "cluster_setup+-singleode"
+                      - "target_host+-sandiego.labul.sva.de"
+                      - "kubeconfig_path+-/etc/rancher/rke2/rke2.yaml"
+                      - "secret_path_kubeconfig+-kubeconfigs"
+                      # - "pause_time+-10"
+                  - name: ansibleVarsInventory
+                    value:
+                      - "initial_master_node+[\"sandiego.labul.sva.de\"]"
+                      - "additional_master_nodes+[\"\"]"
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.pipelineRunName
+          toFieldPath: spec.forProvider.manifest.metadata.name
+```
+
+</details>
+
+<details><summary>COMMANDS</summary>
+
+```bash
+kubectl get crossplane # GET ALL
+kubectl get object -A # GET ALL OBJECTS IN CLUSTER
+kubectl get providerconfigusage.kubernetes.crossplane.io # GET PROVIDERUSAGE
+kubectl get compositionrevision.apiextensions.crossplane.io -A
+kubectl describe compositionrevision.apiextensions.crossplane.io/
+
+# RENDERING PROBLEMS
+kubectl get composite
+kubectl describe xbaseosrun.resources.stuttgart-things.com/<COMPOSITE-NAME>
+```
+
+</details>
 
 ## HELM PROVIDER
 
-<details><summary><b>HELM PROVIDER INSTALLATION</b></summary>
+<details><summary>HELM PROVIDER INSTALLATION</summary>
 
 ```bash
 kubectl apply -f - <<EOF
