@@ -22,6 +22,24 @@ kubectl --namespace longhorn-system port-forward --address 0.0.0.0 service/longh
 
 </details>
 
+<details><summary>DELETE ALL EVICTED PODS IN ALL NAMESPACES</summary>
+
+```bash
+kubectl get pods --all-namespaces | grep Evicted | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
+```
+
+</details>
+
+<details><summary>WORK W/ OFTEN MANUALY RESTARTED/DELETED PODS FOR DEV/TESTING</summary>
+
+```bash
+kubectl -n <NAMESPACE> get po | grep <PART-OF-POD-NAME> | awk '{ print $1}'
+kubectl -n sweatshop delete po $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
+kubectl -n sweatshop logs -f $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
+```
+
+</details>
+
 <details><summary>GET/DELETE ALL PODS OLDER THAN 24HOURS</summary>
 
 ```bash
@@ -30,6 +48,38 @@ kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $0}'
 
 # DELETE ALL PODS OLDER THAN 1 DAY
 kubectl -n tektoncd delete pod $(kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $1}')
+```
+
+</details>
+
+<details><summary>GET ALL IMAGES IN CLUSTER</summary>
+
+```bash
+kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
+tr -s '[[:space:]]' '\n' |\
+sort |\
+uniq -c
+```
+
+</details>
+
+
+<details><summary>NFS STORAGE CLASS / REMOUNT PVC</summary>
+
+
+After pod was deleted, nfs based pvc cannot be mounted to the pod "applyFSGroup failed for vol".
+
+Workaround: Not having fsGroup field in pod will also skip call to  SetVolumeOwnership function.
+
+remove:
+
+```yaml
+#...
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000 # remove this field!
+#...
 ```
 
 </details>
@@ -144,6 +194,113 @@ spec:
 
 </details>
 
+## CLI
+
+<details><summary>BUILD OCI-IMAGE W/ BUILDAH</summary>
+
+```bash
+buildah --storage-driver=overlay bud --format=oci \
+--tls-verify=true --no-cache \
+-f ~/projects/github/stuttgart-things/images/sthings-alpine/Dockerfile \
+-t scr.app.4sthings.tiab.ssc.sva.de/sthings-alpine/alpine:123
+```
+
+</details>
+
+<details><summary>USE SKOPEO</summary>
+
+## INSTALL
+
+```bash
+SKOPEO_VERSION=1.12.0
+wget https://github.com/lework/skopeo-binary/releases/download/v${SKOPEO_VERSION}/skopeo-linux-amd64
+sudo chmod +x skopeo-linux-amd64
+sudo mv skopeo-linux-amd64 /usr/bin/skopeo && skopeo --version
+```
+
+## COPY IMAGE BETWEEN REGISTRIES (TAG)
+
+```bash
+skopeo copy --insecure-policy docker://nginx:1.21
+docker://whatever.cloud/gtc1fe/web:1.21
+```
+
+## COPY IMAGE BETWEEN REGISTRIES (DIGEST)
+
+* Copy images between registries
+
+```bash
+skopeo copy --all --insecure-policy
+docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a \ docker://whatever.cloud/gtc1fe/web@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a
+```
+
+</details>
+
+<details><summary>OVERWRITE ENTRYPOINT OF IMAGE W/ NERDCTL</summary>
+
+```bash
+nerdctl run -it --entrypoint sh eu.gcr.io/stuttgart-things/stagetime-server:23.1108.1227-0.3.22
+```
+
+</details>
+
+<details><summary>CLEANUP W/ NERDCTL</summary>
+
+```bash
+# STOP AND DELETE ALL RUNNING CONTAINERS
+sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
+
+# CLEAN IMAGES BY ID
+sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
+
+# CLEAN IMAGES BY NAME + TAG
+sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
+```
+
+</details>
+
+<details><summary>CONTAINERD CTR</summary>
+
+```bash
+# PULL IMAGE W/ CRT
+sudo ctr images pull docker.io/library/redis:alpine
+# OR FOR RKE2 BUNDLED CONTAINERD: SUDO /VAR/LIB/RANCHER/RKE2/BIN/CTR IMAGES PULL DOCKER.IO/LIBRARY/REDIS:ALPINE
+
+# LIST IMAGES
+ctr --namespace k8s.io images ls -q
+# OR FOR RKE2 BUNDLED CONTAINERD: SUDO /VAR/LIB/RANCHER/RKE2/BIN/CTR --ADDRESS /RUN/K3S/CONTAINERD/CONTAINERD.SOCK --NAMESPACE K8S.IO CONTAINER LS
+
+# LOAD/IMPORT CONATINER IMAGE
+ctr -n=k8s.io images import <IMAGE_NAME>
+ctr image export <output-filename> <image-name>
+```
+
+</details>
+
+<details><summary>SAST W/ POLARIS</summary>
+
+```yaml
+# EXAMPLE POD.YAML
+cat <<EOF > /tmp/pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+EOF
+```
+
+```bash
+# CHECK POD.YAML
+polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity error
+```
+
+</details>
 
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
 
@@ -177,34 +334,6 @@ sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
 ```
 
 </details>
-
-# CLIS
-
-<details><summary>SAST W/ POLARIS</summary>
-
-```yaml
-# EXAMPLE POD.YAML
-cat <<EOF > /tmp/pod.yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: nginx
-spec:
-  containers:
-  - name: nginx
-    image: nginx:1.14.2
-    ports:
-    - containerPort: 80
-EOF
-```
-
-```bash
-# CHECK POD.YAML
-polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity error
-```
-
-</details>
-
 
 
 ## MICROSERVICES
@@ -407,11 +536,9 @@ oras pull zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1
 
 </details>
 
+<details><summary>GOLDILOCKS, VPA + PROMETHEUS</summary>
 
-
-## DEPLOY VPA + PROMETHEUS
-
-### DEPLOY VPA
+## DEPLOY VPA
 
 ```bash
 kubectl create ns monitoring
@@ -420,20 +547,20 @@ helm upgrade --install vpa fairwinds-stable/vpa -n monitoring  --version 3.0.2 -
 helm -n monitoring test vpa
 ```
 
-### FORKED GIT-REPOSITORY: FOR RKE CLUSTERS (at least for =<52.1.0)
+## FORKED GIT-REPOSITORY: FOR RKE CLUSTERS (at least for =<52.1.0)
 
 ```bash
 git clone https://github.com/mohamadkhani/helm-charts.git
 cd helm-charts/kube-prometheus-stack && helm dep update
 ```
 
-### HELM REPO: NON RKE/RANCHER K8S
+## HELM REPO: NON RKE/RANCHER K8S
 
 ```bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 ```
 
-### CREATE TLS CERTIFICATE
+## CREATE TLS CERTIFICATE
 
 ```yaml
 apiVersion: cert-manager.io/v1
@@ -451,7 +578,7 @@ spec:
   secretName: monitoring-tls
 ```
 
-### CREATE VALUES FILE
+## CREATE VALUES FILE
 
 ```yaml
 cat <<EOF > ./values.yaml
@@ -538,7 +665,7 @@ kube-state-metrics:
 EOF
 ```
 
-### DEPLOY KUBE-PROMETHEUS-STACK
+## DEPLOY KUBE-PROMETHEUS-STACK
 
 ```bash
 helm upgrade --install kube-prometheus-stack . --values values.yaml --version 52.1.0 --namespace monitoring --create-namespace
@@ -546,192 +673,31 @@ helm upgrade --install kube-prometheus-stack . --values values.yaml --version 52
 helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --values values.yaml --version 52.1.0 --namespace monitoring --create-namespace
 ```
 
-### DEPLOY GOLDILOCKS
+## DEPLOY GOLDILOCKS
 
 ```bash
 helm repo add fairwinds-stable https://charts.fairwinds.com/stable && helm repo update
 helm upgrade --install goldilocks --namespace monitoring fairwinds-stable/goldilocks --version 8.0.0 --create-namespace
 ```
 
-### LABEL NAMESPACE W/ GOLDILOCKS
+## LABEL NAMESPACE W/ GOLDILOCKS
 
 ```bash
 kubectl label ns velero goldilocks.fairwinds.com/enabled=true
 ```
 
-## NFS STORAGE CLASS / REMOUNT PVC
+</details>
 
-After pod was deleted, nfs based pvc cannot be mounted to the pod "applyFSGroup failed for vol".
 
-Workaround: Not having fsGroup field in pod will also skip call to  SetVolumeOwnership function.
 
-remove:
 
-```yaml
-...
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 3000
-    fsGroup: 2000 # remove this field!
-...
-```
 
-### RANCHER ADD CERTS w/ PRIVATE CA
 
-[rancher-certificate](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate)
 
-#### CREATE
 
-```bash
-kubectl -n cattle-system create secret tls tls-rancher-ingress \
---cert=tls.crt \
---key=tls.key
 
-kubectl -n cattle-system create secret generic tls-ca \
---from-file=cacerts.pem
-```
 
-#### HELM VALUES
 
-```yaml
-#..
-ingress:
-  tls:
-    source: secret
-privateCA: true
-```
-
-#### UDPATE/UPGRADE CERTS
-
-```bash
-kubectl -n cattle-system create secret generic tls-ca \
---from-file=cacerts.pem
-
-kubectl -n cattle-system create secret generic tls-ca \
---from-file=cacerts.pem \
---dry-run --save-config -o yaml | kubectl apply -f -
-
-kubectl rollout restart deploy/rancher -n cattle-system
-```
-
-### GET ALL IMAGES IN CLUSTER
-
-```bash
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}" |\
-tr -s '[[:space:]]' '\n' |\
-sort |\
-uniq -c
-```
-
-## TEST REGISTRY SECRETS W/ HELM
-
-```bash
-kubectl run helm-pod -it --rm --image alpine/k8s:1.24.15 -- sh
-
-mkdir -p ~/.docker/
-cat <<EOF > ~/.docker/config.json
-{"auths": #...
-EOF
-
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
-helm pull bitnami/nginx --version 15.1.0
-tar xvfz nginx-15.1.0.tgz
-yq e -i '.version = "9.9.9"' nginx/Chart.yaml
-helm package nginx
-helm push nginx-9.9.9.tgz oci://eu.gcr.io/stuttgart-things/
-```
-
-## DELETE ALL EVICTED PODS IN ALL NAMESPACES
-
-```bash
-kubectl get pods --all-namespaces | grep Evicted | awk '{print $2 " --namespace=" $1}' | xargs kubectl delete pod
-```
-
-## WORK W/ OFTEN MANUALY RESTARTED/DELETED PODS FOR DEV/TESTING
-
-```bash
-kubectl -n <NAMESPACE> get po | grep <PART-OF-POD-NAME> | awk '{ print $1}'
-kubectl -n sweatshop delete po $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
-kubectl -n sweatshop logs -f $(kubectl -n sweatshop get po | grep creator | awk '{ print $1}')
-```
-
-## BUILDAH
-
-BUILD OCI-IMAGE
-
-```bash
-buildah --storage-driver=overlay bud --format=oci \
---tls-verify=true --no-cache \
--f ~/projects/github/stuttgart-things/images/sthings-alpine/Dockerfile \
--t scr.app.4sthings.tiab.ssc.sva.de/sthings-alpine/alpine:123
-```
-
-## SKOPEO
-
-### INSTALL
-
-```bash
-SKOPEO_VERSION=1.12.0
-wget https://github.com/lework/skopeo-binary/releases/download/v${SKOPEO_VERSION}/skopeo-linux-amd64
-sudo chmod +x skopeo-linux-amd64
-sudo mv skopeo-linux-amd64 /usr/bin/skopeo && skopeo --version
-```
-
-### COPY IMAGE BETWEEN REGISTRIES (TAG)
-
-* Copy images between registries
-
-```bash
-skopeo copy --insecure-policy docker://nginx:1.21
-docker://whatever.cloud/gtc1fe/web:1.21
-```
-
-### COPY IMAGE BETWEEN REGISTRIES (DIGEST)
-
-* Copy images between registries
-
-```bash
-skopeo copy --all --insecure-policy
-docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a \ docker://whatever.cloud/gtc1fe/web@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a
-```
-
-### OVERWRITE ENTRYPOINT OF IMAGE W/ NERDCTL
-
-```bash
-nerdctl run -it --entrypoint sh eu.gcr.io/stuttgart-things/stagetime-server:23.1108.1227-0.3.22
-```
-
-## CLEANUP W/ NERDCTL
-
-```bash
-# STOP AND DELETE ALL RUNNING CONTAINERS
-sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
-
-# CLEAN IMAGES BY ID
-sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
-
-# CLEAN IMAGES BY NAME + TAG
-sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
-```
-
-## CONTAINERD CTR
-
-```bash
-# pull image w/ crt
-sudo ctr images pull docker.io/library/redis:alpine
-# or for rke2 bundled containerd: sudo /var/lib/rancher/rke2/bin/ctr images pull docker.io/library/redis:alpine
-
-# list images
-ctr --namespace k8s.io images ls -q
-# or for rke2 bundled containerd: sudo /var/lib/rancher/rke2/bin/ctr --address /run/k3s/containerd/containerd.sock --namespace k8s.io container ls
-
-# load/import conatiner image
-ctr -n=k8s.io images import <IMAGE_NAME>
-
- ctr image export <output-filename> <image-name>
-
-```
 
 ## INSTALL CONTAINERD
 
