@@ -266,6 +266,9 @@ spec:
 ```
 
 ```yaml
+# KUSTOMIZATION - DIFFERENT EXAMPLE
+# ADD/REPLACE HELM VALUES + VERSION
+# /clusters/cluster1/infra.yaml
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
