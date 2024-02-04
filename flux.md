@@ -264,6 +264,64 @@ spec:
         name: vault-deployment
         namespace: vault
 ```
+
+```yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: minio
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: ingress-nginx
+    - name: cert-manager
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: stuttgart-things-github
+  path: ./apps/minio
+  prune: true
+  wait: true
+  postBuild:
+    substitute:
+      INGRESS_HOSTNAME_API: artifacts
+      INGRESS_HOSTNAME_CONSOLE: artifacts-console
+      INGRESS_DOMAIN: automation.sthings-vsphere.labul.sva.de
+      CLUSTER_ISSUER: cluster-issuer-approle
+      STORAGE_CLASS: nfs4-csi
+    substituteFrom:
+      - kind: Secret
+        name: s3-flux-secrets
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/chart/spec/version
+          value: 13.3.3
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: replace
+          path: /spec/values/image/tag
+          value: 13.3.3
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: add
+          path: /spec/values/persistence
+          value: 
+            existingClaim: minio-deployment
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+```
+
 </details>
 
 <details><summary>USE AS S3 AS SOURCE</summary>
