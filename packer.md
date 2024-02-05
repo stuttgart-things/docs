@@ -1,6 +1,45 @@
 # stuttgart-things/docs/packer
 
-## PROXMOX
+## GENERAL
+
+<details><summary><b>PACKER BUILD</b></summary>
+
+```bash
+touch meta-data
+packer build -force -var "username=<USERNAME>" -var "password=<PASSWORD>" ubuntu23.pkr.hcl
+```
+
+</details>
+
+## SNIPPETS VSPHERE
+
+<details><summary><b>GOVC</b></summary>
+
+```bash
+# INSTALL
+export GOVC_VERSION=0.34.2
+sudo curl -L https://github.com/vmware/govmomi/releases/download/v{{ GOVC_VERSION }}/govc_linux_amd64.gz |sudo gunzip > /usr/local/bin/govc
+
+# CONFIG
+export GOVC_INSECURE='TRUE'
+export GOVC_URL='https://${USER}:${PASSWORD}@${VCENTER_FQDN}/sdk'
+
+# USAGE
+govc version
+govc ls
+
+# COPY ISO TO DATASTORE (EXAMPLE)
+govc datastore.upload -ds="/NetApp-HCI-Datacenter/datastore/DatastoreCluster/NetApp-HCI-Datastore-04" ./ubuntu-22.04.4-server-amd64.iso iso-files/ubuntu-22.04.4-server-amd64.iso
+
+# IMPORT OVA TO DATASTORE (EXAMPLE)
+govc import.ova -ds="/NetApp-HCI-Datacenter/datastore/DatastoreCluster/NetApp-HCI-Datastore-04" ubuntu-18.04-server-cloudimg-amd64.ova
+```
+
+
+</details>
+
+
+## SNIPPETS PROXMOX
 
 <details><summary><b>UBUNTU23</b></summary>
 
@@ -260,11 +299,4 @@ autoinstall:
 
 </details>
 
-<details><summary><b>PACKER BUILD</b></summary>
 
-```bash
-touch meta-data
-packer build -force -var "username=<USERNAME>" -var "password=<PASSWORD>" ubuntu23.pkr.hcl
-```
-
-</details>
