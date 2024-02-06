@@ -27,6 +27,7 @@
 * FEATURES <!-- .element: class="fragment fade-up" -->
 * DYNAMIC KUBERNETES W/ GOLANG <!-- .element: class="fragment fade-up" -->
 * HELMTEST <!-- .element: class="fragment fade-up" -->
+* INFORMER <!-- .element: class="fragment fade-up" -->
 --
 #/CHAPTER4: OPERATOR
 * FEATURES <!-- .element: class="fragment fade-up" -->
