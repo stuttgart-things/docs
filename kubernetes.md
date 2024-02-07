@@ -14,6 +14,15 @@ kubectl delete po influxdb-influxdb2-0 --force -n influxdb
 <details><summary>PORTFORWARDING</summary>
 
 ```bash
+# CHANGE storageclass.kubernetes.io/is-default-class to: "false"
+kubectl edit configmap longhorn-storageclass -n longhorn-system
+```
+
+</details>
+
+<details><summary>PORTFORWARDING</summary>
+
+```bash
 kubectl --namespace longhorn-system port-forward --address 0.0.0.0 service/longhorn-frontend 5080:80
 # CHECK LOCALHOST/FQDN
 # e.g. http://nashville.tiab.labda.sva.de:5080/#/dashboard
