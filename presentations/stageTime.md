@@ -70,3 +70,11 @@ patrick.hermann@sva.de
 * Standardized - Tekton installs and runs as an extension on your Kubernetes cluster and uses the well-established Kubernetes resource model. Tekton workloads execute inside Kubernetes containers.
 * Scalable. To increase your workload capacity, you can simply add nodes to your cluster. Tekton scales with your cluster without the need to redefine your resource allocations or any other modifications to your pipelines.
 --
+#/ ADVANTAGES
+* CSI DRIVER
+* RESOLVER
+* RUNS EVERYWHERE
+--
+
+
+
