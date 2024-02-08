@@ -1,5 +1,7 @@
 # MAKING OF stageTime
 
+//ADD STAGE TIME IMAGE
+
 ### MAKING OF stageTime
 
 <!-- .slide: data-transition="zoom" -->
@@ -9,7 +11,7 @@
 #/CHAPTER1: Challenge 
 * INTRO <!-- .element: class="fragment fade-up" -->
 * PIPELINE AS CODE ON KUBERETES <!-- .element: class="fragment fade-up" -->
-* TEKTON CONCEPTS <!-- .element: class="fragment fade-up" -->
+* TEKTON <!-- .element: class="fragment fade-up" -->
 * CHALLENGES <!-- .element: class="fragment fade-up" -->
 --
 #/CHAPTER2: Server
@@ -49,4 +51,22 @@ System-Engineer SVA Stuttgart
 patrick.hermann@sva.de
 --
 
+#/CHAPTER1: Challenge 
 
+#/ INTRO
+
+--
+#/ PIPELINE AS CODE ON KUBERETES
+* FLEXIBILITY: CONTAINER(-IMAGES)  
+* COSTS
+* SCALABILITY
+--
+#/ TEKTON
+* BUILDING BOCKS
+* 
+#/ ADVANTAGES
+* Customizable - define a highly detailed catalog of building blocks for developers
+* Reusable + Expandable - quickly build complex pipelines 
+* Standardized - Tekton installs and runs as an extension on your Kubernetes cluster and uses the well-established Kubernetes resource model. Tekton workloads execute inside Kubernetes containers.
+* Scalable. To increase your workload capacity, you can simply add nodes to your cluster. Tekton scales with your cluster without the need to redefine your resource allocations or any other modifications to your pipelines.
+--
