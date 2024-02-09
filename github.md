@@ -113,6 +113,13 @@ gh repo create stuttgart-things/stagetime-operator \
 
 </details>
 
+<details><summary>LIST AVAILABLE GITIGNORE TEMPLATES</summary>
+
+```bash
+gh api /gitignore/templates -q ".[]"
+```
+
+</details>
 
 <details><summary>MERGE PULL REQUEST</summary>
 
