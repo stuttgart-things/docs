@@ -79,5 +79,7 @@ patrick.hermann@sva.de
 * same language in which Kubernetes is built
 * and the most natural fit for Kubernetes extensions, custom controls and operators
 --
-
+#/ GOLANG
+![image](https://github.com/stuttgart-things/docs/assets/47567770/ba79e052-3f91-48e7-95f2-e741fcab8fa4)
+--
 
