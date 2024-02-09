@@ -75,6 +75,9 @@ patrick.hermann@sva.de
 * RESOLVER
 * RUNS EVERYWHERE
 --
-
+#/ GOLANG
+* same language in which Kubernetes is built
+* and the most natural fit for Kubernetes extensions, custom controls and operators
+--
 
 
