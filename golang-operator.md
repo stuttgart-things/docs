@@ -90,6 +90,12 @@ make manifests
 
 ```go
 //<OPERATOR-PATH>/controllers/<KIND>_controller.go
+
+//import(
+// ..
+// ctrllog "sigs.k8s.io/controller-runtime/pkg/log"
+// )
+
 # EXAMPLE CONTROLLER SNIPPET
 func (r *ShipyardTerraformReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
