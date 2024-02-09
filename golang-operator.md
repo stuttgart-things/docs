@@ -1,9 +1,9 @@
-# stuttgart-things/docs/golang-k8s-operator
+# stuttgart-things/docs/golang-operator
 
 <details><summary>INSTALL OPERATOR SDK</summary>
 
 ```bash
-OPERATOR_SDK_VERSION=v1.28.1
+OPERATOR_SDK_VERSION=v1.33.0
 curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${OPERATOR_SDK_VERSION}/operator-sdk_linux_amd64
 sudo chmod +x operator-sdk_linux_amd64
 sudo mv operator-sdk_linux_amd64 /usr/bin/operator-sdk
@@ -16,17 +16,21 @@ operator-sdk version
 <details><summary>INIT/SCAFFOLD OPERATOR STRUCTURE</summary>
 
 ```bash
-mkdir -p ~/projects/go/src/shipyard-operator && ~/projects/go/src/shipyard-operator
+PROJECT_NAME=stagetime-operator
+DOMAIN=sthings.tiab.ssc.sva.de
+GROUP=stuttgart-things
+OWNER="patrick hermann"
+GO_PROJECT_DIR=~/projects/golang
+mkdir -p ${GO_PROJECT_DIR}/${PROJECT_NAME} && cd ${GO_PROJECT_DIR}/${PROJECT_NAME}
+
 operator-sdk init \
 --plugins go/v3 \
---domain sthings.tiab.ssc.sva.de \
---owner "patrick hermann" \
---project-name shipyard-operator \
---repo github.com/stuttgart-things/shipyard-operator
+--domain ${DOMAIN} \
+--owner ${OWNER} \
+--project-name ${PROJECT_NAME} \
+--repo github.com/${GROUP}/${PROJECT_NAME}
 
-go mod tidy
-
-go get sigs.k8s.io/controller-runtime@v0.14.1
+go get sigs.k8s.io/controller-runtime@v0.17.0
 ```
 
 </details>
