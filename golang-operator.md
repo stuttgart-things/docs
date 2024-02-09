@@ -35,10 +35,19 @@ go get sigs.k8s.io/controller-runtime@v0.17.0
 
 </details>
 
-<details><summary>CREATE API/KIND</summary>
+<details><summary>CREATE REPOSITORY</summary>
 
 ```bash
-operator-sdk create api --group machineshop --version v1beta1 --kind Ansible #example
+operator-sdk create api --group stagetime --version v1beta1 --kind RevisionRun
+make manifests
+```
+
+</details>
+
+<details><summary>LIST AVAILABLE GITIGNORE TEMPLATES</summary>
+
+```bash
+gh api /gitignore/templates -q ".[]"
 ```
 
 </details>
