@@ -99,10 +99,16 @@ gh pr create -t "tekton-test1" -b "added git tasks to taskfile"
 
 </details>
 
-<details><summary>CREATE PULL REQUEST</summary>
+<details><summary>CREATE REPOSITORY</summary>
 
 ```bash
-gh repo create stuttgart-things/stagetime-operator --public --add-readme --description "stagetime operator" --clone --license Apache-2.0 -g Go
+gh repo create stuttgart-things/stagetime-operator \
+--public \
+--add-readme \
+--description "stagetime operator" \
+--clone \
+--license Apache-2.0 \
+-g Go
 ```
 
 </details>
