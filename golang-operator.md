@@ -123,7 +123,6 @@ nerdctl build -t <IMG-ADDRESS:IMG-TAG> . && nerdctl push <IMG-ADDRESS:IMG-TAG>
 
 </details>
 
-
 <details><summary>DEPLOY</summary>
 
 ```bash
@@ -131,3 +130,168 @@ make deploy IMG=<IMG-ADDRESS:IMG-TAG>
 ```
 
 </details>
+
+<details><summary>READ ADDITIONAL (NOT WATCHED) CRDS AS UNSTRUCTED STRUCT</summary>
+
+```yaml
+# CRD
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.11.3
+  creationTimestamp: null
+  name: repos.stagetime.sthings.tiab.ssc.sva.de
+spec:
+  group: stagetime.sthings.tiab.ssc.sva.de
+  names:
+    kind: Repo
+    listKind: RepoList
+    plural: repos
+    singular: repo
+  scope: Namespaced
+  versions:
+  - name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: Repo is the Schema for the repos API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: RepoSpec defines the desired state of Repo
+            properties:
+              url:
+                type: string
+            required:
+            - url
+            type: object
+          status:
+            description: RepoStatus defines the observed state of Repo
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+```
+
+```yaml
+# EXTEND CLUSTER ROLE
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: stagetime-operator-manager-role
+rules:
+- apiGroups:
+  - stagetime.sthings.tiab.ssc.sva.de
+  resources:
+  - repos
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - stagetime.sthings.tiab.ssc.sva.de
+  resources:
+  - repos/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - stagetime.sthings.tiab.ssc.sva.de
+  resources:
+  - repos/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - stagetime.sthings.tiab.ssc.sva.de
+  resources:
+  - revisionruns
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - stagetime.sthings.tiab.ssc.sva.de
+  resources:
+  - revisionruns/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - stagetime.sthings.tiab.ssc.sva.de
+  resources:
+  - revisionruns/status
+  verbs:
+  - get
+  - patch
+  - update
+---
+```
+
+```go
+// ../controllers/revisionrun_controller.go
+type Repo struct {
+	Url string `json:"url"`
+}
+//..
+u := &unstructured.Unstructured{}
+u.SetGroupVersionKind(schema.GroupVersionKind{
+	Group:   "stagetime.sthings.tiab.ssc.sva.de",
+	Kind:    "Repo",
+	Version: "v1beta1",
+})
+
+_ = r.Client.Get(context.Background(), client.ObjectKey{
+	Name:      "repo-sample",
+	Namespace: "stagetime-operator-system",
+}, u)
+
+spec := u.UnstructuredContent()["spec"]
+
+repo := Repo{}
+dbByte, _ := json.Marshal(spec)
+_ = json.Unmarshal(dbByte, &repo)
+
+fmt.Println(repo.Url)
+```
+
+```yaml
+apiVersion: stagetime.sthings.tiab.ssc.sva.de/v1beta1
+kind: Repo
+metadata:
+  labels:
+    app.kubernetes.io/name: repo
+    app.kubernetes.io/instance: repo-sample
+    app.kubernetes.io/part-of: stagetime-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: stagetime-operator
+  name: repo-sample
+  namespace: stagetime-operator-system
+spec:
+  url: https://github.com/stuttgart-things/stuttgart-things.git
+```
+
+</details>
+
