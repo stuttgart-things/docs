@@ -1109,3 +1109,56 @@ resource "helm_release" "akhq" {
 }
 ```
 </details>
+
+<details><summary><b>RENDERING OF MANIFEST</b></summary>
+
+```hcl
+# provider.tf
+// ..
+    kubectl = {
+      source = "gavinbunney/kubectl"
+      version = ">=1.14.0"
+    }
+// ..
+```
+
+```hcl
+# certificate_manifest.yaml.tpl
+%{ for INGRESS_HOSTNAME in split(",", INGRESS_HOSTNAME) }
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name:  ${NAME}-${INGRESS_HOSTNAME}
+  namespace: ${NAMESPACE}
+spec:
+  commonName: ${INGRESS_HOSTNAME}.${INGRESS_DOMAIN}
+  dnsNames:
+    - ${INGRESS_HOSTNAME}.${INGRESS_DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: ${CLUSTER_ISSUER}
+  secretName: ${INGRESS_HOSTNAME}-ingress-tls
+  %{ endfor }
+```
+
+```hcl
+# cert.tf
+data "kubectl_path_documents" "certs" {
+    pattern = "${path.module}/templates/cert*.yaml.tpl"
+    vars = {
+        INGRESS_HOSTNAME = format("%s,%s",var.ingress_hostname_api,var.ingress_hostname_console)
+        INGRESS_DOMAIN = var.ingress_domain
+        CLUSTER_ISSUER = var.cluster_issuer
+        NAMESPACE = var.namespace
+        NAME = var.helm_release_name
+    }
+}
+
+resource "kubectl_manifest" "cert_manifest" {
+    count = var.create_cert == true ? length(data.kubectl_path_documents.certs.documents) : 0
+    yaml_body = element(data.kubectl_path_documents.certs.documents, count.index)
+}
+```
+</details>
+
