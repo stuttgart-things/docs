@@ -91,6 +91,16 @@ jobs:
 
 ## GITHUB CLI
 
+<details><summary>PUSH IMAGE TO GHCR</summary>
+
+```bash
+sudo nerdctl login ghcr.io -u patrick-hermann-sva -p $GITHUB_TOKEN
+sudo nerdctl build -t ghcr.io/stuttgart-things/sthings-slides:v2 .
+sudo nerdctl push ghcr.io/stuttgart-things/sthings-slides:v2
+```
+
+</details>
+
 <details><summary>CREATE PULL REQUEST</summary>
 
 ```bash
