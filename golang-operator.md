@@ -46,24 +46,68 @@ make manifests
 
 <details><summary>EDIT TYPES</summary>
 
-```bash
-<OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
-```
-
-</details>
-
-<details><summary>EXAMPLE STRUCT SNIPPET</summary>
-
 ```go
-//...
+// EXAMPLE #1
+//<OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
+
 type AnsibleSpec struct {
 	// +kubebuilder:default:="localhost"
 	Hosts string   `json:"hosts,omitempty"`
 	Vars  []string `json:"vars"`
 	Roles []string `json:"roles,omitempty"`
 }
-```
 //...
+```
+
+```go
+// EXAMPLE #1
+//<OPERATOR-PATH>/api/<API-VERSION>/<KIND>_types.go
+
+type RevisionRunSpec struct {
+	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
+	// Important: Run "make" to regenerate code after modifying this file
+	Repository       string          `json:"repository"`
+	TechnologyConfig []*Technologies `json:"technologies"`
+}
+
+type Technologies struct {
+	ID   string `json:"id"`
+	Kind string `json:"kind"`
+	Path string `json:"path,omitempty"`
+	// +kubebuilder:default=99
+	Stage      int    `json:"stage,omitempty"`
+	Resolver   string `json:"resolver,omitempty"`
+	Params     string `json:"params,omitempty"`
+	Listparams string `json:"listparams,omitempty"`
+	Vclaims    string `json:"vclaims,omitempty"`
+}
+//...
+```
+
+```yaml
+apiVersion: stagetime.sthings.tiab.ssc.sva.de/v1beta1
+kind: RevisionRun
+metadata:
+  labels:
+    app.kubernetes.io/name: revisionrun
+    app.kubernetes.io/instance: revisionrun-sample
+    app.kubernetes.io/part-of: stagetime-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: stagetime-operator
+  name: revisionrun-sample
+spec:
+  repository: stuttgart-things
+  technologies:
+    - id: docker1
+      kind: docker
+      path: ./Dockerfile
+      stage: 0
+    - id: test
+      kind: simulation
+      resolver: revision=tagged
+      params: scriptTimeout=10s
+```
+
 
 </details>
 
