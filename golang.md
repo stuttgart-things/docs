@@ -11,6 +11,28 @@ go test ./... -v
 
 </details>
 
+<details><summary>MERGE MAPS</summary>
+
+```go
+package main
+
+import (
+    "fmt"
+    "github.com/samber/lo"
+)
+
+func main() {
+    map1 := map[string]interface{}{"k1": "v1", "k2": 2}
+    map2 := map[string]interface{}{"k2": "v2new", "k3": true}
+    map1 = lo.Assign(map1, map2)
+    fmt.Printf("%v", map1)
+}
+
+// RESULT map[k1:v1 k2:v2new k3:true]
+```
+
+</details>
+
 <details><summary>BUILD</summary>
 
 ## GO INSTALL
