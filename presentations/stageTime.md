@@ -1,14 +1,30 @@
 # MAKING OF stageTime
 
+
+<span style="color:orange">HACK & SNACK 2024</span>
+
+--
+### MAKING OF stageTime
 //ADD STAGE TIME IMAGE
 
-### MAKING OF stageTime
-
+--
 <!-- .slide: data-transition="zoom" -->
----
+--
+### /INTRO
+
+<span style="color:yellow">#DevOps #CICD #Automation #Cloud #IAC</span>
+<span style="color:yellow">#Kubernetes #Containerization</span> <br><br>
+
+```bash
+Patrick Hermann
+System-Engineer SVA Stuttgart
+patrick.hermann@sva.de
+```
+
+--
 # /AGENDA
 --
-#/CHAPTER1: Challenge 
+#/CHAPTER1: Challenge
 * INTRO <!-- .element: class="fragment fade-up" -->
 * PIPELINE AS CODE ON KUBERETES <!-- .element: class="fragment fade-up" -->
 * TEKTON <!-- .element: class="fragment fade-up" -->
@@ -41,45 +57,3 @@
 * ANALYZER <!-- .element: class="fragment fade-up" -->
 * FETCHER <!-- .element: class="fragment fade-up" -->
 ---
-### /Introduction
-
-<span style="color:orange">#DevOps #CICD #Automation #Cloud #IAC</span>
-<span style="color:orange">#Kubernetes #Containerization</span> <br><br>
-
-Patrick Hermann
-System-Engineer SVA Stuttgart
-patrick.hermann@sva.de
---
-
-#/CHAPTER1: Challenge 
-
-#/ INTRO
-
---
-#/ PIPELINE AS CODE ON KUBERETES
-* FLEXIBILITY: CONTAINER(-IMAGES)  
-* COSTS
-* SCALABILITY
---
-#/ TEKTON
-* BUILDING BOCKS
-* 
-#/ ADVANTAGES
-* Customizable - define a highly detailed catalog of building blocks for developers
-* Reusable + Expandable - quickly build complex pipelines 
-* Standardized - Tekton installs and runs as an extension on your Kubernetes cluster and uses the well-established Kubernetes resource model. Tekton workloads execute inside Kubernetes containers.
-* Scalable. To increase your workload capacity, you can simply add nodes to your cluster. Tekton scales with your cluster without the need to redefine your resource allocations or any other modifications to your pipelines.
---
-#/ ADVANTAGES
-* CSI DRIVER
-* RESOLVER
-* RUNS EVERYWHERE
---
-#/ GOLANG
-* same language in which Kubernetes is built
-* and the most natural fit for Kubernetes extensions, custom controls and operators
---
-#/ GOLANG
-![image](https://github.com/stuttgart-things/docs/assets/47567770/ba79e052-3f91-48e7-95f2-e741fcab8fa4)
---
-
