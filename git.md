@@ -24,7 +24,8 @@ git checkout -b [new-branch]
 git push -u origin [new-branch]
 
 # CHECK OUT REMOTE BRANCH
-git fetch && git checkout [remote-branch-name] # e.g. remotes/origin/feature/issue-1/test
+git fetch && git checkout [remote-branch-name]
+# e.g. git fetch && git checkout remotes/origin/feature/issue-1/test
 ```
 
 </details>
