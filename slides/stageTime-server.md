@@ -89,7 +89,18 @@ err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revision
 //..
 ```
 --
-# TASKFILE
+# /TASKFILE
+--
+### /What is Taskfile?
+[<img src="https://tsh.io/wp-content/uploads/2021/04/taskfile-preference-meme.png" width="700"/>](https://www.sva.de/index.html)
+--
+### /What is Taskfile?
+*  tool designed to make executing terminal commands or even lists of commands needed for specific operations easier <!-- .element: class="fragment fade-up" -->
+* Task is a tool written in Golang <!-- .element: class="fragment fade-up" -->
+* The syntax is based on YAML, which requires a specific structure <!-- .element: class="fragment fade-up" -->
+* It's a much simpler solution compared to GNU make <!-- .element: class="fragment fade-up" -->
+* Getting started with Taskfile is very easy <!-- .element: class="fragment fade-up" -->
+--
 
 # HELMFILE
 
