@@ -7,6 +7,10 @@
 ### MAKING OF stageTime
 //ADD STAGE TIME IMAGE
 
+![AnVIL Image](https://artifacts.automation.sthings-vsphere.labul.sva.de/images/3321222d318454c8c0493d912e6e22ca4a960e63_800.jpg width="700" "AnVIL Portal Image!")
+
+
+
 --
 <!-- .slide: data-transition="zoom" -->
 --
