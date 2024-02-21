@@ -5,7 +5,8 @@
 * Most natural fit for k8s extensions, custom controls and operators <!-- .element: class="fragment fade-up" -->
 --
 # GRPC
-
+[<img src="https://grpc.io/img/landing-2.svg" width="800"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
 --
 # PROTO DEFINITION
 * Generate clients and servers in any of gRPC's supported languages
