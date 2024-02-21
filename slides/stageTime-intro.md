@@ -14,16 +14,23 @@
 --
 * Tekton Pipelines is a Kubernetes extension that installs and runs on your Kubernetes cluster <!-- .element: class="fragment fade-up" -->
 * It defines a set of Kubernetes Custom Resources that act as building blocks from which you can assemble CI/CD pipelines <!-- .element: class="fragment fade-up" -->
-
-
-
-
+--
+### /TASK
+* Defines a series of steps <!-- .element: class="fragment fade-up" -->
+* which launch specific build or delivery tools that ingest specific inputs and produce specific outputs.
+--
+### /Pipeline
+* Defines a series of <code>Tasks</code> that accomplish a specific build or delivery goal  <!-- .element: class="fragment fade-up" -->
+* Can be triggered by an event or invoked from a <code>PipelineRun  <!-- .element: class="fragment fade-up" -->
+--
+### /PipelineRun
+Instantiates a <code>Pipeline</code> for execution with specific inputs, outputs, and execution parameters  <!-- .element: class="fragment fade-up" -->
+--
 ## TEKTON-TERMINOLOGY
 * TASKS e.g. git-clone; kaniko <!-- .element: class="fragment fade-up"
 * PIPELINES e.g. package-helm-chart <!-- .element: class="fragment fade-up"
 * PIPELINERUNS <!-- .element: class="fragment fade-up"
 --
-
 ### WHY THIS PROJECT/TALK?
 * PIPELINES AS MICROSERVICES <!-- .element: class="fragment fade-up"
 * RUN PIPELINERUNS IN STAGES <!-- .element: class="fragment fade-up"
