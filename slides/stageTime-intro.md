@@ -85,6 +85,14 @@ spec:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
+## /LIST PIPELINERUNS
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prlist.gif" width="700"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
+--
+## /PIPELINERUN LOGS
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prlogs.gif" width="1000"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
+--
 ## /WHY THIS PROJECT/TALK?
 * PIPELINES AS MICROSERVICES <!-- .element: class="fragment fade-up" -->
 * RUN PIPELINERUNS IN STAGES <!-- .element: class="fragment fade-up" -->
