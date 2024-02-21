@@ -73,11 +73,22 @@ func registerServices(s *grpc.Server) {
 }
 ```
 --
-
 # CLIENT
 
+```go
+//..
+conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
+if err != nil {
+  fmt.Println(err)
+}
+defer conn.Close()
 
+stsClient := NewClient(conn, time.Second)
+err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revisionRunJson))
+//..
+```
+--
 # TASKFILE
 
 # HELMFILE
