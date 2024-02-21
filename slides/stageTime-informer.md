@@ -1,20 +1,20 @@
 # STAGETIME-INFORMER
 --
 ## /SERVICE
-* INFORMS ABOUT PIPELINERUN EVENTS: ADD, UPDATED, DELETE <!-- .element: class="fragment fade-up"
-* STORES RESULTS (SUCCESSFUL/FAILED STAGES) IN REDIS (JSON) <!-- .element: class="fragment fade-up"
-* TRIGGERS NEW STAGE(-RUNS) (STREAMS) <!-- .element: class="fragment fade-up"
+* INFORMS ABOUT PIPELINERUN EVENTS: <span style="color:orange">ADD, UPDATE & DELETE</span> <!-- .element: class="fragment fade-up" -->
+* STORES RESULTS (SUCCESSFUL/FAILED STAGES) IN REDIS (JSON) <!-- .element: class="fragment fade-up" -->
+* TRIGGERS NEW STAGE(-RUNS) (STREAMS) <!-- .element: class="fragment fade-up" -->
 --
 ## /INFORMING KINDS
-[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer.png" width="1500"/>](https://www.sva.de/index.html)
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer.png" width="1800"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
 ## /INFORMER CODE
-[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-code.png" width="1500"/>](https://www.sva.de/index.html)
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-code.png" width="1100"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
 ## /INFORMER LOGS
-[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-logs.png" width="1200"/>](https://www.sva.de/index.html)
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-logs.png" width="2000"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
 # HELMFILE
@@ -26,8 +26,6 @@
 * DEFINE MULTIPLE RELEASES <!-- .element: class="fragment fade-up" -->
 
 ```
-# ./helmfile.yaml
----
 releases:
   - name: redis-stack
     installed: false
@@ -42,7 +40,7 @@ releases:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-# HELMFILE VALUES
+# HELM VALUES
 
 ```
 namespace: {{ .Release.Namespace }}
@@ -81,7 +79,11 @@ releases:
 <!-- .element: class="fragment fade-up" -->
 --
 
----
+# HELMFILE VALUES
+
+```
 ingressDomain: cd43.sthings-pve.labul.sva.de
 redisPassword: ref+vault://stagetime/redis/password
 redisServer: redis-stack-headless.stagetime-redis.svc.cluster.local
+```
+<!-- .element: class="fragment fade-up" -->
