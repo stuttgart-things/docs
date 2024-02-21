@@ -1,16 +1,16 @@
 # STAGETIME-SERVER
 --
 # GOLANG
-* same language in which Kubernetes is built
-* and the most natural fit for Kubernetes extensions, custom controls and operators
+* Same language in which Kubernetes is built <!-- .element: class="fragment fade-up" -->
+* Most natural fit for k8s extensions, custom controls and operators <!-- .element: class="fragment fade-up" -->
 --
-
 # GRPC
 
-
+--
 # PROTO DEFINITION
+* Generate clients and servers in any of gRPC's supported languages
 
-```go
+```
 syntax = "proto3";
 
 package revisionrun;
@@ -26,14 +26,16 @@ message CreateRevisionRunRequest {
     repeated Pipelinerun pipelineruns = 6;
 }
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 # COMPILE/GENERATE FOR GOLANG
 
-```bash
+```
 protoc --go_out=. --go_opt=paths=source_relative \
 --go-grpc_out=. --go-grpc_opt=paths=source_relative \
 revisionrun/*.proto
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 # GENERATED CODE
 
@@ -53,10 +55,11 @@ protoreflect.Message {
 	return mi.MessageOf(x)
 }
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 # SERVER
 
-```go
+```
 listener, err := net.Listen("tcp", "0.0.0.0"+serverPort)
 if err != nil {
 	log.Fatalln(err)
@@ -72,10 +75,11 @@ func registerServices(s *grpc.Server) {
 	(s, &StatusService{})
 }
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 # CLIENT
 
-```go
+```
 //..
 conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
@@ -88,6 +92,7 @@ stsClient := NewClient(conn, time.Second)
 err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revisionRunJson))
 //..
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 # /TASKFILE
 --
@@ -95,28 +100,16 @@ err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revision
 [<img src="https://tsh.io/wp-content/uploads/2021/04/taskfile-preference-meme.png" width="700"/>](https://www.sva.de/index.html)
 --
 ### /What is Taskfile?
-*  tool designed to make executing terminal commands or even lists of commands needed for specific operations easier <!-- .element: class="fragment fade-up" -->
-* Task is a tool written in Golang <!-- .element: class="fragment fade-up" -->
+*  make executing terminal commands or even lists of commands needed for specific operations easier <!-- .element: class="fragment fade-up" -->
 * The syntax is based on YAML, which requires a specific structure <!-- .element: class="fragment fade-up" -->
 * It's a much simpler solution compared to GNU make <!-- .element: class="fragment fade-up" -->
-* Getting started with Taskfile is very easy <!-- .element: class="fragment fade-up" -->
 --
+### /EXAMPLE
+
 
 # HELMFILE
 
+# HELM
+
+
 --
-
-# TASKFILE
-
-```yaml
-tasks:
-  pr:
-    desc: Create pull request into main
-    cmds:
-      - task: commit
-      - gh pr create -t "{{ .BRANCH }}" -b "{{ .BRANCH }} branch into main"
-      - sleep 20s
-      - gh pr checks $(gh pr list | grep "^[^#;]" | awk '{print $1}') --watch
-      - gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --delete-branch
-      - git checkout main && git pull
-```
