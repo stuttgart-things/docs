@@ -111,9 +111,6 @@ err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revision
 
 ```
 version: 3
-vars:
-  PROJECT_NAME:
-    sh: echo ${PWD##*/}
 tasks:
   build:
     desc: Build the app
@@ -122,5 +119,7 @@ tasks:
       - go mod tidy
       - CGO_ENABLED=0
       - GOOS=linux
-      - go install -ldflags="-X {{ .MODULE }}/internal.date={{ .DATE }} -X {{ .MODULE }}/internal.version={{ .UPDATED_TAG_VERSION }} -X {{ .MODULE }}/internal.commit={{ .GIT_COMMIT }}"
-      - "{{ .PROJECT_NAME }}"
+      - go install \
+        -ldflags="-X {{ .MODULE }}/internal.date={{ .DATE }} \
+        -X {{ .MODULE }}/internal.commit={{ .GIT_COMMIT }}"
+```
