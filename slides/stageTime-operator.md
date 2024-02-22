@@ -1,14 +1,14 @@
 # STAGETIME-OPERATOR
 --
 ## SERVICE
-* WATCHES KIND REVISIONRUN <!-- .element: class="fragment fade-up"
-* READS KIND REPO + PIPELINERUNTEMPLATE <!-- .element: class="fragment fade-up"
-* TRIGGERS STAGETIME SERVER <!-- .element: class="fragment fade-up"
-* STATUS FOR REVISIONRUN <!-- .element: class="fragment fade-up"
+* WATCHES KIND REVISIONRUN <!-- .element: class="fragment fade-up" -->
+* READS KIND REPO + PIPELINERUNTEMPLATE <!-- .element: class="fragment fade-up" -->
+* TRIGGERS STAGETIME SERVER <!-- .element: class="fragment fade-up" -->
+* STATUS FOR REVISIONRUN <!-- .element: class="fragment fade-up" -->
 --
 ## REVISIONRUN-CR
 
-```yaml
+```
 apiVersion: stagetime.sthings.tiab.ssc.sva.de/v1beta1
 kind: RevisionRun
 metadata:
@@ -27,20 +27,16 @@ spec:
 ```
 --
 ## OPERTOR-FRAMWORK
-*  <!-- .element: class="fragment fade-up"
-*  <!-- .element: class="fragment fade-up"
-*  <!-- .element: class="fragment fade-up"
-*  <!-- .element: class="fragment fade-up"
+* PROJECT INIT <!-- .element: class="fragment fade-up" -->
+* DEFINE TYPES <!-- .element: class="fragment fade-up" -->
+*  <!-- .element: class="fragment fade-up" -->
+
 --
 ## OPERTOR-FRAMWORK
 
 ## PROJECT INIT
 
 ```
-PROJECT_NAME=stagetime-operator
-DOMAIN=sthings.tiab.ssc.sva.de
-GROUP=stuttgart-things
-OWNER="patrick hermann"
 GO_PROJECT_DIR=~/projects/golang
 mkdir -p ${GO_PROJECT_DIR}/${PROJECT_NAME} && cd ${GO_PROJECT_DIR}/${PROJECT_NAME}
 
@@ -51,6 +47,7 @@ operator-sdk init \
 --project-name ${PROJECT_NAME} \
 --repo github.com/${GROUP}/${PROJECT_NAME}
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 ## EDIT TYPES
 
@@ -72,8 +69,10 @@ type Technologies struct {
 	Vclaims    string `json:"vclaims,omitempty"`
 }
 ```
+<!-- .element: class="fragment fade-up" -->
 --
-
+## EDIT TYPES
+```
 u := &unstructured.Unstructured{}
 u.SetGroupVersionKind(schema.GroupVersionKind{
 	Group:   "stagetime.sthings.tiab.ssc.sva.de",
@@ -93,3 +92,4 @@ dbByte, _ := json.Marshal(spec)
 _ = json.Unmarshal(dbByte, &repo)
 
 fmt.Println(repo.Url)
+```
