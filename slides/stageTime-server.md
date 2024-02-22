@@ -1,16 +1,18 @@
 # STAGETIME-SERVER
 --
-# GOLANG
-* Same language in which Kubernetes is built <!-- .element: class="fragment fade-up" -->
-* Most natural fit for k8s extensions, custom controls and operators <!-- .element: class="fragment fade-up" -->
---
-# GRPC
-[<img src="https://grpc.io/img/landing-2.svg" width="800"/>](https://www.sva.de/index.html)
-<!-- .element: class="fragment fade-up" -->
---
-# PROTO DEFINITION
-* Generate clients and servers in any of gRPC's supported languages
+### /GOLANG
+[<img src="https://miro.medium.com/v2/resize:fit:2000/1*8bPiDNL1K1ZdK9O_T5IVKw.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
 
+* Same language in which Kubernetes is built <!-- .element: class="fragment fade-up" -->
+* Most natural fit for Kubernetes extensions, custom controls and operators <!-- .element: class="fragment fade-up" -->
+--
+### /REST
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/rest.png" width="1000"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+--
+### /GRPC
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/grpc.png" width="1000"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+--
+### /PROTO DEFINITION
 ```
 syntax = "proto3";
 
@@ -29,8 +31,7 @@ message CreateRevisionRunRequest {
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-# COMPILE/GENERATE FOR GOLANG
-
+### /COMPILE-GENERATE FOR GOLANG
 ```
 protoc --go_out=. --go_opt=paths=source_relative \
 --go-grpc_out=. --go-grpc_opt=paths=source_relative \
@@ -38,8 +39,7 @@ revisionrun/*.proto
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-# GENERATED CODE
-
+### /GENERATED CODE
 ```
 //..
 func (x *CreateRevisionRunRequest) ProtoReflect()
@@ -58,7 +58,7 @@ protoreflect.Message {
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-# SERVER
+### /SERVER
 
 ```
 listener, err := net.Listen("tcp", "0.0.0.0"+serverPort)
@@ -78,7 +78,7 @@ func registerServices(s *grpc.Server) {
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-# CLIENT
+### /CLIENT
 
 ```
 //..
@@ -95,31 +95,8 @@ err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revision
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-# /TASKFILE
---
-## /What is Taskfile?
-[<img src="https://tsh.io/wp-content/uploads/2021/04/taskfile-preference-meme.png" width="700"/>](https://www.sva.de/index.html)
---
-## /What is Taskfile?
-*  make executing terminal commands or even lists of commands needed for specific operations easier <!-- .element: class="fragment fade-up" -->
-* The syntax is based on YAML, which requires a specific structure <!-- .element: class="fragment fade-up" -->
-* It's a much simpler solution compared to GNU make <!-- .element: class="fragment fade-up" -->
---
-## /TASK LIST
-```
-task --list: Available tasks for this project:
-* build:               Build the app
-* build-image:         Build image
-* git-push:            Commit & push the module
-* lint:                Lint code
-* package:             Update Chart.yaml and package archive
-* push:                Push to registry
-* release:             Build amd release to github w/ goreleaser
-* run:                 Run app
-* run-container:       Run container
-* run-test:            Run test-producer
-* tag:                 Commit, push & tag the module
-* test:                Test code
-````
-<!-- .element: class="fragment fade-up" -->
+# TASKFILE
+
+# HELMFILE
+
 --
