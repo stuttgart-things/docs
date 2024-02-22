@@ -92,29 +92,28 @@ spec:
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prlogs.gif" width="1000"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
-## /WHY THIS PROJECT/TALK?
+### /STARTING POSITION
 * PIPELINES AS MICROSERVICES <!-- .element: class="fragment fade-up" -->
 * RUN PIPELINERUNS IN STAGES <!-- .element: class="fragment fade-up" -->
     * PARALLEL (=SAME STAGE) <!-- .element: class="fragment fade-up" -->
     * RUN OF A SEQUENCE OF STAGES <!-- .element: class="fragment fade-up" -->
 --
-## /WHY THIS PROJECT/TALK?
+### /STARTING POSITION
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/stages.png" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
-## /STAGETIME
+### /STAGETIME
 * BEGININGS IN 2022 <!-- .element: class="fragment fade-up" -->
 * TEAM SÜD-WEST <!-- .element: class="fragment fade-up" -->
 --
-## /DESIGN PRINCIPLES TEKTON PIPELINES/RUNS
+### /DESIGN PRINCIPLES TEKTON PIPELINES/RUNS
 * PIPELINE AS MICROSERVICES <!-- .element: class="fragment fade-up" -->
 * RESOLVER (GIT) <!-- .element: class="fragment fade-up" -->
 * CSI DRIVER (SECRETS) <!-- .element: class="fragment fade-up" -->
 * VOLUMEN CLAIM TEMPLATES (K8S) <!-- .element: class="fragment fade-up" -->
 --
-### GOALS STAGETIME
+### /GOALS STAGETIME
 * EVENT-DRIVEN PIPELINERUNS (BY COMMIT/REVISION) <!-- .element: class="fragment fade-up" -->
 * PARALLEL/DEPENDET RUNS <!-- .element: class="fragment fade-up" -->
 * STANDARDIZED BUILDING BLOCKS OF CI/CD <!-- .element: class="fragment fade-up" -->
 * HOUSEKEEPING TEKTON PIPELINERUNS/PODS/PVCS <!-- .element: class="fragment fade-up" -->
---
