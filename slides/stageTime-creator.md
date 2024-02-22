@@ -6,14 +6,13 @@
 * CREATES PIPELINERUNS ON CLUSTER <!-- .element: class="fragment fade-up" -->
 --
 ### /REDIS-STREAMS
-tbd
-
+* Event sourcing with Redis Streams and Go <!-- .element: class="fragment fade-up" -->
+* stageTime-Server: publisher <!-- .element: class="fragment fade-up" -->
+* stageTime-creator: consumers <!-- .element: class="fragment fade-up" -->
 --
-### /REDIS-STREAMS GOLANG
-* Counting ids <!-- .element: class="fragment fade-up" -->
-* Prefetching and buffering <!-- .element: class="fragment fade-up" -->
-* Asynchronously sending acknowledgements <!-- .element: class="fragment fade-up" -->
-* parsing entries <!-- .element: class="fragment fade-up" -->
+### /SEQUENCE
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/creator.png" width="1500"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
 --
 ### /RESOURCE CREATION
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/creator.gif" width="1500"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->

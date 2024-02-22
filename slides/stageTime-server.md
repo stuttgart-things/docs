@@ -90,18 +90,19 @@ if err != nil {
 defer conn.Close()
 
 stsClient := NewClient(conn, time.Second)
-err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revisionRunJson))
+err = stsClient.CreateRevisionRun(context.Background(),
+bytes.NewBuffer(revisionRunJson))
 //..
 ```
 <!-- .element: class="fragment fade-up" -->
 --
 ### /INPUT-FILE
---
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prsjson.png" width="700"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
 --
-### /SEQUENCE-USAGE
---
+### /SEQUENCE
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/server.png" width="700"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
 --
 # /TASKFILE
 --
