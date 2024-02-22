@@ -6,7 +6,7 @@
 * TRIGGERS NEW STAGE(-RUNS) (STREAMS) <!-- .element: class="fragment fade-up" -->
 --
 ### /INFORMING KINDS
-[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer.png" width="1800"/>](https://www.sva.de/index.html)
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-kinds.png" width="1800"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
 ### /INFORMER CODE
