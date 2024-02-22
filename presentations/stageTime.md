@@ -53,7 +53,7 @@ patrick.hermann@sva.de <!-- .element: class="fragment fade-up" -->
 * ANALYZER <!-- .element: class="fragment fade-up" -->
 * FETCHER <!-- .element: class="fragment fade-up" -->
 ---
-# INTRO
+# /STAGETIME-INTRO
 --
 ### /CI-CD TASKS
 * Lint: to keep our code clean and maintainable <!-- .element: class="fragment fade-up" -->
