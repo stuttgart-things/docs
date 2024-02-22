@@ -12,8 +12,6 @@
 apiVersion: stagetime.sthings.tiab.ssc.sva.de/v1beta1
 kind: RevisionRun
 metadata:
-  labels:
-    app.kubernetes.io/name: revisionrun
   name: revisionrun-simulation
 spec:
   repository: stuttgart-things
@@ -25,20 +23,19 @@ spec:
       params: scriptTimeout=10s
       canfail: false
 ```
+<!-- .element: class="fragment fade-up" -->
 --
 ## OPERTOR-FRAMWORK
 * PROJECT INIT <!-- .element: class="fragment fade-up" -->
 * DEFINE TYPES <!-- .element: class="fragment fade-up" -->
 *  <!-- .element: class="fragment fade-up" -->
-
 --
-## OPERTOR-FRAMWORK
-
 ## PROJECT INIT
 
 ```
 GO_PROJECT_DIR=~/projects/golang
-mkdir -p ${GO_PROJECT_DIR}/${PROJECT_NAME} && cd ${GO_PROJECT_DIR}/${PROJECT_NAME}
+mkdir -p ${GO_PROJECT_DIR}/${PROJECT_NAME} \
+&& cd ${GO_PROJECT_DIR}/${PROJECT_NAME}
 
 operator-sdk init \
 --plugins go/v3 \
@@ -71,6 +68,29 @@ type Technologies struct {
 ```
 <!-- .element: class="fragment fade-up" -->
 --
+## UNSTRUCTURED STRUCT
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/twitter-unstructred.png" width="700"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
+--
+## UNSTRUCTURED STRUCT
+* You need to work with Kubernetes Objects in a generic way? <!-- .element: class="fragment fade-up" -->
+* You don't want to or cannot depend on the api module? <!-- .element: class="fragment fade-up" -->
+* You need to work with Custom Resources that aren't defined in the api module? <!-- .element: class="fragment fade-up" -->
+--
+## KIND REPOSITORY
+
+```
+apiVersion: stagetime.sthings.tiab.ssc.sva.de/v1beta1
+kind: Repo
+metadata:
+  name: stuttgart-things
+spec:
+  name: stuttgart-things
+  organization: stuttgart-things
+  branch: main
+```
+<!-- .element: class="fragment fade-up" -->
+--
 ## EDIT TYPES
 ```
 u := &unstructured.Unstructured{}
@@ -93,3 +113,4 @@ _ = json.Unmarshal(dbByte, &repo)
 
 fmt.Println(repo.Url)
 ```
+--
