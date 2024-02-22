@@ -603,7 +603,7 @@ fmt.Println(repo.Url)
 ```
 <!-- .element: class="fragment fade-up" -->
 ---
-# /OUTRO
+# /STAGETIME-OUTRO
 --
 ### /LEARNINGS (SO FAR)
 * gRPC SERVICE (MULTIPLE+COMPLEX JSON)<!-- .element: class="fragment fade-up" -->
@@ -621,7 +621,7 @@ fmt.Println(repo.Url)
 * STANDARDIZED TEKTON CATALOG AS OCI/GIT BUNDLES<!-- .element: class="fragment fade-up" -->
 --
 ### /TRIVIA
-* tbd<!-- .element: class="fragment fade-up" -->
-[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/sthings-train.png" width="600"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/sthings-train.png" width="400"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
