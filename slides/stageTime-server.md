@@ -95,6 +95,14 @@ err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revision
 ```
 <!-- .element: class="fragment fade-up" -->
 --
+### /INPUT-FILE
+--
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prsjson.png" width="700"/>](https://www.sva.de/index.html)
+--
+### /SEQUENCE-USAGE
+--
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/server.png" width="700"/>](https://www.sva.de/index.html)
+--
 # /TASKFILE
 --
 ### /What is Taskfile?
