@@ -1,12 +1,12 @@
 # STAGETIME-OPERATOR
 --
-## SERVICE
+### /SERVICE
 * WATCHES KIND REVISIONRUN <!-- .element: class="fragment fade-up" -->
 * READS CRS KIND REPO + PIPELINERUNTEMPLATE <!-- .element: class="fragment fade-up" -->
 * TRIGGERS STAGETIME SERVER <!-- .element: class="fragment fade-up" -->
 * STATUS FOR REVISIONRUN <!-- .element: class="fragment fade-up" -->
 --
-## OPERTOR-FRAMWORK
+### /OPERTOR-FRAMWORK
 * PROJECT INIT <!-- .element: class="fragment fade-up" -->
 * DEFINE TYPES <!-- .element: class="fragment fade-up" -->
 * GENERATE CRDS + MANIFESTS <!-- .element: class="fragment fade-up" -->
@@ -15,7 +15,7 @@
 * DEPLOY <!-- .element: class="fragment fade-up" -->
 * CREATE CUSTOM RESOURCE <!-- .element: class="fragment fade-up" -->
 --
-## PROJECT INIT
+### /PROJECT INIT
 ```
 GO_PROJECT_DIR=~/projects/golang
 mkdir -p ${GO_PROJECT_DIR}/${PROJECT_NAME} \
@@ -30,7 +30,7 @@ operator-sdk init \
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-## DEFINE TYPES
+### /DEFINE TYPES
 ```
 type RevisionRunSpec struct {
 	Repository       string          `json:"repository"`
@@ -49,7 +49,7 @@ type Technologies struct {
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-## EDIT CONTROLLER
+### /EDIT CONTROLLER
 ```
 func (r *RevisionRunReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = log.FromContext(ctx)
@@ -62,8 +62,9 @@ func (r *RevisionRunReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 	revisionRun := &stagetimev1beta1.RevisionRun{}
 	// ..
 ```
+<!-- .element: class="fragment fade-up" -->
 --
-## REVISIONRUN-CR
+### /REVISIONRUN-CR
 ```
 apiVersion: stagetime.sthings.tiab.ssc.sva.de/v1beta1
 kind: RevisionRun
@@ -81,16 +82,16 @@ spec:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-## UNSTRUCTURED STRUCT
+### /UNSTRUCTURED STRUCT
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/twitter-unstructred.png" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
-## UNSTRUCTURED STRUCT
+### /UNSTRUCTURED STRUCT
 * You need to work with Kubernetes Objects in a generic way? <!-- .element: class="fragment fade-up" -->
 * You don't want to or cannot depend on the api module? <!-- .element: class="fragment fade-up" -->
 * You need to work with Custom Resources that aren't defined in the api module? <!-- .element: class="fragment fade-up" -->
 --
-## KIND REPOSITORY
+### /KIND REPOSITORY
 ```
 apiVersion: stagetime.sthings.tiab.ssc.sva.de/v1beta1
 kind: Repo
@@ -103,7 +104,7 @@ spec:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-## GET UnstructuredContent FROM CR
+### /GET UnstructuredContent FROM CR
 ```
 u := &unstructured.Unstructured{}
 u.SetGroupVersionKind(schema.GroupVersionKind{
