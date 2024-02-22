@@ -95,8 +95,33 @@ err = stsClient.CreateRevisionRun(context.Background(), bytes.NewBuffer(revision
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-# TASKFILE
-
-# HELMFILE
-
+# /TASKFILE
 --
+### /What is Taskfile?
+[<img src="https://tsh.io/wp-content/uploads/2021/04/taskfile-preference-meme.png" width="700"/>](https://www.sva.de/index.html)
+--
+### /What is Taskfile?
+*  tool designed to make executing terminal commands or even lists of commands needed for specific operations easier <!-- .element: class="fragment fade-up" -->
+* Task is a tool written in Golang <!-- .element: class="fragment fade-up" -->
+* The syntax is based on YAML, which requires a specific structure <!-- .element: class="fragment fade-up" -->
+* It's a much simpler solution compared to GNU make <!-- .element: class="fragment fade-up" -->
+* Getting started with Taskfile is very easy <!-- .element: class="fragment fade-up" -->
+--
+### /Taskfile Example
+
+```
+version: 3
+vars:
+  PROJECT_NAME:
+    sh: echo ${PWD##*/}
+tasks:
+  build:
+    desc: Build the app
+    deps: [lint, proto]
+    cmds:
+      - go mod tidy
+      - CGO_ENABLED=0
+      - GOOS=linux
+      - go install -ldflags="-X {{ .MODULE }}/internal.date={{ .DATE }} -X {{ .MODULE }}/internal.version={{ .UPDATED_TAG_VERSION }} -X {{ .MODULE }}/internal.commit={{ .GIT_COMMIT }}"
+      - "{{ .PROJECT_NAME }}"
+```
