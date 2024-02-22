@@ -17,6 +17,10 @@
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-logs.png" width="2000"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
+### /SEQUENCE
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer.png" width="1500"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
+--
 ### /HELMFILE
 * Compose several charts together to create a comprehensive deployment artifact <!-- .element: class="fragment fade-up" -->
 * Separating Environment specific information from charts <!-- .element: class="fragment fade-up" -->
