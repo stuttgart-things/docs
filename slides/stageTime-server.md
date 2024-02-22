@@ -124,4 +124,3 @@ tasks:
       - GOOS=linux
       - go install -ldflags="-X {{ .MODULE }}/internal.date={{ .DATE }} -X {{ .MODULE }}/internal.version={{ .UPDATED_TAG_VERSION }} -X {{ .MODULE }}/internal.commit={{ .GIT_COMMIT }}"
       - "{{ .PROJECT_NAME }}"
-```
