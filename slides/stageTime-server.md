@@ -117,7 +117,6 @@ bytes.NewBuffer(revisionRunJson))
 * Getting started with Taskfile is very easy <!-- .element: class="fragment fade-up" -->
 --
 ### /Taskfile Example
-
 ```
 version: 3
 tasks:

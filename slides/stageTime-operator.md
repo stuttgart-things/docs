@@ -82,6 +82,12 @@ spec:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
+### /CREATE REVISIONRUN
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/operator-revisionrun.gif" width="1000"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+--
+### /SEQUENCE
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/operator-usage.png" width="350"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+--
 ### /UNSTRUCTURED STRUCT
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/twitter-unstructred.png" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
