@@ -6,13 +6,14 @@
 * CREATES PIPELINERUNS ON CLUSTER <!-- .element: class="fragment fade-up" -->
 --
 ## /REDIS-STREAMS
-
+tbd
 
 --
-## /REDIS-STREAMS
-
-
-
+## /REDIS-STREAMS GOLANG
+* Counting ids
+* Prefetching and buffering
+* Asynchronously sending acknowledgements
+* parsing entries
 --
 ## /RESOURCE CREATION
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/creator.gif" width="1500"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
@@ -44,8 +45,7 @@ dependencies:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-### /TEMPLATE - INCLUDE
-
+### /TEMPLATE - DEFINITION
 ```
 {{- define "sthings-helm-toolkit.deployment" -}}
 {{- $envVar := first . -}}
@@ -58,15 +58,16 @@ metadata:
     {{ $key }}: {{ $value | quote }}
   {{- end }}{{- end }}
 ```
-
+<!-- .element: class="fragment fade-up" -->
+--
+### /TEMPLATE - INCLUDE
 ```
 {{- $envVar := . -}}
 {{ include "sthings-helm-toolkit.deployment" (list $envVar) }}
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-### HELM VALUES
-
+### /HELM VALUES
 ```
 deployment:
   name: stagetime-creator
