@@ -1,6 +1,4 @@
 # MAKING OF stageTime
-
-
 <span style="color:orange">HACK & SNACK 2024</span>
 
 <!-- .slide: data-transition="zoom" -->
@@ -27,7 +25,7 @@ patrick.hermann@sva.de <!-- .element: class="fragment fade-up" -->
 * SERVICE <!-- .element: class="fragment fade-up" -->
 * GOLANG <!-- .element: class="fragment fade-up" -->
 * GRPC <!-- .element: class="fragment fade-up" -->
-* VCLUSTER <!-- .element: class="fragment fade-up" -->
+* REDIS <!-- .element: class="fragment fade-up" -->
 --
 ### /CHAPTER3: CREATOR
 * SERVICE <!-- .element: class="fragment fade-up" -->
@@ -38,23 +36,20 @@ patrick.hermann@sva.de <!-- .element: class="fragment fade-up" -->
 ### /CHAPTER4: INFORMER
 * SERVICE <!-- .element: class="fragment fade-up" -->
 * FEATURES <!-- .element: class="fragment fade-up" -->
-* DYNAMIC KUBERNETES W/ GOLANG <!-- .element: class="fragment fade-up" -->
-* HELMTEST <!-- .element: class="fragment fade-up" -->
 * INFORMER <!-- .element: class="fragment fade-up" -->
 --
 ### /CHAPTER5: OPERATOR
 * SERVICE <!-- .element: class="fragment fade-up" -->
 * FEATURES <!-- .element: class="fragment fade-up" -->
 * DYNAMIC KUBERNETES W/ GOLANG <!-- .element: class="fragment fade-up" -->
-* HELMFILE <!-- .element: class="fragment fade-up" -->
 ---
 # /STAGETIME-INTRO
 --
 ### /CI-CD TASKS
-* Lint: to keep our code clean and maintainable <!-- .element: class="fragment fade-up" -->
-* Build: put all of our code together into runnable software bundle <!-- .element: class="fragment fade-up" -->
-* Test: to ensure we don't break existing features <!-- .element: class="fragment fade-up" -->
-* Package: Put it all together as build artifacts <!-- .element: class="fragment fade-up" -->
+* LINT: to keep our code clean and maintainable <!-- .element: class="fragment fade-up" -->
+* BUILD: put all of our code together into runnable software bundle <!-- .element: class="fragment fade-up" -->
+* TEST: to ensure we don't break existing features <!-- .element: class="fragment fade-up" -->
+* PACKAGE: Put it all together as build artifacts <!-- .element: class="fragment fade-up" -->
 --
 ### /PIPELINES AS CODE
 * Can be audited for changes just like any other files in the repository <!-- .element: class="fragment fade-up" -->
@@ -142,19 +137,15 @@ spec:
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prlogs.gif" width="1000"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
-### /STARTING POSITION
+### /PROJECT START
 * PIPELINES AS MICROSERVICES <!-- .element: class="fragment fade-up" -->
 * RUN PIPELINERUNS IN STAGES <!-- .element: class="fragment fade-up" -->
     * PARALLEL (=SAME STAGE) <!-- .element: class="fragment fade-up" -->
     * RUN OF A SEQUENCE OF STAGES <!-- .element: class="fragment fade-up" -->
 --
-### /STARTING POSITION
+### /STAGETIME
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/stages.png" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
---
-### /STAGETIME
-* BEGININGS IN 2022 <!-- .element: class="fragment fade-up" -->
-* TEAM SÜD-WEST <!-- .element: class="fragment fade-up" -->
 --
 ### /DESIGN PRINCIPLES TEKTON PIPELINES/RUNS
 * PIPELINE AS MICROSERVICES <!-- .element: class="fragment fade-up" -->
@@ -270,6 +261,11 @@ bytes.NewBuffer(revisionRunJson))
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prsjson.png" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
+### /REDIS
+* In-memory data structure store <!-- .element: class="fragment fade-up" -->
+* Redis JSON: (UN)MARSHAL GOLANG OBJECTS <!-- .element: class="fragment fade-up" -->
+* Redis SETS: UNORDERED COLLECTION OF UNIQUE STRINGS: PIPELINERUNS FOR STAGE <!-- .element: class="fragment fade-up" -->
+--
 ### /SEQUENCE
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/server.png" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
@@ -315,6 +311,27 @@ tasks:
 * stageTime-Server: publisher <!-- .element: class="fragment fade-up" -->
 * stageTime-creator: consumers <!-- .element: class="fragment fade-up" -->
 --
+### /REDIS-STREAMS
+```
+func PollRedisStreams() {
+	c, err := redisqueue.NewConsumerWithOptions
+  (&redisqueue.ConsumerOptions{
+		VisibilityTimeout: 60 * time.Second,
+		BlockingTimeout:   5 * time.Second,
+		ReclaimInterval:   1 * time.Second,
+		BufferSize:        100,
+		Concurrency:       10,
+		RedisClient: redis.NewClient(&redis.Options{
+			Addr:     redisServer + ":" + redisPort,
+			Password: redisPassword,
+			DB:       0,
+		}),
+	})
+
+	c.Register(redisStream, processStreams)
+}
+```
+--
 ### /SEQUENCE
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/creator.png" width="1500"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
@@ -333,7 +350,11 @@ tasks:
 * Helm is a package manager for Kubernetes applications that includes templating and lifecycle management functionality <!-- .element: class="fragment fade-up" -->
 [<img src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6cf41a23-e1cb-41cb-b53a-0e706baf9a76_562x212.png" width="1500"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
 --
-### /HELM CHART.YAML
+### /LIBRARY CHART DEFINITON
+* Definitions which can be shared by Helm templates in other charts
+* This allows users to share snippets of code that can be re-used across charts, avoiding repetition and keeping charts DRY.
+--
+### /LIBRARY CHART DEFINITON
 
 ```
 apiVersion: v2
@@ -349,25 +370,26 @@ dependencies:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-### /TEMPLATE - DEFINITION
+### /LIBRARY TEMPLATE - DEFINITION
 ```
 {{- define "sthings-helm-toolkit.deployment" -}}
 {{- $envVar := first . -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $envVar.Values.deployment.name | default (include "sthings-helm-toolkit.fullname" . )}}
   annotations:
-  {{- range $key, $value := $envVar.Values.deployment.annotations }}
+  {{- range $key, $value := $envVar.Values.annotations }}
     {{ $key }}: {{ $value | quote }}
   {{- end }}{{- end }}
 ```
 <!-- .element: class="fragment fade-up" -->
---
-### /TEMPLATE - INCLUDE
+
+* INCLUDE IN APP CHART <!-- .element: class="fragment fade-up" -->
+
 ```
 {{- $envVar := . -}}
-{{ include "sthings-helm-toolkit.deployment" (list $envVar) }}
+{{ include "sthings-helm-toolkit.deployment"
+(list $envVar) }}
 ```
 <!-- .element: class="fragment fade-up" -->
 --
@@ -386,7 +408,9 @@ deployment:
   privileged: "false"
   runAsNonRoot: "false"
 ```
-<!-- .element: class="fragment fade-up" -->
+--
+### /HELM TEST
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/helmtest.gif" width="1500"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
 ---
 # /STAGETIME-INFORMER
 --
@@ -563,14 +587,17 @@ spec:
 ### /SEQUENCE
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/operator-usage.png" width="350"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
 --
+### /SERVICE SEQUENCE
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/complete.png" width="1000"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
+--
 ### /UNSTRUCTURED STRUCT
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/twitter-unstructred.png" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
 ### /UNSTRUCTURED STRUCT
-* You need to work with Kubernetes Objects in a generic way? <!-- .element: class="fragment fade-up" -->
-* You don't want to or cannot depend on the api module? <!-- .element: class="fragment fade-up" -->
-* You need to work with Custom Resources that aren't defined in the api module? <!-- .element: class="fragment fade-up" -->
+* Work with Kubernetes Objects in a generic way? <!-- .element: class="fragment fade-up" -->
+* Don't want to or cannot depend on the api module <!-- .element: class="fragment fade-up" -->
+* Work with Custom Resources that aren't defined in the api module<!-- .element: class="fragment fade-up" -->
 --
 ### /KIND REPOSITORY
 ```
@@ -593,11 +620,6 @@ u.SetGroupVersionKind(schema.GroupVersionKind{
 	Kind:    "Repo",
 	Version: "v1beta1",
 })
-
-_ = r.Client.Get(context.Background(), client.ObjectKey{
-	Name:      "repo-sample",
-	Namespace: "stagetime-operator-system",
-}, u)
 
 spec := u.UnstructuredContent()["spec"]
 
@@ -626,6 +648,7 @@ fmt.Println(repo.Url)
 * INTEGRATION W/ ARGOCD PULL REQUEST GENEARTOR + GITHUB API<!-- .element: class="fragment fade-up" -->
 * STANDARDIZED TEKTON CATALOG AS OCI/GIT BUNDLES<!-- .element: class="fragment fade-up" -->
 --
-### /TRIVIA
+### /QUESTIONS
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/sthings-train.png" width="400"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
+---
