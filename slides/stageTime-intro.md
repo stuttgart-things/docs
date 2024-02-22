@@ -6,25 +6,25 @@
 * Test: to ensure we don't break existing features <!-- .element: class="fragment fade-up" -->
 * Package: Put it all together as build artifacts <!-- .element: class="fragment fade-up" -->
 --
-## PIPELINES AS CODE
+### /PIPELINES AS CODE
 * Can be audited for changes just like any other files in the repository <!-- .element: class="fragment fade-up" -->
 * Codify build, test + deploy process for code <!-- .element: class="fragment fade-up" -->
 * empower teams to create standard processes across multiple repositories <!-- .element: class="fragment fade-up" -->
 --
-## PIPELINES AS CODE ON K8S
+### /PIPELINES AS CODE ON K8S
 * CUSTOMIZABLE <!-- .element: class="fragment fade-up" -->
 * REUSABLE<!-- .element: class="fragment fade-up" -->
 * SCALABLE <!-- .element: class="fragment fade-up" -->
 * STANDARDIZED <!-- .element: class="fragment fade-up" -->
 --
-## /TEKTON-PIPELINES
+### /TEKTON-PIPELINES
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/tekton-horizontal-color.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
 
 * Tekton Pipelines is a Kubernetes extension <!-- .element: class="fragment fade-up" -->
 * Runs on every Kubernetes cluster <!-- .element: class="fragment fade-up" -->
 * Defines a set of Custom Resources that act as building blocks <!-- .element: class="fragment fade-up" -->
 --
-## /TASK
+### /TASK
 * Defines a series of steps <!-- .element: class="fragment fade-up" -->
 
 ```
@@ -64,8 +64,8 @@ spec:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-## /PipelineRun
-Instantiates a Pipeline for execution with specific inputs, outputs, and execution parameters  <!-- .element: class="fragment fade-up" -->
+### /PipelineRun
+* Instantiates a Pipeline for execution with specific inputs, outputs, and execution parameters  <!-- .element: class="fragment fade-up" -->
 
 ```
 apiVersion: tekton.dev/v1beta1
@@ -84,11 +84,11 @@ spec:
 ```
 <!-- .element: class="fragment fade-up" -->
 --
-## /LIST PIPELINERUNS
+### /LIST PIPELINERUNS
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prlist.gif" width="700"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
-## /PIPELINERUN LOGS
+### /PIPELINERUN LOGS
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/prlogs.gif" width="1000"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
