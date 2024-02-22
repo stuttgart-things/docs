@@ -1,7 +1,7 @@
 # STAGETIME-INFORMER
 --
 ### /SERVICE
-* INFORMS ABOUT PIPELINERUN EVENTS: <span style="color:orange">ADD, UPDATE & DELETE</span> <!-- .element: class="fragment fade-up" -->
+* INFORMS ABOUT PIPELINERUN EVENTS: <!-- .element: class="fragment fade-up" --> <span style="color:orange">ADD, UPDATE & DELETE</span>
 * STORES RESULTS (SUCCESSFUL/FAILED STAGES) IN REDIS (JSON) <!-- .element: class="fragment fade-up" -->
 * TRIGGERS NEW STAGE(-RUNS) (STREAMS) <!-- .element: class="fragment fade-up" -->
 --
@@ -10,7 +10,7 @@
 <!-- .element: class="fragment fade-up" -->
 --
 ### /INFORMER CODE
-[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-code.png" width="1100"/>](https://www.sva.de/index.html)
+[<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/informer-code.png" width="800"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
 --
 ### /INFORMER LOGS
