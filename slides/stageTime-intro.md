@@ -15,7 +15,7 @@
 * CUSTOMIZABLE <!-- .element: class="fragment fade-up" -->
 * REUSABLE<!-- .element: class="fragment fade-up" -->
 * SCALABLE <!-- .element: class="fragment fade-up" -->
-* STANDARD <!-- .element: class="fragment fade-up" -->
+* STANDARDIZED <!-- .element: class="fragment fade-up" -->
 --
 ## /TEKTON-PIPELINES
 [<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/tekton-horizontal-color.png" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
@@ -61,7 +61,6 @@ spec:
   - name: fetch-source
     taskRef:
       name: git-clone
-    # ..
 ```
 <!-- .element: class="fragment fade-up" -->
 --
@@ -104,8 +103,8 @@ spec:
 <!-- .element: class="fragment fade-up" -->
 --
 ## /STAGETIME
-* BEGININGS IN 2022 <!-- .element: class="fragment fade-up"
-* TEAM SÜD-WEST <!-- .element: class="fragment fade-up"
+* BEGININGS IN 2022 <!-- .element: class="fragment fade-up" -->
+* TEAM SÜD-WEST <!-- .element: class="fragment fade-up" -->
 --
 ## /DESIGN PRINCIPLES TEKTON PIPELINES/RUNS
 * PIPELINE AS MICROSERVICES <!-- .element: class="fragment fade-up" -->
