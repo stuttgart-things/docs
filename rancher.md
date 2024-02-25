@@ -1,5 +1,25 @@
 # stuttgart-things/docs/rancher
 
+## SNIPPETS
+
+<details><summary>LONGHORN S3 BACKUPS MINIO</summary>
+
+```yaml
+apiVersion: v1
+data:
+  AWS_ACCESS_KEY_ID: <BASE64-SECRET>
+  AWS_CERT: <BASE64-SECRET>
+  AWS_ENDPOINTS: aHR0cHM6Ly9hcnRpZmFjdHMuZ3VkZS5zdGhpbmdzLXB2ZS5sYWJ1bC5zdmEuZGU=
+  AWS_SECRET_ACCESS_KEY: <BASE64-SECRET>
+kind: Secret
+metadata:
+  name: s3-backup
+  namespace: longhorn-system
+type: Opaque
+```
+
+</details>
+
 ## CREATE VSPHERE CLUSTER W/ CLUSTER API
 
 <details><summary>VSPHERE-CREDENTIALS</summary>
