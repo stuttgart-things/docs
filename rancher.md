@@ -20,6 +20,44 @@ type: Opaque
 
 </details>
 
+<details><summary>LONGHORN INSTALL UPGRADE DELETE</summary>
+
+### Add repo to helm (if not already present)
+```bash
+helm repo add longhorn https://charts.longhorn.io  
+helm repo update
+```
+
+### Check longhorn versions
+```bash
+helm search repo --versions longhorn
+```
+
+### Check values used for installation
+```bash
+helm ls -n longhorn-system  
+helm get values longhorn -n longhorn-system
+```
+
+### Start longhorn upgrade
+```bash
+helm upgrade --install longhorn longhorn/longhorn -n longhorn-system --create-namespace --version 1.5.3  
+kubectl get po -n longhorn-system --watch
+```
+
+### Portforward ui
+```bash
+kubectl port-forward services/longhorn-frontend 8080:http -n longhorn-system
+```
+
+### Delete longhorn from cluster
+```bash
+kubectl -n longhorn-system patch -p '{"value": "true"}' --type=merge lhs deleting-confirmation-flag  
+helm uninstall longhorn -n longhorn-system
+```
+
+</details>
+
 ## CREATE VSPHERE CLUSTER W/ CLUSTER API
 
 <details><summary>VSPHERE-CREDENTIALS</summary>
