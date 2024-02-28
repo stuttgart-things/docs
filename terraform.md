@@ -296,7 +296,7 @@ resource "helm_release" "csi" {
 
 </details>
 
-<details><summary><b>CREATE TEPLATED RESOURCE</b></summary>
+<details><summary><b>CREATE TEMPLATED RESOURCE</b></summary>
 
 ## TEMPLATE
 
@@ -330,6 +330,92 @@ resource "kubernetes_manifest" "vault_connection" {
 ```
 
 </details>
+
+<details><summary><b>LOOP/MAP IN TEMPLATE</b></summary>
+
+## TEMPLATE
+
+```hcl
+# ./templates/secret.tpl
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${name}
+  namespace: ${namespace}
+stringData:
+  %{ for key, value in kvs }
+  ${key}: ${value}
+  %{ endfor ~}
+```
+
+## RESOURCE
+
+```hcl
+resource "kubernetes_manifest" "k8s_secret" {
+  depends_on = [flux_bootstrap_git.flux2]
+
+  for_each = {
+    for secret in var.secrets :
+    secret.name => secret
+  }
+
+  computed_fields = ["stringData"]
+  manifest = yamldecode(templatefile(
+    "${path.module}/templates/secret.yaml.tpl",
+    {
+      "name"      = each.value["name"]
+      "namespace" = each.value["namespace"]
+      "kvs"       = each.value["kvs"]
+    }
+  ))
+
+}
+
+// KUBECONFIG FILE HANDLING
+data "local_file" "kubeconfig" {
+  filename = var.kubeconfig_path
+}
+
+locals {
+  kubeconfig = yamldecode(data.local_file.kubeconfig.content)
+}
+```
+
+## VARIABLE DECLARATION
+
+```hcl
+variable "secrets" {
+  type = list(object({
+    name      = string
+    namespace = string
+    kvs       = map(string)
+  }))
+  default     = []
+  description = "A list of secret objects"
+}
+```
+
+## CALL
+
+```hcl
+# main.tf
+# ..
+secrets = [
+  {
+    name = "sops-age"
+    namespace = "flux-system"
+    kvs = {
+      "age.agekey" = "AGE-SECRET-KEY"
+    }
+  },
+]
+```
+
+</details>
+
+
+
+
 
 <details><summary><b>LOOP FOR EACH</b></summary>
   
