@@ -1,6 +1,6 @@
 # stuttgart-things/docs
 
-## /DOCUMENTATION IN CODE (SNIPPETS)
+## /DOCS AND SNIPPETS
 
 ### /LINUX
 
