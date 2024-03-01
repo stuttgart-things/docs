@@ -1,7 +1,5 @@
 # stuttgart-things/docs
 
-DOCS-PAGES: https://stuttgart-things.github.io/docs/
-
 ## /DOCUMENTATION IN CODE (SNIPPETS)
 
 ### /LINUX
