@@ -185,7 +185,7 @@ kubectl delete ns csi-app
 
 ```bash
 velero restore create csi-restore --from-backup csi-backup
-kubectl -n csi-restore exec -ti csi-nginx -- bash -c 'cat /mnt/nfsdisk/hello'
+kubectl -n csi-app exec -ti csi-nginx -- bash -c 'cat /mnt/nfsdisk/hello'
 ```
 
 </details>
