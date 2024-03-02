@@ -34,8 +34,7 @@ velero restore create nginx --from-backup nginx-backup5
 kubectl delete volumesnapshotlocation artifacts -n velero
 ```
 
-## BACKUP/RESTORE PostgresDB
-
+<details><summary><b>BACKUP/RESTORE PostgresDB</b></summary>
 ### DEPLOY PostgresDB
 
 ```bash
@@ -111,6 +110,7 @@ kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace new5 -
 
 SELECT * FROM phonebook ORDER BY lastname;
 ````
+</details>
 
 
 ## LINKS
