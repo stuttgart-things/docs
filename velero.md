@@ -57,9 +57,9 @@ primary:
     backup.velero.io/backup-volumes: backup
     pre.hook.backup.velero.io/timeout: 5m
     pre.hook.restore.velero.io/timeout: 5m
-    post.hook.restore.velero.io/command: '["/bin/bash", "-c", "sleep 1m && PGPASSWORD=$POSTGRES_PASSWORD
+    post.hook.restore.velero.io/command: '["/bin/bash", "-c", "sleep 1m && PGPASSWORD=$POSTGRES_PASSWORD \
         pg_restore -U postgres -d postgres --clean < /scratch/backup.psql"]'
-    pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=$POSTGRES_PASSWORD
+    pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=$POSTGRES_PASSWORD \
         && sleep 1m && pg_dump -U postgres -d postgres -F c -f /scratch/backup.psql"]'
 EOF
 
