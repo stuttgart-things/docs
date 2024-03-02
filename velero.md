@@ -50,6 +50,8 @@ primary:
   extraVolumeMounts:
   - name: backup
     mountPath: /scratch
+  persistence:
+    storageClass: 56-nfs-sc
 
   podAnnotations:
     backup.velero.io/backup-volumes: backup
@@ -61,7 +63,7 @@ primary:
         && sleep 1m && pg_dump -U postgres -d postgres -F c -f /scratch/backup.psql"]'
 EOF
 
-helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml
+helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml --version 14.2.3
 ```
 
 ### CREATE TESTDATA ON PostgresDB
@@ -72,9 +74,9 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o
 
 # RUN A POSTGRES CLIENT IN THE NAMESPACE
 kubectl run postgresql-client --rm --tty -i --restart='Never' \
---namespace postgres --image docker.io/bitnami/postgresql:15.2.0-debian-11-r14 \
+--namespace postgres --image docker.io/bitnami/postgresql:16.2.0-debian-12-r5 \
 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command \
--- psql --host postgres-postgresql postgres -d postgres -p 5432
+-- psql --host postgresql postgres -d postgres -p 5432
 
 # CREATE A TABLE
 CREATE TABLE phonebook(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32), address VARCHAR(64));
@@ -105,7 +107,7 @@ velero restore create pgb18 --from-backup pgb18-restic --namespace-mappings post
 
 export POSTGRES_PASSWORD=$(kubectl get secret --namespace new5 postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
 
-kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace new5 --image docker.io/bitnami/postgresql:15.2.0-debian-11-r14 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host postgresql -U postgres -d postgres -p 5432
+kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace new5 --image docker.io/bitnami/postgresql:16.2.0-debian-12-r5 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host postgresql -U postgres -d postgres -p 5432
 
 SELECT * FROM phonebook ORDER BY lastname;
 ````
