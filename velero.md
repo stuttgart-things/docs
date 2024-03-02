@@ -35,6 +35,7 @@ kubectl delete volumesnapshotlocation artifacts -n velero
 ```
 
 <details><summary><b>BACKUP/RESTORE PostgresDB</b></summary>
+  
 ### DEPLOY PostgresDB
 
 ```bash
@@ -96,7 +97,13 @@ SELECT * FROM phonebook ORDER BY lastname;
 ### CREATE BACKUP
 
 ```bash
-velero backup create pgb18-restic --include-namespaces postgres
+velero backup create pgb18-restic --include-namespaces postgres --wait
+```
+
+### SIMULATE DISASTER
+
+```bash
+kubectl delete ns postgres
 ```
 
 ### RESTORE BACKUP
@@ -112,6 +119,76 @@ SELECT * FROM phonebook ORDER BY lastname;
 ````
 </details>
 
+<details><summary><b>BACKUP/RESTORE filebased</b></summary>
+
+### CREATE POD /W VOLUME
+```bash
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: csi-app
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  namespace: csi-app
+  name: csi-nginx
+spec:
+  nodeSelector:
+    kubernetes.io/os: linux
+  containers:
+    - image: nginx
+      name: nginx
+      command: [ "sleep", "1000000" ]
+      volumeMounts:
+        - name: nfsdisk01
+          mountPath: "/mnt/nfsdisk"
+  volumes:
+    - name: nfsdisk01
+      persistentVolumeClaim:
+        claimName: pvc-nfsdisk
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: csi-app
+  name: pvc-nfsdisk
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Mi
+  storageClassName: 56-nfs-sc
+```
+
+### CREATE TESTDATA ON VOLUME
+
+```bash
+kubectl -n csi-app exec -ti csi-nginx -- bash -c 'echo -n "Hello from Velero!" >> /mnt/nfsdisk/hello'
+```
+
+### CREATE BACKUP
+
+```bash
+velero backup create csi-backup --include-namespaces csi-app --wait
+```
+
+### SIMULATE DISASTER
+
+```bash
+kubectl delete ns csi-app
+```
+
+### RESTORE BACKUP
+
+```bash
+velero restore create csi-restore --from-backup csi-backup --namespace-mappings csi-app:csi-restore
+kubectl -n csi-restore exec -ti csi-nginx -- bash -c 'cat /mnt/nfsdisk/hello'
+```
+
+</details>
 
 ## LINKS
 
