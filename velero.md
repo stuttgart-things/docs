@@ -184,7 +184,7 @@ kubectl delete ns csi-app
 ### RESTORE BACKUP
 
 ```bash
-velero restore create csi-restore --from-backup csi-backup --namespace-mappings csi-app:csi-restore
+velero restore create csi-restore --from-backup csi-backup
 kubectl -n csi-restore exec -ti csi-nginx -- bash -c 'cat /mnt/nfsdisk/hello'
 ```
 
