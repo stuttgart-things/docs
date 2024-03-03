@@ -1,41 +1,83 @@
 # stuttgart-things/docs/velero
 
-https://picluster.ricsanfre.com/docs/backup/
-
-## VOLUMESNAPSHOTS
+<details><summary><b>CLI SNIPPETS</b></summary>
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/master/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
-```
-
-```yaml
-kind: VolumeSnapshotClass
-apiVersion: snapshot.storage.k8s.io/v1
-metadata:
-  name: longhorn-snapshot-vsc
-  labels:
-    velero.io/csi-volumesnapshot-class: "true"
-driver: driver.longhorn.io
-deletionPolicy: Delete
-parameters:
-  type: bak
-```
-
-
-## CMD/CLI SNIPPETS
-
-```bash
-kubectl get volumesnapshotlocations.velero.io -A
 velero backup-location get
 velero backup create metricbeat --include-namespaces metricbeat
 velero restore create nginx --from-backup nginx-backup5
+kubectl get volumesnapshotlocations.velero.io -A
 kubectl delete volumesnapshotlocation artifacts -n velero
 ```
 
-<details><summary><b>BACKUP/RESTORE PostgresDB</b></summary>
-  
+</details>
+
+<details><summary><b>VELERO DEPLOYMENT</b></summary>
+
+```bash
+helm repo add tanzu https://vmware-tanzu.github.io/helm-charts
+helm repo update
+````
+
+```bash
+INGRESS_HOSTNAME_MINIO: artifacts
+INGRESS_DOMAIN_MINIO: texas.sthings-vsphere.labul.sva.de
+MINIO_ADMIN_USER=sthings
+MINIO_ADMIN_PASSWORD=<SECRET>
+CA_BUNDLE=<CA_BUNDLE>
+
+cat <<EOF > velero.yaml
+deployNodeAgent: true
+credentials:
+  useSecret: true
+  name: minio
+  secretContents:
+    cloud: |
+      [default]
+      aws_access_key_id=${MINIO_ADMIN_USER}
+      aws_secret_access_key=${MINIO_ADMIN_PASSWORD}
+configuration:
+  features: EnableCSI
+  backupStorageLocation:
+    - name: default
+      provider: aws
+      bucket: velero
+      default: true
+      caCert: ${CA_BUNDLE}
+      config:
+        region: minio
+        s3ForcePathStyle: true
+        s3Url: https://${INGRESS_HOSTNAME_MINIO}.${INGRESS_DOMAIN_MINIO}
+        publicUrl: https://${INGRESS_HOSTNAME_MINIO}.${INGRESS_DOMAIN_MINIO}
+  volumeSnapshotLocation:
+    - name: artifacts
+      provider: aws
+      bucket: velero
+      default: true
+      caCert: ${CA_BUNDLE}
+      config:
+        region: minio
+        s3ForcePathStyle: true
+        s3Url: https://${INGRESS_HOSTNAME_MINIO}.${INGRESS_DOMAIN_MINIO}
+        publicUrl: https://${INGRESS_HOSTNAME_MINIO}.${INGRESS_DOMAIN_MINIO}
+initContainers:
+  - name: velero-plugin-for-aws
+    image: velero/velero-plugin-for-aws:v1.9.0
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+EOF
+```
+
+```bash
+helm upgrade --install velero tanzu/velero --version 5.4.1 --values velero.yaml -n velero --create-namespace
+```
+
+</details>
+
+
+<details><summary><b>BACKUP/RESTORE: POSTGRESDB</b></summary>
+
 ### DEPLOY PostgresDB
 
 ```bash
@@ -43,6 +85,9 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 cat <<EOF > postgres-velero.yaml
+
+POSTGRES_PASSWORD=<SECRET>
+
 primary:
   extraVolumes:
   - name: backup
@@ -57,9 +102,9 @@ primary:
     backup.velero.io/backup-volumes: backup
     pre.hook.backup.velero.io/timeout: 5m
     pre.hook.restore.velero.io/timeout: 5m
-    post.hook.restore.velero.io/command: '["/bin/bash", "-c", "sleep 1m && PGPASSWORD=$POSTGRES_PASSWORD \
+    post.hook.restore.velero.io/command: '["/bin/bash", "-c", "sleep 1m && PGPASSWORD=${POSTGRES_PASSWORD} \
         pg_restore -U postgres -d postgres --clean < /scratch/backup.psql"]'
-    pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=$POSTGRES_PASSWORD \
+    pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=${POSTGRES_PASSWORD} \
         && sleep 1m && pg_dump -U postgres -d postgres -F c -f /scratch/backup.psql"]'
 EOF
 
@@ -116,10 +161,11 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace new5 postgresql -o jso
 kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace new5 --image docker.io/bitnami/postgresql:16.2.0-debian-12-r5 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host postgresql -U postgres -d postgres -p 5432
 
 SELECT * FROM phonebook ORDER BY lastname;
-````
+```
+
 </details>
 
-<details><summary><b>BACKUP/RESTORE filebased</b></summary>
+<details><summary><b>BACKUP/RESTORE: FILE ON PV</b></summary>
 
 ### CREATE POD /W VOLUME
 ```bash
@@ -190,10 +236,11 @@ kubectl -n csi-app exec -ti csi-nginx -- bash -c 'cat /mnt/nfsdisk/hello'
 
 </details>
 
-## LINKS
+<details><summary><b>LINKS</b></summary>
 
-```
-https://www.ntchosting.com/encyclopedia/databases/postgresql/
-https://velero.io/docs/v1.10/backup-hooks/
-https://github.com/vmware-tanzu/velero/blob/main/examples/nginx-app/with-pv.yaml
-```
+[raspi-longhorn-velero](https://picluster.ricsanfre.com/docs/backup)
+[postgresql-velero](https://www.ntchosting.com/encyclopedia/databases/postgresql)
+[velero-backup-hooks](https://velero.io/docs/v1.10/backup-hooks)
+[tanzu-nginx-app](https://github.com/vmware-tanzu/velero/blob/main/examples/nginx-app/with-pv.yaml)
+
+</details>
