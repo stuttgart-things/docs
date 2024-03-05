@@ -109,10 +109,15 @@ pgsched-20240305093755   Completed   0        0          2024-03-05 10:37:55 +01
 
 ### DEPLOY PostgresDB
 
-```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
+##### Add bitnami repo
+`helm repo add bitnami https://charts.bitnami.com/bitnami`
 
+##### Update
+`helm repo update`
+
+##### Add Values file
+
+```bash
 cat <<EOF > postgres-velero.yaml
 
 POSTGRES_PASSWORD=<SECRET>
@@ -136,22 +141,23 @@ primary:
     pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=${POSTGRES_PASSWORD} \
         && sleep 1m && pg_dump -U postgres -d postgres -F c -f /scratch/backup.psql"]'
 EOF
-
-helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml --version 14.2.3
 ```
+
+##### Install postgres /w helm
+`helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml --version 14.2.3`
 
 ### CREATE TESTDATA ON PostgresDB
 
-```bash
-# GET THE POSTGRES PASSWORD ON YOUR LOCAL ENV
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+##### GET THE POSTGRES PASSWORD ON YOUR LOCAL ENV
+`export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)`
 
-# RUN A POSTGRES CLIENT IN THE NAMESPACE
-kubectl run postgresql-client --rm --tty -i --restart='Never' \
+##### RUN A POSTGRES CLIENT IN THE NAMESPACE
+`kubectl run postgresql-client --rm --tty -i --restart='Never' \
 --namespace postgres --image docker.io/bitnami/postgresql:16.2.0-debian-12-r5 \
 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command \
--- psql --host postgresql postgres -d postgres -p 5432
+-- psql --host postgresql postgres -d postgres -p 5432`
 
+```bash
 # CREATE A TABLE
 CREATE TABLE phonebook(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32), address VARCHAR(64));
 
