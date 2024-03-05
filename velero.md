@@ -77,7 +77,7 @@ helm upgrade --install velero tanzu/velero --version 5.4.1 --values velero.yaml 
 
 <details><summary><b>VELERO SCHEDULES</b></summary>
 
-### Create scheduled backup /w velero every day at 4am retention for 72h
+### Create scheduled postgres backup /w velero every day at 4am retention for 72h
 
 `velero schedule create pgsched --schedule="0 4 * * *" --include-namespaces postgres --ttl 72h`
 
