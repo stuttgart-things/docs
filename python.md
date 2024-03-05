@@ -7,11 +7,6 @@
 ```python3
 from jinja2 import Template
 
-# TEMPLATE
-moduleCallTemplate = """module "ec2-vm" {{% for key in values %}
-  {{ key }}="{{ values[key] }}"{% endfor %}
-}"""
-
 def render_template(values):
   template = Template(moduleCallTemplate)
   renderedTemplate = template.render(values=values)
