@@ -21,7 +21,7 @@ def render_template(values):
 
 </details>
 
-<details><summary>GET RANDOM VALUE FRO LIST</summary>
+<details><summary>GET RANDOM VALUE FROM LIST</summary>
 
 ```python3
 import random
