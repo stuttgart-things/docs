@@ -12,7 +12,7 @@ kubectl delete volumesnapshotlocation artifacts -n velero
 
 </details>
 
-<details><summary><b>VELERO DEPLOYMENT</b></summary>
+<details><summary><b>DEPLOYMENT</b></summary>
 
 ```bash
 helm repo add tanzu https://vmware-tanzu.github.io/helm-charts
@@ -75,7 +75,7 @@ helm upgrade --install velero tanzu/velero --version 5.4.1 --values velero.yaml 
 
 </details>
 
-<details><summary><b>VELERO SCHEDULES</b></summary>
+<details><summary><b>SCHEDULES</b></summary>
 
 ##### Create scheduled postgres backup /w velero every day at 4am retention for 72h
 
