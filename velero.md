@@ -77,7 +77,7 @@ helm upgrade --install velero tanzu/velero --version 5.4.1 --values velero.yaml 
 
 <details><summary><b>VELERO SCHEDULES</b></summary>
 
-### Create scheduled postgres backup /w velero every day at 4am retention for 72h
+##### Create scheduled postgres backup /w velero every day at 4am retention for 72h
 
 `velero schedule create pgsched --schedule="0 4 * * *" --include-namespaces postgres --ttl 72h`
 
@@ -87,11 +87,11 @@ NAME      STATUS    CREATED                         SCHEDULE    BACKUP TTL   LAS
 pgsched   Enabled   2024-03-05 10:35:06 +0100 CET   0 4 * * *   72h0m0s      n/a           <none>     false
 ```
 
-### Create Ad Hoc backup from schedule
+##### Create Ad Hoc backup from schedule
 
 `velero backup create --from-schedule pgsched`
 
-### Check backups
+##### Check backups
 
 ```bash
 velero backup get
@@ -99,7 +99,7 @@ NAME                     STATUS      ERRORS   WARNINGS   CREATED                
 pgsched-20240305093755   Completed   0        0          2024-03-05 10:37:55 +0100 CET   2d        default            <none>
 ```
 
-### finding, after test backups were created every 5min and thus the expired backups start to stack
+##### finding, after test backups were created every 5min and thus the expired backups start to stack
 > **_From official documentation:_** https://velero.io/docs/v1.9/how-velero-works/  
 > The effects of expiration are not applied immediately, they are applied when the gc-controller runs its reconciliation loop every hour.
 
