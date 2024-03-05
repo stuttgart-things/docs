@@ -2,6 +2,19 @@
 
 ## SNIPPETS
 
+<details><summary>GET RANDOM VALUE FRO LIST</summary>
+
+```python3
+# GET RANDOM ITEM FROM LIST
+def get_random_fromlist(list):
+  random_num = random.choice(list)
+  print("Random select is : " + str(random_num))
+
+  return str(random_num)
+```
+
+</details>
+
 <details><summary>READ YAML FILE</summary>
 
 ```yaml
