@@ -8,7 +8,7 @@
 from jinja2 import Template
 
 # TEMPLATE
-moduleCallTemplate = """module "ec2-vm" {% raw %}{{% endraw %}{% for key in values %}
+moduleCallTemplate = """module "ec2-vm" {{% for key in values %}
   {{ key }}="{{ values[key] }}"{% endfor %}
 }"""
 
