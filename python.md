@@ -2,6 +2,37 @@
 
 ## SNIPPETS
 
+<details><summary>READ YAML FILE</summary>
+
+```yaml
+# values.yaml
+---
+source: github.com/stuttgart-things/aws-ec2-vm
+region:
+  - eu-central-1
+  - eu-central-2
+  - eu-central-3
+vpc: vpc-ec6e8e86
+ami: ami-023adaba598e661ac
+itype:
+  - t2.micro
+  - t3.micro
+  - t4.micro
+```
+
+```python3
+# OPEN YAML AS DICT
+with open('values.yaml', 'r') as f:
+    values = yaml.load(f, Loader=yaml.SafeLoader)
+
+# ITERATE OVER THE VALUES DICTIONARY
+for key in values:
+  print(key)
+  print(values[key])
+```
+
+</details>
+
 <details><summary>CONCATENATE STRING AND INT</summary>
 
 ```python3
