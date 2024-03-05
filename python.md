@@ -2,9 +2,30 @@
 
 ## SNIPPETS
 
+<details><summary>RENDER TEMPLATE INLINE</summary>
+
+```python3
+from jinja2 import Template
+
+# TEMPLATE
+moduleCallTemplate = """module "ec2-vm" {% raw %}{{% endraw %}{% for key in values %}
+  {{ key }}="{{ values[key] }}"{% endfor %}
+}"""
+
+def render_template(values):
+  template = Template(moduleCallTemplate)
+  renderedTemplate = template.render(values=values)
+
+  return str(renderedTemplate)
+```
+
+</details>
+
 <details><summary>GET RANDOM VALUE FRO LIST</summary>
 
 ```python3
+import random
+
 # GET RANDOM ITEM FROM LIST
 def get_random_fromlist(list):
   random_num = random.choice(list)
@@ -34,6 +55,8 @@ itype:
 ```
 
 ```python3
+import yaml
+
 # OPEN YAML AS DICT
 with open('values.yaml', 'r') as f:
     values = yaml.load(f, Loader=yaml.SafeLoader)
