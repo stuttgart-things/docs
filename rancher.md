@@ -194,13 +194,11 @@ spec:
 ```
 </details>
 
-```text
-For programmatically creating clusters via rest api calls you need to make sure
-that every cluster you want to create needs theire own and specific
-MaschinePoolConfig as well as VmwarevsphereConfig, in order to work properly.
-MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide
-as a global ressource.
-```
+> For programmatically creating clusters via rest api calls you need to make sure
+> that every cluster you want to create needs theire own and specific
+> MaschinePoolConfig as well as VmwarevsphereConfig, in order to work properly.
+> MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide
+> as a global ressource.
 
 ## GENERAL
 
@@ -441,9 +439,8 @@ helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress
 
 ## CREATE DNS ENTRY FOR IP ADDRESS
 
-```text
-depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
-```
+> depending on the infrastructure, you need to create
+> an A-record for the Ingress IP-Address
 
 ## CREATE SELFSIGNED-CERTS
 
@@ -556,27 +553,25 @@ helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 \
 
 ## TEST LOGIN /W BOOTSTRAP PASSWORD FROM VALUES.YAML
 
-```text
-open Browser of choice and connect to
-rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN}
+> open Browser of choice and connect to
+> rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN}
 > use bootstrap password from values.yaml for login
-```
 
 ## RANCHER CREATE NEW DOWNSTREAM CLUSTER
 
 <details><summary>COPY/INSTALL CA-CERTS ON DOWNSTREAM CLUSTER</summary>
 
-```text
-copy tls.crt to /usr/local/share/ca-certificates on new Host
+> copy tls.crt to /usr/local/share/ca-certificates on new Host
+
+```bash
+update-ca-certificates
 ```
-`update-ca-certificates`
 </details>
 
 <details><summary>CREATE NEW DOWNSTREAM CLUSTER /W RANCHER</summary>
 
-```text
-e.g. in Rancher Cluster Manager create a new cluster > copy Registration Command from web ui > execute on new Hosts cli
-```
+> e.g. in Rancher Cluster Manager create a new cluster > copy Registration Command from web ui > execute on new Hosts cli
+
 </details>
 
 ## ADD ADDITIONAL CLUSTER NODE (TO HA SERVER)
