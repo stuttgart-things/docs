@@ -553,8 +553,7 @@ helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 \
 
 ## TEST LOGIN /W BOOTSTRAP PASSWORD FROM VALUES.YAML
 
-> open Browser of choice and connect to
-> rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN}
+> connect to rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN} in Browser and
 > use bootstrap password from values.yaml for login
 
 ## RANCHER CREATE NEW DOWNSTREAM CLUSTER

@@ -89,7 +89,9 @@ pgsched   Enabled   2024-03-05 10:35:06 +0100 CET   0 4 * * *   72h0m0s      n/a
 
 ##### Create Ad Hoc backup from schedule
 
-`velero backup create --from-schedule pgsched`
+```bash
+velero backup create --from-schedule pgsched
+```
 
 ##### Check backups
 
@@ -110,10 +112,16 @@ pgsched-20240305093755   Completed   0        0          2024-03-05 10:37:55 +01
 ### DEPLOY PostgresDB
 
 ##### Add bitnami repo
-`helm repo add bitnami https://charts.bitnami.com/bitnami`
+
+```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+```
 
 ##### Update
-`helm repo update`
+
+```bash
+helm repo update
+```
 
 ##### Add Values file
 
@@ -144,18 +152,27 @@ EOF
 ```
 
 ##### Install postgres /w helm
-`helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml --version 14.2.3`
+
+```bash
+helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml --version 14.2.3
+```
 
 ### CREATE TESTDATA ON PostgresDB
 
 ##### GET THE POSTGRES PASSWORD ON YOUR LOCAL ENV
-`export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)`
+
+```bash
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+```
 
 ##### RUN A POSTGRES CLIENT IN THE NAMESPACE
-`kubectl run postgresql-client --rm --tty -i --restart='Never' \
+
+```bash
+kubectl run postgresql-client --rm --tty -i --restart='Never' \
 --namespace postgres --image docker.io/bitnami/postgresql:16.2.0-debian-12-r5 \
 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command \
--- psql --host postgresql postgres -d postgres -p 5432`
+-- psql --host postgresql postgres -d postgres -p 5432
+```
 
 ```bash
 # CREATE A TABLE
