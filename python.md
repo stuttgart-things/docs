@@ -88,6 +88,34 @@ msg = tm.render(name=name)
 print(msg)
 ```
 
+```python3
+#!/usr/bin/env python3
+
+from jinja2 import Template
+import os
+
+inlineTemplate = "{% for count in range(0, vm_count) %}{% if loop.first%}{{ vm }}{% else %}{{ vm }}-{{ loop.index }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}"
+
+def render_template(values):
+  template = Template(inlineTemplate)
+  renderedTemplate = template.render(values)
+
+  return str(renderedTemplate)
+
+def main():
+
+    values = {
+       'vm': 'minnesota',
+       'vm_count': 4,
+    }
+
+    rendered = render_template(values)
+    print(rendered)
+
+if __name__ == '__main__':
+    main()
+```
+
 </details>
 
 
