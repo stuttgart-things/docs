@@ -7,6 +7,10 @@
 ```python3
 from jinja2 import Template
 
+moduleCallTemplate = """module "ec2-vm" {% raw %}{{% endraw %}{% for key in values %}
+  {{ key }}="{{ values[key] }}"{% endfor %}
+}"""
+
 def render_template(values):
   template = Template(moduleCallTemplate)
   renderedTemplate = template.render(values=values)
