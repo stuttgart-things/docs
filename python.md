@@ -2,6 +2,29 @@
 
 ## SNIPPETS
 
+<details><summary>DICTS</summary>
+
+```python3
+# ..
+disk = {
+   'S': 32,
+   'M': 64,
+   'L': 81920,
+   'XL': 12288,
+}
+
+os = {
+   'labul-vsphere': {
+      'ubuntu23': 'sthings-u23'
+   }
+}
+
+print(disk['L'])
+print(os['labul-vsphere']['ubuntu23'])
+```
+
+</details>
+
 <details><summary>RENDER TEMPLATE INLINE</summary>
 
 ```python3
