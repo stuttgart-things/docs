@@ -2,6 +2,61 @@
 
 ## GENERAL
 
+<details><summary><b>YAML INLINE OBJECT LIST TEMPLATING TO FILE</b></summary>
+
+```hcl
+# main.tf
+variable "users" {
+  description = "A list of users."
+
+  type = list(object({
+    name  = string
+    gecos = string
+  }))
+}
+
+locals {
+  all_users = templatefile("${path.module}/users.tmpl", {
+    "users" = var.users
+  })
+}
+
+resource "local_file" "all_users" {
+  filename = "users.yaml"
+  content  = local.all_users
+}
+```
+
+```
+# users.tmpl
+${yamlencode({
+  users = [
+    for user in users : {
+      name = user.name
+      gecos = user.gecos
+    }
+  ]
+})}
+```
+
+```hcl
+# terraform.tfvars
+users = [
+{
+    name  = "ankit"
+    gecos = "ankits user"
+},
+{
+    name  = "anuj"
+    gecos = "anuj user"
+}
+]
+```
+
+</details>
+
+
+
 <details><summary><b>INIT|APPLY|DESTROY</b></summary>
 
 ```bash
