@@ -25,24 +25,6 @@ print(os['labul-vsphere']['ubuntu23'])
 
 </details>
 
-<details><summary>RENDER TEMPLATE INLINE</summary>
-
-```python3
-from jinja2 import Template
-
-moduleCallTemplate = """module "ec2-vm" {% raw %}{{% endraw %}{% for key in values %}
-  {{ key }}="{{ values[key] }}"{% endfor %}
-}"""
-
-def render_template(values):
-  template = Template(moduleCallTemplate)
-  renderedTemplate = template.render(values=values)
-
-  return str(renderedTemplate)
-```
-
-</details>
-
 <details><summary>GET RANDOM VALUE FROM LIST</summary>
 
 ```python3
