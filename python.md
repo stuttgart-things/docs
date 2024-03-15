@@ -2,6 +2,21 @@
 
 ## SNIPPETS
 
+<details><summary>ARGS W/ DEFAULT</summary>
+
+```python3
+#!/usr/bin/env python3
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--values', default='values.yaml')
+args = parser.parse_args()
+
+print(args.values)
+```
+
+</details>
+
 <details><summary>DICTS</summary>
 
 ```python3
