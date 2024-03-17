@@ -2,6 +2,15 @@
 
 ## SNIPPETS
 
+<details><summary><b>GET INSTALLED MANIFESTS BY RELEASE/b></summary>
+
+```bash
+helm get manifest ghr-install-configure-docker-sthings-cicd -n arc-runners
+```
+
+</details>
+
+
 <details><summary><b>RENDER/INSTALL/APPLY</b></summary>
 
 ```bash
