@@ -10,6 +10,9 @@
 # LIST BUCKETS
 aws s3 ls
 
+# CREATE BUCKET
+aws s3 mb s3://ankit-devops
+
 # LIST BUCKET CONTENT
 aws s3 ls s3://terraform-20240319071635887700000001
 
