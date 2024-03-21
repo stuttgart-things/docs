@@ -2,6 +2,27 @@
 
 ## AWS
 
+### CLI-SNIPPETS
+
+<details><summary><b>AWS S3</b></summary>
+
+```bash
+# LIST BUCKETS
+aws s3 ls
+
+# CREATE BUCKET
+aws s3 mb s3://ankit-devops
+
+# LIST BUCKET CONTENT
+aws s3 ls s3://terraform-20240319071635887700000001
+
+# COPY FILE TO BUCKET
+aws s3 cp cic-k8s-role-service-account.yml s3://terraform-20240319071635887700000001/test.yml
+```
+
+</details>
+
+
 <details><summary><b>INSTALL AWS CLI</b></summary>
 
 The AWS Command Line Interface (AWS CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.

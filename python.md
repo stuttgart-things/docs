@@ -2,6 +2,92 @@
 
 ## SNIPPETS
 
+<details><summary>ARGS W/ DEFAULT</summary>
+
+```python3
+#!/usr/bin/env python3
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--values', default='values.yaml')
+args = parser.parse_args()
+
+print(args.values)
+```
+
+</details>
+
+<details><summary>DICTS</summary>
+
+```python3
+# ..
+disk = {
+   'S': 32,
+   'M': 64,
+   'L': 81920,
+   'XL': 12288,
+}
+
+os = {
+   'labul-vsphere': {
+      'ubuntu23': 'sthings-u23'
+   }
+}
+
+print(disk['L'])
+print(os['labul-vsphere']['ubuntu23'])
+```
+
+</details>
+
+<details><summary>GET RANDOM VALUE FROM LIST</summary>
+
+```python3
+import random
+
+# GET RANDOM ITEM FROM LIST
+def get_random_fromlist(list):
+  random_num = random.choice(list)
+  print("Random select is : " + str(random_num))
+
+  return str(random_num)
+```
+
+</details>
+
+<details><summary>READ YAML FILE</summary>
+
+```yaml
+# values.yaml
+---
+source: github.com/stuttgart-things/aws-ec2-vm
+region:
+  - eu-central-1
+  - eu-central-2
+  - eu-central-3
+vpc: vpc-ec6e8e86
+ami: ami-023adaba598e661ac
+itype:
+  - t2.micro
+  - t3.micro
+  - t4.micro
+```
+
+```python3
+import yaml
+
+# OPEN YAML AS DICT
+with open('values.yaml', 'r') as f:
+    values = yaml.load(f, Loader=yaml.SafeLoader)
+
+# ITERATE OVER THE VALUES DICTIONARY
+for key in values:
+  print(key)
+  print(values[key])
+```
+
+</details>
+
 <details><summary>CONCATENATE STRING AND INT</summary>
 
 ```python3
@@ -20,6 +106,34 @@ name = input("Enter your name: ")
 tm = Template("Hello {{ name }}")
 msg = tm.render(name=name)
 print(msg)
+```
+
+```python3
+#!/usr/bin/env python3
+
+from jinja2 import Template
+import os
+
+inlineTemplate = "{% for count in range(0, vm_count) %}{% if loop.first%}{{ vm }}{% else %}{{ vm }}-{{ loop.index }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}"
+
+def render_template(values):
+  template = Template(inlineTemplate)
+  renderedTemplate = template.render(values)
+
+  return str(renderedTemplate)
+
+def main():
+
+    values = {
+       'vm': 'minnesota',
+       'vm_count': 4,
+    }
+
+    rendered = render_template(values)
+    print(rendered)
+
+if __name__ == '__main__':
+    main()
 ```
 
 </details>

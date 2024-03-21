@@ -2,6 +2,8 @@
 
 A task runner / simpler Make alternative written in Go
 
+## INSTALLATION
+
 <details><summary><b>INSTALLATION</b></summary>
 
 ```bash
@@ -9,6 +11,8 @@ go install github.com/go-task/task/v3/cmd/task@latest
 ```
 
 </details>
+
+## SNIPPETS
 
 <details><summary><b>PROTO (GO GEN)</b></summary>
 

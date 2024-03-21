@@ -194,15 +194,15 @@ spec:
 ```
 </details>
 
-```text
-For programmatically creating clusters via rest api calls you need to make sure that every
-cluster you want to create needs theire own and specific MaschinePoolConfig as well as VmwarevsphereConfig, in order to work
-properly. MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide as a global ressource.
-```
+> For programmatically creating clusters via rest api calls you need to make sure
+> that every cluster you want to create needs theire own and specific
+> MaschinePoolConfig as well as VmwarevsphereConfig, in order to work properly.
+> MachinepoolConfigs as well as VmwarevsphereConfig cant no be shared clusterwide
+> as a global ressource.
 
 ## GENERAL
 
-## CLOUD-INIT
+<details><summary>CLOUD-INIT</summary>
 
 ### PACKAGES/CMD/ANSIBLE EXAMPLE
 
@@ -258,24 +258,25 @@ runcmd:
 sudo systemctl status cloud-final.service
 sudo cat /var/lib/cloud/data/status.json
 ```
-
+</details>
 </details>
 
-
-### KUBECONFIG
+<details><summary>KUBECONFIG</summary>
 
 ```bash
 export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
 /var/lib/rancher/rke2/bin/kubectl get nodes
 ```
+</details>
 
-### LIST CONTAINERS USING CTR
+<details><summary>LIST CONTAINERS USING CTR</summary>
 
 ```bash
 /var/lib/rancher/rke2/bin/ctr --address /run/k3s/containerd/containerd.sock --namespace k8s.io container ls
 ```
+</details>
 
-### CRICTL
+<details><summary>CRICTL</summary>
 
 ```bash
 export CRI_CONFIG_FILE=/var/lib/rancher/rke2/agent/etc/crictl.yaml
@@ -283,20 +284,18 @@ export CRI_CONFIG_FILE=/var/lib/rancher/rke2/agent/etc/crictl.yaml
 
 /var/lib/rancher/rke2/bin/crictl --runtime-endpoint unix:///run/k3s/containerd/containerd.sock ps -a
 ```
+</details>
 
-### LOGGING
+<details><summary>LOGGING</summary>
 
 ```bash
 journalctl -f -u rke2-server
 /var/lib/rancher/rke2/agent/containerd/containerd.log
 /var/lib/rancher/rke2/agent/logs/kubelet.log
 ```
+</details>
 
 ## DEPLOY HA-SERVER (UPSTREAM)
-
-### REQURIEMENTS
-
-#### INVENTORY
 
 <details><summary>INVENTORY FILE</summary>
 
@@ -312,8 +311,6 @@ ansible_user=<USERNAME>
 EOF
 ```
 </details>
-
-#### REQUIREMENTS
 
 <details><summary>INSTALL REQUIREMENTS</summary>
 
@@ -343,14 +340,14 @@ collections:
 - name: kubernetes.core
   version: 2.4.0
 EOF
-
-ansible-galaxy install -r requirements.yaml -vv
 ```
+
+`ansible-galaxy install -r requirements.yaml -vv`
 </details>
 
 ## DEPLOY RKE2 W/ PLAYBOOK
 
-<details><summary>Deploy RKE2 w/ playbook</summary>
+<details><summary>DEPLOY RKE2 /W PLAYBOOK</summary>
 
 ```bash
 cat << EOF > deployRKE2.yaml
@@ -376,10 +373,9 @@ cat << EOF > deployRKE2.yaml
   roles:
     - role: deploy-configure-rke
 EOF
-
-ansible-playbook -i inventory deployRKE2.yaml
 ```
 
+`ansible-playbook -i inventory deployRKE2.yaml`
 </details>
 
 ## INSTALL METALLB /W HELM
@@ -391,7 +387,6 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm upgrade --install metallb -n metallb-system --create-namespace bitnami/metallb
 ```
-
 </details>
 
 ### CREATE IPADDRESSPOOL
@@ -410,7 +405,6 @@ spec:
     - <ip-range-begin>-<ip-range-end>
 EOF
 ```
-
 </details>
 
 ### CREATE L2ADVERTISEMENT
@@ -444,11 +438,11 @@ helm upgrade --install ingress-nginx -n ingress-nginx --create-namespace ingress
 </details>
 
 ## CREATE DNS ENTRY FOR IP ADDRESS
-depending on the infrastructure, you need to create an A-record for the Ingress IP-Address
+
+> depending on the infrastructure, you need to create
+> an A-record for the Ingress IP-Address
 
 ## CREATE SELFSIGNED-CERTS
-
-## REQURIEMENTS
 
 <details><summary>INSTALL REQUIREMENTS</summary>
 
@@ -465,7 +459,7 @@ ansible-galaxy install -r requirements.yaml
 ```
 </details>
 
-### GENERATE SELFSIGNED-CERTS
+<details><summary>GENERATE SELFSIGNED-CERTS</summary>
 
 ```bash
 cat << EOF > selfsignedcerts.yaml
@@ -488,19 +482,23 @@ cat << EOF > selfsignedcerts.yaml
   roles:
     - generate-selfsigned-certs
 EOF
-
-ansible-playbooks -i inventory selfsignedcerts.yaml -vv
 ```
+
+`ansible-playbooks -i inventory selfsignedcerts.yaml -vv`
+</details>
 
 ### OFFICIAL DOCUMENTATION
 https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate
 
-### ADD NAMESPACE
+<details><summary>ADD NAMESPACE</summary>
+
 ```bash
 kubectl create namespace cattle-system
 ```
+</details>
 
-### DEPLOY CERTS IN CLUSTER
+<details><summary>DEPLOY CERTS IN CLUSTER</summary>
+
 ```bash
 kubectl -n cattle-system create secret tls tls-rancher-ingress \
   --cert=/tmp/certs/tls.crt \
@@ -510,18 +508,24 @@ kubectl -n cattle-system create secret tls tls-rancher-ingress \
 kubectl -n cattle-system create secret generic tls-ca \
   --from-file=/tmp/certs/cacerts.pem
 ```
+</details>
 
-### APPLY CRDS
+<details><summary>APPLY CRDS</summary>
+
 ```bash
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.crds.yaml
 ```
+</details>
 
-### ADD HELM REPOS FOR RANCHER INSTALLATION
+<details><summary>ADD HELM REPOS FOR RANCHER INSTALLATION</summary>
+
 ```bash
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
 ```
+</details>
 
-### CREATE VALUES FILE FOR RANCHER BOOTSTRAP INSTALLATION
+<details><summary>CREATE VALUES FILE FOR RANCHER BOOTSTRAP INSTALLATION</summary>
+
 ```bash
 cat << EOF > values.yaml
 global:
@@ -537,46 +541,60 @@ ingress:
   servicePort: 80
 EOF
 ```
+</details>
 
-## INSTALL RANCHER /W HELM
+<details><summary>INSTALL RANCHER /W HELM</summary>
+
 ```bash
 helm upgrade --install rancher rancher-stable/rancher --version v2.7.9 \
   --values values.yaml -n cattle-system
 ```
+</details>
 
 ## TEST LOGIN /W BOOTSTRAP PASSWORD FROM VALUES.YAML
-open Browser of choice and connect to rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN} > use bootstrap password from values.yaml for login
+
+> connect to rancher-things.${INGRESS_HOSTNAME}.${INGRESS_DOMAIN} in Browser and
+> use bootstrap password from values.yaml for login
 
 ## RANCHER CREATE NEW DOWNSTREAM CLUSTER
-### COPY/INSTALL CA-CERTS ON DOWNSTREAM CLUSTER
-copy tls.crt to /usr/local/share/ca-certificates on new Host
+
+<details><summary>COPY/INSTALL CA-CERTS ON DOWNSTREAM CLUSTER</summary>
+
+> copy tls.crt to /usr/local/share/ca-certificates on new Host
 
 ```bash
 update-ca-certificates
 ```
+</details>
 
-### CREATE NEW DOWNSTREAM CLUSTER /W RANCHER
-e.g. in Rancher Cluster Manager create a new cluster > copy Registration Command from web ui > execute on new Hosts cli
+<details><summary>CREATE NEW DOWNSTREAM CLUSTER /W RANCHER</summary>
+
+> e.g. in Rancher Cluster Manager create a new cluster > copy Registration Command from web ui > execute on new Hosts cli
+
+</details>
 
 ## ADD ADDITIONAL CLUSTER NODE (TO HA SERVER)
 
-### GET TOKEN + CONFIG FROM MASTER NODE
+<details><summary>GET TOKEN + CONFIG FROM MASTER NODE</summary>
 
 ```bash
 cat /var/lib/rancher/rke2/token
 cat /etc/rancher/rke2/config.yaml
 ```
+</details>
 
-### CREATE DIRECTORY ON ADDITIONAL NODE
+<details><summary>CREATE DIRECTORY ON ADDITIONAL NODE</summary>
 
 ```bash
 mkdir -p /etc/rancher/rke2
 ```
+</details>
 
-### CREATE CONFIG YAML FOR CLUSTER
+<details><summary>CREATE CONFIG YAML FOR CLUSTER</summary>
 
+```text
 Add token to (copied) config
-
+```
 ```bash
 cat << EOF > /etc/rancher/rke2/config.yaml
 ---
@@ -589,8 +607,9 @@ disable: # example
   - rke-snapshot-controller
 EOF
 ```
+</details>
 
-### SET ENV VARS
+<details><summary>SET ENV VARS</summary>
 
 ```bash
 export INSTALL_RKE2_VERSION=v1.28.2+rke2r1 #example - check version/github
@@ -600,18 +619,21 @@ export INSTALL_RKE2_METHOD=tar #example
 
 curl -sfL https://get.rke2.io | sh -
 ```
+</details>
 
-### ENABLE SERVICE
+<details><summary>ENABLE SERVICE</summary>
 
 ```bash
 systemctl enable --now rke2-server.service
 ```
+</details>
 
-### RANCHER ADD CERTS w/ PRIVATE CA
+<details><summary>RANCHER ADD CERTS w/ PRIVATE CA</summary>
 
 [rancher-certificate](https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/resources/update-rancher-certificate)
+</details>
 
-#### CREATE
+<details><summary>CREATE</summary>
 
 ```bash
 kubectl -n cattle-system create secret tls tls-rancher-ingress \
@@ -621,8 +643,9 @@ kubectl -n cattle-system create secret tls tls-rancher-ingress \
 kubectl -n cattle-system create secret generic tls-ca \
 --from-file=cacerts.pem
 ```
+</details>
 
-#### HELM VALUES
+<details><summary>HELM VALUES</summary>
 
 ```yaml
 #..
@@ -631,8 +654,9 @@ ingress:
     source: secret
 privateCA: true
 ```
+</details>
 
-#### UDPATE/UPGRADE CERTS
+<details><summary>UDPATE/UPGRADE CERTS</summary>
 
 ```bash
 kubectl -n cattle-system create secret generic tls-ca \
@@ -644,3 +668,4 @@ kubectl -n cattle-system create secret generic tls-ca \
 
 kubectl rollout restart deploy/rancher -n cattle-system
 ```
+</details>

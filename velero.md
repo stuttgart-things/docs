@@ -12,7 +12,7 @@ kubectl delete volumesnapshotlocation artifacts -n velero
 
 </details>
 
-<details><summary><b>VELERO DEPLOYMENT</b></summary>
+<details><summary><b>DEPLOYMENT</b></summary>
 
 ```bash
 helm repo add tanzu https://vmware-tanzu.github.io/helm-charts
@@ -75,15 +75,57 @@ helm upgrade --install velero tanzu/velero --version 5.4.1 --values velero.yaml 
 
 </details>
 
+<details><summary><b>SCHEDULES</b></summary>
+
+##### Create scheduled postgres backup /w velero every day at 4am retention for 72h
+
+`velero schedule create pgsched --schedule="0 4 * * *" --include-namespaces postgres --ttl 72h`
+
+```bash
+velero schedule get
+NAME      STATUS    CREATED                         SCHEDULE    BACKUP TTL   LAST BACKUP   SELECTOR   PAUSED
+pgsched   Enabled   2024-03-05 10:35:06 +0100 CET   0 4 * * *   72h0m0s      n/a           <none>     false
+```
+
+##### Create Ad Hoc backup from schedule
+
+```bash
+velero backup create --from-schedule pgsched
+```
+
+##### Check backups
+
+```bash
+velero backup get
+NAME                     STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION   SELECTOR
+pgsched-20240305093755   Completed   0        0          2024-03-05 10:37:55 +0100 CET   2d        default            <none>
+```
+
+##### finding, after test backups were created every 5min and thus the expired backups start to stack
+> **_From official documentation:_** https://velero.io/docs/v1.9/how-velero-works/  
+> The effects of expiration are not applied immediately, they are applied when the gc-controller runs its reconciliation loop every hour.
+
+</details>
 
 <details><summary><b>BACKUP/RESTORE: POSTGRESDB</b></summary>
 
 ### DEPLOY PostgresDB
 
+##### Add bitnami repo
+
 ```bash
 helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
+```
 
+##### Update
+
+```bash
+helm repo update
+```
+
+##### Add Values file
+
+```bash
 cat <<EOF > postgres-velero.yaml
 
 POSTGRES_PASSWORD=<SECRET>
@@ -107,22 +149,32 @@ primary:
     pre.hook.backup.velero.io/command: '["/bin/bash", "-c", "export PGPASSWORD=${POSTGRES_PASSWORD} \
         && sleep 1m && pg_dump -U postgres -d postgres -F c -f /scratch/backup.psql"]'
 EOF
+```
 
+##### Install postgres /w helm
+
+```bash
 helm upgrade --install postgresql bitnami/postgresql -n postgres --values postgres-velero.yaml --version 14.2.3
 ```
 
 ### CREATE TESTDATA ON PostgresDB
 
-```bash
-# GET THE POSTGRES PASSWORD ON YOUR LOCAL ENV
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+##### GET THE POSTGRES PASSWORD ON YOUR LOCAL ENV
 
-# RUN A POSTGRES CLIENT IN THE NAMESPACE
+```bash
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgres postgresql -o jsonpath="{.data.postgres-password}" | base64 -d)
+```
+
+##### RUN A POSTGRES CLIENT IN THE NAMESPACE
+
+```bash
 kubectl run postgresql-client --rm --tty -i --restart='Never' \
 --namespace postgres --image docker.io/bitnami/postgresql:16.2.0-debian-12-r5 \
 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command \
 -- psql --host postgresql postgres -d postgres -p 5432
+```
 
+```bash
 # CREATE A TABLE
 CREATE TABLE phonebook(phone VARCHAR(32), firstname VARCHAR(32), lastname VARCHAR(32), address VARCHAR(64));
 
