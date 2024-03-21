@@ -1,6 +1,88 @@
 # stuttgart-things/docs/crossplane
 
-##  TERMINOLOGY
+## FUNCTIONS
+
+<details><summary><b>REQUIREMENTS</b></summary>
+
+```bash
+curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh" | sh
+sudo mv crossplane /usr/local/bin
+# Docker also needs to be installed
+```
+
+</details>
+
+<details><summary><b>PATCH-AND-TRANSFORM</b></summary>
+
+```bash
+cat <<EOF > ./functions.yaml
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: function-patch-and-transform
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.1.4
+EOF
+```
+
+```bash
+cat <<EOF > ./composition.yaml
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: function-patch-and-transform
+spec:
+  compositeTypeRef:
+    apiVersion: example.crossplane.io/v1
+    kind: XR
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      - name: bucket
+        base:
+          apiVersion: s3.aws.upbound.io/v1beta1
+          kind: Bucket
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              DE: "frankfurt"
+EOF
+```
+
+```bash
+cat <<EOF > ./composition.yaml
+---
+apiVersion: example.crossplane.io/v1
+kind: XR
+metadata:
+  name: example-xr1
+spec:
+  location: US
+```
+
+```bash
+crossplane beta render xr.yaml composition.yaml function.yaml
+```
+
+
+
+</details>
+
+
+
+## TERMINOLOGY
 
 <details><summary><b>OVERVIEW</b></summary>
 
@@ -138,7 +220,7 @@ EOF
 <details><summary>PROVIDER CONFIG (KUBECONFIG)</summary>
 
 ```bash
-# CREATE KUBECONFIG SECRET FROM LOCAL FILE 
+# CREATE KUBECONFIG SECRET FROM LOCAL FILE
 kubectl -n crossplane-system create secret generic kubeconfig-dev43 --from-file=/home/sthings/.kube/pve-dev43
 ```
 
