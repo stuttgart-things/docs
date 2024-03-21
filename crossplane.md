@@ -68,7 +68,7 @@ apiVersion: example.crossplane.io/v1
 kind: XR
 metadata:
   name: example-xr1
-spec:
+specd :
   location: US
 ```
 
