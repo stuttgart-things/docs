@@ -2,24 +2,24 @@
 
 ## SNIPPETS
 
-<details><summary>BOOTRSTRAP</summary>
+<details><summary>BOOTSTRAP</summary>
 
 ```bash
-# BOOTRSTRAP GITHUB
+# BOOTSTRAP GITHUB
 export KUBECONFIG=<KUBECONFIG>
 export GITHUB_TOKEN=<TOKEN>
 flux bootstrap github --owner=stuttgart-things --repository=stuttgart-things --path=clusters/labda/vsphere/u23-test # EXAMPLE
 ```
 
 ```bash
-# BOOTRSTRAP GITLAB
+# BOOTSTRAP GITLAB
 export KUBECONFIG=<KUBECONFIG>
 export GITLAB_TOKEN=<TOKEN>
 flux bootstrap gitlab --token-auth --hostname=<GITHUB-SERVER> --owner=Lab/stuttgart-things --repository=stuttgart-things --branch=master --path=clusters/labul/vsphere/sthings2 # EXAMPLE
 ```
 
 ```bash
-# BOOTRSTAP WITHOUT GIT
+# BOOTSTRAP WITHOUT GIT
 flux install \
 --namespace=flux-system \
 --network-policy=false \
@@ -30,9 +30,9 @@ flux install \
 
 <details><summary>RECONCILE SOURCE</summary>
 
-```bash 
+```bash
 # RECONCILE DEFAULT GIT CLUSTER FOLDER (flux-system)
-flux reconcile source git flux-system 
+flux reconcile source git flux-system
 flux reconcile kustomization flux-system -n flux-system
 kubectl get kustomization -A
 ```
@@ -46,9 +46,6 @@ kubectl get kustomization -A
 kubectl get events -n flux-system --field-selector type=Warning # show flux warning events
 flux get all -A --status-selector ready=false # show all flux objects that are not ready
 ```
-
-
-
 
 ```bash
 kubectl get hr -A  # LIST ALL HRs
@@ -317,7 +314,7 @@ spec:
     - patch: |-
         - op: add
           path: /spec/values/persistence
-          value: 
+          value:
             existingClaim: minio-deployment
       target:
         kind: HelmRelease
