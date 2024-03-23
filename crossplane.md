@@ -1,5 +1,26 @@
 # stuttgart-things/docs/crossplane
 
+## KOMOPLANE
+
+<details><summary><b>DEPLOYMENT</b></summary>
+
+```bash
+helm repo add komodorio https://helm-charts.komodor.io && helm repo update
+helm upgrade --install komoplane komodorio/komoplane -n komoplane --create-namespace
+```
+
+</details>
+
+<details><summary><b>UI ACCESS</b></summary>
+
+```bash
+export POD_NAME=$(kubectl get pods --namespace komoplane -l "app.kubernetes.io/name=komoplane,app.kubernetes.io/instance=komoplane" -o jsonpath="{.items[0].metadata.name}")
+export CONTAINER_PORT=$(kubectl get pod --namespace komoplane $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+kubectl --namespace komoplane port-forward $POD_NAME 8090:$CONTAINER_PORT
+```
+
+</details>
+
 ## FUNCTIONS
 
 <details><summary><b>REQUIREMENTS</b></summary>
