@@ -2,6 +2,18 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>FIND, SEARCH AND REPLACE</b></summary>
+
+```bash
+# SEARCH FOR ALL FILES IN (SUB-)FOLDERS
+find sthings/deploy_rke/roles/install_cofigure_docker -type f
+
+# SEARCH AND REPLACE FOR ALL (FOUND) FILES IN (SUB-)FOLDERS
+sed -i 's/install-configure-docker/install_configure_docker/g' $(find sthings/deploy_rke/roles/install_cofigure_docker -type f)
+```
+
+</details>
+
 <details><summary><b>STATIC IP UBUNTU23</b></summary>
 
 ```bash
@@ -27,7 +39,6 @@ sudo netplan --debug apply
 ```
 
 </details>
-
 
 <details><summary><b>CUT FOLDERPATH W/ SED FROM URL</b></summary>
 

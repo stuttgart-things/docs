@@ -18,6 +18,9 @@ aws s3 ls s3://terraform-20240319071635887700000001
 
 # COPY FILE TO BUCKET
 aws s3 cp cic-k8s-role-service-account.yml s3://terraform-20240319071635887700000001/test.yml
+
+# LIST VPCS
+aws ec2 --query 'Vpcs[*].{name:Tags[?Key==`Name`].Value|[0], VpcId:VpcId, Cidr:CidrBlockAssociationSet[*].CidrBlock}' describe-vpcs
 ```
 
 </details>

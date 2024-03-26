@@ -1,5 +1,68 @@
 # stuttgart-things/docs/ansible
 
+## CREATE-COLLECTIONS
+
+<details><summary><b>CREATE, BUILD, INSTALL</b></summary>
+
+```bash
+# EXAMPLE COLLECTION CREATION
+ansible-galaxy collection init sthings.deploy_rke
+
+# BUILD COLLECTION
+ansible-galaxy collection build sthings/deploy_rke/ --force
+
+# INSTALL COLLECTION
+ansible-galaxy collection install sthings-deploy_rke-1.0.0.tar.gz --force
+```
+
+</details>
+
+<details><summary><b>COPY STANDALONE ROLE</b></summary>
+
+```bash
+# CREATE ROLE DIR INSIDE COLLECTION ROLES DIR
+mkdir -p sthings/deploy_rke/roles/install_cofigure_docker
+
+# COPY ROLE CONTENT TO COLLECTION ROLE
+cp -R install-configure-docker/* sthings/deploy_rke/roles/install_cofigure_docker
+
+# RENAME (OLD) ROLE NAME/REFERENCES
+sed -i 's/install-configure-docker/install_configure_docker/g' $(find sthings/deploy_rke/roles/install_cofigure_docker -type f)
+```
+
+</details>
+
+<details><summary><b>IMPORT PLAYBOOK FROM COLLECTION</b></summary>
+
+```bash
+# CREATE PLAYBOOK DIR INSIDE COLLECTION
+mkdir -p sthings/deploy_rke/playbooks
+
+# CREATE PLAYBOOK INSIDE COLLECTION
+cat <<EOF > sthings/deploy_rke/playbooks/install-docker.yaml
+---
+- hosts: "{{ hosts | default('all') }}"
+  tasks:
+    - include_role:
+        name: install_cofigure_docker
+EOF
+
+# BUILD +INSTALL ROLE
+ansible-galaxy collection build sthings/deploy_rke/ --force
+ansible-galaxy collection install sthings-deploy_rke-1.0.0.tar.gz --force
+
+# IMPORT PLAY FROM COLLECTION
+cat <<EOF > /tmp/import-install-docker.yaml
+---
+- import_playbook: sthings.deploy_rke.install-docker.yaml
+EOF
+
+# RUN PLAYBOOK
+ansible-playbook /tmp/import-install-docker.yaml -i inv -vv
+```
+
+</details>
+
 ## TASK-SNIPPETS
 
 <details><summary><b>LOOP OVER DICT</b></summary>
@@ -25,7 +88,6 @@
 ```
 
 </details>
-
 
 <details><summary><b>WAIT FOR CUSTOM K8S RESOURCE TO BE CREATED/READY</b></summary>
 
@@ -264,14 +326,14 @@ In order for the second playbook to connect to the host, the data obtained from 
 
 There are two methods for ansible to connect with the host:
 
- - User and Password
- - ssh-key
+- User and Password
+- ssh-key
 
- The example shows the use of user and password, however the clarification on how to connect with ssh-key will be done. To connect this way, you have to previously make sure that the ssh-key has already been added to the host. If necesary change */.ssh/config* to include the proper key path.
+The example shows the use of user and password, however the clarification on how to connect with ssh-key will be done. To connect this way, you have to previously make sure that the ssh-key has already been added to the host. If necesary change _/.ssh/config_ to include the proper key path.
 
 ### Before we Start
 
-  In order to prepare the system, the following environment variables have to be set in case that they have not ben set by then.
+In order to prepare the system, the following environment variables have to be set in case that they have not ben set by then.
 
   <details><summary><b>Environment Variables</b></summary>
 
@@ -288,6 +350,7 @@ export ANSIBLE_HASHI_VAULT_SECRET_ID=<secret-id>
 #### Inventory
 
 An inventory file should be created with the name of the desired host. Note: This file will change automatically throughout the process.
+
 <details><summary><b>inventory.ini</b></summary>
 
 ```bash
@@ -299,7 +362,7 @@ hostname
 
 #### Playbook1
 
-The following playbook uses the enviornment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as *~/.ssh/vault_key*. Finally the inventory is refreshed with the new user data included.
+The following playbook uses the enviornment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as _~/.ssh/vault_key_. Finally the inventory is refreshed with the new user data included.
 
 <details><summary><b>Playbook1.yaml: </b></summary>
 
@@ -347,7 +410,7 @@ The following playbook uses the enviornment variables to connect into vault and 
 
 </details>
 
- **For ssh connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_pasword.
+**For ssh connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_pasword.
 
 After the first playbook is run, the inventory will look as follows:
 
