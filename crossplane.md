@@ -97,27 +97,23 @@ specd :
 crossplane beta render xr.yaml composition.yaml function.yaml
 ```
 
-
-
 </details>
-
-
 
 ## TERMINOLOGY
 
 <details><summary><b>OVERVIEW</b></summary>
 
-| KIND  | DESCRIPTION                                                          |
-|----------|----------------------------------------------------------------------|
-| Provider       | enable Crossplane to provision infrastructure on an external service |
-| ProviderConfig | each Provider package has its own configuration type |
-| Composition | Terraform fanboys might think of a Composition as a Terraform module - the HCL code that describes how to take input variables and use them to create resources in some cloud - Helm fanboys might think of a Composition as a Helm chart's templates; the moustache templated YAML files that describe how to take Helm chart values and render Kubernetes resources |
-| CompositeResourceDefinition | There isn't a direct analog to XRDs in the Helm ecosystem, but they're a little bit like the variable blocks in a Terraform module that define which variables exist, whether those variables are strings or integers, whether they're required or optional, etc. |
-| Composite Resource Claim  | Claims map to the same concepts as described above under the composite resource heading; i.e. tfvars files and Helm values.yaml files. Imagine that some tfvars files and some values.yaml files were only accessible to the platform team while others were offered to application teams; that's the difference between a composite resource and a claim. |
+| KIND                        | DESCRIPTION                                                                                                                                                                                                                                                                                                                                                           |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Provider                    | enable Crossplane to provision infrastructure on an external service                                                                                                                                                                                                                                                                                                  |
+| ProviderConfig              | each Provider package has its own configuration type                                                                                                                                                                                                                                                                                                                  |
+| Composition                 | Terraform fanboys might think of a Composition as a Terraform module - the HCL code that describes how to take input variables and use them to create resources in some cloud - Helm fanboys might think of a Composition as a Helm chart's templates; the moustache templated YAML files that describe how to take Helm chart values and render Kubernetes resources |
+| CompositeResourceDefinition | There isn't a direct analog to XRDs in the Helm ecosystem, but they're a little bit like the variable blocks in a Terraform module that define which variables exist, whether those variables are strings or integers, whether they're required or optional, etc.                                                                                                     |
+| Composite Resource Claim    | Claims map to the same concepts as described above under the composite resource heading; i.e. tfvars files and Helm values.yaml files. Imagine that some tfvars files and some values.yaml files were only accessible to the platform team while others were offered to application teams; that's the difference between a composite resource and a claim.            |
 
 </details>
 
-##  DEPLOYMENT
+## DEPLOYMENT
 
 <details><summary><b>CLI INSTALLATION</b></summary>
 
@@ -219,7 +215,6 @@ https://vrelevant.net/crossplane-composition-patches-fromcompositefieldpath/
 ```
 
 </details>
-
 
 ## KUBERNETES PROVIDER
 
@@ -394,6 +389,7 @@ spec:
               - "additional_master_nodes+[\"\"]"
 EOF
 ```
+
 </details>
 
 <details><summary>CRD-EXAMPLES</summary>
@@ -455,20 +451,19 @@ properties:
 
 ```yaml
 # STRING ARRAY
-      playbooks:
-        type: array
-        description: Ansible playbooks
-        items:
-          type: string
-        default:
-          - "ansible/playbooks/prepare-env.yaml"
-          - "ansible/playbooks/base-os.yaml"
+playbooks:
+  type: array
+  description: Ansible playbooks
+  items:
+    type: string
+  default:
+    - "ansible/playbooks/prepare-env.yaml"
+    - "ansible/playbooks/base-os.yaml"
 ```
 
 </details>
 
 </details>
-
 
 <details><summary>COMPOSITION EXAMPLES</summary>
 
@@ -568,8 +563,8 @@ spec:
                       # - "pause_time+-10"
                   - name: ansibleVarsInventory
                     value:
-                      - "initial_master_node+[\"sandiego.labul.sva.de\"]"
-                      - "additional_master_nodes+[\"\"]"
+                      - 'initial_master_node+["sandiego.labul.sva.de"]'
+                      - 'additional_master_nodes+[""]'
       patches:
         - type: FromCompositeFieldPath
           fromFieldPath: spec.pipelineRunName
@@ -631,7 +626,25 @@ EOF
 
 </details>
 
-<details><summary><b>DEPLOY HELM RELEASE</b></summary>
+<details><summary><b>DEPLOY OCI HELM RELEASE W/ REGISTRY SECRET</b></summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ghcr
+  namespace: crossplane-system
+type: Opaque
+stringData:
+  username: <USERNAME>
+  password: <PASSWORD>
+EOF
+```
+
+</details>
+
+<details><summary><b>DEPLOY HELM RELEASE FROM HELM REPO</b></summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -645,7 +658,6 @@ spec:
       name: goldilocks
       repository: https://charts.fairwinds.com/stable
       version: 8.0.0
-#     url: "https://charts.bitnami.com/bitnami/wordpress-9.3.19.tgz"
     namespace: goldilocks
     insecureSkipTLSVerify: true
     skipCreateNamespace: false
@@ -661,6 +673,77 @@ EOF
 
 </details>
 
+<details><summary><b>DEPLOY OCI HELM RELEASE W/ REGISTRY SECRET</b></summary>
+
+```bash
+kubectl apply -f - <<EOF
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: ghr-deploy-configure-rke-cicd
+  namespace: crossplane-system
+spec:
+  forProvider:
+    chart:
+      name: gha-runner-scale-set
+      repository: oci://ghcr.io/actions/actions-runner-controller-charts
+      version: 0.8.0
+      pullSecretRef:
+        name: ghcr
+        namespace: crossplane-system
+    namespace: arc-systems
+    insecureSkipTLSVerify: false
+    skipCreateNamespace: false
+    wait: true
+    skipCRDs: true
+    set:
+      - name: githubConfigSecret.github_token
+        valueFrom:
+          secretKeyRef:
+            key: GITHUB_TOKEN
+            name: github-flux-secrets
+            namespace: flux-system
+    values:
+      githubConfigUrl: https://github.com/stuttgart-things/deploy-configure-rke
+      containerMode:
+        type: kubernetes
+        kubernetesModeWorkVolumeClaim:
+          accessModes: ["ReadWriteOnce"]
+          storageClassName: openebs-hostpath
+          resources:
+            requests:
+              storage: 50Mi
+      template:
+        spec:
+          containers:
+          - name: runner
+            image: ghcr.io/actions/actions-runner:2.314.1
+            command: ["/home/runner/run.sh"]
+            env:
+              - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+                value: "false"
+              - name: ACTIONS_RUNNER_POD_NAME
+                valueFrom:
+                  fieldRef:
+                    fieldPath: metadata.name
+          initContainers:
+            - name: kube-init
+              image: ghcr.io/actions/actions-runner:2.314.1
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  whoami
+              volumeMounts:
+                - name: work
+                  mountPath: /home/runner/_work
+  providerConfigRef:
+    name: cicd
+EOF
+```
+
+</details>
+
 <details><summary><b>VERIFY RELEASE</b></summary>
 
 ```bash
@@ -668,7 +751,6 @@ kubectl get Release
 ```
 
 </details>
-
 
 ## TERRAFORM PROVIDER
 
@@ -706,6 +788,7 @@ spec:
     }
 EOF
 ```
+
 </details>
 
 <details><summary><b>PROVIDER CONFIG (S3 MINIO STATE)</b></summary>
@@ -747,9 +830,8 @@ spec:
     }
 EOF
 ```
+
 </details>
-
-
 
 <details><summary><b>INLINE WORKSPACE EXAMPLE</b></summary>
 
@@ -998,8 +1080,6 @@ spec:
 ```
 
 </details>
-
-
 
 <details><summary><b>APPLY/STATUS/DESTORY</b></summary>
 
@@ -1402,7 +1482,6 @@ EOF
 ```
 
 </details>
-
 
 <details><summary><b>CREATE SAMPLE COMPOSITION</b></summary>
 

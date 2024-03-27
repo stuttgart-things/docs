@@ -108,6 +108,9 @@ call:
 ```
 
 ```python3
+with open(args.values, 'r') as f:
+    values = yaml.load(f, Loader=yaml.SafeLoader)
+
 renderedTemplate = render_template(values.get('call'))
 ```
 
