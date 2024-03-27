@@ -313,7 +313,26 @@ skip_list:
 ansible-lint
 ```
 
- </details>
+</details>
+
+## SNIPPETS
+
+<details><summary><b>INSTALL ROLES FROM REQUIREMENTS FILE</b></summary>
+
+```yaml
+# roles.yaml
+---
+roles:
+  - src: https://github.com/stuttgart-things/deploy-configure-rke.git
+    scm: git
+    version: main
+```
+
+```bash
+ansible-galaxy install -r ./roles.yaml -p ./roles
+```
+
+</details>
 
 ## VAULT LOOKUPS/REFRESH INVENTORY
 
