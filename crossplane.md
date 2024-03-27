@@ -626,24 +626,6 @@ EOF
 
 </details>
 
-<details><summary><b>DEPLOY OCI HELM RELEASE W/ REGISTRY SECRET</b></summary>
-
-```bash
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: ghcr
-  namespace: crossplane-system
-type: Opaque
-stringData:
-  username: <USERNAME>
-  password: <PASSWORD>
-EOF
-```
-
-</details>
-
 <details><summary><b>DEPLOY HELM RELEASE FROM HELM REPO</b></summary>
 
 ```bash
@@ -668,6 +650,24 @@ spec:
         type: ClusterIP
   providerConfigRef:
     name: helm-provider-incluster
+EOF
+```
+
+</details>
+
+<details><summary><b>CREATE OCI REGISTRY SECRET</b></summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ghcr
+  namespace: crossplane-system
+type: Opaque
+stringData:
+  username: <USERNAME>
+  password: <PASSWORD>
 EOF
 ```
 
