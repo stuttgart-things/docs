@@ -88,6 +88,31 @@ for key in values:
 
 </details>
 
+<details><summary>SET/OVERWRITE YAML VALUE</summary>
+
+```python3
+values['call']['source'] = "local"
+```
+
+</details>
+
+<details><summary>GET YAML (SUB-)KEY</summary>
+
+```yaml
+# values.yaml
+---
+name: hello
+call:
+  source: '"github.com/stuttgart-things/aws-ec2-vm"'
+  region:
+```
+
+```python3
+renderedTemplate = render_template(values.get('call'))
+```
+
+</details>
+
 <details><summary>CONCATENATE STRING AND INT</summary>
 
 ```python3
@@ -137,7 +162,6 @@ if __name__ == '__main__':
 ```
 
 </details>
-
 
 <details><summary>FILE TEMPLATE RENDERING</summary>
 
