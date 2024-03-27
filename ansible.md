@@ -39,7 +39,7 @@ sed -i 's/install-configure-docker/install_configure_docker/g' $(find sthings/de
 mkdir -p sthings/deploy_rke/playbooks
 
 # CREATE PLAYBOOK INSIDE COLLECTION
-cat <<EOF > sthings/deploy_rke/playbooks/install-docker.yaml
+cat <<EOF > sthings/deploy_rke/playbooks/install_docker.yml
 ---
 - hosts: "{{ hosts | default('all') }}"
   tasks:
@@ -54,11 +54,11 @@ ansible-galaxy collection install sthings-deploy_rke-1.0.0.tar.gz --force
 # IMPORT PLAY FROM COLLECTION
 cat <<EOF > /tmp/import-install-docker.yaml
 ---
-- import_playbook: sthings.deploy_rke.install-docker.yaml
+- import_playbook: sthings.deploy_rke.install_docker
 EOF
 
-# RUN PLAYBOOK
-ansible-playbook /tmp/import-install-docker.yaml -i inv -vv
+# RUN PLAY FROM COLLECTION
+ansible-playbook sthings.deploy_rke.install_docker -i inv -vv
 ```
 
 </details>
