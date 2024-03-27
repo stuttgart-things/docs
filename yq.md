@@ -21,3 +21,20 @@ yq -r ".requirements" ./collection.yaml # = roles ..
 ```
 
 </details>
+
+<details><summary><b>UPDATE/SET YAML KEYS</b></summary>
+
+```bash
+cat <<EOF > ./Chart.yaml
+---
+version: 1.2.3
+EOF
+
+# UPDATE KEY
+yq e -i '.version = "1.2.4"' Chart.yaml
+
+# SET KEY
+yq e -i '.name = "serviceA"' Chart.yaml
+```
+
+</details>
