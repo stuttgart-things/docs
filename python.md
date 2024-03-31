@@ -2,6 +2,55 @@
 
 ## SNIPPETS
 
+<details><summary>CLI-ARGS TO DICT</summary>
+
+```python3
+#!/usr/bin/env python3
+
+import argparse
+
+# PARSE ARGS
+parser = argparse.ArgumentParser()
+parser.add_argument('-v', '--overwrites', default='')
+args = parser.parse_args()
+
+# SPLIT ARGS BY DELIMITER
+overwrites = args.overwrites.split(";")
+
+all_overwrites = {}
+
+# LOOP OVER ARGS
+for x in overwrites:
+  split = x.split("=")
+  all_overwrites[split[0]]=split[1]
+```
+
+</details>
+
+<details><summary>MERGE DICTS</summary>
+
+```python3
+def merge_two_dicts(x, y):
+    z = x.copy()   # start with keys and values of x
+    z.update(y)    # modifies z with keys and values of y
+    return z
+
+defaults = {
+    'cpu': "4",
+    'memory': "8192",
+}
+
+overwrites = {
+    'cpu': "8",
+    'memory': "4096",
+}
+
+updated = merge_two_dicts(defaults, overwrites)
+print(updated) # {'cpu': '8', 'memory': '4096'}
+```
+
+</details>
+
 <details><summary>ARGS W/ DEFAULT</summary>
 
 ```python3
