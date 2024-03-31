@@ -168,6 +168,20 @@ gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --d
 
 ### SNIPPETS
 
+<details><summary>UPLOAD ARTIFACTS</summary>
+
+```yaml
+- name: Upload collection
+  id: upload
+  uses: actions/upload-artifact@v4.1.0
+  with:
+    name: ${{ env.COLLECTION_PACKAGE }}
+    #path: ${{ github.workspace }}/*tar.gz*
+    path: ${{ env.COLLECTION_PACKAGE_PATH }}
+```
+
+</details>
+
 <details><summary>SET ENV OUTPUTS</summary>
 
 ```yaml
