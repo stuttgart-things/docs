@@ -206,6 +206,28 @@ spec:
 
 ## GENERAL
 
+<details><summary>COMPOSITION PATCHES</summary>
+
+```yaml
+# FROMCOMPOSITEFIELDPATH
+- type: FromCompositeFieldPath
+  fromFieldPath: spec.tfvars.secretNamespace
+  toFieldPath: spec.forProvider.varFiles[0].secretKeyRef.namespace
+```
+
+```yaml
+# COMBINEFROMCOMPOSITE
+- type: CombineFromComposite
+  combine:
+    variables:
+      - fromFieldPath: spec.group
+      - fromFieldPath: spec.repository
+    strategy: string
+    string:
+      fmt: "https://github.com/%s/%s"
+  toFieldPath: spec.forProvider.values.githubConfigUrl
+```
+
 <details><summary>PATCHES</summary>
 
 ```bash
