@@ -164,10 +164,28 @@ gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --d
 
 </details>
 
-
 ## GITHUB ACTIONS
 
 ### SNIPPETS
+
+<details><summary>SET ENV OUTPUTS</summary>
+
+```yaml
+# STEP1
+# SET WORKING DIRS AS ENV-VARS
+echo "COLLECTION_FILEPATH=source/${{ inputs.collection-file }}" >> $GITHUB_ENV
+echo "COLLECTION_ROLES_DIR=$GITHUB_WORKSPACE/$(yq -r ".namespace" source/${{ inputs.collection-file }})/$(yq -r ".name" source/${{ inputs.collection-file }})/roles" >> $GITHUB_ENV
+```
+
+```yaml
+# STEP2
+# USE ENV VARS
+count_plays=$(yq '.playbooks | keys' ${{ env.COLLECTION_FILEPATH }} | wc -l)
+# ..
+yq ".playbooks[$COUNTER].name" ${{ env.COLLECTION_FILEPATH }}
+```
+
+</details>
 
 <details><summary>K8S WORKFLOW-EXAMPLE</summary>
 
@@ -178,7 +196,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   Terraform-Validate:
@@ -217,7 +235,7 @@ jobs:
   release-terraform:
     if: github.event.ref == 'refs/heads/main'
     name: Valdiate
-    uses: stuttgart-things/stuttgart-things/.github/workflows/release-terraform.yaml@main  
+    uses: stuttgart-things/stuttgart-things/.github/workflows/release-terraform.yaml@main
     with:
       module-name: vsphere-vm
       tag-name: "${{ github.event.inputs.release-tag }}"
@@ -230,7 +248,7 @@ jobs:
 </details>
 
 <details><summary>DISPATCH WORKFLOW W/ INPUT, IF AND NEEDS</summary>
-  
+
 ```
 ---
 name: Release-Golang
@@ -269,6 +287,7 @@ jobs:
       golang-version: "1.21.5"
     secrets: inherit
 ```
+
 </details>
 
 <details><summary>WORKFLOW REPOSITORY (STORES THE WORKFLOW)</summary>
@@ -335,9 +354,9 @@ jobs:
 name: Terraform
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -372,8 +391,8 @@ jobs:
   greet:
     runs-on: ubuntu-latest
     steps:
-    - name: Send greeting
-      run: echo ${{ github.event.inputs.name }}"
+      - name: Send greeting
+        run: echo ${{ github.event.inputs.name }}"
 ```
 
 </details>
@@ -382,16 +401,16 @@ jobs:
 
 ```yaml
 # FOR EXAMPLE WHEN USING WORFLOW DISPATCH AND GIT TRIGGERS TO SET A DEFAULT VALUE
-  - name: Set default value
-    id: defaultname
-    run: |
-      USER_INPUT=${{ github.event.inputs.name }}
-      echo "value=${USER_INPUT:-"Octocat"}" >> "$GITHUB_OUTPUT"
+- name: Set default value
+  id: defaultname
+  run: |
+    USER_INPUT=${{ github.event.inputs.name }}
+    echo "value=${USER_INPUT:-"Octocat"}" >> "$GITHUB_OUTPUT"
 
-  - name: Do something with it
-    run: |
-      name="${{ steps.defaultname.outputs.value }}"
-      echo "Name: $name"
+- name: Do something with it
+  run: |
+    name="${{ steps.defaultname.outputs.value }}"
+    echo "Name: $name"
 ```
 
 </details>
@@ -430,7 +449,6 @@ jobs:
 
 </details>
 
-
 <details><summary>DECLARE GLOBAL VARIABLES</summary>
 
 ```yaml
@@ -439,17 +457,17 @@ env:
   TEMPLATE_DIR: machineShop/templates
   DESTINATION_DIR: clusters
 jobs:
-#..
-    steps:
+  #..
+  steps:
     #..
-      - run: |
-          machineShop render \
-          --source local \
-          --template ${TEMPLATE_DIR}/packer-${{ inputs.os-version }}-${{ inputs.cloud }}.yaml \
-          --values "provisioning=${{ inputs.ansible-provisioning }}, date=$(date '+%Y-%m-%d-%H-%M-%S'), dateShort=$(date '+%Y-%m-%d'), env=${{ inputs.env }}" \
-          --output file \
-          --destination ${DESTINATION_DIR}/${{ inputs.env }}/${{ inputs.cloud }}/bootstrap/packer-${{ inputs.os-version }}-${{ inputs.ansible-provisioning }}.yaml
-          #..
+    - run: |
+        machineShop render \
+        --source local \
+        --template ${TEMPLATE_DIR}/packer-${{ inputs.os-version }}-${{ inputs.cloud }}.yaml \
+        --values "provisioning=${{ inputs.ansible-provisioning }}, date=$(date '+%Y-%m-%d-%H-%M-%S'), dateShort=$(date '+%Y-%m-%d'), env=${{ inputs.env }}" \
+        --output file \
+        --destination ${DESTINATION_DIR}/${{ inputs.env }}/${{ inputs.cloud }}/bootstrap/packer-${{ inputs.os-version }}-${{ inputs.ansible-provisioning }}.yaml
+        #..
 ```
 
 </details>

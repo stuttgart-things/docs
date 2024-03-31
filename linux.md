@@ -2,6 +2,24 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>SEARCH AND REPLACE IN LOOP</b></summary>
+
+```bash
+# GET ALL FILES
+all_files=$(find test/install-configure-docker -type f)
+
+# ECHO ALL FILES
+echo $all_files
+
+# SET NAMES
+old=install-configure-docker
+new=install_configure_docker
+
+sed -i "s/${old}/${new}/g" $all_files
+```
+
+</details>
+
 <details><summary><b>FIND, SEARCH AND REPLACE</b></summary>
 
 ```bash
