@@ -2,6 +2,18 @@
 
 ## GENERAL
 
+<details><summary><b>INSTALL TERRAFORM CLI (AS BINARY)</b></summary>
+
+```bash
+TERRAFORM_VERSION=1.7.5
+wget -O terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+sudo unzip terraform.zip -d /usr/bin/
+rm terraform.zip
+terraform --version
+```
+
+</details>
+
 <details><summary><b>YAML INLINE OBJECT LIST TEMPLATING TO FILE</b></summary>
 
 ```hcl
@@ -54,7 +66,6 @@ users = [
 ```
 
 </details>
-
 
 
 <details><summary><b>INIT|APPLY|DESTROY</b></summary>
