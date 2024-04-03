@@ -2,6 +2,17 @@
 
 ## SNIPPETS
 
+<details><summary>GITOPS: CREATORID ANNOTATION DOES NOT MATCH USER</summary>
+
+```bash
+kubectl delete mutatingwebhookconfigurations rancher.cattle.io 
+kubectl delete validatingwebhookconfigurations rancher.cattle.io
+kubectl -n cattle-system delete service webhook-service
+```
+
+</details>
+
+
 <details><summary>LONGHORN S3 BACKUPS MINIO</summary>
 
 ```yaml
