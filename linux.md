@@ -2,6 +2,37 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>SEARCH FOR PATTERN IN SUBFOLDERS</b></summary>
+
+```bash
+grep -A2 -B2 -Hrn 'ansible.builtin.include_role' /home/sthings/projects/ansible/test/collections/ansible_collections/sthings/deploy_rke/roles
+```
+
+</details>
+
+<details><summary><b>CHECK FOR VALUES IN ARRAAY / EXCLUDE FROM ARRAY</b></summary>
+
+```bash
+#! /bin/bash
+
+DIR="/home/sthings/projects/ansible/test/roles"
+DIRS=$(ls ${DIR})
+
+EXCLUDE_ROLE="configure_rke_node"
+ALL_ROLES=$(echo ${DIRS[@]/$EXCLUDE_ROLE})
+
+CHECK_FOR="download_install_binary"
+
+if [[ ${DIRS[@]/$ALL_ROLES} =~ $CHECK_FOR ]]
+then
+  echo "ROLE FOUND"
+else
+  echo "ROLE NOT FOUND"
+fi
+```
+
+</details>
+
 <details><summary><b>SEARCH AND REPLACE IN LOOP</b></summary>
 
 ```bash
