@@ -5,12 +5,13 @@
 <details><summary><b>SEARCH FOR PATTERN IN SUBFOLDERS</b></summary>
 
 ```bash
-grep -A2 -B2 -Hrn 'ansible.builtin.include_role' /home/sthings/projects/ansible/test/collections/ansible_collections/sthings/deploy_rke/roles
+SEARCH_PATH="/home/sthings/projects/ansible/test/collections/ansible_collections/sthings/deploy_rke/roles"
+grep -A2 -B2 -Hrn 'ansible.builtin.include_role' ${SEARCH_PATH}
 ```
 
 </details>
 
-<details><summary><b>CHECK FOR VALUES IN ARRAAY / EXCLUDE FROM ARRAY</b></summary>
+<details><summary><b>CHECK FOR VALUES IN ARRAY / EXCLUDE FROM ARRAY</b></summary>
 
 ```bash
 #! /bin/bash
