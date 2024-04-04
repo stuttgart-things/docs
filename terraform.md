@@ -549,6 +549,22 @@ output "kubeconfig-host" {
 
 </details>
 
+<details><summary><b>TERRAFORM HELLO WORLD</b></summary>
+
+```bash
+cat <<EOT >> hello.tf
+resource "null_resource" "default" {
+  provisioner "local-exec" {
+    command = "echo 'Hello World'"
+  }
+}
+EOT
+```
+
+```bash
+terraform init && terraform apply
+```
+</details>
 
 ## AWS
 
@@ -1313,21 +1329,3 @@ resource "kubectl_manifest" "cert_manifest" {
 }
 ```
 </details>
-
-<details><summary><b>TERRAFORM HELLO WORLD</b></summary>
-
-```bash
-cat <<EOT >> hello.tf
-resource "null_resource" "default" {
-  provisioner "local-exec" {
-    command = "echo 'Hello World'"
-  }
-}
-EOT
-```
-
-```bash
-terraform init && terraform apply
-```
-</details>
-
