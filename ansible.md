@@ -51,6 +51,9 @@ EOF
 ansible-galaxy collection build sthings/deploy_rke/ --force
 ansible-galaxy collection install sthings-deploy_rke-1.0.0.tar.gz --force
 
+# SET COLLECTIONS PATH AS ENV VAR
+export ANSIBLE_COLLECTIONS_PATH=/home/sthings/projects/ansible/test/collections/
+
 # IMPORT PLAY FROM COLLECTION
 cat <<EOF > /tmp/import-install-docker.yaml
 ---
