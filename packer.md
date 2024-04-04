@@ -11,6 +11,17 @@ packer build -force -var "username=<USERNAME>" -var "password=<PASSWORD>" ubuntu
 
 </details>
 
+<details><summary><b>PACKER BUILD WITH LOGS</b></summary>
+
+```bash
+export PACKER_LOG_PATH="packerlog.txt"
+export PACKER_LOG=1
+touch meta-data
+packer build -force -var "username=<USERNAME>" -var "password=<PASSWORD>" ubuntu23.pkr.hcl
+```
+
+</details>
+
 ## SNIPPETS VSPHERE
 
 <details><summary><b>GOVC</b></summary>
