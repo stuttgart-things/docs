@@ -552,7 +552,11 @@ output "kubeconfig-host" {
 <details><summary><b>TERRAFORM HELLO WORLD</b></summary>
 
 ```bash
-cat <<EOT >> hello.tf
+mkdir helloworld
+```
+
+```bash
+cat <<EOT >> helloworld/hello.tf
 resource "null_resource" "default" {
   provisioner "local-exec" {
     command = "echo 'Hello World'"
@@ -562,7 +566,8 @@ EOT
 ```
 
 ```bash
-terraform init && terraform apply
+terraform -chdir=helloworld init
+terraform -chdir=helloworld apply
 ```
 </details>
 
