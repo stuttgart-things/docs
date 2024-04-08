@@ -163,6 +163,104 @@ jobs:
 
 </details>
 
+<details><summary>USE OUTPUTS FROM JOBS IN REUSABLE WORKFLOWS</summary>
+
+# REUSABLE WORFLOW (EF WHICH WILL BE CALLED)
+
+```yaml
+---
+name: Build ansible collection
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: true
+        type: string
+    outputs:
+      collection-version:
+        description: version of ansible collection
+        value: ${{ jobs.Ansible-Collection-Build.outputs.version }}
+      artifact-name:
+        description: name of uploaded ansible collection package
+        value: ${{ jobs.Ansible-Collection-Build.outputs.artifact }}
+
+jobs:
+  Ansible-Collection-Build:
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      artifact: ${{ steps.build.outputs.artifact }}
+    runs-on: ${{ inputs.runs-on }}
+    container:
+      image: ${{ inputs.ansible-image }}
+    environment: ${{ inputs.environment-name }}
+    continue-on-error: ${{ inputs.continue-error }}
+    steps:
+      - name: Checkout code
+        id: git
+        uses: actions/checkout@v4.1.1
+        with:
+          path: source
+          fetch-depth: "0"
+
+      - id: version
+        run: echo "version=$(yq -r '.version' source/${{ inputs.collection-file }})" >> "$GITHUB_OUTPUT"
+        shell: bash
+```
+
+# WORFLOW (WF WHICH CALLS THE REUSABLE WORKFLOW)
+
+```yaml
+---
+name: Build Collection
+on:
+  workflow_dispatch:
+    inputs:
+      runs-on:
+        type: string
+        required: false
+        default: ghr-deploy-configure-rke-cicd
+      environment-name:
+        type: string
+        required: true
+        default: k8s
+
+jobs:
+  Build-Collection:
+    name: Build Ansible Collection
+    uses: stuttgart-things/stuttgart-things/.github/workflows/ansible-collection.yaml@main
+    with:
+      runs-on: ${{ inputs.runs-on }}
+      environment-name: ${{ inputs.environment-name }}
+      continue-error: false
+
+  Release-Collection:
+    name: Release-Collection
+    needs: Build-Collection
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ${{ inputs.runs-on }}
+    environment: ${{ inputs.environment-name }}
+    container:
+      image: eu.gcr.io/stuttgart-things/machineshop:v1.7.2
+    steps:
+      - name: Download artifact
+        id: download
+        uses: actions/download-artifact@v4.1.4
+        with:
+          name: ${{ inputs.vm-name }}
+
+      - name: Release module
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          name: ${{ needs.Build-Collection.outputs.artifact-name }}
+          artifacts: ${{ needs.Build-Collection.outputs.artifact-name }}
+          body: "ansible-collection"
+          tag: ${{ needs.Build-Collection.outputs.collection-version }}
+```
+
+</details>
+
 <details><summary>UPLOAD ARTIFACTS</summary>
 
 ```yaml
