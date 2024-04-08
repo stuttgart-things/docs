@@ -72,22 +72,20 @@ uniq -c
 
 </details>
 
-
 <details><summary>NFS STORAGE CLASS / REMOUNT PVC</summary>
-
 
 After pod was deleted, nfs based pvc cannot be mounted to the pod "applyFSGroup failed for vol".
 
-Workaround: Not having fsGroup field in pod will also skip call to  SetVolumeOwnership function.
+Workaround: Not having fsGroup field in pod will also skip call to SetVolumeOwnership function.
 
 remove:
 
 ```yaml
 #...
-  securityContext:
-    runAsUser: 1000
-    runAsGroup: 3000
-    fsGroup: 2000 # remove this field!
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000 # remove this field!
 #...
 ```
 
@@ -216,35 +214,6 @@ buildah --storage-driver=overlay bud --format=oci \
 
 </details>
 
-<details><summary>USE SKOPEO</summary>
-
-## INSTALL
-
-```bash
-SKOPEO_VERSION=1.12.0
-wget https://github.com/lework/skopeo-binary/releases/download/v${SKOPEO_VERSION}/skopeo-linux-amd64
-sudo chmod +x skopeo-linux-amd64
-sudo mv skopeo-linux-amd64 /usr/bin/skopeo && skopeo --version
-```
-
-## COPY IMAGE BETWEEN REGISTRIES (TAG)
-
-```bash
-skopeo copy --insecure-policy docker://nginx:1.21
-docker://whatever.cloud/gtc1fe/web:1.21
-```
-
-## COPY IMAGE BETWEEN REGISTRIES (DIGEST)
-
-* Copy images between registries
-
-```bash
-skopeo copy --all --insecure-policy
-docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a \ docker://whatever.cloud/gtc1fe/web@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a
-```
-
-</details>
-
 <details><summary>OVERWRITE ENTRYPOINT OF IMAGE W/ NERDCTL</summary>
 
 ```bash
@@ -264,24 +233,6 @@ sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }
 
 # CLEAN IMAGES BY NAME + TAG
 sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
-```
-
-</details>
-
-<details><summary>CONTAINERD CTR</summary>
-
-```bash
-# PULL IMAGE W/ CRT
-sudo ctr images pull docker.io/library/redis:alpine
-# OR FOR RKE2 BUNDLED CONTAINERD: SUDO /VAR/LIB/RANCHER/RKE2/BIN/CTR IMAGES PULL DOCKER.IO/LIBRARY/REDIS:ALPINE
-
-# LIST IMAGES
-ctr --namespace k8s.io images ls -q
-# OR FOR RKE2 BUNDLED CONTAINERD: SUDO /VAR/LIB/RANCHER/RKE2/BIN/CTR --ADDRESS /RUN/K3S/CONTAINERD/CONTAINERD.SOCK --NAMESPACE K8S.IO CONTAINER LS
-
-# LOAD/IMPORT CONATINER IMAGE
-ctr -n=k8s.io images import <IMAGE_NAME>
-ctr image export <output-filename> <image-name>
 ```
 
 </details>
@@ -344,7 +295,6 @@ sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
 
 </details>
 
-
 ## MICROSERVICES
 
 <details><summary>DEPLOY SFTP/HTTPS CADDY-WEBSERVER</summary>
@@ -372,42 +322,42 @@ spec:
       securityContext:
         fsGroup: 911 # ssh server user
       containers:
-      - name: caddy
-        image: caddy:2.6.4
-        ports:
-        - containerPort: 80
-        volumeMounts:
-        - name: file-server
-          mountPath: /var/www/html/
-          subPath: public
-        - name: caddyfile
-          mountPath: /etc/caddy/Caddyfile
-          subPath: Caddyfile
-      - name: openssh-server
-        image: linuxserver/openssh-server:version-9.0_p1-r2
-        ports:
-        - containerPort: 2222
-        env:
-        - name: USER_NAME
-          value: "ankit"
-        - name: PUBLIC_KEY
-          value: ""
-        - name: PASSWORD_ACCESS
-          value: "true"
-        - name: USER_PASSWORD
-          value: "<CHANGEME>"
-        volumeMounts:
-        - name: file-server
-          mountPath: /var/www/html/
-          subPath: public
+        - name: caddy
+          image: caddy:2.6.4
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: file-server
+              mountPath: /var/www/html/
+              subPath: public
+            - name: caddyfile
+              mountPath: /etc/caddy/Caddyfile
+              subPath: Caddyfile
+        - name: openssh-server
+          image: linuxserver/openssh-server:version-9.0_p1-r2
+          ports:
+            - containerPort: 2222
+          env:
+            - name: USER_NAME
+              value: "ankit"
+            - name: PUBLIC_KEY
+              value: ""
+            - name: PASSWORD_ACCESS
+              value: "true"
+            - name: USER_PASSWORD
+              value: "<CHANGEME>"
+          volumeMounts:
+            - name: file-server
+              mountPath: /var/www/html/
+              subPath: public
       volumes:
-      - name: file-server
-        persistentVolumeClaim:
-          claimName: file-server-pvc
-      - name: caddyfile
-        configMap:
-          name: caddyfile-v3
-          defaultMode: 0644
+        - name: file-server
+          persistentVolumeClaim:
+            claimName: file-server-pvc
+        - name: caddyfile
+          configMap:
+            name: caddyfile-v3
+            defaultMode: 0644
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -428,7 +378,7 @@ metadata:
   name: file-server-pvc
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
       storage: 2G
@@ -444,9 +394,9 @@ spec:
   selector:
     app: file-server
   ports:
-  - name: http
-    port: 80
-    targetPort: 80
+    - name: http
+      port: 80
+      targetPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -459,9 +409,9 @@ spec:
   selector:
     app: file-server
   ports:
-  - name: ssh
-    port: 22
-    targetPort: 2222
+    - name: ssh
+      port: 22
+      targetPort: 2222
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -499,7 +449,7 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-      - files.dev43.sthings-pve.labul.sva.de
+        - files.dev43.sthings-pve.labul.sva.de
       secretName: files-ingress-tls
 ```
 
@@ -512,7 +462,6 @@ lftp sftp://ankit:<PASSWORD>@10.31.101.17 -e "cd /var/www/html/; put bla.txt; by
 # DOWNLOAD/ACCESS FILE VIA HTTPS
 wget wget https://files.dev43.sthings-pve.labul.sva.de/bla.txt
 ```
-
 
 </details>
 
@@ -536,7 +485,6 @@ oras push zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1 \
 --artifact-type application/vnd.acme.rocket.config \
 artifact.txt:text/plain
 ```
-
 
 ```bash
 # PULL
@@ -696,17 +644,6 @@ kubectl label ns velero goldilocks.fairwinds.com/enabled=true
 ```
 
 </details>
-
-
-
-
-
-
-
-
-
-
-
 
 ## INSTALL CONTAINERD
 
@@ -963,22 +900,22 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
-      paths:
-      - path: /apple
-        pathType: Prefix
-        backend:
-          service:
-            name: apple-service
-            port:
-              number: 5678
-      - path: /banana
-        pathType: Prefix
-        backend:
-          service:
-            name: banana-service
-            port:
-              number: 5678
+    - http:
+        paths:
+          - path: /apple
+            pathType: Prefix
+            backend:
+              service:
+                name: apple-service
+                port:
+                  number: 5678
+          - path: /banana
+            pathType: Prefix
+            backend:
+              service:
+                name: banana-service
+                port:
+                  number: 5678
 ```
 
 </details>
