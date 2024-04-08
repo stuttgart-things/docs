@@ -222,21 +222,6 @@ nerdctl run -it --entrypoint sh eu.gcr.io/stuttgart-things/stagetime-server:23.1
 
 </details>
 
-<details><summary>CLEANUP W/ NERDCTL</summary>
-
-```bash
-# STOP AND DELETE ALL RUNNING CONTAINERS
-sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
-
-# CLEAN IMAGES BY ID
-sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
-
-# CLEAN IMAGES BY NAME + TAG
-sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
-```
-
-</details>
-
 <details><summary>SAST W/ POLARIS</summary>
 
 ```yaml
@@ -258,39 +243,6 @@ EOF
 ```bash
 # CHECK POD.YAML
 polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity error
-```
-
-</details>
-
-<details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
-
-```bash
-# REGISTER QEMU
-sudo systemctl start containerd
-sudo nerdctl run --privileged --rm tonistiigi/binfmt --install all
-ls -1 /proc/sys/fs/binfmt_misc/qemu*
-```
-
-```bash
-# EXAMPLE DOCKERFILE
-FROM arm64v8/golang:1.20 AS gobuilder
-WORKDIR /tmp/build
-COPY . .
-RUN go build -o app
-
-FROM arm64v8/alpine
-ENTRYPOINT [ "/usr/local/bin/app" ]
-COPY --from=gobuilder /tmp/build/app /usr/local/bin/app
-```
-
-```bash
-# EXAMPLE BUILD
-nerdctl build --platform=arm64 --output type=image,name=eu.gcr.io/stuttgart-things/wled-informer:0.1,push=true .
-```
-
-```bash
-# EXAMPLE RUN
-sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
 ```
 
 </details>
@@ -644,44 +596,6 @@ kubectl label ns velero goldilocks.fairwinds.com/enabled=true
 ```
 
 </details>
-
-## INSTALL CONTAINERD
-
-### INSTALL CONTAINERD
-
-```bash
-wget https://github.com/containerd/containerd/releases/download/v1.7.1/containerd-1.7.1-linux-amd64.tar.gz
-sudo tar Cxzvf /usr/local containerd-1.7.1-linux-amd64.tar.gz
-wget https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
-sudo mv containerd.service /usr/lib/systemd/system/
-
-sudo systemctl daemon-reload
-sudo systemctl enable --now containerd
-sudo systemctl status containerd
-
-sudo mkdir -p /etc/containerd
-sudo containerd config default | sudo tee /etc/containerd/config.toml
-
-sudo systemctl restart containerd
-sudo systemctl status containerd
-sudo journalctl -u containerd
-```
-
-### INSTALL RUNC
-
-```bash
-wget https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.amd64
-sudo install -m 755 runc.amd64 /usr/local/sbin/runc
-sudo ls /usr/local/sbin/ #check
-```
-
-### INSTALL CNI PLUGINS
-
-```bash
-wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
-sudo mkdir -p /opt/cni/bin
-sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
-```
 
 ## RKE2
 
