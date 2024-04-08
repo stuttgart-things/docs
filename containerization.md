@@ -25,6 +25,7 @@ sudo docker run -it -v /home/openlab/test/stuttgart-things/packer/builds:/app/ <
 ## IMAGE BUILD
 
 <details><summary>BUILD IMAGE W/ DOCKER</summary>
+  
 ```bash
 docker build - < Dockerfile
 ```
