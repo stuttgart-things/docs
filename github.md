@@ -2,13 +2,10 @@
 
 <!-- https://www.thisdot.co/blog/creating-your-own-github-action-with-typescript -->
 
+<!--
+https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers -->
+
 ## GITHUB ACTIONS ON K8S
-
-<details><summary>INSTALL OPERATOR SDK</summary>
-
-[Deploying runner scale sets with Actions Runner Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers)
-
-</details>
 
 <details><summary>DEPLOY GHA SCALE SET CONTROLLER</summary>
 
@@ -63,28 +60,6 @@ helm upgrade --install k8s-docs \
 --set githubConfigSecret.github_token="${GITHUB_PAT}" \
 --values ./k8s-arc-scale-values.yaml \
 oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --version 0.6.1
-```
-
-</details>
-
-<details><summary>TEST PIPELINE</summary>
-
-```yaml
-name: ACTIONS RUNNER K8S SMOKE TEST
-on:
-  workflow_dispatch:
-
-jobs:
-  Smoke:
-    runs-on: k8s-docs
-    container: nginx:1.25.2-alpine
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - run: |
-          echo "🎉 This job runs on kubernetes!"
-          cat /etc/os-release
-          ls -lta
 ```
 
 </details>
@@ -166,7 +141,27 @@ gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --d
 
 ## GITHUB ACTIONS
 
-### SNIPPETS
+<details><summary>TEST WORKFLOW</summary>
+
+```yaml
+name: ACTIONS RUNNER K8S SMOKE TEST
+on:
+  workflow_dispatch:
+
+jobs:
+  Smoke:
+    runs-on: k8s-docs
+    container: nginx:1.25.2-alpine
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - run: |
+          echo "🎉 This job runs on kubernetes!"
+          cat /etc/os-release
+          ls -lta
+```
+
+</details>
 
 <details><summary>UPLOAD ARTIFACTS</summary>
 
