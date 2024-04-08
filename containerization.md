@@ -25,11 +25,11 @@ sudo docker run -it -v /home/openlab/test/stuttgart-things/packer/builds:/app/ <
 ## IMAGE BUILD
 
 <details><summary>BUILD IMAGE W/ DOCKER</summary>
-
-</details>
 ```bash
 docker build - < Dockerfile
 ```
+</details>
+
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
 
 ```bash
