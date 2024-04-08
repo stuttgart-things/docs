@@ -1,21 +1,6 @@
 # stuttgart-things/docs/containerization
 
-## HOUSE-KEEPING
-
-<details><summary>CLEANUP W/ NERDCTL</summary>
-
-```bash
-# STOP AND DELETE ALL RUNNING CONTAINERS
-sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
-
-# CLEAN IMAGES BY ID
-sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
-
-# CLEAN IMAGES BY NAME + TAG
-sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
-```
-
-</details>
+containerization is a software deployment process that bundles an application's code with all the files and libraries it needs to run on any infrastructure.
 
 ## IMAGE BUILD
 
@@ -106,6 +91,23 @@ docker://whatever.cloud/gtc1fe/web:1.21
 ```bash
 skopeo copy --all --insecure-policy
 docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a \ docker://whatever.cloud/gtc1fe/web@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d700f93a
+```
+
+</details>
+
+## HOUSE-KEEPING
+
+<details><summary>CLEANUP W/ NERDCTL</summary>
+
+```bash
+# STOP AND DELETE ALL RUNNING CONTAINERS
+sudo nerdctl stop $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER); sudo nerdctl rm $(sudo nerdctl ps -a | awk '{ print $1 }' | grep -v CONTAINER)
+
+# CLEAN IMAGES BY ID
+sudo nerdctl rmi $(sudo nerdctl images | grep "2 months ago" | awk '{ print $3 }')
+
+# CLEAN IMAGES BY NAME + TAG
+sudo nerdctl rmi $(sudo nerdctl images | grep "7 weeks ago" | awk '{ print $1":"$2 }')
 ```
 
 </details>
