@@ -2,7 +2,17 @@
 
 containerization is a software deployment process that bundles an application's code with all the files and libraries it needs to run on any infrastructure.
 
+## RUN
+
+<details><summary>JUMP INTO CONTAINER W/ DOCKER</summary>
+
+</details>
+
 ## IMAGE BUILD
+
+<details><summary>BUILD IMAGE W/ DOCKER</summary>
+
+</details>
 
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
 
