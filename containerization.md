@@ -4,16 +4,32 @@ containerization is a software deployment process that bundles an application's 
 
 ## RUN
 
-<details><summary>JUMP INTO CONTAINER W/ DOCKER</summary>
+<details><summary>JUMP INTO (ALREADY) RUNNING CONTAINER W/ DOCKER</summary>
 
+```bash
+# RUN CONTAINER DETACHED
+sudo docker run -d --name new-webserver nginx
+# JUMP IN
+sudo docker exec -it new-webserver sh
+``` 
 </details>
+
+<details><summary>JUMP INTO (NO) RUNNING NEW CONTAINER W/ DOCKER</summary>
+
+```bash
+sudo docker run -it -v /home/openlab/test/stuttgart-things/packer/builds:/app/ <IMAGE-ID>
+``` 
+</details>
+
 
 ## IMAGE BUILD
 
 <details><summary>BUILD IMAGE W/ DOCKER</summary>
 
 </details>
-
+```bash
+docker build - < Dockerfile
+```
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
 
 ```bash
