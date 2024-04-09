@@ -275,6 +275,18 @@ jobs:
 
 </details>
 
+<details><summary>GITHUB EVENT DATA IN WORKFLOW</summary>
+
+````yaml
+#...
+- name: Print Title of PR
+  run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+- name: Print branch name
+  run: echo The branch name from of your PR is ${{ github.event.pull_request.head.ref }}
+
+</details>
+
+
 <details><summary>SET ENV OUTPUTS</summary>
 
 ```yaml
@@ -282,7 +294,7 @@ jobs:
 # SET WORKING DIRS AS ENV-VARS
 echo "COLLECTION_FILEPATH=source/${{ inputs.collection-file }}" >> $GITHUB_ENV
 echo "COLLECTION_ROLES_DIR=$GITHUB_WORKSPACE/$(yq -r ".namespace" source/${{ inputs.collection-file }})/$(yq -r ".name" source/${{ inputs.collection-file }})/roles" >> $GITHUB_ENV
-```
+````
 
 ```yaml
 # STEP2
