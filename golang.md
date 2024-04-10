@@ -946,6 +946,8 @@ reflect.DeepEqual(map1, map2)
 m2 := m
 ```
 
+</details>
+
 <details><summary>STRUCTS</summary>
 	
 ```go
@@ -983,6 +985,7 @@ dir := filepath.Dir("/this/that/hello.yaml")
 fmt.Println(path) // /this/that/
 fmt.Println(dir) // hello.yaml
 ```
+
 </details>
 
 
@@ -1066,4 +1069,5 @@ func VerifyYamlJobDefinition(jobManifest string) (bool, error) {
 }
 ```
 
+</details>
 
