@@ -14,7 +14,7 @@ go version
 
 </details>
 
-<details><summary><b>GO "HELLO GOPHERS!" </b></summary>
+<details><summary><b>GO "HELLO GOPHERS" </b></summary>
 	
 ```go
 package main
