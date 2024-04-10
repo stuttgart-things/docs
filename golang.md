@@ -1,5 +1,18 @@
 # stuttgart-things/docs/golang
 
+## GENERAL
+
+<details><summary><b>INSTALL GO</b></summary>
+
+```bash
+GO_VERSION=1.22.2
+tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+go version
+```
+
+</details>
+
 ## SNIPPETS
 
 <details><summary>TEST</summary>
