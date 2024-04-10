@@ -759,6 +759,79 @@ func init() {
 
 ## SYNTAX
 
+<details><summary>VARIABLES</summary>
+
+```go
+// DECLARE VARIABLE
+var myName string
+
+// DECLARE AND INITIALIZE
+var myName string = “Patrick”
+
+// INITIALIZE WITH INFERRED TYPE
+var myName = “Patrick”
+
+// SHORT DECLARATION SYNTAX
+myName := “Patrick”
+
+// TYPE CONVERSIONS
+var i int = 32
+var f float32
+f = float32(i)
+```
+
+</details>
+
+<details><summary>CONSTANTS</summary>
+	
+```go
+const a = 42
+
+// iota is related to position in constant group
+const a = iota 		// 0
+ ```
+
+</details>
+
+<details><summary>POINTERS</summary>
+	
+```go
+// Pointers are primarily used to share memory
+a := 42
+b := &a
+*b 		// 42
+a = 27
+*b 		// 27
+ ```
+
+</details>
+
+<details><summary>BUILDING A WEB SERVICE</summary>
+
+```go
+package main
+
+import (
+	"io"
+	"net/http"
+	"os"
+)
+
+func main() {
+	http.HandleFunc("/", Handler)
+	http.ListenAndServe(":3000", nil)
+
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+	f, _ := os.Open("menu.txt")
+
+	io.Copy(w, f)
+}
+```
+
+</details>
+
 <details><summary>SLICES</summary>
 
 ```go
