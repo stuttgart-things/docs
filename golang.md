@@ -838,7 +838,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 // arrays have a fixed size that cannot be changed
 arr = [3]int{1, 2, 3}
 
-//// arrays are copied by value & data is not shared	
+// arrays are copied by value & data is not shared	
 arr2 := arr
 ```
 
@@ -852,7 +852,7 @@ arr2 := arr
 // slices are dynamically-sized and can grow and shrink as needed
 mandatoryFlags := []string{"repository", "branch", "clusterName", "envPath"}
 
-//// slices are copied by reference & data is shared
+// slices are copied by reference & data is shared
 mandatoryFlags2 := mandatoryFlags
 ```
 
@@ -947,8 +947,8 @@ m2 := m
 ```
 
 <details><summary>STRUCTS</summary>
+	
 ```go
-
 // CREATE CUSTOM TYPE BASED ON STRUCT
 // structs are used to store multiple values of different data types into a single variable
 type myStruct struct {
