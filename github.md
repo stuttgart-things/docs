@@ -496,7 +496,7 @@ jobs:
 
 <details><summary>AUTHENTICATING WITH GITHUB APP GENERATED TOKENS</summary>
 
-- CREATE GITHUB APP
+- [CREATE GITHUB APP] (https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#authenticating-with-github-app-generated-tokens)
 
   - Set GitHub App name.
   - Set Homepage URL to anything you like, such as your GitHub profile page.
