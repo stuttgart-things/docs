@@ -525,6 +525,29 @@ steps:
       token: ${{ steps.generate-token.outputs.token }}
 ```
 
+<details><summary>SET ENV VARS DURING JOB</summary>
+
+```yaml
+# SET ENV VAR
+- name: Set labels for pull request
+  id: set-build-label
+  run: |
+    if [[ "${{ inputs.build-engine }}" == "gh-workflows" ]]; then
+       echo "LABEL=packer" >> $GITHUB_ENV
+    fi
+```
+
+```yaml
+# USE ENV VAR
+- name: Create Pull Request for packer config
+  id: pr
+  uses: peter-evans/create-pull-request@v6.0.2
+  with:
+    branch: ${{ inputs.os-version }}-${{ inputs.lab }}-${{ inputs.cloud }}
+    labels: |
+      ${{ env.LABEL }}
+```
+
 </details>
 
 <details><summary>MULTIPLE CHOICE INPUTS (DISPATCH)</summary>
