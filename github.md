@@ -1,69 +1,5 @@
 # stuttgart-things/docs/github
 
-<!-- https://www.thisdot.co/blog/creating-your-own-github-action-with-typescript -->
-
-<!--
-https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers -->
-
-## GITHUB ACTIONS ON K8S
-
-<details><summary>DEPLOY GHA SCALE SET CONTROLLER</summary>
-
-```bash
-helm upgrade --install arc \
---namespace arc-systems \
---create-namespace \
-oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
-```
-
-</details>
-
-<details><summary>DEPLOY OPENEBS</summary>
-
-```bash
-helm repo add openebs https://openebs.github.io/charts
-helm install openebs openebs/openebs --version 3.9.0 -n openebs --create-namespace
-```
-
-</details>
-
-<details><summary>DEPLOY K8S AUTOSCALINGRUNNERSET</summary>
-
-```bash
-cat <<EOF > ./k8s-arc-scale-values.yaml
-containerMode:
-  type: kubernetes
-  kubernetesModeWorkVolumeClaim:
-    accessModes: ["ReadWriteOnce"]
-    storageClassName: openebs-hostpath
-    resources:
-      requests:
-        storage: 1Gi
-
-template:
-  spec:
-    containers:
-    - name: runner
-      image: ghcr.io/actions/actions-runner:latest
-      command: ["/home/runner/run.sh"]
-      env:
-        - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
-          value: "false"
-EOF
-
-GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
-GITHUB_PAT="<$GITHUB_PAT>"
-helm upgrade --install k8s-docs \
---namespace arc-runners \
---create-namespace \
---set githubConfigUrl="${GITHUB_CONFIG_URL}" \
---set githubConfigSecret.github_token="${GITHUB_PAT}" \
---values ./k8s-arc-scale-values.yaml \
-oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --version 0.6.1
-```
-
-</details>
-
 ## GITHUB CLI
 
 <details><summary>PUSH IMAGE TO GHCR</summary>
@@ -525,6 +461,8 @@ steps:
       token: ${{ steps.generate-token.outputs.token }}
 ```
 
+</details>
+
 <details><summary>SET ENV VARS DURING JOB</summary>
 
 ```yaml
@@ -756,6 +694,70 @@ sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html
 
 ```bash
 nerdctl run -it -v ./docs:/manifests cytopia/yamllint -- /manifests
+```
+
+</details>
+
+<!-- https://www.thisdot.co/blog/creating-your-own-github-action-with-typescript -->
+
+<!--
+https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers -->
+
+## GITHUB WORKFLOWS ON K8S
+
+<details><summary>DEPLOY GHA SCALE SET CONTROLLER</summary>
+
+```bash
+helm upgrade --install arc \
+--namespace arc-systems \
+--create-namespace \
+oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+```
+
+</details>
+
+<details><summary>DEPLOY OPENEBS</summary>
+
+```bash
+helm repo add openebs https://openebs.github.io/charts
+helm install openebs openebs/openebs --version 3.9.0 -n openebs --create-namespace
+```
+
+</details>
+
+<details><summary>DEPLOY K8S AUTOSCALINGRUNNERSET</summary>
+
+```bash
+cat <<EOF > ./k8s-arc-scale-values.yaml
+containerMode:
+  type: kubernetes
+  kubernetesModeWorkVolumeClaim:
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: openebs-hostpath
+    resources:
+      requests:
+        storage: 1Gi
+
+template:
+  spec:
+    containers:
+    - name: runner
+      image: ghcr.io/actions/actions-runner:latest
+      command: ["/home/runner/run.sh"]
+      env:
+        - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+          value: "false"
+EOF
+
+GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
+GITHUB_PAT="<$GITHUB_PAT>"
+helm upgrade --install k8s-docs \
+--namespace arc-runners \
+--create-namespace \
+--set githubConfigUrl="${GITHUB_CONFIG_URL}" \
+--set githubConfigSecret.github_token="${GITHUB_PAT}" \
+--values ./k8s-arc-scale-values.yaml \
+oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --version 0.6.1
 ```
 
 </details>
