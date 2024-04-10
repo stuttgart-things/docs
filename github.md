@@ -494,6 +494,39 @@ jobs:
 
 </details>
 
+<details><summary>AUTHENTICATING WITH GITHUB APP GENERATED TOKENS</summary>
+
+- CREATE GITHUB APP
+
+  - Set GitHub App name.
+  - Set Homepage URL to anything you like, such as your GitHub profile page.
+  - Uncheck Active under Webhook. You do not need to enter a Webhook URL.
+  - Under Repository permissions: Contents select Access: Read & write.
+  - Under Repository permissions: Pull requests select Access: Read & write.
+  - Under Organization permissions: Members select Access: Read-only.
+  - Create a Private key from the App settings page and store it securely.
+
+- Install the App on any repository where workflows will run requiring tokens.
+- Set secrets on your repository containing the GitHub App ID, and the private key you created in step 2. e.g. APP_ID, APP_PRIVATE_KEY.
+- The following example workflow shows how to use tibdex/github-app-token to generate a token for use with this action.
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+  - uses: tibdex/github-app-token@v1
+    id: generate-token
+    with:
+      app_id: ${{ secrets.APP_ID }}
+      private_key: ${{ secrets.APP_PRIVATE_KEY }}
+  # Make changes to pull request here
+  - name: Create Pull Request
+    uses: peter-evans/create-pull-request@v6
+    with:
+      token: ${{ steps.generate-token.outputs.token }}
+```
+
+</details>
+
 <details><summary>MULTIPLE CHOICE INPUTS (DISPATCH)</summary>
 
 ```yaml
