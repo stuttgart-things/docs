@@ -496,15 +496,15 @@ jobs:
 
 <details><summary>AUTHENTICATING WITH GITHUB APP GENERATED TOKENS</summary>
 
-- [CREATE GITHUB APP] (https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#authenticating-with-github-app-generated-tokens)
+[CREATE GITHUB APP](https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#authenticating-with-github-app-generated-tokens)
 
-  - Set GitHub App name.
-  - Set Homepage URL to anything you like, such as your GitHub profile page.
-  - Uncheck Active under Webhook. You do not need to enter a Webhook URL.
-  - Under Repository permissions: Contents select Access: Read & write.
-  - Under Repository permissions: Pull requests select Access: Read & write.
-  - Under Organization permissions: Members select Access: Read-only.
-  - Create a Private key from the App settings page and store it securely.
+- Set GitHub App name.
+- Set Homepage URL to anything you like, such as your GitHub profile page.
+- Uncheck Active under Webhook. You do not need to enter a Webhook URL.
+- Under Repository permissions: Contents select Access: Read & write.
+- Under Repository permissions: Pull requests select Access: Read & write.
+- Under Organization permissions: Members select Access: Read-only.
+- Create a Private key from the App settings page and store it securely.
 
 - Install the App on any repository where workflows will run requiring tokens.
 - Set secrets on your repository containing the GitHub App ID, and the private key you created in step 2. e.g. APP_ID, APP_PRIVATE_KEY.
