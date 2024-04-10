@@ -228,6 +228,8 @@ spec:
   toFieldPath: spec.forProvider.values.githubConfigUrl
 ```
 
+</details>
+
 <details><summary>PATCHES</summary>
 
 ```bash
