@@ -6,9 +6,25 @@
 
 ```bash
 GO_VERSION=1.22.2
+wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
 tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 go version
+```
+
+</details>
+
+<details><summary><b>GO "HELLO GOPHERS!" </b></summary>
+	
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, Gophers!")
+}
+
 ```
 
 </details>
