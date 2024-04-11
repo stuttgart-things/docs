@@ -22,6 +22,42 @@ yq -r ".requirements" ./collection.yaml # = roles ..
 
 </details>
 
+<details><summary><b>READ YAML LIST IN BASH LOOP</b></summary>
+
+```yaml
+# data.yaml
+---
+runners:
+  - repository: download-install-binary
+    cluster: cicd
+  - repository: vsphere-vm
+    cluster: cicd
+
+clusters:
+  cicd:
+    namespace: crossplane-system
+    folder: clusters/labul/vsphere/sthings-cicd/
+```
+
+```bash
+#!/bin/bash
+
+for runner in $(yq eval -o=j data.yaml | jq -cr '.runners[]'); do
+      repository=$(echo $runner | jq -r '.repository' -)
+      cluster=$(echo $runner | jq -r '.cluster' -)
+      namespace=$(yq -r ".clusters.${cluster}.namespace" data.yaml)
+      folder=$(yq -r ".clusters.${cluster}.folder" data.yaml)
+
+      echo repository=$repository, cluster=$cluster, namespace=$namespace, folder=$folder
+done
+
+# output
+# repository=download-install-binary, cluster=cicd, namespace=crossplane-system, folder=clusters/labul/vsphere/sthings-cicd/
+# repository=vsphere-vm, cluster=cicd, namespace=crossplane-system, folder=clusters/labul/vsphere/sthings-cicd/
+```
+
+</details>
+
 <details><summary><b>UPDATE/SET YAML KEYS</b></summary>
 
 ```bash
