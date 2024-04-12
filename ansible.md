@@ -327,7 +327,7 @@ ansible-lint
 ```bash
 mkdir -p ~/ansible/dev/ && cd ~/ansible/dev/ # example dir
 git clone git@github.com:stuttgart-things/download-install-binary.git # example role
-cd ~/ansible/dev/download-install-binary
+cd download-install-binary
 
 # CREATE NEW BRANCH AND CHANGE INTO
 BRANCH_NAME=feature/issue-x/feature-name
@@ -339,6 +339,7 @@ git branch
 
 # OR SWITCH TO EXISTING REMOTE BRANCH
 git fetch && git branch -r
+BRANCH=feature/issue-1/update-version-check # example
 git pull origin main
 git switch feature/issue-1/update-version-check && git pull
 ```
@@ -346,7 +347,7 @@ git switch feature/issue-1/update-version-check && git pull
 ### TEST WITH DEV ROLE (IF ROLE IS ALREADY INSTALLED SYSTEMWIDE)
 
 ```bash
-# RUN THE (TEST) PLAYBOOK FROM ROLES DIR
+# RUN THE (TEST) PLAYBOOK FROM ROLES DIR OR FROM ROLES TESTS FOLDER
 cd ~/ansible/dev/download-install-binary && cd ..
 ansible-playbook ./download-install-binary/tests/execute-download-install-binary.yaml -vv
 # VERIFY TASK PATH: IN ANSIBLE OUTPUT
