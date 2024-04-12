@@ -320,6 +320,40 @@ ansible-lint
 
 ## SNIPPETS
 
+<details><summary><b>(FURTHER) DEVELOPEMENT OF EXISTING ANSIBLE ROLES</b></summary>
+
+### CLONE OR SWITCH TO EXISTING REMOTE BRANCH
+
+```bash
+mkdir -p ~/ansible/dev/ && cd ~/ansible/dev/ # example dir
+git clone git@github.com:stuttgart-things/download-install-binary.git # example role
+cd ~/ansible/dev/download-install-binary
+
+# CREATE NEW BRANCH AND CHANGE INTO
+BRANCH_NAME=feature/issue-x/feature-name
+git checkout main && git branch && git pull
+git checkout -b ${BRANCH_NAME}
+git push origin ${BRANCH_NAME}
+git branch --set-upstream-to=origin/main ${BRANCH_NAME}
+git branch
+
+# OR SWITCH TO EXISTING REMOTE BRANCH
+git fetch && git branch -r
+git pull origin main
+git switch feature/issue-1/update-version-check && git pull
+```
+
+### TEST WITH DEV ROLE (IF ROLE IS ALREADY INSTALLED SYSTEMWIDE)
+
+```bash
+# RUN THE (TEST) PLAYBOOK FROM ROLES DIR
+cd ~/ansible/dev/download-install-binary && cd ..
+ansible-playbook ./download-install-binary/tests/execute-download-install-binary.yaml -vv
+# VERIFY TASK PATH: IN ANSIBLE OUTPUT
+```
+
+</details>
+
 <details><summary><b>INSTALL ROLES FROM REQUIREMENTS FILE</b></summary>
 
 ```yaml
