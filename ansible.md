@@ -350,6 +350,9 @@ git switch feature/issue-1/update-version-check && git pull
 # RUN THE (TEST) PLAYBOOK FROM ROLES DIR OR FROM ROLES TESTS FOLDER
 cd ~/ansible/dev/download-install-binary && cd ..
 ansible-playbook ./download-install-binary/tests/execute-download-install-binary.yaml -vv
+
+# OR SET ROLES PATH AS ENV VAR
+export ANSIBLE_ROLES_PATH=~/projects/ansible/dev/ # example
 # VERIFY TASK PATH: IN ANSIBLE OUTPUT
 ```
 
