@@ -211,6 +211,23 @@ jobs:
 
 </details>
 
+<details><summary>ADD LABEL(S) TO PR</summary>
+
+```yaml
+- name: Add please-review label on command in issue comment
+  uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+  with:
+    script: |
+      await github.rest.issues.addLabels({
+        issue_number: context.issue.number,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        labels: ["please-review"]
+      })
+```
+
+</details>
+
 <details><summary>GITHUB EVENT DATA IN WORKFLOW</summary>
 
 ```yaml
