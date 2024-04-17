@@ -2,6 +2,16 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>TAR CURRENT DIR</b></summary>
+
+```bash
+artifact_name=$(basename $PWD).tar.gz
+touch ${artifact_name}
+tar -czf ${artifact_name} --exclude=${artifact_name} .
+```
+
+</details>
+
 <details><summary><b>SPLIT DELIMITED STRING</b></summary>
 
 ```bash
