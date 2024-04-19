@@ -9,26 +9,45 @@ containerization is a software deployment process that bundles an application's 
 ```bash
 # RUN CONTAINER DETACHED
 sudo docker run -d --name new-webserver nginx
+
 # JUMP IN
 sudo docker exec -it new-webserver sh
-``` 
+```
+
 </details>
 
-<details><summary>JUMP INTO (NO) RUNNING NEW CONTAINER W/ DOCKER</summary>
+<details><summary>JUMP INTO (TO BE STARTED) CONTAINER W/ DOCKER</summary>
 
 ```bash
-sudo docker run -it -v /home/openlab/test/stuttgart-things/packer/builds:/app/ <IMAGE-ID>
-``` 
-</details>
+sudo docker run -it -v /home/test/stuttgart-things:/app/ eu.gcr.io/stuttgart-things/sthings-packer:1.10.2-9.4.0 sh
+```
 
+</details>
 
 ## IMAGE BUILD
 
 <details><summary>BUILD IMAGE W/ DOCKER</summary>
-  
+
 ```bash
-docker build - < Dockerfile
+# CREATE DOCKERFILE
+cat <<EOF > ./Dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000
+EOF
 ```
+
+```bash
+# BUILD IMAGE (DOCKERFILE) EXISTS IN CURRENT DIR = .
+docker build -t myapp:v3 .
+
+# DOCKERFILE IN DIFFERENT LOCATION THAN BUILD COMMAND IS EXECUTED
+docker build -t myapp:v3 /apps/myapp/
+```
+
 </details>
 
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>

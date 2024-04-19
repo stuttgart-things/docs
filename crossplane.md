@@ -228,12 +228,53 @@ spec:
   toFieldPath: spec.forProvider.values.githubConfigUrl
 ```
 
+</details>
+
 <details><summary>PATCHES</summary>
 
 ```bash
 https://github.com/crossplane/crossplane/issues/2072
 https://vrelevant.net/crossplane-composition-patches-combine-patches/
 https://vrelevant.net/crossplane-composition-patches-fromcompositefieldpath/
+```
+
+</details>
+
+<details><summary>ATPROVIDER STATUS BETWEEN RESOURCES + TRANSFORMATION PATCH</summary>
+
+```yaml
+resources:
+  - name: vsphere-vm
+    base:
+# ..
+output "ip" {
+  value = [module.vsphere-vm.ip]
+}
+# ..
+patches:
+  - type: ToCompositeFieldPath
+    fromFieldPath: status.atProvider.outputs.ip
+    toFieldPath: status.share.vmIP
+    policy:
+      fromFieldPath: Required
+# ..
+- name: test-config
+  base:
+# ..
+data:
+  database_host: "192.168.0.1"
+# ..
+patches:
+  - fromFieldPath: status.share.vmIP
+    toFieldPath: spec.forProvider.manifest.data.database_host
+    policy:
+      fromFieldPath: Required
+    transforms:
+      - type: string
+        string:
+          type: Join
+          join:
+            separator: ","
 ```
 
 </details>
@@ -452,6 +493,14 @@ spec:
                   description: Namespace of pipelineRun resource
               required:
                 - pipelineRunName
+            status:
+              description: A Status represents the observed state
+              properties:
+                share:
+                  description: Freeform field containing status information
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+              type: object
 ```
 
 <details><summary>STRING-DEFINITION</summary>

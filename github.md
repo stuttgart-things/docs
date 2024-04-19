@@ -1,94 +1,5 @@
 # stuttgart-things/docs/github
 
-<!-- https://www.thisdot.co/blog/creating-your-own-github-action-with-typescript -->
-
-## GITHUB ACTIONS ON K8S
-
-<details><summary>INSTALL OPERATOR SDK</summary>
-
-[Deploying runner scale sets with Actions Runner Controller](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers)
-
-</details>
-
-<details><summary>DEPLOY GHA SCALE SET CONTROLLER</summary>
-
-```bash
-helm upgrade --install arc \
---namespace arc-systems \
---create-namespace \
-oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
-```
-
-</details>
-
-<details><summary>DEPLOY OPENEBS</summary>
-
-```bash
-helm repo add openebs https://openebs.github.io/charts
-helm install openebs openebs/openebs --version 3.9.0 -n openebs --create-namespace
-```
-
-</details>
-
-<details><summary>DEPLOY K8S AUTOSCALINGRUNNERSET</summary>
-
-```bash
-cat <<EOF > ./k8s-arc-scale-values.yaml
-containerMode:
-  type: kubernetes
-  kubernetesModeWorkVolumeClaim:
-    accessModes: ["ReadWriteOnce"]
-    storageClassName: openebs-hostpath
-    resources:
-      requests:
-        storage: 1Gi
-
-template:
-  spec:
-    containers:
-    - name: runner
-      image: ghcr.io/actions/actions-runner:latest
-      command: ["/home/runner/run.sh"]
-      env:
-        - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
-          value: "false"
-EOF
-
-GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
-GITHUB_PAT="<$GITHUB_PAT>"
-helm upgrade --install k8s-docs \
---namespace arc-runners \
---create-namespace \
---set githubConfigUrl="${GITHUB_CONFIG_URL}" \
---set githubConfigSecret.github_token="${GITHUB_PAT}" \
---values ./k8s-arc-scale-values.yaml \
-oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --version 0.6.1
-```
-
-</details>
-
-<details><summary>TEST PIPELINE</summary>
-
-```yaml
-name: ACTIONS RUNNER K8S SMOKE TEST
-on:
-  workflow_dispatch:
-
-jobs:
-  Smoke:
-    runs-on: k8s-docs
-    container: nginx:1.25.2-alpine
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - run: |
-          echo "🎉 This job runs on kubernetes!"
-          cat /etc/os-release
-          ls -lta
-```
-
-</details>
-
 ## GITHUB CLI
 
 <details><summary>PUSH IMAGE TO GHCR</summary>
@@ -166,7 +77,125 @@ gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --d
 
 ## GITHUB ACTIONS
 
-### SNIPPETS
+<details><summary>TEST WORKFLOW</summary>
+
+```yaml
+name: ACTIONS RUNNER K8S SMOKE TEST
+on:
+  workflow_dispatch:
+
+jobs:
+  Smoke:
+    runs-on: k8s-docs
+    container: nginx:1.25.2-alpine
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - run: |
+          echo "🎉 This job runs on kubernetes!"
+          cat /etc/os-release
+          ls -lta
+```
+
+</details>
+
+<details><summary>USE OUTPUTS FROM JOBS IN REUSABLE WORKFLOWS</summary>
+
+### REUSABLE WORFLOW (SHORTENED, WF WHICH WILL BE CALLED)
+
+```yaml
+---
+name: Build ansible collection
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: true
+        type: string
+    outputs:
+      collection-version:
+        description: version of ansible collection
+        value: ${{ jobs.Ansible-Collection-Build.outputs.version }}
+      artifact-name:
+        description: name of uploaded ansible collection package
+        value: ${{ jobs.Ansible-Collection-Build.outputs.artifact }}
+
+jobs:
+  Ansible-Collection-Build:
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      artifact: ${{ steps.build.outputs.artifact }}
+    runs-on: ${{ inputs.runs-on }}
+    container:
+      image: ${{ inputs.ansible-image }}
+    environment: ${{ inputs.environment-name }}
+    continue-on-error: ${{ inputs.continue-error }}
+    steps:
+      - name: Checkout code
+        id: git
+        uses: actions/checkout@v4.1.1
+        with:
+          path: source
+          fetch-depth: "0"
+
+      - id: version
+        run: echo "version=$(yq -r '.version' source/${{ inputs.collection-file }})" >> "$GITHUB_OUTPUT"
+        shell: bash
+```
+
+### WORFLOW (SHORTENED, WF WHICH CALLS THE REUSABLE WORKFLOW)
+
+```yaml
+---
+name: Build Collection
+on:
+  workflow_dispatch:
+    inputs:
+      runs-on:
+        type: string
+        required: false
+        default: ghr-deploy-configure-rke-cicd
+      environment-name:
+        type: string
+        required: true
+        default: k8s
+
+jobs:
+  Build-Collection:
+    name: Build Ansible Collection
+    uses: stuttgart-things/stuttgart-things/.github/workflows/ansible-collection.yaml@main
+    with:
+      runs-on: ${{ inputs.runs-on }}
+      environment-name: ${{ inputs.environment-name }}
+      continue-error: false
+
+  Release-Collection:
+    name: Release-Collection
+    needs: Build-Collection
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ${{ inputs.runs-on }}
+    environment: ${{ inputs.environment-name }}
+    container:
+      image: eu.gcr.io/stuttgart-things/machineshop:v1.7.2
+    steps:
+      - name: Download artifact
+        id: download
+        uses: actions/download-artifact@v4.1.4
+        with:
+          name: ${{ inputs.vm-name }}
+
+      - name: Release module
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          name: ${{ needs.Build-Collection.outputs.artifact-name }}
+          artifacts: ${{ needs.Build-Collection.outputs.artifact-name }}
+          body: "ansible-collection"
+          tag: ${{ needs.Build-Collection.outputs.collection-version }}
+```
+
+</details>
 
 <details><summary>UPLOAD ARTIFACTS</summary>
 
@@ -178,6 +207,36 @@ gh pr merge $(gh pr list | grep "^[^#;]" | awk '{print $1}') --auto --rebase --d
     name: ${{ env.COLLECTION_PACKAGE }}
     #path: ${{ github.workspace }}/*tar.gz*
     path: ${{ env.COLLECTION_PACKAGE_PATH }}
+```
+
+</details>
+
+<details><summary>ADD LABEL(S) TO PR</summary>
+
+```yaml
+- name: Add please-review label on command in issue comment
+  uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
+  with:
+    script: |
+      await github.rest.issues.addLabels({
+        issue_number: context.issue.number,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        labels: ["please-review"]
+      })
+```
+
+</details>
+
+<details><summary>GITHUB EVENT DATA IN WORKFLOW</summary>
+
+```yaml
+#...
+- name: Print Title of PR
+  run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+- name: Print branch name
+  run: echo The branch name from of your PR is ${{ github.event.pull_request.head.ref }}
+# ..
 ```
 
 </details>
@@ -465,6 +524,64 @@ jobs:
 
 </details>
 
+<details><summary>AUTHENTICATING WITH GITHUB APP GENERATED TOKENS</summary>
+
+[CREATE GITHUB APP](https://github.com/peter-evans/create-pull-request/blob/main/docs/concepts-guidelines.md#authenticating-with-github-app-generated-tokens)
+
+- Set GitHub App name.
+- Set Homepage URL to anything you like, such as your GitHub profile page.
+- Uncheck Active under Webhook. You do not need to enter a Webhook URL.
+- Under Repository permissions: Contents select Access: Read & write.
+- Under Repository permissions: Pull requests select Access: Read & write.
+- Under Organization permissions: Members select Access: Read-only.
+- Create a Private key from the App settings page and store it securely.
+
+- Install the App on any repository where workflows will run requiring tokens.
+- Set secrets on your repository containing the GitHub App ID, and the private key you created in step 2. e.g. APP_ID, APP_PRIVATE_KEY.
+- The following example workflow shows how to use tibdex/github-app-token to generate a token for use with this action.
+
+```yaml
+steps:
+  - uses: actions/checkout@v4
+  - uses: tibdex/github-app-token@v1
+    id: generate-token
+    with:
+      app_id: ${{ secrets.APP_ID }}
+      private_key: ${{ secrets.APP_PRIVATE_KEY }}
+  # Make changes to pull request here
+  - name: Create Pull Request
+    uses: peter-evans/create-pull-request@v6
+    with:
+      token: ${{ steps.generate-token.outputs.token }}
+```
+
+</details>
+
+<details><summary>SET ENV VARS DURING JOB</summary>
+
+```yaml
+# SET ENV VAR
+- name: Set labels for pull request
+  id: set-build-label
+  run: |
+    if [[ "${{ inputs.build-engine }}" == "gh-workflows" ]]; then
+       echo "LABEL=packer" >> $GITHUB_ENV
+    fi
+```
+
+```yaml
+# USE ENV VAR
+- name: Create Pull Request for packer config
+  id: pr
+  uses: peter-evans/create-pull-request@v6.0.2
+  with:
+    branch: ${{ inputs.os-version }}-${{ inputs.lab }}-${{ inputs.cloud }}
+    labels: |
+      ${{ env.LABEL }}
+```
+
+</details>
+
 <details><summary>MULTIPLE CHOICE INPUTS (DISPATCH)</summary>
 
 ```yaml
@@ -671,6 +788,70 @@ sudo nerdctl run -it --rm -p 8080:80 --name web -v public/:/usr/share/nginx/html
 
 ```bash
 nerdctl run -it -v ./docs:/manifests cytopia/yamllint -- /manifests
+```
+
+</details>
+
+<!-- https://www.thisdot.co/blog/creating-your-own-github-action-with-typescript -->
+
+<!--
+https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller#using-docker-in-docker-or-kubernetes-mode-for-containers -->
+
+## GITHUB WORKFLOWS ON K8S
+
+<details><summary>DEPLOY GHA SCALE SET CONTROLLER</summary>
+
+```bash
+helm upgrade --install arc \
+--namespace arc-systems \
+--create-namespace \
+oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller
+```
+
+</details>
+
+<details><summary>DEPLOY OPENEBS</summary>
+
+```bash
+helm repo add openebs https://openebs.github.io/charts
+helm install openebs openebs/openebs --version 3.9.0 -n openebs --create-namespace
+```
+
+</details>
+
+<details><summary>DEPLOY K8S AUTOSCALINGRUNNERSET</summary>
+
+```bash
+cat <<EOF > ./k8s-arc-scale-values.yaml
+containerMode:
+  type: kubernetes
+  kubernetesModeWorkVolumeClaim:
+    accessModes: ["ReadWriteOnce"]
+    storageClassName: openebs-hostpath
+    resources:
+      requests:
+        storage: 1Gi
+
+template:
+  spec:
+    containers:
+    - name: runner
+      image: ghcr.io/actions/actions-runner:latest
+      command: ["/home/runner/run.sh"]
+      env:
+        - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+          value: "false"
+EOF
+
+GITHUB_CONFIG_URL="https://github.com/stuttgart-things/docs"
+GITHUB_PAT="<$GITHUB_PAT>"
+helm upgrade --install k8s-docs \
+--namespace arc-runners \
+--create-namespace \
+--set githubConfigUrl="${GITHUB_CONFIG_URL}" \
+--set githubConfigSecret.github_token="${GITHUB_PAT}" \
+--values ./k8s-arc-scale-values.yaml \
+oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set --version 0.6.1
 ```
 
 </details>

@@ -1,5 +1,34 @@
 # stuttgart-things/docs/golang
 
+## GENERAL
+
+<details><summary>INSTALL GO</summary>
+
+```bash
+GO_VERSION=1.22.2
+wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
+tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+go version
+```
+
+</details>
+
+<details><summary>GO "HELLO GOPHERS"</summary>
+	
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, Gophers!")
+}
+
+```
+
+</details>
+
 ## SNIPPETS
 
 <details><summary>TEST</summary>
@@ -730,11 +759,101 @@ func init() {
 
 ## SYNTAX
 
+<details><summary>VARIABLES</summary>
+
+```go
+// DECLARE VARIABLE
+var myName string
+
+// DECLARE AND INITIALIZE
+var myName string = “Patrick”
+
+// INITIALIZE WITH INFERRED TYPE
+var myName = “Patrick”
+
+// SHORT DECLARATION SYNTAX
+myName := “Patrick”
+
+// TYPE CONVERSIONS
+var i int = 32
+var f float32
+f = float32(i)
+```
+
+</details>
+
+<details><summary>CONSTANTS</summary>
+	
+```go
+const a = 42
+
+// iota is related to position in constant group
+const a = iota 		// 0
+ ```
+
+</details>
+
+<details><summary>POINTERS</summary>
+	
+```go
+// Pointers are primarily used to share memory
+a := 42
+b := &a
+*b 		// 42
+a = 27
+*b 		// 27
+ ```
+
+</details>
+
+<details><summary>BUILDING A WEB SERVICE</summary>
+
+```go
+package main
+
+import (
+	"io"
+	"net/http"
+	"os"
+)
+
+func main() {
+	http.HandleFunc("/", Handler)
+	http.ListenAndServe(":3000", nil)
+
+}
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+	f, _ := os.Open("menu.txt")
+
+	io.Copy(w, f)
+}
+```
+
+</details>
+
+<details><summary>ARRAYS</summary>
+	
+```go
+// arrays have a fixed size that cannot be changed
+arr = [3]int{1, 2, 3}
+
+// arrays are copied by value & data is not shared	
+arr2 := arr
+```
+
+</details>
+
 <details><summary>SLICES</summary>
 
 ```go
 // STRING SLICE
+
+// slices are dynamically-sized and can grow and shrink as needed
 mandatoryFlags := []string{"repository", "branch", "clusterName", "envPath"}
+
+// slices are copied by reference & data is shared
+mandatoryFlags2 := mandatoryFlags
 ```
 
 ```go
@@ -820,6 +939,35 @@ for k := range m {
 
 // COMPARE MAPS (EQUIVALENCE)
 reflect.DeepEqual(map1, map2)
+
+// COPY MAP
+// maps are copied by reference & data is shared
+// use maps.Clone to clone
+m2 := m
+```
+
+</details>
+
+<details><summary>STRUCTS</summary>
+	
+```go
+// CREATE CUSTOM TYPE BASED ON STRUCT
+// structs are used to store multiple values of different data types into a single variable
+type myStruct struct {
+	name string
+	id int
+}
+
+// DECLARE VARIABLE WITH CUSTOM TYPE
+var s myStruct
+
+s = myStruct{ 
+	name: “Patrick”,
+	id: 42}
+
+// COPY STRUCT
+// structs are copied by value & data is not shared
+s2 := s
 ```
 
 </details>
@@ -837,6 +985,7 @@ dir := filepath.Dir("/this/that/hello.yaml")
 fmt.Println(path) // /this/that/
 fmt.Println(dir) // hello.yaml
 ```
+
 </details>
 
 
@@ -920,4 +1069,5 @@ func VerifyYamlJobDefinition(jobManifest string) (bool, error) {
 }
 ```
 
+</details>
 

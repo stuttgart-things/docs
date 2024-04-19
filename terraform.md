@@ -14,6 +14,38 @@ terraform --version
 
 </details>
 
+<details><summary><b>REMOTE STATE</b></summary>
+
+## MINIO
+
+```hcl
+terraform {
+  backend "s3" {
+
+    endpoints = {
+      s3 = "https://artifacts.app1.sthings-vsphere.labul.sva.de"
+    }
+    skip_requesting_account_id = true
+    skip_s3_checksum = true
+    key = "cologne2.tfstate"
+    bucket = "vspherevm-labul"
+    region = "main"
+    skip_credentials_validation = true
+    skip_metadata_api_check = true
+    skip_region_validation = true
+    use_path_style = true
+    workspace_key_prefix = false
+  }
+}
+```
+
+```bash
+export AWS_ACCESS_KEY_ID=sthings
+export AWS_SECRET_ACCESS_KEY=<SECRETVALUE>
+```
+
+</details>
+
 <details><summary><b>YAML INLINE OBJECT LIST TEMPLATING TO FILE</b></summary>
 
 ```hcl
@@ -67,7 +99,6 @@ users = [
 
 </details>
 
-
 <details><summary><b>INIT|APPLY|DESTROY</b></summary>
 
 ```bash
@@ -112,7 +143,7 @@ variable "length" {
 }
 ```
 
-### CALLING MODULE W/ VARIABLE 
+### CALLING MODULE W/ VARIABLE
 
 ```go
 # MODULE CALL
@@ -127,7 +158,6 @@ output "random_string" {
   value = "${module.random.random_string}"
 }
 ```
-
 
 </details>
 
@@ -159,12 +189,13 @@ module "labda-vm" {
 ```bash
 # CHANGE TO MODULE DIR
 cd ~/projects/terraform/vsphere-vm/
-zip -r vsphere-vm.zip * -j 
+zip -r vsphere-vm.zip * -j
 gh release create vsphere-vm-2.6.1 --notes "released module tesed with provider 2.6.1" vsphere-vm.zip
 
 # RELEASED ARTIFACT
 https://github.com/stuttgart-things/vsphere-vm/releases/download/vsphere-vm-2.6.1/vsphere-vm.zip
 ```
+
 </details>
 
 <details><summary><b>APPLY W/ VARS</b></summary>
@@ -325,7 +356,6 @@ output "role_id" {
 
 </details>
 
-
 <details><summary><b>COMBINE VARIABLE AND STRING</b></summary>
 
 ```hcl
@@ -339,9 +369,7 @@ path = "my\.${var.hosted_zone}"
 path =  "${var.cluster_name}-${each.value["name"]}"
 ```
 
-
 </details>
-
 
 <details><summary><b>ENABLE/DISABLE RESOURCE CREATION W/ COUNT</b></summary>
 
@@ -479,29 +507,26 @@ secrets = [
 
 </details>
 
-
-
-
-
 <details><summary><b>LOOP FOR EACH</b></summary>
-  
-  ```hcl
-  resource "aws_security_group" "demo-security-group" {
-  name = "demo-security-group"
 
-  dynamic "ingress" {
-    for_each = var.sg_ports
-    content {
-      from_port = ingress.value
-      protocol = "tcp"
-      to_port = ingress.value
-      cidr_blocks = ["0.0.0.0/0"]
-    }
+```hcl
+resource "aws_security_group" "demo-security-group" {
+name = "demo-security-group"
+
+dynamic "ingress" {
+  for_each = var.sg_ports
+  content {
+    from_port = ingress.value
+    protocol = "tcp"
+    to_port = ingress.value
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
+}
 ```
+
  </details>
- 
+
 <details><summary><b>USE COUNT W/ FOR EACH</b></summary>
 
 ```hcl
@@ -527,7 +552,6 @@ resource "kubernetes_manifest" "vault_connection" {
 ```
 
 </details>
-
 
 <details><summary><b>READ YAML FIELD FROM FILE</b></summary>
 
@@ -569,6 +593,7 @@ EOT
 terraform -chdir=helloworld init
 terraform -chdir=helloworld apply
 ```
+
 </details>
 
 ## AWS
@@ -598,7 +623,6 @@ terraform {
 ```
 
 </details>
-
 
 <details><summary><b>CREATE GENERATED SECRET IN AWS SECRETS MANAGER</b></summary>
 
@@ -642,7 +666,6 @@ EOF
 ```
 
 </details>
-
 
 <details><summary><b>OUTPUT/USE SECRET FROM AWS SECRETS MANAGER</b></summary>
 
@@ -712,7 +735,6 @@ YAML
 ```
 
 </details>
-
 
 <details><summary><b>READ K8S SECRET</b></summary>
 
@@ -1231,6 +1253,7 @@ YAML
 
 }
 ```
+
 </details>
 
 <details><summary><b>HELM CHART DEPLOYMENT</b></summary>
@@ -1281,6 +1304,7 @@ resource "helm_release" "akhq" {
 
 }
 ```
+
 </details>
 
 <details><summary><b>RENDERING OF MANIFEST</b></summary>
@@ -1333,4 +1357,5 @@ resource "kubectl_manifest" "cert_manifest" {
     yaml_body = element(data.kubectl_path_documents.certs.documents, count.index)
 }
 ```
+
 </details>

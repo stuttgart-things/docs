@@ -67,3 +67,15 @@ git push origin :refs/tags/1.0.0
 ```
 
 </details>
+
+## TROUBLESHOOTING
+
+<details><summary>PULLING IS NOT POSSIBLE - UNMERGED FILES</summary>
+
+```bash
+git reset HEAD~1
+git stash
+git pull
+```
+
+</details>

@@ -2,6 +2,27 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>TAR CURRENT DIR</b></summary>
+
+```bash
+artifact_name=$(basename $PWD).tar.gz
+touch ${artifact_name}
+tar -czf ${artifact_name} --exclude=${artifact_name} .
+```
+
+</details>
+
+<details><summary><b>SPLIT DELIMITED STRING</b></summary>
+
+```bash
+branch=ubuntu23-labda-vsphere
+echo $(echo $branch | cut -d "-" -f 1) #ubuntu23
+echo $(echo $branch | cut -d "-" -f 2) #labda
+echo $(echo $branch | cut -d "-" -f 3) #vsphere
+```
+
+</details>
+
 <details><summary><b>SEARCH FOR PATTERN IN SUBFOLDERS</b></summary>
 
 ```bash
