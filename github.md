@@ -201,6 +201,83 @@ yq ".playbooks[$COUNTER].name" ${{ env.COLLECTION_FILEPATH }}
 
 </details>
 
+<details><summary>GitHub Event Trigger</summary>
+
+Workflow triggers are events that cause a workflow to run.
+
+### workflow_dispatch
+- Manually trigger a workflow run
+- Configure custom-defined input properties, default input values, and required inputs for the event directly in your workflow
+- Access the input values in the inputs context
+
+```yaml
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+jobs:
+  log-the-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Log level: $LEVEL"
+          echo "Tags: $TAGS"
+          echo "Environment: $ENVIRONMENT"
+        env:
+          LEVEL: ${{ inputs.logLevel }}
+          TAGS: ${{ inputs.tags }}
+          ENVIRONMENT: ${{ inputs.environment }}
+```
+
+
+### workflow_call
+- Workflow can be called by another workflow
+- Inputs and secrets can be defined, which can be passed from the caller workflow and then used within the called workflow --> The event payload in the called workflow is the same event payload from the calling workflow
+
+```yaml
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
+      envPAT:
+        required: true
+```
+
+In the reusable workflow, reference the input or secret that you defined in the ```on``` key in the previous step
+
+```yaml
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        repo-token: ${{ secrets.envPAT }}
+        configuration-path: ${{ inputs.config-path }}
+```
+
+</details>
+
 <details><summary>K8S WORKFLOW-EXAMPLE</summary>
 
 ```yaml
