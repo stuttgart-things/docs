@@ -262,6 +262,7 @@ yq ".playbooks[$COUNTER].name" ${{ env.COLLECTION_FILEPATH }}
 
 <details><summary>GITHUB EVENT TRIGGER</summary>
 
+
 Workflow triggers are events that cause a workflow to run.
 
 #### workflow_dispatch
