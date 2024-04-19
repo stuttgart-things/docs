@@ -260,11 +260,11 @@ yq ".playbooks[$COUNTER].name" ${{ env.COLLECTION_FILEPATH }}
 
 </details>
 
-<details><summary>GitHub Event Trigger</summary>
+<details><summary>GITHUB EVENT TRIGGER</summary>
 
 Workflow triggers are events that cause a workflow to run.
 
-### workflow_dispatch
+#### workflow_dispatch
 - Manually trigger a workflow run
 - Configure custom-defined input properties, default input values, and required inputs for the event directly in your workflow
 - Access the input values in the inputs context
@@ -305,7 +305,7 @@ jobs:
 ```
 
 
-### workflow_call
+#### workflow_call
 - Workflow can be called by another workflow
 - Inputs and secrets can be defined, which can be passed from the caller workflow and then used within the called workflow --> The event payload in the called workflow is the same event payload from the calling workflow
 
