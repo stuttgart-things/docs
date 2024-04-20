@@ -152,6 +152,9 @@ kubectl get pkgrev
 
 # LIST PROVIDERS
 kubectl get providers.pkg.crossplane.io -A
+
+# DEBUG/TRACE XRD W/ CROSSPLANE CLI
+crossplane beta trace metallbconfig labda-test -n crossplane-system -o wide # EXAMPLE
 ```
 
 </details>
