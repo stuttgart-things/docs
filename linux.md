@@ -2,6 +2,14 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>APPEND TEXT TO FIRST LINE OF FILE</b></summary>
+
+```bash
+echo 'vsphere_vm_template="/path/to/template"' | cat -  /tmp/vsphere-vm-tfvars.tpl
+```
+
+</details>
+
 <details><summary><b>TAR CURRENT DIR</b></summary>
 
 ```bash
