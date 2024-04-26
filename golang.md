@@ -659,6 +659,8 @@ func TestValidateTemplateData(t *testing.T) {
 
 <details><summary>READ YAML INTO STRUCT WITH VIPER</summary>
 
+[YAML-to-Go-Struct-Converter](https://zhwt.github.io/yaml-to-go)
+
 ### READ EASY YAML
 
 ```yaml
