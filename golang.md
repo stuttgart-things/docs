@@ -15,7 +15,7 @@ go version
 </details>
 
 <details><summary>GO "HELLO GOPHERS"</summary>
-	
+
 ```go
 package main
 
@@ -35,7 +35,7 @@ func main() {
 
 ```bash
 # TEST RECURSIVELY
-go test ./... -v 
+go test ./... -v
 ```
 
 </details>
@@ -85,7 +85,7 @@ CGO_ENABLED=0 go build -o /bin/stcTestProducer tests/testProducer.go
 
 ```bash
 CGO_ENABLED=0 go build -o /bin/stageTime-creator \
--ldflags="-X ${GO_MODULE}/internal.version=${VERSION} -X ${GO_MODULE}/internal.date=${BUILD_DATE} -X 
+-ldflags="-X ${GO_MODULE}/internal.version=${VERSION} -X ${GO_MODULE}/internal.date=${BUILD_DATE} -X
 ```
 
 ## BUILD W/ DOCKERFILE (MULTISTAGE)
@@ -181,7 +181,7 @@ linters-settings:
         # Packages that are not allowed where the value is a suggestion.
         deny:
           - pkg: log
-            desc: 'Use injected telegraf.Logger instead'
+            desc: "Use injected telegraf.Logger instead"
         # List of file globs that will match this list of settings to compare against.
         # Default: $all
         files:
@@ -354,7 +354,7 @@ linters-settings:
   revive:
     rules:
       - name: argument-limit
-        arguments: [ 6 ]
+        arguments: [6]
       - name: atomic
       - name: bare-return
       - name: blank-imports
@@ -377,7 +377,7 @@ linters-settings:
       - name: error-strings
       - name: errorf
       - name: function-result-limit
-        arguments: [ 3 ]
+        arguments: [3]
       - name: identical-branches
       - name: if-return
       - name: import-shadowing
@@ -517,7 +517,6 @@ output:
 
 </details>
 
-
 </details>
 
 <details><summary>GORELEASER</summary>
@@ -538,7 +537,6 @@ git tag -a v0.1.0 -m "First release"
 git push origin v0.1.0
 goreleaser release
 ```
-
 
 ```yaml
 // .goreleaser.yaml
@@ -658,6 +656,96 @@ func TestValidateTemplateData(t *testing.T) {
 </details>
 
 ## CLI
+
+<details><summary>READ YAML INTO STRUCT WITH VIPER</summary>
+
+### READ EASY YAML
+
+```yaml
+app:
+  env: "development"
+  consumerbroker: "first.example.com:9092"
+  producerbroker: "second.example.com:9092"
+```
+
+```go
+// https://medium.com/@jomzsg/the-easy-way-to-handle-configuration-file-in-golang-using-viper-6b3c88d2ee79
+package main
+
+import (
+        "fmt"
+        "os"
+        "github.com/spf13/viper"
+)
+func main() {
+// Config
+        viper.SetConfigName("default") // config file name without extension
+        viper.SetConfigType("yaml")
+        viper.AddConfigPath(".")
+        viper.AddConfigPath("./config/") // config file path
+        viper.AutomaticEnv()             // read value ENV variable
+
+        err := viper.ReadInConfig()
+        if err != nil {
+                fmt.Println("fatal error config file: default \n", err)
+                os.Exit(1)
+        }
+// Set default value
+        viper.SetDefault("app.linetoken", "DefaultLineTokenValue")
+
+// Declare var
+        env := viper.GetString("app.env")
+        producerbroker :=  viper.GetString("app.producerbroker")
+        consumerbroker := viper.GetString("app.consumerbroker")
+        linetoken :=  viper.GetString("app.linetoken")
+
+// Print
+        fmt.Println("---------- Example ----------")
+        fmt.Println("app.env :",env)
+        fmt.Println("app.producerbroker :",producerbroker)
+        fmt.Println("app.consumerbroker :",consumerbroker)
+        fmt.Println("app.linetoken :",linetoken)
+}
+```
+
+### READ YAML MAP OF STRUCTS WITH STRING KEYS
+
+```yaml
+vmConfig:
+  m:
+    cpu: 6
+    ram: 8192
+  l:
+    cpu: 8
+    ram: 10240
+```
+
+```go
+// see https://lornajane.medium.com/accessing-nested-config-with-viper-82c78fa42a60
+func main() {
+
+	// Config
+	viper.SetConfigName("config") // config file name without extension
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+	viper.AddConfigPath("./config/") // config file path
+	viper.AutomaticEnv()             // read value ENV variable
+
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println("FATAL ERROR CONFIG FILE: DEFAULT \n", err)
+		os.Exit(1)
+	}
+
+	// var config map[string]*VmConfig
+	config := make(map[string]*VmConfig)
+	viper.UnmarshalKey("vmConfig", &config)
+
+	fmt.Println(config["m"].Cpu)
+}
+```
+
+</details>
 
 <details><summary>INIT CLI W/ COBRA</summary>
 
@@ -783,18 +871,18 @@ f = float32(i)
 </details>
 
 <details><summary>CONSTANTS</summary>
-	
+
 ```go
 const a = 42
 
 // iota is related to position in constant group
 const a = iota 		// 0
- ```
+```
 
 </details>
 
 <details><summary>POINTERS</summary>
-	
+
 ```go
 // Pointers are primarily used to share memory
 a := 42
@@ -802,7 +890,7 @@ b := &a
 *b 		// 42
 a = 27
 *b 		// 27
- ```
+```
 
 </details>
 
@@ -833,12 +921,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 </details>
 
 <details><summary>ARRAYS</summary>
-	
+
 ```go
 // arrays have a fixed size that cannot be changed
 arr = [3]int{1, 2, 3}
 
-// arrays are copied by value & data is not shared	
+// arrays are copied by value & data is not shared
 arr2 := arr
 ```
 
@@ -891,8 +979,6 @@ for _,element := range numbers{
 a := []int{1, 2}
 a = append(a, 3, 4) // a == [3 4]
 ```
-
-
 
 </details>
 
@@ -949,7 +1035,7 @@ m2 := m
 </details>
 
 <details><summary>STRUCTS</summary>
-	
+
 ```go
 // CREATE CUSTOM TYPE BASED ON STRUCT
 // structs are used to store multiple values of different data types into a single variable
@@ -961,7 +1047,7 @@ type myStruct struct {
 // DECLARE VARIABLE WITH CUSTOM TYPE
 var s myStruct
 
-s = myStruct{ 
+s = myStruct{
 	name: “Patrick”,
 	id: 42}
 
@@ -987,7 +1073,6 @@ fmt.Println(dir) // hello.yaml
 ```
 
 </details>
-
 
 <details><summary>LOOPS</summary>
 
@@ -1070,4 +1155,3 @@ func VerifyYamlJobDefinition(jobManifest string) (bool, error) {
 ```
 
 </details>
-
