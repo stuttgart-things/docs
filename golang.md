@@ -657,6 +657,48 @@ func TestValidateTemplateData(t *testing.T) {
 
 ## CLI
 
+<details><summary>READ NESTED YAML WITHOUT STRUCT</summary>
+
+```yaml
+vmConfig:
+  m:
+    cpu: 6
+    ram: 8192
+  l:
+    cpu: 8
+    ram: 10240
+```
+
+```go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"gopkg.in/yaml.v2"
+)
+
+func main() {
+	obj := make(map[string]interface{})
+
+	yamlFile, err := os.ReadFile("example.yaml")
+	if err != nil {
+		fmt.Printf("yamlFile.Get err #%v ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, obj)
+	if err != nil {
+		fmt.Printf("Unmarshal: %v", err)
+	}
+	fmt.Println(obj)
+
+	fmt.Println(obj["vmConfig"].(map[interface{}]interface{})["m"].(map[interface{}]interface{})["cpu"])
+
+}
+```
+
+</details>
+
 <details><summary>READ YAML INTO STRUCT WITH VIPER</summary>
 
 [YAML-to-Go-Struct-Converter](https://zhwt.github.io/yaml-to-go)
