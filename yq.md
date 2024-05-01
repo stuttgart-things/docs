@@ -22,6 +22,29 @@ yq -r ".requirements" ./collection.yaml # = roles ..
 
 </details>
 
+<details><summary><b>READ YAML DICT</b></summary>
+
+```yaml
+# KICKSTART
+kickstart:
+  ubuntu22:
+    template: ubuntu.yaml
+    filename: user-data
+  ubuntu23:
+    template: ubuntu.yaml
+    filename: user-data
+  rocky9:
+    template: rocky9.cfg
+    filename: user-data
+```
+
+```bash
+yq -r ".kickstart.rocky9.template" environments/labul-vsphere.yaml
+#rocky9.cfg
+```
+
+</details>
+
 <details><summary><b>READ YAML LIST IN BASH LOOP</b></summary>
 
 ```yaml
