@@ -127,6 +127,39 @@ ansible-playbook sthings.deploy_rke.install_docker -i inv -vv
 
  </details>
 
+## EXTEND ANSIBLE
+
+<details><summary><b>ADD (LOCAL) CUSTOM (PYTHON) MODULE</b></summary>
+
+```bash
+# GET MODULES PATH
+ansible-config dump |grep DEFAULT_MODULE_PATH
+# output e.g. /usr/share/ansible/plugins/modules
+
+# CREATE MODULES DIR (IF NOT EXISTS)
+sudo mkdir -p /usr/share/ansible/plugins/modules
+
+# OPTIONAL: DOWNLOAD SCRIPT FROM WEB
+wget https://raw.githubusercontent.com/krahul084/python_scripts/master/get_checksum.py
+
+# MOVE THE SCRIPT TO MODULES DIR
+sudo mv get_checksum.py /usr/share/
+ansible/plugins/modules
+```
+
+```yaml
+# USE MODULE IN TASK
+# ...
+- get_checksum:
+    path: "{{ golang_install_dir }}go"
+    checksum_type: "{{ go_checksum_type }}"
+  register: checksum_old
+  when: check_golang.stat.exists
+# ...
+```
+
+</details>
+
 ## EVENT-DRIVEN-ANSIBLE (EDA)
 
 ### INSTALLATION
