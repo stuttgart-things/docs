@@ -32,8 +32,6 @@ jobs:
         
           bash hugo/create-sthings.sh
 
-          #cp -R hugo/*.html ./sthings/content/post
-          #cp hugo/sthings-logo.png ./sthings/themes/github-style/static/images/avatar.png
           ls -lta sthings/content/post
 
           # Add hugo toml
