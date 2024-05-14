@@ -23,12 +23,13 @@ EOF
 done
 
 # Copy hugo content
-cp -R hugo/*.html ./sthings/content/post
-cp hugo/sthings-logo.png ./sthings/themes/github-style/static/images/avatar.png
+cp -R hugo/*.html sthings/content/post
+cp hugo/sthings-logo.png sthings/themes/github-style/static/images/avatar.png
+cp hugo/sthings-logo.png sthings/themes/github-style/images/sthings-logo.png
+cp hugo/sthings-city.png sthings/themes/github-style/images/sthings-city.png
 
 # Modify theme files
-sed 's/container-lg/container-xl/g' ./sthings/layouts/partials/post.html
+sed 's/container-lg/container-xl/g' sthings/layouts/partials/post.html
 # <div class="Box-body px-5 pb-5" style="z-index: 1" width=400%>
 
 
-# Create hugo toml

@@ -6,8 +6,10 @@ on:
       runs-on:
         required: true
         type: string
-        default: ghr-docs-sthings-cicd
-
+        default: ghr-docs-labda-test
+      base-url:
+        required: true
+        type: string
 jobs:
   build-hugo:
     name: Build Hugo
@@ -26,12 +28,20 @@ jobs:
           mkdir -p ./sthings/content/post
 
           ls -lta
+          ls -lta hugo
         
           bash hugo/create-sthings.sh
 
           #cp -R hugo/*.html ./sthings/content/post
           #cp hugo/sthings-logo.png ./sthings/themes/github-style/static/images/avatar.png
           ls -lta sthings/content/post
+
+          # Add hugo toml
+          cat <<EOF | cat - hugo.toml > temp && mv temp hugo.toml
+          baseURL = '${{ inputs.base-url }}''
+          EOF
+
+          cp hugo/hugo.toml ./sthings
 
       - uses: actions/upload-artifact@v3
         with:
