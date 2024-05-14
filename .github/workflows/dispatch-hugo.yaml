@@ -37,7 +37,7 @@ jobs:
           ls -lta sthings/content/post
 
           # Add hugo toml
-          cat <<EOF | cat - hugo.toml > temp && mv temp hugo.toml
+          cat <<EOF | cat - hugo/hugo.toml > temp && mv temp hugo/hugo.toml
           baseURL = '${{ inputs.base-url }}'
           EOF
 

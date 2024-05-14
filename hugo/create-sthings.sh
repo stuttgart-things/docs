@@ -12,13 +12,13 @@ CURR_DATE=$(date +'%Y-%m-%dT%H:%M:%S%:z')
 +++
 date = $CURR_DATE
 draft = false
-title = $file
+title = '$file'
 +++
 EOF
     echo "New lines added to $file."
 
     # Modify width config in html files
-    sed -i 's/max-width:100%/max-width:200%;width:1100px/g' "$file"
+    sed -i 's/max-width:100%/max-width:200%;width:1100px/g' "${dir}"/"$file"
     echo "String in file $file replaced."
     cat "${dir}"/"$file"
 done
