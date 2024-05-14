@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Define vars
-file="*html"
+file="*.html"
 dir="hugo"
 CURR_DATE=$(date)
 
 
 # Add new markdown lines at the beginning of the files
  for file in `cd ${dir};ls -1 ${file}` ;do
-     cat <<EOF | cat - "$file" > temp && mv temp "$file"
+     cat <<EOF | cat - "${dir}"/"$file" > temp && mv temp "$file"
 +++
 date = $CURR_DATE
 draft = false
@@ -29,7 +29,7 @@ cp hugo/sthings-logo.png sthings/themes/github-style/images/sthings-logo.png
 cp hugo/sthings-city.png sthings/themes/github-style/images/sthings-city.png
 
 # Modify theme files
-sed 's/container-lg/container-xl/g' sthings/layouts/partials/post.html
+sed 's/container-lg/container-xl/g' sthings/themes/github-style/layouts/partials/post.html
 # <div class="Box-body px-5 pb-5" style="z-index: 1" width=400%>
 
 
