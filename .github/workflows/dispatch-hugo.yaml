@@ -41,7 +41,7 @@ jobs:
           baseURL = '${{ inputs.base-url }}''
           EOF
 
-          cp hugo/hugo.toml ./sthings
+          cp -f hugo/hugo.toml ./sthings
 
       - uses: actions/upload-artifact@v3
         with:
