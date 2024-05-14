@@ -20,6 +20,7 @@ EOF
     # Modify width config in html files
     sed -i 's/max-width:100%/max-width:200%;width:1100px/g' "$file"
     echo "String in file $file replaced."
+    cat "${dir}"/"$file"
 done
 
 # Copy hugo content

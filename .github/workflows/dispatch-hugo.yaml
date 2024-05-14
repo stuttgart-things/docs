@@ -42,6 +42,7 @@ jobs:
           EOF
 
           cp -f hugo/hugo.toml ./sthings
+          cat ./sthings/hugo.toml
 
       - uses: actions/upload-artifact@v3
         with:
