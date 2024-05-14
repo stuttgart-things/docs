@@ -8,7 +8,7 @@ CURR_DATE=$(date)
 
 # Add new markdown lines at the beginning of the files
  for file in `cd ${dir};ls -1 ${file}` ;do
-     cat <<EOF | cat - "${dir}"/"$file" > temp && mv temp "$file"
+     cat <<EOF | cat - "${dir}"/"$file" > temp && mv temp "${dir}"/"$file"
 +++
 date = $CURR_DATE
 draft = false
