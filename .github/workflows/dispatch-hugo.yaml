@@ -38,7 +38,7 @@ jobs:
 
           # Add hugo toml
           cat <<EOF | cat - hugo.toml > temp && mv temp hugo.toml
-          baseURL = '${{ inputs.base-url }}''
+          baseURL = '${{ inputs.base-url }}'
           EOF
 
           cp -f hugo/hugo.toml ./sthings
