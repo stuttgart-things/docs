@@ -22,11 +22,15 @@ EOF
     echo "String in file $file replaced."
 done
 
+# Get sthings logos
+wget https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-logo.png
+wget https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-city.png
+
 # Copy hugo content
 cp -R hugo/*.html sthings/content/post
-cp hugo/sthings-logo.png sthings/themes/github-style/static/images/avatar.png
-cp hugo/sthings-logo.png sthings/themes/github-style/images/sthings-logo.png
-cp hugo/sthings-city.png sthings/themes/github-style/images/sthings-city.png
+cp sthings-logo.png sthings/themes/github-style/static/images/avatar.png
+cp sthings-logo.png sthings/themes/github-style/images/sthings-logo.png
+cp sthings-city.png sthings/themes/github-style/images/sthings-city.png
 
 # Modify theme files
 sed 's/container-lg/container-xl/g' sthings/themes/github-style/layouts/partials/post.html

@@ -10,12 +10,13 @@ on:
       base-url:
         required: true
         type: string
+        default: https://stuttgart-things.github.io/stuttgart-things/
 jobs:
   build-hugo:
     name: Build Hugo
     runs-on: ${{ inputs.runs-on }}
     container:
-      image: klakegg/hugo:0.107.0-ext-alpine
+      image: floryn90/hugo:0.125.7
     environment: k8s
     continue-on-error: false
     steps:
@@ -35,21 +36,21 @@ jobs:
           ls -lta sthings/content/post
 
           # Add hugo toml
-          cat <<EOF | cat - hugo/hugo.toml > temp && mv temp hugo/hugo.toml
-          baseURL = '${{ inputs.base-url }}'
+          cat <<EOF | cat - hugo/hugo.yaml > temp && mv temp hugo/hugo.yaml
+          baseURL: '${{ inputs.base-url }}'
           EOF
 
-          cp -f hugo/hugo.toml ./sthings
-          cat ./sthings/hugo.toml
+          cp -f hugo/hugo.yaml ./sthings
+          cat ./sthings/hugo.yaml
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4.3.3
         with:
           name: hugo-dev
           path: sthings
 
       - run: cd sthings && hugo --verbose --destination ../public
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4.3.3
         with:
           name: hugo-public
           path: public
