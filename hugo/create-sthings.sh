@@ -3,7 +3,7 @@
 # Define vars
 file="*.html"
 dir="hugo"
-CURR_DATE=$(date)
+CURR_DATE=$(date +'%Y-%m-%dT%H:%M:%S%:z')
 
 
 # Add new markdown lines at the beginning of the files
