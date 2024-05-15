@@ -148,7 +148,7 @@ ansible/plugins/modules
 ```
 
 ```yaml
-# USE MODULE IN TASK
+# USE MODULE IN ANSIBLE TASK
 # ...
 - get_checksum:
     path: "{{ golang_install_dir }}go"
