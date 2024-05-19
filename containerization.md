@@ -7,6 +7,8 @@ containerization is a software deployment process that bundles an application's 
 <details><summary>JUMP INTO (ALREADY) RUNNING CONTAINER W/ DOCKER</summary>
 
 ```bash
+#https://blog.kubesimplify.com/getting-started-with-ko-a-fast-container-image-builder-for-your-go-applications
+
 # RUN CONTAINER DETACHED
 sudo docker run -d --name new-webserver nginx
 
