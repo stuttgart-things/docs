@@ -12,7 +12,7 @@ jobs:
     uses: stuttgart-things/stuttgart-things/.github/workflows/lint-markdown.yaml@main
     with:
       environment-name: k8s
-      runs-on: ghr-docs-sthings-cicd
+      runs-on: ghr-docs-labda-test
       continue-error: true
       alpine-version: 3.19.0
       lintprofile-path: .markdownlint.rb
@@ -23,14 +23,14 @@ jobs:
     uses: stuttgart-things/stuttgart-things/.github/workflows/lint-yaml.yaml@main
     with:
       environment-name: k8s
-      runs-on: ghr-docs-sthings-cicd
+      runs-on: ghr-docs-labda-test
       continue-error: true
       yamllint-version: 1
       lintprofile-path: .yamllint
       artifact-name: yaml-lint
       
   Build-Hugo:
-    runs-on: ghr-docs-sthings-cicd
+    runs-on: ghr-docs-labda-test
     container:
       image: klakegg/hugo:0.107.0-ext-alpine
     environment: k8s
@@ -59,7 +59,7 @@ jobs:
           done
 
   Deploy-Hugo-Site:
-    runs-on: ghr-docs-sthings-cicd
+    runs-on: ghr-docs-labda-test
     needs: Build-Hugo
     permissions:
       pages: write      # to deploy to Pages
