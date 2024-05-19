@@ -26,6 +26,18 @@ sudo docker run -it -v /home/test/stuttgart-things:/app/ eu.gcr.io/stuttgart-thi
 
 ## IMAGE BUILD
 
+<details><summary>GOLANG IMAGE BUILD IMAGE W/ KO</summary>
+
+```bash
+# URL FOR PUBLISHING IMAGE
+export KO_DOCKER_REPO=eu.gcr.io/stuttgart-things/machineshop
+# BUILD IMAGE
+ko build github.com/stuttgart-things/machineshop
+```
+
+</details>
+
+
 <details><summary>BUILD IMAGE W/ DOCKER</summary>
 
 ```bash
