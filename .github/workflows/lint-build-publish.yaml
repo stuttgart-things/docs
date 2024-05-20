@@ -46,7 +46,7 @@ jobs:
           bash hugo/create-content.sh
           cp *.md ./blog/content/docs
           ls -lta blog/content/docs
-          cd blog && hugo --verbose --destination ../public
+          cd blog && hugo --logLevel info --destination ../public
         shell: bash
       - uses: actions/upload-artifact@v3
         with:
