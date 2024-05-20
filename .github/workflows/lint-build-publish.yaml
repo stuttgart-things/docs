@@ -32,7 +32,7 @@ jobs:
   Build-Hugo:
     runs-on: ghr-docs-labda-test
     container:
-      image: klakegg/hugo:0.107.0-ext-alpine
+      image: dcjulian29/hugo:0.125.5
     environment: k8s
     continue-on-error: false
     steps:
