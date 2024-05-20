@@ -42,6 +42,9 @@ jobs:
           echo "Creating hugo blog"
           hugo new site blog -f "yaml"
           git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
+          # WORKAROUNT
+          cd ./blog/themes/hugo-book && git checkout v9 && cd -
+          
           mkdir -p ./blog/content/docs
           bash hugo/create-content.sh
           cp *.md ./blog/content/docs
