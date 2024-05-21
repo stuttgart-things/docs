@@ -38,3 +38,5 @@ jobs:
       image: dcjulian29/hugo:0.125.5
       creation-script-path: hugo/create-content.sh
       site-name: blog
+      s3-bucket: hugo
+      s3-endpoint: https://artifacts.app1.sthings-vsphere.labul.sva.de:443
