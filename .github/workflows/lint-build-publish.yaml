@@ -29,68 +29,11 @@ jobs:
       lintprofile-path: .yamllint
       artifact-name: yaml-lint
       
-  Build-Hugo:
-    runs-on: ghr-docs-labda-test
-    container:
-      image: ghcr.io/hostwithquantum/hugo-docker:v0.126.1
-    environment: k8s
-    continue-on-error: false
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - run: |
-          echo "Creating hugo blog"
-          hugo new site blog -f "yaml"
-          git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
-          # WORKAROUNT
-          cd ./blog/themes/hugo-book && git checkout v9 && cd -
-          
-          mkdir -p ./blog/content/docs
-          bash hugo/create-content.sh
-          cp *.md ./blog/content/docs
-          ls -lta blog/content/docs
-          cd blog && hugo --logLevel info --destination ../public
-        shell: bash
-      - uses: actions/upload-artifact@v3
-        with:
-          name: hugo-public
-          path: public
-
-      - name: Fix permissions
-        run: |
-          chmod -c -R +rX "blog/" | while read line; do
-            echo "::warning title=Invalid file permissions automatically fixed::$line"
-          done
-
-  Deploy-Hugo-Site:
-    runs-on: ghr-docs-labda-test
-    needs: Build-Hugo
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
-    container:
-      image: locietta/loia-dev-base:node
-    environment: k8s
-    continue-on-error: false
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: hugo-public
-
-      - name: Checkout code
-        run: |
-          ls -lta
-
-      - uses: actions/upload-pages-artifact@v2
-        with:
-          path: .
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
-
-      - name: Microsoft Teams Notification
-        uses: skitionek/notify-microsoft-teams@master
-        if: always()
-        with:
-          webhook_url: ${{ secrets.MS_TEAMS_URL }}
+  build-hugo:
+    name: Build hugo
+    uses: stuttgart-things/stuttgart-things/.github/workflows/call-hugo-build.yaml@main
+    with:
+      environment-name: k8s
+      runs-on: ghr-docs-labda-test
+      image: dcjulian29/hugo:0.125.5
+      creation-script-path: hugo/create-content.sh

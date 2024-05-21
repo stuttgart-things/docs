@@ -1,5 +1,14 @@
 #!/bin/bash
 
+echo "Creating hugo blog"
+hugo new site blog -f "yaml"
+git clone https://github.com/alex-shpak/hugo-book ./blog/themes/hugo-book
+
+# WORKAROUND
+cd ./blog/themes/hugo-book && git checkout v9 && cd -
+
+mkdir -p ./blog/content/docs
+
 # REWRITING DETAILS
 sed -i 's@<details><summary><b>@<details><summary>@g; s@</b></summary>@</summary>@g; s@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' *.md
 
@@ -70,3 +79,6 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo -e "![${file}](/static/${file})" >> ${out}
    echo '{{< /expand >}}' >> ${out}
 done
+
+cp *.md ./blog/content/docs
+ls -lta blog/content/docs
