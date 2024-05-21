@@ -33,7 +33,7 @@ jobs:
     name: Build hugo
     uses: stuttgart-things/stuttgart-things/.github/workflows/call-hugo-build.yaml@main
     with:
-      environment-name: labul-vsphere
+      environment-name: k8s
       runs-on: ghr-docs-labda-test
       image: dcjulian29/hugo:0.125.5
       creation-script-path: hugo/create-content.sh
