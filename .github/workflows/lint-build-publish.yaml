@@ -9,7 +9,7 @@ on:
 jobs:
   markdown-lint:
     name: Lint markdown files
-    uses: stuttgart-things/stuttgart-things/.github/workflows/lint-markdown.yaml@main
+    uses: stuttgart-things/stuttgart-things/.github/workflows/call-markdown-lint.yaml@main
     with:
       environment-name: k8s
       runs-on: ghr-docs-labda-test
@@ -20,7 +20,7 @@ jobs:
       
   yaml-lint:
     name: Lint yaml files
-    uses: stuttgart-things/stuttgart-things/.github/workflows/lint-yaml.yaml@main
+    uses: stuttgart-things/stuttgart-things/.github/workflows/call-yaml-lint.yaml@main
     with:
       environment-name: k8s
       runs-on: ghr-docs-labda-test
