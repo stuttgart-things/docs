@@ -40,4 +40,3 @@ jobs:
       site-name: blog
       s3-bucket: hugo
       s3-endpoint: https://artifacts.app1.sthings-vsphere.labul.sva.de:443
-${{ inputs.site-name }}
