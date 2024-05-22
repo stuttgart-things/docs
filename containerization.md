@@ -31,8 +31,18 @@ sudo docker run -it -v /home/test/stuttgart-things:/app/ eu.gcr.io/stuttgart-thi
 <details><summary>GOLANG IMAGE BUILD IMAGE W/ KO</summary>
 
 ```bash
+# REGISTRY LOGIN
+ko login scr.cd43.sthings-pve.labul.sva.de -u sthings -p <PASSWORD>
+
 # URL FOR PUBLISHING IMAGE
 export KO_DOCKER_REPO=eu.gcr.io/stuttgart-things/machineshop
+
+# KO CONFIG (NOT MANDATORY)
+cat <<EOF > .ko.yaml
+---
+defaultBaseImage: eu.gcr.io/stuttgart-things/sthings-alpine:3.12.2-alpine3.19
+EOF
+
 # BUILD IMAGE
 ko build github.com/stuttgart-things/machineshop
 ```
