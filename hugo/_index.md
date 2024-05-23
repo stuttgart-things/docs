@@ -9,4 +9,4 @@ type: docs
 
 microservice development, configuration/infrastructure as code & creation of clis based on surveys.
 
-{{< button href="https://github.com/stuttgart-things" >}}Contribute{{< /button >}}
+{{</* button href="https://github.com/stuttgart-things" >}}Contribute{{</* /button */>}}
