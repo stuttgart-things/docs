@@ -38,7 +38,7 @@ jobs:
     with:
       environment-name: k8s
       runs-on: ghr-docs-labda-test
-      image: dcjulian29/hugo:0.125.5
+      image: floryn90/hugo:0.126.1-ext-ubuntu-ci
       creation-script-path: hugo/create-content.sh
       site-name: blog
       s3-bucket: hugo
