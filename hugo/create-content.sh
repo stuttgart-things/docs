@@ -4,7 +4,7 @@ SITE_NAME=$1
 
 echo "Creating hugo site ${SITE_NAME}"
 hugo new site ${SITE_NAME} -f "yaml"
-rm sthings/hugo.toml
+rm ${SITE_NAME}/hugo.toml
 git clone https://github.com/alex-shpak/hugo-book ./${SITE_NAME}/themes/hugo-book
 
 # WORKAROUND
