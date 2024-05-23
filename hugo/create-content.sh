@@ -13,7 +13,7 @@ git clone https://github.com/alex-shpak/hugo-book ./${SITE_NAME}/themes/hugo-boo
 mkdir -p ./${SITE_NAME}/content/docs
 
 # REWRITING DETAILS
-sed -i 's@<details><summary><b>@<details><summary>@g; s@</b></summary>@</summary>@g; s@<details><summary>@{{</* expand "@g; s@</summary>@" */>}}@g; s@</details>@{{</* /expand */>}}@g' *.md
+sed -i 's@<details><summary><b>@<details><summary>@g; s@</b></summary>@</summary>@g; s@<details><summary>@{{< expand "@g; s@</summary>@" >}}@g; s@</details>@{{< /expand >}}@g' *.md
 
 # COPY HUGO CONTENT
 #cp -R hugo/config.yaml ./${SITE_NAME}
@@ -41,7 +41,7 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo -e '```yaml' >> ${out}
    cat ${dir}/${file} >> ${out}
    echo -e '\n```\n' >> ${out}
-   echo '{{< expand >}}' >> ${out}
+   echo '{{< /expand >}}' >> ${out}
    echo -e "\n" >> ${out}
 done
 
@@ -63,7 +63,7 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo -e '```yaml' >> ${out}
    cat ${dir}/${file} >> ${out}
    echo -e '\n```\n' >> ${out}
-   echo '{{< expand >}}' >> ${out}
+   echo '{{< /expand >}}' >> ${out}
    echo -e "\n" >> ${out}
 done
 
@@ -80,7 +80,7 @@ for file in `cd ${dir};ls -1 ${file}` ;do
    echo '{{< expand '\"${file}\"' "..." >}}' >> ${out}
    echo -e "\n" >> ${out}
    echo -e "![${file}](/static/${file})" >> ${out}
-   echo '{{< expand >}}' >> ${out}
+   echo '{{< /expand >}}' >> ${out}
 done
 
 cp *.md ./${SITE_NAME}/content/docs
