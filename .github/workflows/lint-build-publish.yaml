@@ -39,6 +39,7 @@ jobs:
       environment-name: k8s
       runs-on: ghr-docs-labda-test
       image: dcjulian29/hugo:0.125.5
+    secrets: inherit
       creation-script-path: hugo/create-content.sh
       site-name: blog
       s3-bucket: hugo
