@@ -8,7 +8,7 @@ rm ${SITE_NAME}/hugo.toml
 git clone https://github.com/alex-shpak/hugo-book ./${SITE_NAME}/themes/hugo-book
 
 # WORKAROUND
-#cd ./${SITE_NAME}/themes/hugo-book && git checkout v9 && cd -
+cd ./${SITE_NAME}/themes/hugo-book && git checkout v10 && cd -
 
 mkdir -p ./${SITE_NAME}/content/docs
 
