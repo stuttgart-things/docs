@@ -44,3 +44,5 @@ SRANDMEMBER whatever 1
 ```bash
 JSON.GET st-0-execute-ansible-smt40-rke2-15-1717483c5a
 ```
+
+</details>

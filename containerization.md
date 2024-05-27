@@ -204,6 +204,8 @@ sudo systemctl status containerd
 sudo journalctl -u containerd
 ```
 
+</details>
+
 <details><summary>INSTALL RUNC</summary>
 
 ```bash
