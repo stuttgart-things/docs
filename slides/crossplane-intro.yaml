@@ -1,0 +1,33 @@
+# /CROSSPLANE
+⚡️Provision and manage cloud infrastructure and services using kubectl⚡️
+--
+### /INTRO
+- created by Upbound (released in December 2018) <!-- .element: class="fragment fade-up" -->
+- incubating CNCF project by the (2020) <!-- .element: class="fragment fade-up" -->
+- use Kubernetes to control all of your cloud <!-- .element: class="fragment fade-up" -->
+--
+### /CONCEPTS
+- kubernetes basics <!-- .element: class="fragment fade-up" -->
+- operators + cr(d)s <!-- .element: class="fragment fade-up" -->
+- gitops <!-- .element: class="fragment fade-up" -->
+- cloud <!-- .element: class="fragment fade-up" -->
+[comment]: <> (https://blog.crossplane.io/content/images/2021/07/1625080269733.jpeg)
+--
+### /CONTROL PLANE
+- service that watches:
+  - a declared state <!-- .element: class="fragment fade-up" -->
+  -  actual state reflects that of the declared <!-- .element: class="fragment fade-up" -->
+[<img src="https://www.padok.fr/hubfs/reconciliation_loop_crossplane.webp" width="900"/>](https://www.sva.de/index.html)
+<!-- .element: class="fragment fade-up" -->
+--
+### /TERMINOLOGY 
+* PROVIDERS: <!-- .element: class="fragment fade-up" -->
+  * an OCI image, like a Docker image for example It installs CustomResourceDefinitions to allow for the provisioning of resources on
+an external service like a cloud provider As of today <!-- .element: class="fragment fade-up" -->
+  * providers exist for AWS, GCP, Azure, Datadog, Alibaba, GitLab, Github, Kubernetes <!-- .element: class="fragment fade-up" -->
+* MANAGED RESOURCES <!-- .element: class="fragment fade-up" -->
+  * represent infrastructure resources Configurations <!-- .element: class="fragment fade-up" -->
+--
+* Composite resources <!-- .element: class="fragment fade-up" -->
+They group-managed resources together to allow for the creation of more complex, business-oriented infrastructure resources
+--
