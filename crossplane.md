@@ -705,7 +705,6 @@ EOF
 
 </details>
 
-
 <details><summary>AZURE PROVIDER INSTALLATION</summary>
 
 ```bash
@@ -727,6 +726,7 @@ spec:
     name: default
   deletionPolicy: Delete
 EOF
+
 kubectl get managed
 ```
 
@@ -744,24 +744,8 @@ spec:
   package: xpkg.upbound.io/upbound/provider-azure-management:v1.2.0
 EOF
 ```
-# https://marketplace.upbound.io/providers/upbound/provider-family-azure/v1.2.0/docs/quickstart
-
-# https://github.com/DexterPOSH/crossplane-getting-started/tree/main
-</details>
-
-<details><summary>AZURE PROVIDER CONFIGURATION</summary>
-
-```bash
-az login --use-device-code
-
-Subscription_ID=28042244-bb51-4cd6-8034-7776fa3703e8
-az ad sp create-for-rbac --sdk-auth --role Owner --scopes /subscriptions/${Subscription_ID}
-
-
-```
 
 </details>
-
 
 
 ## HELM PROVIDER

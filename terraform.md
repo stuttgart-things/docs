@@ -1359,3 +1359,21 @@ resource "kubectl_manifest" "cert_manifest" {
 ```
 
 </details>
+
+<details><summary><b>REMOTE STATE IN GCP</b></summary>
+
+```hcl
+resource "random_id" "bucket_prefix" {
+  byte_length = 8
+}
+
+terraform {
+ backend "gcs" {
+   credentials = "gcp-credentials.json"
+   bucket  = "sthings-bucket-f0b3f1ee5"
+   prefix  = "terraform/state"
+ }
+}
+```
+
+</details>
