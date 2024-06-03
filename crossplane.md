@@ -663,6 +663,107 @@ kubectl describe xbaseosrun.resources.stuttgart-things.com/<COMPOSITE-NAME>
 
 </details>
 
+## GCP PROVIDER
+
+<details><summary>AZURE PROVIDER INSTALLATION</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-gcp-storage
+spec:
+  package: xpkg.upbound.io/upbound/provider-gcp-storage:v1.2.0
+EOF
+```
+
+```bash
+# https://cloud.google.com/iam/docs/keys-create-delete?hl=de#creating
+kubectl create secret generic gcp-secret -n crossplane-system --from-file=creds=../gcp-credentials.json
+EOF
+```
+
+```bash
+cat ../gcp-credentials.json | grep project_id # USE THIS AS PROJECT ID
+
+kubectl apply -f - <<EOF
+apiVersion: gcp.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  projectID: stuttgart-things
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: gcp-secret
+      key: creds
+EOF
+```
+
+</details>
+
+
+<details><summary>AZURE PROVIDER INSTALLATION</summary>
+
+```bash
+RANDOM_NAME=$(echo "sthings-bucket-"$(head -n 4096 /dev/urandom | openssl sha1 | tail -c 10))
+
+kubectl apply -f - <<EOF
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: example
+  labels:
+  annotations:
+    crossplane.io/external-name: ${RANDOM_NAME}
+spec:
+  forProvider:
+    location: US
+    storageClass: MULTI_REGIONAL
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+EOF
+kubectl get managed
+```
+
+## AZURE PROVIDER
+
+<details><summary>AZURE PROVIDER INSTALLATION</summary>
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-azure-management
+spec:
+  package: xpkg.upbound.io/upbound/provider-azure-management:v1.2.0
+EOF
+```
+# https://marketplace.upbound.io/providers/upbound/provider-family-azure/v1.2.0/docs/quickstart
+
+# https://github.com/DexterPOSH/crossplane-getting-started/tree/main
+</details>
+
+<details><summary>AZURE PROVIDER CONFIGURATION</summary>
+
+```bash
+az login --use-device-code
+
+Subscription_ID=28042244-bb51-4cd6-8034-7776fa3703e8
+az ad sp create-for-rbac --sdk-auth --role Owner --scopes /subscriptions/${Subscription_ID}
+
+
+```
+
+</details>
+
+
+
 ## HELM PROVIDER
 
 <details><summary>HELM PROVIDER INSTALLATION</summary>
