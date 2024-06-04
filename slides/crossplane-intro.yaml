@@ -19,15 +19,46 @@
   -  actual state reflects that of the declared <!-- .element: class="fragment fade-up" -->
 [<img src="https://www.padok.fr/hubfs/reconciliation_loop_crossplane.webp" width="900"/>](https://www.sva.de/index.html)
 <!-- .element: class="fragment fade-up" -->
+---
+### /GETTING STARTED
+EXCALIDRAW: CROSSPLANE DEPLOY + CLI
+---
+### /USECASE1: GCP BUCKET
+CROSSPLANE + GCP PROVIDER
 --
-### /TERMINOLOGY 
-* PROVIDERS: <!-- .element: class="fragment fade-up" -->
-  * an OCI image, like a Docker image for example It installs CustomResourceDefinitions to allow for the provisioning of resources on
-an external service like a cloud provider As of today <!-- .element: class="fragment fade-up" -->
-  * providers exist for AWS, GCP, Azure, Datadog, Alibaba, GitLab, Github, Kubernetes <!-- .element: class="fragment fade-up" -->
-* MANAGED RESOURCES <!-- .element: class="fragment fade-up" -->
-  * represent infrastructure resources Configurations <!-- .element: class="fragment fade-up" -->
+BUCKET CLAIM
 --
-* Composite resources <!-- .element: class="fragment fade-up" -->
-They group-managed resources together to allow for the creation of more complex, business-oriented infrastructure resources
+k9S + GOOLGE CLOUD SREENSHOT
+--
+### /USECASE1: GCP BUCKET
+EXCALIDRAW: CROSSPLANE + GCP PROVIDER
+--
+BUCKET CLAIM
+--
+k9S + GOOLGE CLOUD SREENSHOT
+--
+EXCALIDRAW: CROSSPLANE + GCP PROVIDER + BUCKET IN GCP
+---
+### /USECASE2: TERRAFORM VSPHEREVM
+CROSSPLANE + TERRAFORM PROVIDER
+--
+WORKSPACE
+--
+EXCALIDRAW: CROSSPLANE + GCP PROVIDER + VM IN VSPHERE
+---
+### /USECASE3: MANIFEST TEKTON
+CROSSPLANE + KUBERNETES PROVIDER
+--
+OBJECT
+--
+EXCALIDRAW: CROSSPLANE + KUBERNETES + TEKTON ON CLUSTER
+---
+### /COMPOSITION
+### /XRDS
+### /CLAIM
+
+
+
+### /USECASE2: TERRAFORM VSPHEREVM
+CROSSPLANE + TERRAFORM PROVIDER
 --
