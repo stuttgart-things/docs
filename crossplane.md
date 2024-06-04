@@ -730,6 +730,26 @@ EOF
 kubectl get managed
 ```
 
+<details><summary>USAGE FOR DELETION ORDERING </summary>
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1alpha1
+kind: Usage
+metadata:
+  name: vspherevm-uses-bucket
+spec:
+  of:
+    apiVersion: storage.gcp.upbound.io/v1beta1
+    kind: Bucket
+    resourceRef:
+      name: tuesday-test1-kx7fb-cmcbx
+  by:
+    apiVersion: tf.upbound.io/v1beta1
+    kind: Workspace
+    resourceRef:
+      name: tuesday-test1-kx7fb-vc7kn
+```
+
 ## AZURE PROVIDER
 
 <details><summary>AZURE PROVIDER INSTALLATION</summary>
