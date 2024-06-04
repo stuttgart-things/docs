@@ -730,6 +730,8 @@ EOF
 kubectl get managed
 ```
 
+</details>
+
 <details><summary>USAGE FOR DELETION ORDERING </summary>
 
 ```yaml
@@ -749,6 +751,8 @@ spec:
     resourceRef:
       name: tuesday-test1-kx7fb-vc7kn
 ```
+
+</details>
 
 ## AZURE PROVIDER
 
