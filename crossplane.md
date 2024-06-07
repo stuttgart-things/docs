@@ -293,7 +293,7 @@ kind: Provider
 metadata:
   name: provider-kubernetes
 spec:
-  package: "crossplanecontrib/provider-kubernetes:v0.11.2" # main for latest
+  package: "crossplanecontrib/provider-kubernetes:v0.14.0" # main for latest
 EOF
 ```
 
@@ -665,7 +665,7 @@ kubectl describe xbaseosrun.resources.stuttgart-things.com/<COMPOSITE-NAME>
 
 ## GCP PROVIDER
 
-<details><summary>AZURE PROVIDER INSTALLATION</summary>
+<details><summary>GCP PROVIDER INSTALLATION</summary>
 
 ```bash
 kubectl apply -f - <<EOF
@@ -705,7 +705,7 @@ EOF
 
 </details>
 
-<details><summary>AZURE PROVIDER INSTALLATION</summary>
+<details><summary>GCP BUCKET CREATION</summary>
 
 ```bash
 RANDOM_NAME=$(echo "sthings-bucket-"$(head -n 4096 /dev/urandom | openssl sha1 | tail -c 10))
