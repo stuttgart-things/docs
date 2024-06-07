@@ -1,10 +1,29 @@
-
+### /CROSSPLANE USECASE MULTICLOUD 
 
 
 ### /USECASE1: GCP BUCKET
 CROSSPLANE + GCP PROVIDER
 --
 BUCKET CLAIM
+<details><summary>GCP BUCKET CREATION</summary>
+
+```yaml
+apiVersion: storage.gcp.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: example
+  labels:
+  annotations:
+    crossplane.io/external-name: ${RANDOM_NAME}
+spec:
+  forProvider:
+    location: US
+    storageClass: MULTI_REGIONAL
+  providerConfigRef:
+    name: default
+  deletionPolicy: Delete
+```
+
 --
 k9S + GOOLGE CLOUD SREENSHOT
 --
