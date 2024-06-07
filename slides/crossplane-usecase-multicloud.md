@@ -1,84 +1,41 @@
-### /CROSSPLANE USECASE MULTICLOUD
-BUNDLE MULTI CLOUD RESOURCES IN ONE COMPOSITION
---
-### /RESOURCE1: GCP BUCKET
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/diagram-crossplane-gcp.png" width="600"/>
---
-### /RESOURCE1: GCP BUCKET CLAIM
-```
-apiVersion: storage.gcp.upbound.io/v1beta1
-kind: Bucket
-metadata:
-  name: example
-  labels:
-  annotations:
-    crossplane.io/external-name: xsthings-demo
-spec:
-  forProvider:
-    location: US
-    storageClass: MULTI_REGIONAL
-  providerConfigRef:
-    name: default
-  deletionPolicy: Delete
-```
---
-### /MANAGE GCP BUCKET LIEFECYCLE
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/01-crossplane-gcp-bucket.png" width="900"/>
---
-* k9S + GOOLGE CLOUD SREENSHOT
----
-### /RESOURCE2: TERRAFORM VSPHEREVM
-CROSSPLANE + TERRAFORM PROVIDER
---
-WORKSPACE DEFINITION I
+# /CROSSPLANE - IAC ON STEROIDS
 
-```
-apiVersion: tf.upbound.io/v1beta1
-kind: Workspace
-metadata:
-  name: tuesday-test1-knqpq-s92xd
-spec:
-  providerConfigRef:
-    name: gcp-tuesday-test1
-  deletionPolicy: Delete
-  forProvider:
-    entrypoint: ""
-    module: "git::https://github.com/
-    stuttgart-things/vsphere-vm.git?ref=v1.7.5-2.7.0"
-    source: Remote
-```
+⚡️Provision and manage cloud infrastructure and services using kubectl⚡️
 --
-WORKSPACE DEFINITION II
+### /INTRO
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/00-crossplane-overview.png" width="1200"/>
+--
+### /CROSSPLANE
+- created by Upbound (released in December 2018) <!-- .element: class="fragment fade-up" -->
+- incubating CNCF project by the (2020) <!-- .element: class="fragment fade-up" -->
+- use Kubernetes to control all of your cloud <!-- .element: class="fragment fade-up" -->
 
-```
-varFiles:
-- format: HCL
-  secretKeyRef:
-    key: terraform.tfvars
-    name: vsphere-tfvars
-    namespace: crossplane-system
-  source: SecretKey
-vars:
-- key: vm_count
-  value: "1"
-- key: vm_memory
-  value: "4096"
-writeConnectionSecretToRef:
-  name: tuesday-test1
-```
---
-EXCALIDRAW: CROSSPLANE + GCP PROVIDER + VM IN VSPHERE
----
-### /RESOURCE3: KUBERNETES PROVIDER
+### /CONCEPTS
 
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/platform-meme.png" width="900"/>
+- kubernetes basics <!-- .element: class="fragment fade-up" -->
+- operators + cr(d)s <!-- .element: class="fragment fade-up" -->
+- gitops <!-- .element: class="fragment fade-up" -->
+- cloud <!-- .element: class="fragment fade-up" -->
+  [comment]: <> (https://blog.crossplane.io/content/images/2021/07/1625080269733.jpeg)
+  --
 
-CROSSPLANE +
---
-OBJECT
---
-EXCALIDRAW: CROSSPLANE + KUBERNETES + TEKTON ON CLUSTER
----
-### /COMPOSITION
-### /XRDS
-### /CLAIM
+### /CONTROL PLANE
+
+- service that watches:
+  - a declared state <!-- .element: class="fragment fade-up" -->
+  - actual state reflects that of the declared <!-- .element: class="fragment fade-up" -->
+    [<img src="https://www.padok.fr/hubfs/reconciliation_loop_crossplane.webp" width="900"/>](https://www.sva.de/index.html)
+    ## <!-- .element: class="fragment fade-up" -->
+
+### /TERMINOLOGY Providers They are the first kind of package in Crossplane’s
+
+terminology A package is simply an OCI image, like a Docker image for example It
+installs CustomResourceDefinitions to allow for the provisioning of resources on
+an external service like a cloud provider As of today, providers exist for AWS,
+GCP, Azure, Datadog, Alibaba, GitLab, Github, Kubernetes, and many more Managed
+resources They are installed by Providers They represent infrastructure
+resources Configurations They are the second kind of package according to
+Crossplane They leverage the CompositeResourceDefinition and Composition
+features of Crossplane Composite resources They are defined using Crossplane
+configuration, as defined above They group-managed resources together to allow
+for the creation of more complex, business-oriented infrastructure resources
