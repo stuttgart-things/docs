@@ -66,12 +66,14 @@ vars:
 writeConnectionSecretToRef:
   name: tuesday-test1
 ```
-
 --
 EXCALIDRAW: CROSSPLANE + GCP PROVIDER + VM IN VSPHERE
 ---
-### /USECASE3: MANIFEST TEKTON
-CROSSPLANE + KUBERNETES PROVIDER
+### /RESOURCE3: KUBERNETES PROVIDER
+
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/platform-meme.png" width="900"/>
+
+CROSSPLANE +
 --
 OBJECT
 --
