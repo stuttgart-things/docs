@@ -23,3 +23,5 @@
   * actual state reflects that of the declared <!-- .element: class="fragment fade-up" -->
     [<img src="https://www.padok.fr/hubfs/reconciliation_loop_crossplane.webp" width="900"/>](https://www.sva.de/index.html)
     ## <!-- .element: class="fragment fade-up" -->
+
+### /TERMINOLOGY
