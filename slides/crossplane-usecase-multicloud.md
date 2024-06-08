@@ -1,4 +1,6 @@
 ### /CROSSPLANE USECASE MULTICLOUD
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-composition.png" width="425"/>
+
 BUNDLE MULTI CLOUD RESOURCES IN ONE COMPOSITION
 --
 ### /RESOURCE1: GCP BUCKET
@@ -31,7 +33,7 @@ spec:
 CROSSPLANE + TERRAFORM PROVIDER
 --
 ### correct drift
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="600"/>
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="450"/>
 --
 WORKSPACE DEFINITION I
 
