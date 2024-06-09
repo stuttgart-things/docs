@@ -32,10 +32,32 @@ spec:
 ### /RESOURCE2: TERRAFORM VSPHEREVM
 CROSSPLANE + TERRAFORM PROVIDER
 --
-### correct drift
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="450"/>
+### /terraform provider
+<img src="https://media.licdn.com/dms/image/C4E22AQG9YBkzVlWYJA/feedshare-shrink_2048_1536/0/1650457090015?e=2147483647&v=beta&t=aQO1JSO2Xer_ylMNFyfH1Qn6bIZJBLpjW5nvdKHu7tA" width="500"/>
 --
-WORKSPACE DEFINITION I
+### /terraform provider
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="900"/>
+--
+### /INLINE WORKSPACE EXAMPLE
+```
+apiVersion: tf.upbound.io/v1beta1
+kind: Workspace
+metadata:
+  name: example-inline
+spec:
+  forProvider:
+    source: Inline
+    module: |
+      output "hello_world" {
+        value = "Hello, World!"
+      }
+  writeConnectionSecretToRef:
+    namespace: default
+    name: terraform-workspace-example-inline
+```
+
+--
+### /VM-WORKSPACE DEFINITION I
 
 ```
 apiVersion: tf.upbound.io/v1beta1
@@ -53,7 +75,7 @@ spec:
     source: Remote
 ```
 --
-WORKSPACE DEFINITION II
+### /VM-WORKSPACE DEFINITION II
 
 ```
 varFiles:
@@ -72,15 +94,23 @@ writeConnectionSecretToRef:
   name: tuesday-test1
 ```
 --
+### /CORRECT DRIFT
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="450"/>
+--
+### /MANAGE TERRAFORM LIEFECYCLE
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform-vm.png"width="900">
+--
 EXCALIDRAW: CROSSPLANE + GCP PROVIDER + VM IN VSPHERE
 ---
 ### /RESOURCE3: KUBERNETES PROVIDER
-
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/platform-meme.png" width="900"/>
-
+--
 CROSSPLANE +
 --
 OBJECT
+--
+### /RESOURCE3: KUBERNETES PROVIDER
+<img src="https://pbs.twimg.com/media/EXfngQCWAAAlQQ6.jpg" width="650"/>
 --
 EXCALIDRAW: CROSSPLANE + KUBERNETES + TEKTON ON CLUSTER
 ---
