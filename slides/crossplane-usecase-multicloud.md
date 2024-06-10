@@ -11,14 +11,13 @@
 apiVersion: storage.gcp.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  name: example
+  name: xsthings-demo
   labels:
   annotations:
     crossplane.io/external-name: xsthings-demo
 spec:
   forProvider:
-    location: US
-    storageClass: MULTI_REGIONAL
+    location: GER
   providerConfigRef:
     name: default
   deletionPolicy: Delete
@@ -27,7 +26,7 @@ spec:
 ### /CREATE BUCKET + SHOW MANAGED RESOURCE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/bucket.gif" width="900"/>
 --
-### /MANAGE GCP BUCKET LIEFECYCLE
+### /MANAGED (GCP BUCKET) RESOURCE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/01-crossplane-gcp-bucket.png" width="900"/>
 ---
 ### /RESOURCE2: TERRAFORM VSPHEREVM
@@ -60,7 +59,8 @@ spec:
     name: terraform-workspace-example-inline
 ```
 --
-### /REMOTE WORKSPACE (TERRAFORM CALL)
+### /REMOTE WORKSPACE
+(TERRAFORM CLI CALL)
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/terraform-module-call.png" width="850"/>
 --
 ### /VM-WORKSPACE DEFINITION
@@ -70,10 +70,10 @@ spec:
 apiVersion: tf.upbound.io/v1beta1
 kind: Workspace
 metadata:
-  name: tuesday-test1-knqpq-s92xd
+  name: vsphere-vm
 spec:
   providerConfigRef:
-    name: gcp-tuesday-test1
+    name: gcp
   deletionPolicy: Delete
   forProvider:
     entrypoint: ""
