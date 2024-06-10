@@ -31,15 +31,18 @@ spec:
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/01-crossplane-gcp-bucket.png" width="900"/>
 ---
 ### /RESOURCE2: TERRAFORM VSPHEREVM
+<img src="https://www.ambient-it.net/wp-content/uploads/2023/08/terraform-VS-crossplane.png" width="800"/>
+
 TERRAFORM PROVIDER
+--
+### /terraform provider
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="1200"/>
 --
 ### /terraform provider
 <img src="https://media.licdn.com/dms/image/C4E22AQG9YBkzVlWYJA/feedshare-shrink_2048_1536/0/1650457090015?e=2147483647&v=beta&t=aQO1JSO2Xer_ylMNFyfH1Qn6bIZJBLpjW5nvdKHu7tA" width="450"/>
 --
-### /terraform provider
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="700"/>
---
 ### /INLINE WORKSPACE EXAMPLE
+
 ```
 apiVersion: tf.upbound.io/v1beta1
 kind: Workspace
@@ -79,7 +82,7 @@ spec:
     source: Remote
 ```
 --
-### /VM-WORKSPACE DEFINITION (PART II; SHORTEND)
+### /VM-WORKSPACE DEFINITION
 (PART II - EXAMPLE SHORTEND)
 
 ```
@@ -100,20 +103,58 @@ writeConnectionSecretToRef:
 ```
 --
 ### /CORRECT DRIFT
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="650"/>
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="520"/>
 --
 ### /MANAGE TERRAFORM LIEFECYCLE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform-vm.png"width="900">
---
+---
 ### /RESOURCE3: KUBERNETES PROVIDER
+<img src="https://anthonyspiteri.net/wp-content/uploads/2019/07/k8severywhere.jpg" width="700"/>
+--
+### /KUBERNETES PROVIDER
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/kubernetes-provider.png"width="600">
+--
+### /OBJECT EXAMPLE
+
+```
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: sample-namespace
+spec:
+  forProvider:
+    manifest:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        labels:
+          example: "true"
+  providerConfigRef:
+    name: dev-cluster
+```
+--
+### /TEKTON PIPLINERUN
+
+
+
+--
+### /TEKTON PIPLINERUN OBJECT
+
+--
+
+
+
+
+### /KUBERNETES PROVIDER
+<img src="https://pbs.twimg.com/media/EXfngQCWAAAlQQ6.jpg" width="650"/>
+
+
+
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/platform-meme.png" width="900"/>
 --
 CROSSPLANE +
 --
 OBJECT
---
-### /RESOURCE3: KUBERNETES PROVIDER
-<img src="https://pbs.twimg.com/media/EXfngQCWAAAlQQ6.jpg" width="650"/>
---
+
 EXCALIDRAW: CROSSPLANE + KUBERNETES + TEKTON ON CLUSTER
 ---
