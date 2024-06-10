@@ -1,6 +1,5 @@
 ### /CROSSPLANE USECASE MULTICLOUD
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-composition.png" width="425"/>
-
 BUNDLE MULTI CLOUD RESOURCES IN ONE COMPOSITION
 --
 ### /RESOURCE1: GCP BUCKET
