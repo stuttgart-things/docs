@@ -107,6 +107,31 @@ writeConnectionSecretToRef:
 --
 ### /MANAGE TERRAFORM LIEFECYCLE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform-vm.png"width="900">
+--
+### /XRD
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevmgcp.png" width="600">
+--
+### /COMPOSITION
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspheregcp-composition.png" width="1200">
+--
+### /CLAIM
+(EXAMPLE SHORTEND)
+```
+apiVersion: resources.stuttgart-things.com/v1alpha1
+kind: VsphereVMGCP
+metadata:
+  name: demo-vm
+spec:
+  providerRef:
+    name: gcp-tf
+  bucket:
+    name: demo-vm
+  vm:
+    ram: "4096"
+    disk: "64"
+  tfvars:
+    secretName: vsphere-tfvars
+```
 ---
 ### /RESOURCE3: KUBERNETES PROVIDER
 <img src="https://anthonyspiteri.net/wp-content/uploads/2019/07/k8severywhere.jpg" width="700"/>
