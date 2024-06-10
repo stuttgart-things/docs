@@ -1,6 +1,7 @@
 ### /CROSSPLANE USECASE MULTICLOUD
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-composition.png" width="425"/>
-BUNDLE MULTI CLOUD RESOURCES IN ONE COMPOSITION
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-composition.png" width="400"/>
+
+🚀 BUNDLE MULTI CLOUD RESOURCES IN ONE COMPOSITION 🚀
 --
 ### /RESOURCE1: GCP BUCKET
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/diagram-crossplane-gcp.png" width="600"/>
@@ -32,10 +33,10 @@ spec:
 CROSSPLANE + TERRAFORM PROVIDER
 --
 ### /terraform provider
-<img src="https://media.licdn.com/dms/image/C4E22AQG9YBkzVlWYJA/feedshare-shrink_2048_1536/0/1650457090015?e=2147483647&v=beta&t=aQO1JSO2Xer_ylMNFyfH1Qn6bIZJBLpjW5nvdKHu7tA" width="500"/>
+<img src="https://media.licdn.com/dms/image/C4E22AQG9YBkzVlWYJA/feedshare-shrink_2048_1536/0/1650457090015?e=2147483647&v=beta&t=aQO1JSO2Xer_ylMNFyfH1Qn6bIZJBLpjW5nvdKHu7tA" width="450"/>
 --
 ### /terraform provider
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="900"/>
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="700"/>
 --
 ### /INLINE WORKSPACE EXAMPLE
 ```
@@ -113,6 +114,3 @@ OBJECT
 --
 EXCALIDRAW: CROSSPLANE + KUBERNETES + TEKTON ON CLUSTER
 ---
-### /COMPOSITION
-### /XRDS
-### /CLAIM
