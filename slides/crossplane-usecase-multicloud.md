@@ -24,13 +24,14 @@ spec:
   deletionPolicy: Delete
 ```
 --
+### /CREATE BUCKET + SHOW MANAGED RESOURCE
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/bucket.gif" width="900"/>
+--
 ### /MANAGE GCP BUCKET LIEFECYCLE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/01-crossplane-gcp-bucket.png" width="900"/>
---
-* k9S + GOOLGE CLOUD SREENSHOT
 ---
 ### /RESOURCE2: TERRAFORM VSPHEREVM
-CROSSPLANE + TERRAFORM PROVIDER
+TERRAFORM PROVIDER
 --
 ### /terraform provider
 <img src="https://media.licdn.com/dms/image/C4E22AQG9YBkzVlWYJA/feedshare-shrink_2048_1536/0/1650457090015?e=2147483647&v=beta&t=aQO1JSO2Xer_ylMNFyfH1Qn6bIZJBLpjW5nvdKHu7tA" width="450"/>
@@ -55,9 +56,12 @@ spec:
     namespace: default
     name: terraform-workspace-example-inline
 ```
-
 --
-### /VM-WORKSPACE DEFINITION I
+### /REMOTE WORKSPACE (TERRAFORM CALL)
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/terraform-module-call.png" width="850"/>
+--
+### /VM-WORKSPACE DEFINITION
+(PART I - EXAMPLE SHORTEND)
 
 ```
 apiVersion: tf.upbound.io/v1beta1
@@ -75,7 +79,8 @@ spec:
     source: Remote
 ```
 --
-### /VM-WORKSPACE DEFINITION II
+### /VM-WORKSPACE DEFINITION (PART II; SHORTEND)
+(PART II - EXAMPLE SHORTEND)
 
 ```
 varFiles:
@@ -95,13 +100,11 @@ writeConnectionSecretToRef:
 ```
 --
 ### /CORRECT DRIFT
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="450"/>
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="650"/>
 --
 ### /MANAGE TERRAFORM LIEFECYCLE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform-vm.png"width="900">
 --
-EXCALIDRAW: CROSSPLANE + GCP PROVIDER + VM IN VSPHERE
----
 ### /RESOURCE3: KUBERNETES PROVIDER
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/platform-meme.png" width="900"/>
 --
