@@ -25,7 +25,7 @@ spec:
 ```
 * create gcp bucket via claim
 --
-### /CREATE BUCKET + SHOW MANAGED RESOURCE
+### /CREATE BUCKET
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/bucket.gif" width="900"/>
 * creation of bucket + show managed resources
 
@@ -109,8 +109,8 @@ writeConnectionSecretToRef:
 ```
 * PART II - EXAMPLE SHORTEND
 --
-### /MANGED RESOURCE ON CLUSTER
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-vsphere.gif" width="850"/>
+### /MANAGED RESOURCE ON CLUSTER
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-vsphere.gif" width="1050"/>
 * View synced resource
 --
 ### /CORRECT DRIFT
@@ -213,7 +213,7 @@ spec:
   backendConfig:
     dataLIF: 10.100.112.160
     backendName: ontap-nas-backend
-    storageClassName: onptap
+    storageClassName: ontap
 ```
 --
 ### /APP EXAMPLE
