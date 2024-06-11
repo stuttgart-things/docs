@@ -109,6 +109,10 @@ writeConnectionSecretToRef:
 ```
 * PART II - EXAMPLE SHORTEND
 --
+### /MANGED RESOURCE ON CLUSTER
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-vsphere.gif" width="850"/>
+* View synced resource
+--
 ### /CORRECT DRIFT
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="520"/>
 --
