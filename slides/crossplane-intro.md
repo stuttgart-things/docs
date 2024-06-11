@@ -15,13 +15,11 @@
 * operators + cr(d)s <!-- .element: class="fragment fade-up" -->
 * gitops <!-- .element: class="fragment fade-up" -->
 * cloud <!-- .element: class="fragment fade-up" -->
-  [comment]: <> (https://blog.crossplane.io/content/images/2021/07/1625080269733.jpeg)
+* platform engineering <!-- .element: class="fragment fade-up" -->
 --
-### /CONTROL PLANE
+### /CONTROL (X)PLANE
 * service that watches:
   * a declared state <!-- .element: class="fragment fade-up" -->
   * actual state reflects that of the declared <!-- .element: class="fragment fade-up" -->
     [<img src="https://www.padok.fr/hubfs/reconciliation_loop_crossplane.webp" width="900"/>](https://www.sva.de/index.html)
     ## <!-- .element: class="fragment fade-up" -->
-
-### /TERMINOLOGY
