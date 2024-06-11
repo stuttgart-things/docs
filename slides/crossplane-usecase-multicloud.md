@@ -60,11 +60,11 @@ spec:
 ```
 --
 ### /REMOTE WORKSPACE
-(TERRAFORM CLI CALL)
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/terraform-module-call.png" width="850"/>
+* TERRAFORM MODULE CALL (GIT)
+
 --
 ### /VM-WORKSPACE DEFINITION
-(PART I - EXAMPLE SHORTEND)
 
 ```
 apiVersion: tf.upbound.io/v1beta1
@@ -81,10 +81,9 @@ spec:
     stuttgart-things/vsphere-vm.git?ref=v1.7.5-2.7.0"
     source: Remote
 ```
+* PART I - EXAMPLE SHORTEND
 --
 ### /VM-WORKSPACE DEFINITION
-(PART II - EXAMPLE SHORTEND)
-
 ```
 varFiles:
 - format: HCL
@@ -101,12 +100,17 @@ vars:
 writeConnectionSecretToRef:
   name: tuesday-test1
 ```
+* PART II - EXAMPLE SHORTEND
 --
 ### /CORRECT DRIFT
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="520"/>
 --
 ### /MANAGE TERRAFORM LIEFECYCLE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform-vm.png"width="900">
+* CROSSPLANE SYNCS W/ CLOUD
+--
+### /XRDS, COMPOSITIONS & CLAIMS
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/xrd-compostion.png" width="1200">
 --
 ### /XRD
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevmgcp.png" width="600">
@@ -135,12 +139,16 @@ spec:
 ---
 ### /RESOURCE3: KUBERNETES PROVIDER
 <img src="https://anthonyspiteri.net/wp-content/uploads/2019/07/k8severywhere.jpg" width="700"/>
---
-### /KUBERNETES PROVIDER
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/kubernetes-provider.png"width="600">
---
-### /OBJECT EXAMPLE
 
+Usecase Kubernetes 👾
+--
+### /KUBERNETES
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/kübernetz.jpeg" width="525"/>
+--
+### /K8s + HELM PROVIDER
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/k8s-helm-provider.png" width="2500"/>
+--
+### /EXAMPLE OBJECT
 ```
 apiVersion: kubernetes.crossplane.io/v1alpha2
 kind: Object
@@ -158,28 +166,55 @@ spec:
     name: dev-cluster
 ```
 --
-### /TEKTON PIPLINERUN
-
-
-
+### /EXAMPLE RELEASE
+```
+apiVersion: helm.crossplane.io/v1beta1
+kind: Release
+metadata:
+  name: goldilocks
+spec:
+  forProvider:
+    chart:
+      name: goldilocks
+      repository: https://charts.fairwinds.com/stable
+      version: 8.0.0
+    namespace: goldilocks
+    values:
+      service:
+        type: ClusterIP
+```
 --
-### /TEKTON PIPLINERUN OBJECT
-
+### /INFRA EXAMPLE
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/trident-composition.png" width="1200"/>
 --
-
-
-
-
-### /KUBERNETES PROVIDER
-<img src="https://pbs.twimg.com/media/EXfngQCWAAAlQQ6.jpg" width="650"/>
-
-
-
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/platform-meme.png" width="900"/>
+### /TRIDENT CLAIM
+```
+apiVersion: resources.stuttgart-things.com/v1alpha1
+kind: Trident
+metadata:
+  name: labda-demo
+  namespace: crossplane-system
+spec:
+  clusterName: labda-demo
+  backendConfig:
+    dataLIF: 10.100.112.160
+    backendName: ontap-nas-backend
+    storageClassName: onptap
+```
 --
-CROSSPLANE +
+### /APP EXAMPLE
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/shared-cluster.png" width="600"/>
 --
-OBJECT
-
-EXCALIDRAW: CROSSPLANE + KUBERNETES + TEKTON ON CLUSTER
----
+### /HARBOR CLAIM
+```
+apiVersion: resources.stuttgart-things.com/v1alpha1
+kind: Harbor
+metadata:
+  name: harbor-demo
+  namespace: crossplane-system
+spec:
+  hostname: test-reg
+  projects:
+    - app1
+    - app2
+```
