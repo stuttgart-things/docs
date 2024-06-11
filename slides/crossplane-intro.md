@@ -6,9 +6,9 @@
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/00-crossplane-overview.png" width="1200"/>
 --
 ### /CROSSPLANE
+* use Kubernetes to control all of your cloud <!-- .element: class="fragment fade-up" -->
 * created by Upbound (released in December 2018) <!-- .element: class="fragment fade-up" -->
 * incubating CNCF project by the (2020) <!-- .element: class="fragment fade-up" -->
-* use Kubernetes to control all of your cloud <!-- .element: class="fragment fade-up" -->
 --
 ### /CONCEPTS
 * kubernetes basics <!-- .element: class="fragment fade-up" -->
