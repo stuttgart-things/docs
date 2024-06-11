@@ -5,6 +5,7 @@
 --
 ### /RESOURCE1: GCP BUCKET
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/diagram-crossplane-gcp.png" width="600"/>
+* Deployment crossplane + gcp provider
 --
 ### /RESOURCE1: GCP BUCKET CLAIM
 ```
@@ -22,12 +23,16 @@ spec:
     name: default
   deletionPolicy: Delete
 ```
+* create gcp bucket via claim
 --
 ### /CREATE BUCKET + SHOW MANAGED RESOURCE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/bucket.gif" width="900"/>
+* creation of bucket + show managed resources
+
 --
 ### /MANAGED (GCP BUCKET) RESOURCE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/01-crossplane-gcp-bucket.png" width="900"/>
+* gcp resources managed on k8s
 ---
 ### /RESOURCE2: TERRAFORM VSPHEREVM
 <img src="https://www.ambient-it.net/wp-content/uploads/2023/08/terraform-VS-crossplane.png" width="800"/>
@@ -36,6 +41,7 @@ TERRAFORM PROVIDER
 --
 ### /terraform provider
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="1200"/>
+* crossplane + terraform provider
 --
 ### /terraform provider
 <img src="https://media.licdn.com/dms/image/C4E22AQG9YBkzVlWYJA/feedshare-shrink_2048_1536/0/1650457090015?e=2147483647&v=beta&t=aQO1JSO2Xer_ylMNFyfH1Qn6bIZJBLpjW5nvdKHu7tA" width="450"/>
@@ -58,6 +64,7 @@ spec:
     namespace: default
     name: terraform-workspace-example-inline
 ```
+* inline hcl code definition
 --
 ### /REMOTE WORKSPACE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/terraform-module-call.png" width="850"/>
@@ -111,12 +118,15 @@ writeConnectionSecretToRef:
 --
 ### /XRDS, COMPOSITIONS & CLAIMS
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/xrd-compostion.png" width="1200">
+* scope (+personas) of cluster/namespaced resources
 --
 ### /XRD
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevmgcp.png" width="600">
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-crds.png" width="1200">
+* custom API specification
 --
 ### /COMPOSITION
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspheregcp-composition.png" width="1200">
+* composes individual managed resources together into a larger, reusable, solution.
 --
 ### /CLAIM
 (EXAMPLE SHORTEND)
