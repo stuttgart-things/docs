@@ -52,8 +52,17 @@ patrick.hermann@sva.de
 
 
 
+
+
 ### /SUMMARY
-[READ](https://wiki.sva.de/pages/viewpage.action?pageId=554802017)
+* Platform Engineering = creating and managing shared tools, systems, and processes that other software teams use to build, deploy, and run their applications
+* Crossplanes can manage external APIs using K8s
+* Read [blog post](https://wiki.sva.de/pages/viewpage.action?pageId=554802017)
+--
+### /NEXT STEPS
+* RANCHER IPI/UPI CLUSTER + PROVISIONING (GITOPS, DNS, INFRA, APPLICATIONS)
+* TESTING W/ KUTTL <!-- .element: class="fragment fade-up" -->
+* BUILD (CROSSPLANE BASED) IDP W/ BACKSTAGE <!-- .element: class="fragment fade-up" -->
 --
 ### /THANK YOU & GOODBYE GALAXY
 <img src="https://media.licdn.com/dms/image/C4E22AQEd16vto8HKOA/feedshare-shrink_800/0/1671131117163?e=2147483647&v=beta&t=Ac815Z-pKEYJu6Hkve5HCGSi9timgGpEUS4rpSco624" width="600"/>

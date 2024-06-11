@@ -1,7 +1,0 @@
-# /CROSSPLANE-DEV
-
-## PATCHES
-
-## PACKAGES
-
-## TESTING
