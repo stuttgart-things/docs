@@ -1,7 +1,7 @@
 ## CROSSPLANE: IAC ON STEROIDS
-<img src="https://res.cloudinary.com/upbound/raw/upload/Blog_OG_Crossplane_In_A_Box_1200x630_original_bbca38d628.png" width="600"/>
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/intro.jpeg" width="600"/>
 <span style="color:orange">Fachbereichsmeeting Agile IT
-& Software Development 2024</span>
+& Software Dev 2024</span>
 --
 <!-- .slide: data-transition="zoom" -->
 ### /AGENDA
@@ -33,6 +33,7 @@ patrick.hermann@sva.de
 * use Kubernetes to control all of your cloud <!-- .element: class="fragment fade-up" -->
 * created by Upbound (released in December 2018) <!-- .element: class="fragment fade-up" -->
 * incubating CNCF project by the (2020) <!-- .element: class="fragment fade-up" -->
+* managed enterprise/ui control plane (by) upbound <!-- .element: class="fragment fade-up" -->
 --
 ### /CONCEPTS
 * Kubernetes basics <!-- .element: class="fragment fade-up" -->
