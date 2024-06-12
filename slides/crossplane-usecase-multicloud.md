@@ -152,7 +152,6 @@ spec:
 ```
 ---
 ### /RESOURCE3: KUBERNETES PROVIDER
-<img src="https://anthonyspiteri.net/wp-content/uploads/2019/07/k8severywhere.jpg" width="700"/>
 
 Usecase Kubernetes 👾
 --
@@ -232,3 +231,19 @@ spec:
     - app1
     - app2
 ```
+--
+### /VSPHEREVM + ANSIBLERUN
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevm-ansiblerun.png" width="2500"/>
+* VSPHEREVM-GCP-ANSIBLE
+--
+### /VSPHEREVM + ANSIBLERUN
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevm-ansiblerun.png" width="2500"/>
+* VSPHEREVM-GCP-ANSIBLE
+--
+### /VSPHEREVM ANSIBLE CLAIM
+<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/rke2-miami.yaml.png" width="500"/>
+* VSPHEREVM-GCP-ANSIBLE
+--
+### /TF + ANSIBLE
+<img src="https://pbs.twimg.com/media/EXfngQCWAAAlQQ6.jpg" width="700"/>
+--
