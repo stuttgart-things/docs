@@ -28,6 +28,7 @@ patrick.hermann@sva.de
 --
 ### /INTRO
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/00-crossplane-overview.png" width="1200"/>
+* overview
 --
 ### /CROSSPLANE
 * use Kubernetes to control all of your cloud <!-- .element: class="fragment fade-up" -->
@@ -201,6 +202,7 @@ spec:
   tfvars:
     secretName: vsphere-tfvars
 ```
+* provision vspherevm + gcp bucket
 ---
 ### /RESOURCE3: KUBERNETES PROVIDER
 
@@ -211,6 +213,7 @@ Usecase Kubernetes 👾
 --
 ### /K8s + HELM PROVIDER
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/k8s-helm-provider.png" width="2500"/>
+* infra/app deployment (hub-spoke possible)
 --
 ### /EXAMPLE OBJECT
 ```
@@ -229,6 +232,7 @@ spec:
   providerConfigRef:
     name: dev-cluster
 ```
+* example namespace object
 --
 ### /EXAMPLE RELEASE
 ```
@@ -247,9 +251,11 @@ spec:
       service:
         type: ClusterIP
 ```
+* example helm release
 --
 ### /INFRA EXAMPLE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/trident-composition.png" width="1200"/>
+* Composition for trident
 --
 ### /TRIDENT CLAIM
 ```
@@ -265,9 +271,11 @@ spec:
     backendName: ontap-nas-backend
     storageClassName: ontap
 ```
+* trident claim
 --
 ### /APP EXAMPLE
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/shared-cluster.png" width="600"/>
+* developer consume apps/infra via claims
 --
 ### /HARBOR CLAIM
 ```
@@ -287,26 +295,22 @@ spec:
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevm-ansiblerun.png" width="2500"/>
 * VSPHEREVM-GCP-ANSIBLE
 --
-### /VSPHEREVM + ANSIBLERUN
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevm-ansiblerun.png" width="2500"/>
-* VSPHEREVM-GCP-ANSIBLE
---
-### /VSPHEREVM ANSIBLE CLAIM
+### /CLAIM
 <img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/rke2-miami.yaml.png" width="500"/>
 * VSPHEREVM-GCP-ANSIBLE
 --
-### /TF + ANSIBLE
 <img src="https://pbs.twimg.com/media/EXfngQCWAAAlQQ6.jpg" width="700"/>
 ---
 ### /SUMMARY
-* Platform Engineering = creating and managing shared tools, systems, and processes that other software teams use to build, deploy, and run their applications
+* creating and managing shared tools, systems, and processes that other software teams use to build, deploy, and run their applications (Platform Engineering)
 * Crossplanes can manage external APIs using K8s
 * Read [blog post](https://wiki.sva.de/pages/viewpage.action?pageId=554802017)
 --
 ### /NEXT STEPS
 * RANCHER IPI/UPI CLUSTER + PROVISIONING (GITOPS, DNS, INFRA, APPLICATIONS)
-* TESTING W/ KUTTL <!-- .element: class="fragment fade-up" -->
+* OPTIMIZE XRDS, COMPOSITIONS <!-- .element: class="fragment fade-up" -->
+* TESTING COMPOSITION AND CLAIMS W/ KUTTL <!-- .element: class="fragment fade-up" -->
 * BUILD (CROSSPLANE BASED) IDP W/ BACKSTAGE <!-- .element: class="fragment fade-up" -->
 --
 ### /THANK YOU & GOODBYE GALAXY
-<img src="https://media.licdn.com/dms/image/C4E22AQEd16vto8HKOA/feedshare-shrink_800/0/1671131117163?e=2147483647&v=beta&t=Ac815Z-pKEYJu6Hkve5HCGSi9timgGpEUS4rpSco624" width="600"/>
+<img src="https://media.licdn.com/dms/image/C4E22AQEd16vto8HKOA/feedshare-shrink_800/0/1671131117163?e=2147483647&v=beta&t=Ac815Z-pKEYJu6Hkve5HCGSi9timgGpEUS4rpSco624" width="500"/>
