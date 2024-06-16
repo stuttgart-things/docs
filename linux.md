@@ -2,6 +2,14 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>EXTRACT TAR.XZ</b></summary>
+
+```bash
+tar -xf podlet-x86_64-unknown-linux-gnu.tar.xz
+```
+
+</details>
+
 <details><summary><b>APPEND TEXT TO FIRST LINE OF FILE</b></summary>
 
 ```bash

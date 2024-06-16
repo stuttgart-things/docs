@@ -165,6 +165,47 @@ docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d7
 
 </details>
 
+## SYSTEMD
+
+<details><summary>PODMAN QUATLET</summary>
+
+```bash
+# INSTALL PODLET
+wget https://github.com/containers/podlet/releases/download/v0.3.0/podlet-x86_64-unknown-linux-gnu.tar.xz
+tar -xf podlet-x86_64-unknown-linux-gnu.tar.xz
+sudo mv podlet /usr/bin/podlet
+sudo chmod +x /usr/bin/podlet
+```
+
+```bash
+# GENERATE FROM RUN COMMAND
+podlet --file . --install --description Caddy   podman run   --restart always   -p 8000:80   -p 8443:443   -v ./Caddyfile:/etc/caddy/Caddyfile:Z   -v caddy_data:/data   docker.io/library/caddy:latest
+```
+
+```bash
+# GENERATE FROM EXISTING CONTAINER
+podlet generate container 17803fe422cd
+```
+
+```bash
+# DRYRUN - ROOTFUL
+sudo cp ./caddy.container /etc/containers/systemd
+sudo /usr/libexec/podman/quadlet --dryrun caddy.container
+```
+</details>
+
+```bash
+# ENABLE/START SERVICE - ROOTFUL
+sudo systemctl daemon-reload
+sudo systemctl enable --now caddy.service
+sudo systemctl start caddy.service
+```
+
+```bash
+```
+</details>
+
+
 ## HOUSE-KEEPING
 
 <details><summary>CLEANUP W/ NERDCTL</summary>
