@@ -169,6 +169,8 @@ docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d7
 
 <details><summary>PODMAN QUATLET</summary>
 
+[redhat-multi-quatlet](https://www.redhat.com/sysadmin/multi-container-application-podman-quadlet)
+
 ```bash
 # INSTALL PODLET
 wget https://github.com/containers/podlet/releases/download/v0.3.0/podlet-x86_64-unknown-linux-gnu.tar.xz
