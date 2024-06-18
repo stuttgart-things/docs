@@ -2,10 +2,26 @@
 
 ## SNIPPETS
 
+<details><summary>DOWNLOAD KUBECONFIG FROM HA-SERVER BY CLUSTER NAME</summary>
+
+```bash
+# GET CLUSTER ID
+RANCHER_HOST=ui.rancher-mgmt.sthings-pve.labul.sva.de
+CLUSTER_NAME=andre-dev
+BEARER_TOKEN=token-88kns:tm... # GET FROM RANCHER UI
+CLUSTERID=`curl -ks "https://${RANCHER_HOST}/v3/clusters/?name=${CLUSTER_NAME}" -H 'content-type: application/json' -H "Authorization: Bearer ${BEARER_TOKEN}" | jq -r .data[0].id`
+echo "Cluster ID: ${CLUSTERID}"
+
+# GET KUBECONFIG
+curl -ks -X POST -H "Authorization: Bearer ${BEARER_TOKEN}" https://${RANCHER_HOST}/v3/clusters/${CLUSTERID}?action=generateKubeconfig | jq -r ".config"
+```
+
+</details>
+
 <details><summary>GITOPS: CREATORID ANNOTATION DOES NOT MATCH USER</summary>
 
 ```bash
-kubectl delete mutatingwebhookconfigurations rancher.cattle.io 
+kubectl delete mutatingwebhookconfigurations rancher.cattle.io
 kubectl delete validatingwebhookconfigurations rancher.cattle.io
 kubectl -n cattle-system delete service webhook-service
 ```
@@ -35,7 +51,7 @@ type: Opaque
 
 ### Add repo to helm (if not already present)
 ```bash
-helm repo add longhorn https://charts.longhorn.io  
+helm repo add longhorn https://charts.longhorn.io
 helm repo update
 ```
 
@@ -46,13 +62,13 @@ helm search repo --versions longhorn
 
 ### Check values used for installation
 ```bash
-helm ls -n longhorn-system  
+helm ls -n longhorn-system
 helm get values longhorn -n longhorn-system
 ```
 
 ### Start longhorn upgrade
 ```bash
-helm upgrade --install longhorn longhorn/longhorn -n longhorn-system --create-namespace --version 1.5.3  
+helm upgrade --install longhorn longhorn/longhorn -n longhorn-system --create-namespace --version 1.5.3
 kubectl get po -n longhorn-system --watch
 ```
 
@@ -63,7 +79,7 @@ kubectl port-forward services/longhorn-frontend 8080:http -n longhorn-system
 
 ### Delete longhorn from cluster
 ```bash
-kubectl -n longhorn-system patch -p '{"value": "true"}' --type=merge lhs deleting-confirmation-flag  
+kubectl -n longhorn-system patch -p '{"value": "true"}' --type=merge lhs deleting-confirmation-flag
 helm uninstall longhorn -n longhorn-system
 ```
 
