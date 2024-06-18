@@ -175,13 +175,13 @@ docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d7
 # INSTALL PODLET
 wget https://github.com/containers/podlet/releases/download/v0.3.0/podlet-x86_64-unknown-linux-gnu.tar.xz
 tar -xf podlet-x86_64-unknown-linux-gnu.tar.xz
-sudo mv podlet /usr/bin/podlet
+sudo mv podlet-x86_64-unknown-linux-gnu/podlet /usr/bin/podlet
 sudo chmod +x /usr/bin/podlet
 ```
 
 ```bash
 # GENERATE FROM RUN COMMAND
-podlet --file . --install --description Caddy   podman run   --restart always   -p 8000:80   -p 8443:443   -v ./Caddyfile:/etc/caddy/Caddyfile:Z   -v caddy_data:/data   docker.io/library/caddy:latest
+podlet --file . --install --description webserver podman run -d --name webserver -p 80:80 nginx:latest
 ```
 
 ```bash
@@ -191,20 +191,27 @@ podlet generate container 17803fe422cd
 
 ```bash
 # DRYRUN - ROOTFUL
-sudo cp ./caddy.container /etc/containers/systemd
-sudo /usr/libexec/podman/quadlet --dryrun caddy.container
+sudo cp ./webserver.container /etc/containers/systemd
+sudo /usr/libexec/podman/quadlet --dryrun webserver.container
 ```
+
 </details>
 
 ```bash
 # ENABLE/START SERVICE - ROOTFUL
+sudo cp ./webserver.container /etc/containers/systemd
 sudo systemctl daemon-reload
-sudo systemctl enable --now caddy.service
-sudo systemctl start caddy.service
+sudo systemctl enable --now webserver.service
+sudo systemctl start webserver.service
 ```
 
 ```bash
+# TEST SERVICE
+sudo firewall-cmd --zone=public --add-port=80/tcp
+sudo firewall-cmd --zone=public --add-service=http --permanent
+curl localhost
 ```
+
 </details>
 
 
