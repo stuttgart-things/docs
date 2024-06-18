@@ -195,8 +195,6 @@ sudo cp ./webserver.container /etc/containers/systemd
 sudo /usr/libexec/podman/quadlet --dryrun webserver.container
 ```
 
-</details>
-
 ```bash
 # ENABLE/START SERVICE - ROOTFUL
 sudo cp ./webserver.container /etc/containers/systemd
