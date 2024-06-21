@@ -48,6 +48,29 @@ grep -A2 -B2 -Hrn 'ansible.builtin.include_role' ${SEARCH_PATH}
 
 </details>
 
+<details><summary><b>PRINT ARRAY IN ONE LINE w/ JQ</b></summary>
+
+```bash
+files=(one two three)
+jq -c -n '$ARGS.positional' --args "${files[@]}"
+
+```
+
+</details>
+
+<details><summary><b>EXTRACTING A STRING BETWEEN LAST TWO SLASHES IN BASH</b></summary>
+
+```bash
+string='/a/b/c/d/e'  # initial data
+dir=${string%/*}     # trim everything past the last /
+dir=${dir##*/}       # ...then remove everything before the last / remaining
+printf '%s\n' "$dir" # demonstrate output
+```
+
+</details>
+
+
+
 <details><summary><b>CHECK FOR VALUES IN ARRAY / EXCLUDE FROM ARRAY</b></summary>
 
 ```bash
