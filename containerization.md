@@ -4,6 +4,18 @@ containerization is a software deployment process that bundles an application's 
 
 ## RUN
 
+<details><summary>BUILD CONTAINER IMAGE w/ KANIKO (NO PUSH)</summary>
+
+```bash
+sudo nerdctl run gcr.io/kaniko-project/executor:v1.23.1 \
+--dockerfile Dockerfile \
+--context git://github.com/stuttgart-things/stuttgart-things \
+--context-sub-path images/sthings-alpine/  \
+--no-push
+```
+
+</details>
+
 <details><summary>JUMP INTO (ALREADY) RUNNING CONTAINER W/ DOCKER</summary>
 
 ```bash
