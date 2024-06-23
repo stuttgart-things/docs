@@ -11,6 +11,22 @@ kubectl delete po influxdb-influxdb2-0 --force -n influxdb
 
 </details>
 
+<details><summary>NGINX INGRESS RETURNS 413 ENTITY TOO LARGE</summary>
+
+```yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: cs-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 16m
+```
+
+</details>
+
+
 <details><summary>PORTFORWARDING</summary>
 
 ```bash
