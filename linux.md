@@ -2,6 +2,22 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>REMOVE QUOTES FROM STRING</b></summary>
+
+```bash
+echo inventory: 10.31.102.119", "10.31.102.111", "10.31.102.110 | sed 's/.\(.*\)/\0/'
+```
+
+</details>
+
+<details><summary><b>REMOVE SPACE FROM STRING</b></summary>
+
+```bash
+echo "   3918912k " | sed 's/ //g'
+```
+
+</details>
+
 <details><summary><b>EXTRACT TAR.XZ</b></summary>
 
 ```bash
