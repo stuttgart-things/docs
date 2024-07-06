@@ -31,7 +31,7 @@ executor --dockerfile Dockerfile \
 
 skopeo login scr.cd43.sthings-pve.labul.sva.de -u admin -p Atlan7is2023
 
-skopeo --insecure-policy copy -f oci tarball:/tmp/bla.tar docker://scr.cd43.sthings-pve.labul.sva.de/crossplane-demo/test:v1
+skopeo copy -f oci tarball:/tmp/bla.tar docker://scr.cd43.sthings-pve.labul.sva.de/crossplane-demo/test:v1
 
 
 </details>
