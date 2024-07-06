@@ -2,6 +2,8 @@
 
 KCL is an open-source, constraint-based record and functional programming language. It leverages mature programming language technology and practices to facilitate the writing of many complex configurations.
 
+# https://blog.devops.dev/kcl-and-kpm-the-art-of-managing-kubernetes-configurations-5a0f5b6d4198
+
 ## SNIPPETS
 
 <details><summary><b>KUBERNETES MANIFEST w/ VARIABLES</b></summary>
