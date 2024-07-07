@@ -2,7 +2,26 @@
 
 containerization is a software deployment process that bundles an application's code with all the files and libraries it needs to run on any infrastructure.
 
-## RUN
+## BUILD
+
+<details><summary>BUILD w/BUILDX</summary>
+
+```bash
+docker buildx build . -f Dockerfile -o dest=hello-world.tar -t hello-world:v1
+```
+
+</details>
+
+<details><summary>BUILD OCI-IMAGE W/ BUILDAH</summary>
+
+```bash
+buildah --storage-driver=overlay bud --format=oci \
+--tls-verify=true --no-cache \
+-f ~/projects/github/stuttgart-things/images/sthings-alpine/Dockerfile \
+-t scr.app.4sthings.tiab.ssc.sva.de/sthings-alpine/alpine:123
+```
+
+</details>
 
 <details><summary>BUILD CONTAINER IMAGE w/ KANIKO (NO PUSH)</summary>
 
@@ -16,23 +35,29 @@ nerdctl run gcr.io/kaniko-project/executor:v1.23.1 \
 
 ```bash
 nerdctl run --entrypoint sh -it sthings-kaniko:v3
+
 executor --dockerfile Dockerfile \
 --context git://github.com/stuttgart-things/stuttgart-things \
---context-sub-path images/sthings-alpine \
+--context-sub-path images/sthings-terraform \
 --no-push \
 --tar-path /tmp/bla.tar
 ```
 
-/kaniko/executor --dockerfile Dockerfile \
---context git://github.com/stuttgart-things/stuttgart-things \
---context-sub-path images/sthings-alpine \
---no-push \
---tar-path /tmp/bla.tar
-
-skopeo login scr.cd43.sthings-pve.labul.sva.de -u admin -p Atlan7is2023
+```bash
+skopeo login scr.cd43.sthings-pve.labul.sva.de -u admin -p <PASSWORD>
 
 skopeo copy -f oci tarball:/tmp/bla.tar docker://scr.cd43.sthings-pve.labul.sva.de/crossplane-demo/test:v1
+```
 
+</details>
+
+## RUN
+
+<details><summary>OVERWRITE ENTRYPOINT OF IMAGE W/ NERDCTL</summary>
+
+```bash
+nerdctl run -it --entrypoint sh eu.gcr.io/stuttgart-things/stagetime-server:23.1108.1227-0.3.22
+```
 
 </details>
 

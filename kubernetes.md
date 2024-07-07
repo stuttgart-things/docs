@@ -219,25 +219,6 @@ spec:
 
 ## CLI
 
-<details><summary>BUILD OCI-IMAGE W/ BUILDAH</summary>
-
-```bash
-buildah --storage-driver=overlay bud --format=oci \
---tls-verify=true --no-cache \
--f ~/projects/github/stuttgart-things/images/sthings-alpine/Dockerfile \
--t scr.app.4sthings.tiab.ssc.sva.de/sthings-alpine/alpine:123
-```
-
-</details>
-
-<details><summary>OVERWRITE ENTRYPOINT OF IMAGE W/ NERDCTL</summary>
-
-```bash
-nerdctl run -it --entrypoint sh eu.gcr.io/stuttgart-things/stagetime-server:23.1108.1227-0.3.22
-```
-
-</details>
-
 <details><summary>SAST W/ POLARIS</summary>
 
 ```yaml
