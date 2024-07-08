@@ -36,11 +36,18 @@ nerdctl run gcr.io/kaniko-project/executor:v1.23.1 \
 ```bash
 nerdctl run --entrypoint sh -it sthings-kaniko:v3
 
+# BUILD LOCAL AS TAR
 executor --dockerfile Dockerfile \
 --context git://github.com/stuttgart-things/stuttgart-things \
 --context-sub-path images/sthings-terraform \
 --no-push \
 --tar-path /tmp/bla.tar
+
+# BUILD AS REMOTE (REGISTRY) DESTINATION
+executor --dockerfile Dockerfile \
+--context git://github.com/stuttgart-things/stuttgart-things \
+--context-sub-path images/sthings-terraform \
+--destination registry.app-dev.sthings-vsphere.labul.sva.de/terr:v1
 ```
 
 ```bash
@@ -52,6 +59,14 @@ skopeo copy -f oci tarball:/tmp/bla.tar docker://scr.cd43.sthings-pve.labul.sva.
 </details>
 
 ## RUN
+
+<details><summary>GET HTPASSWD</summary>
+
+```bash
+nerdctl run --entrypoint htpasswd httpd:2 -Bbn <USERNAME> <PASSWORD>
+```
+
+</details>
 
 <details><summary>OVERWRITE ENTRYPOINT OF IMAGE W/ NERDCTL</summary>
 

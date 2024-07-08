@@ -1,5 +1,30 @@
 # stuttgart-things/docs/elastic
 
+## SNIPPETS
+
+<details><summary><b>FILEBEAT TO LOGSTASH TEST CONFIG</b></summary>
+
+```yaml
+filebeat.inputs:
+  - type: log
+    paths:
+      - /home/sthings/projects/stuttgart-things/helm/eck/logstash-tutorial.log
+
+output.logstash:
+  hosts: ["10.31.103.22:5044"]
+```
+
+</details>
+
+<details><summary><b>TEST LOGSTASH OUTPUT</b></summary>
+
+```yaml
+sudo cp filebeat.yml /etc/filebeat/filebeat.yml
+sudo filebeat test output
+```
+
+</details>
+
 ## ECK + VSPHERE MON
 
 ### ECK
