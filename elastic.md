@@ -16,7 +16,16 @@ output.logstash:
 
 </details>
 
-<details><summary><b>TEST LOGSTASH OUTPUT</b></summary>
+<details><summary><b>TEST FILEBEAT OUTPUT</b></summary>
+
+```yaml
+sudo cp filebeat.yml /etc/filebeat/filebeat.yml
+sudo filebeat test output
+```
+
+</details>
+
+<details><summary><b>TEST FILEBEAT OUTPUT</b></summary>
 
 ```yaml
 sudo cp filebeat.yml /etc/filebeat/filebeat.yml

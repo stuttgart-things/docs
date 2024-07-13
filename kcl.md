@@ -6,6 +6,78 @@ KCL is an open-source, constraint-based record and functional programming langua
 
 ## SNIPPETS
 
+<details><summary><b>INIT (KONFIG) KPM MODULE</b></summary>
+
+### INIT ENVIRONMENT (DEV)
+
+```bash
+kpm init dev && cd dev
+kcl mod add konfig:0.5.0
+kcl mod add k8s:1.30
+kpm pull k8s:1.30
+kpm pull konfig:0.5.0
+
+cat <<EOF > main.k
+import konfig.models.kube.frontend
+import konfig.models.kube.templates.resource as res_tpl
+
+# The application configuration in stack will overwrite
+# the configuration with the same attribute in base.
+appConfiguration: frontend.Server {
+    schedulingStrategy.resource = res_tpl.tiny
+}
+EOF
+
+echo '[profile]
+entries = ["../base/base.k", "main.k", "${konfig:KCL_MOD}/models/kube/render/render.k"]' >> kcl.mod
+```
+
+### CREATE BASE MODULE
+
+```bash
+mkdir ../base && cd ../base
+cat <<EOF > base.k
+import konfig.models.kube.frontend
+import konfig.models.kube.frontend.service
+import konfig.models.kube.frontend.container
+
+# Application Configuration
+appConfiguration: frontend.Server {
+    # Main Container Configuration
+    mainContainer = container.Main {
+        ports = [
+            {containerPort = 80}
+        ]
+        env.MY_ENV: {
+            value = "MY_VALUE"
+        }
+    }
+    image = "nginx:1.7.8"
+    services = [
+        service.Service {
+            name = "nginx"
+            type = "NodePort"
+            ports = [
+                {
+                    nodePort = 30201
+                    port = 80
+                    targetPort = 80
+                }
+            ]
+        }
+    ]
+}
+EOF
+```
+
+### RENDER ENVIRONMENT
+
+```bash
+kpm run dev # folder
+```
+
+</details>
+
 <details><summary><b>KUBERNETES MANIFEST w/ VARIABLES</b></summary>
 
 ```bash
