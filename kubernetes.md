@@ -985,6 +985,7 @@ spec:
   type: NodePort
 # kubectl get VirtualMachineInstance
 # virtctl console vm1
+# ssh ubuntu@10.31.103.22 -p 30866
 ```
 
 </details>
