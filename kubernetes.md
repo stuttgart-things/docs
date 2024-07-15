@@ -830,3 +830,161 @@ spec:
 ```
 
 </details>
+
+## KUBEVIRT
+
+<details><summary><b>INSTALLATION</b></summary>
+
+```bash
+# POINT AT LATEST RELEASE
+export RELEASE=$(curl https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt)
+
+# DEPLOY THE KUBEVIRT OPERATOR
+kubectl apply -f https://github.com/kubevirt/kubevirt/releases/download/${RELEASE}/kubevirt-operator.yaml
+
+# CREATE THE KUBEVIRT CR (INSTANCE DEPLOYMENT REQUEST) WHICH TRIGGERS THE ACTUAL INSTALLATION
+wget https://github.com/kubevirt/kubevirt/releases/download/${RELEASE}/kubevirt-cr.yaml
+
+yq eval '.spec.configuration.developerConfiguration.useEmulation = true' -i kubevirt-cr.yaml
+
+kubectl apply -f kubevirt-cr.yaml
+
+# WAIT UNTIL ALL KUBEVIRT COMPONENTS ARE UP
+kubectl -n kubevirt wait kv kubevirt --for condition=Available
+```
+
+```bash
+# INSTALL VIRTCTL
+export VERSION=$(curl https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt)
+wget https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/virtctl-${VERSION}-linux-amd64
+sudo chmod +x virtctl-${VERSION}-linux-amd64
+sudo mv virtctl-${VERSION}-linux-amd64 /usr/local/bin/virtctl
+```
+
+```bash
+```
+
+</details>
+
+<details><summary><b>EASY-VM</b></summary>
+
+```yaml
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: testvm
+spec:
+  running: false
+  template:
+    metadata:
+      labels:
+        kubevirt.io/size: small
+        kubevirt.io/domain: testvm
+    spec:
+      domain:
+        devices:
+          disks:
+            - name: containerdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+          - name: default
+            masquerade: {}
+        resources:
+          requests:
+            memory: 64M
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+        - name: containerdisk
+          containerDisk:
+            image: quay.io/kubevirt/cirros-container-disk-demo
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userDataBase64: SGkuXG4=
+```
+
+```bash
+kubectl get vms
+virtctl console testvm
+```
+
+</details>
+
+<details><summary><b>UBUNTU-VM WITH NODEPORT SERVICE</b></summary>
+
+```yaml
+apiVersion: kubevirt.io/v1
+kind: VirtualMachineInstance
+metadata:
+  name: vm1
+  labels:
+    vmi : vm1
+spec:
+  architecture: amd64
+  terminationGracePeriodSeconds: 30
+  domain:
+    machine:
+      type: q35
+    resources:
+      requests:
+        memory: 2056M
+    devices:
+      interfaces:
+        - masquerade: {}
+          name: default
+      disks:
+      - name: containerdisk
+        disk:
+          bus: virtio
+      - disk:
+          bus: virtio
+        name: cloudinitdisk
+  networks:
+    - name: default
+      pod: {}
+  volumes:
+  - name: containerdisk
+    containerDisk:
+      image: mcas/kubevirt-ubuntu-20.04:latest
+  - name: cloudinitdisk
+    cloudInitNoCloud:
+      userData: |-
+        #cloud-config
+        password: ubuntu
+        chpasswd: { expire: False }
+        ssh_authorized_keys:
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsHiyet7tO+qXYKEy6XBiHNICRfGsBZYIo/JBQ2i16WgkC7rq6bkGwBYtni2j0X2pp0JVtcMO+hthqj37LcGH02hKa24eAoj2UdnFU+bhYxA6Mau1B/5MCkvs8VvBjxtM3FVJE7mY5bZ19YrKJ9ZIosAQaVHiGUu1kk49rzQqMrwT/1PNbUYW19P8J2LsfnaYJIl4Ljbxr0k52MGdbKwgxdph3UKciQz2DhutrmO0gf3Ncn4zpdClldaBtDB0EMMqD3BAtEVsucttzqdeYQwixMTtyuGpAKAJNUqhpleeVhShPZLke0vXxlA6/fyfkSM78gN2FQcRGVPN6hOMkns/b
+        package_update: false
+        package_upgrade: false
+        packages:
+        - qemu-guest-agent
+        runcmd:
+        - [ systemctl, start, qemu-guest-agent ]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vm1-svc
+spec:
+  ports:
+  - port: 22
+    name: ssh
+    protocol: TCP
+    targetPort: 22
+  - port: 1234
+    name: jupyter
+    protocol: TCP
+    targetPort: 1234
+  selector:
+    vmi : vm1
+  type: NodePort
+# kubectl get VirtualMachineInstance
+# virtctl console vm1
+```
+
+</details>
