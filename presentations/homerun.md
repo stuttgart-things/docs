@@ -1,7 +1,7 @@
 # HOMERUN
 ### Notification Microservice
 
-[<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/sthings-baseball3 purple white 1.png" width="150"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/sthings-baseball3 purple white 1.png)
+[<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/sthings-baseball3_purple.png" width="150"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/sthings-baseball3_purple.png)
 <!-- .slide: data-transition="zoom" -->
 --
 ## /Use Case
