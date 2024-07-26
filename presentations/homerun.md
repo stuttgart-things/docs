@@ -2,12 +2,10 @@
 ### Notification Microservice
 <!-- .slide: data-transition="zoom" -->
 --
-# /Use Case
-### Event Observability
-* Terraform
-* Ansible
-* GitLab
-* GitHub
+## /Use Case
+Event Observability
+<br>
+[<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/sthings_wall.png" width="900"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/sthings_wall.png) <!-- .element: class="fragment fade-up" -->
 
 --
 ### /Homerun Overview
@@ -37,7 +35,7 @@
 [<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/labels.png" width="700"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/labels.png) <!-- .element: class="fragment fade-up" -->
 --
 ### /GitLab Issue Board
-[<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/gitlab-plan.png" width="1000"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/gitlab-plan.png) <!-- .element: class="fragment fade-up" -->
+[<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/issue_board.png" width="1000"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/issue_boards.png) <!-- .element: class="fragment fade-up" -->
 --
 ### /GitLab Value Stream Analytics
 [<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/valuestreamanalytics.png" width="1000"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/valuestreamanalytics.png) <!-- .element: class="fragment fade-up" -->
@@ -70,3 +68,7 @@
 ### /Test
 [<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/test.png" width="1000"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/test.png) <!-- .element: class="fragment fade-up" -->
 ---
+# /Homerun Text Catcher
+--
+### Example: GitLab Issue Event
+[<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/gitlab-homerun.gif" width="900"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/gitlab-homerun.gif) <!-- .element: class="fragment fade-up" -->
