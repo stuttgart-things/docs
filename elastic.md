@@ -2,6 +2,21 @@
 
 ## SNIPPETS
 
+<details><summary><b>CREATE LOGSTASH GROK FILTER</b></summary>
+
+```bash
+# SAMPLE-MESSAGE
+{MESSAGE: {patrick.hermann 2024-08-08 11:13:09 Issue Event homerun-gitlab-pitcher GitLab Info}}
+# GROK-PATTERN
+{MESSAGE: \{%{USERNAME:username} %{TIMESTAMP_ISO8601:timestamp} (?<event_type>%{WORD} %{WORD}) (?<repository>%{WORD}-%{WORD}-%{WORD}) %{WORD:system} %{WORD:severity}}
+# LOGSTASH-CONFIG
+grok {
+    match => { "message" => "\{MESSAGE: \{%{USERNAME:username} %{TIMESTAMP_ISO8601:timestamp} (?<event_type>%{WORD} %{WORD}) (?<repository>%{WORD}-%{WORD}-%{WORD}) %{WORD:system} %{WORD:severity}\}"}
+}
+```
+
+</details>
+
 <details><summary><b>FILEBEAT TO LOGSTASH TEST CONFIG</b></summary>
 
 ```yaml
