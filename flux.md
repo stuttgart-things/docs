@@ -424,6 +424,33 @@ sops -e ./secret.yaml | tee sops-secret.yaml
 
 </details>
 
+<details><summary><b>EXAMPLE ENCRYPTION W/ GOLANG</b></summary>
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/getsops/sops/v3/decrypt"
+)
+
+func main() {
+	plain, err := decrypt.File("secret.yaml", "yaml")
+	if err != nil {
+		fmt.Println(fmt.Errorf("Failed to decrypt: %w", err))
+	}
+	fmt.Println(string(plain))
+}
+```
+
+```bash
+export SOPS_AGE_KEY_FILE=${PWD}/sops.key
+go mod init sops && go mod tidy
+go run main.go
+```
+
+</details>
+
 <details><summary><b>DECRYPTION ON SHELL</b></summary>
 
 ```bash
