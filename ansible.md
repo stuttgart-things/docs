@@ -1,5 +1,51 @@
 # stuttgart-things/docs/ansible
 
+## TEST EXISTING ROLE WITH MOLECULE
+
+```bash
+mkdir -p molecule-testing && cd $_
+```
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -U setuptools pip 'molecule'
+pip install molecule-docker
+molecule --version
+```
+
+```bash
+ansible-galaxy init hardening
+cd hardening
+molecule init scenario -d docker docker_test
+
+#meta/main.yml
+#galaxy_info:
+#  role_name: hardening
+#  namespace: sthings
+
+# hardening/tasks
+---
+- name: OS Hardening task
+  debug:
+    msg: "Performing OS hardening tasks for {{ ansible_distribution }} {{ ansible_distribution_version }}"
+
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Replace this task with one that validates your content
+      ansible.builtin.debug:
+        msg: "This is the effective test"
+  roles:
+    - glennbell.linux_administration
+```
+
+```bash
+molecule test -s bla
+```
+
 ## CREATE-COLLECTIONS
 
 <details><summary><b>CREATE, BUILD, INSTALL</b></summary>
