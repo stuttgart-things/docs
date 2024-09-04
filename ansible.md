@@ -15,35 +15,42 @@ molecule --version
 ```
 
 ```bash
-ansible-galaxy init hardening
-cd hardening
+ansible-galaxy init hardening && cd hardening
 molecule init scenario -d docker docker_test
 
-#meta/main.yml
-#galaxy_info:
-#  role_name: hardening
-#  namespace: sthings
+yq eval '.galaxy_info.role_name = "hardening"' -i meta/main.yml
+yq eval '.galaxy_info.author = "patrick hermann"' -i meta/main.yml
+yq eval '.galaxy_info.namespace = "sthings"' -i meta/main.yml
 
 # hardening/tasks
+cat <<EOF >> ./tasks/main.yml
 ---
 - name: OS Hardening task
   debug:
     msg: "Performing OS hardening tasks for {{ ansible_distribution }} {{ ansible_distribution_version }}"
+EOF
 
+cat <<EOF > ./molecule/docker_test/converge.yml
 ---
 - name: Converge
   hosts: all
   gather_facts: true
-  tasks:
-    - name: Replace this task with one that validates your content
-      ansible.builtin.debug:
-        msg: "This is the effective test"
-  roles:
-    - glennbell.linux_administration
-```
 
-```bash
-molecule test -s bla
+  roles:
+    - sthings.hardening
+EOF
+
+cat <<EOF > ./molecule/docker_test/molecule.yml
+---
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: quay.io/centos/centos:stream9
+    pre_build_image: false
+EOF
+
+molecule test -s docker_test
 ```
 
 ## CREATE-COLLECTIONS
