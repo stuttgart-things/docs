@@ -1,0 +1,483 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: minio-kes
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: ingress-nginx
+    - name: cert-manager
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/minio-kes
+  prune: true
+  wait: true
+  postBuild:
+    substitute:
+      INGRESS_HOSTNAME_API: artifacts
+      INGRESS_HOSTNAME_CONSOLE: artifacts-console
+      INGRESS_DOMAIN: maverick.sthings-pve.labul.sva.de
+      CLUSTER_ISSUER: cluster-issuer-approle
+      MINIO_KEY_NAME: test-minio-kes
+      # for kes
+      KES_INGRESS_HOSTNAME: kes
+      KES_INGRESS_DOMAIN: maverick.sthings-pve.labul.sva.de
+      # workaround for nested substitution
+      # value will be generated in init container
+      MINIO_IDENTITY: '"${MINIO_IDENTITY}"'
+    substituteFrom:
+      - kind: Secret
+        name: s3-flux-secrets
+      # prepare a secret with KES_APPROLE_ID, KES_APPROLE_SECRET, KES_VAULT_ADDR and KES_VAULT_KV_ENGINE
+      - kind: Secret
+        name: kes-creds
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/chart/spec/version
+          value: 12.8.18
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: replace
+          path: /spec/values/image/tag
+          value: 12.8.18
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: add
+          path: /spec/values/extraEnvVars
+          value:
+            - name: MINIO_KMS_KES_ENDPOINT
+              value: https://kes.${INGRESS_DOMAIN}
+            - name: MINIO_KMS_KES_CAPATH
+              value: /mnt/artifacts-ingress-tls/ca.crt
+            - name: MINIO_KMS_KES_KEY_FILE
+              value: /mnt/artifacts-ingress-tls/tls.key
+            - name: MINIO_KMS_KES_CERT_FILE
+              value: /mnt/artifacts-ingress-tls/tls.crt
+            - name: MINIO_KMS_KES_KEY_NAME
+              value: ${MINIO_KEY_NAME}
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: add
+          path: /spec/values/extraVolumes
+          value:
+            - name: artifacts-ingress-tls
+              secret:
+                secretName: artifacts-ingress-tls
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: add
+          path: /spec/values/extraVolumeMounts
+          value:
+            - name: "artifacts-ingress-tls"
+              mountPath: "/mnt/artifacts-ingress-tls"
+              readOnly: true
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-nginx
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infra/ingress-nginx
+  dependsOn:
+    - name: metallb
+  prune: true
+  wait: true
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/chart/spec/version
+          value: 4.8.3
+      target:
+        kind: HelmRelease
+        name: ingress-nginx
+        namespace: ingress-nginx
+    - patch: |-
+        - op: add
+          path: /spec/values/controller
+          value:
+            extraArgs:
+              enable-ssl-passthrough: ""
+      target:
+        kind: HelmRelease
+        name: ingress-nginx
+        namespace: ingress-nginx
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: secret-store-csi-driver
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infra/secret-store-csi-driver
+  prune: true
+  wait: true
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/values
+          value:
+            syncSecret:
+              enabled: true
+            enableSecretRotation: true
+      target:
+        kind: HelmRelease
+        name: secret-store-csi-driver
+        namespace: kube-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: secret-store-csi-driver
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infra/secret-store-csi-driver
+  prune: true
+  wait: true
+  patches:
+    - patch: |-
+        - op: add
+          path: /spec/values
+          value:
+            syncSecret:
+              enabled: true
+            enableSecretRotation: true
+      target:
+        kind: HelmRelease
+        name: secret-store-csi-driver
+        namespace: kube-system
+---
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: kes
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: ingress-nginx
+    - name: cert-manager
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/kes
+  prune: true
+  wait: true
+  postBuild:
+    substituteFrom:
+      # prepare a secret with KES_APPROLE_ID, KES_APPROLE_SECRET, KES_VAULT_ADDR and KES_VAULT_KV_ENGINE
+      - kind: Secret
+        name: kes-creds
+    substitute:
+      KES_INGRESS_HOSTNAME: kes
+      KES_INGRESS_DOMAIN: dev43.sthings-pve.labul.sva.de
+      CLUSTER_ISSUER: cluster-issuer-approle
+      # workaround for nested substitution
+      # value will be generated in init container
+      MINIO_IDENTITY: '"${MINIO_IDENTITY}"'
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: minio
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: ingress-nginx
+    - name: cert-manager
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./apps/minio
+  prune: true
+  wait: true
+  postBuild:
+    substitute:
+      INGRESS_HOSTNAME_API: artifacts
+      INGRESS_HOSTNAME_CONSOLE: artifacts-console
+      INGRESS_DOMAIN: dev43.sthings-pve.labul.sva.de
+      CLUSTER_ISSUER: cluster-issuer-approle
+      MINIO_KEY_NAME: minio-kes-vault-default-key
+    substituteFrom:
+      - kind: Secret
+        name: s3-flux-secrets
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/chart/spec/version
+          value: 12.8.18
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: replace
+          path: /spec/values/image/tag
+          value: 12.8.18
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: add
+          path: /spec/values/extraEnvVars
+          value:
+            - name: MINIO_KMS_KES_ENDPOINT
+              value: https://kes.${INGRESS_DOMAIN}
+            - name: MINIO_KMS_KES_CAPATH
+              value: /mnt/artifacts-ingress-tls/ca.crt
+            - name: MINIO_KMS_KES_KEY_FILE
+              value: /mnt/artifacts-ingress-tls/tls.key
+            - name: MINIO_KMS_KES_CERT_FILE
+              value: /mnt/artifacts-ingress-tls/tls.crt
+            - name: MINIO_KMS_KES_KEY_NAME
+              value: ${MINIO_KEY_NAME}
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: add
+          path: /spec/values/extraVolumes
+          value:
+            - name: artifacts-ingress-tls
+              secret:
+                secretName: artifacts-ingress-tls
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+    - patch: |-
+        - op: add
+          path: /spec/values/extraVolumeMounts
+          value:
+            - name: "artifacts-ingress-tls"
+              mountPath: "/mnt/artifacts-ingress-tls"
+              readOnly: true
+      target:
+        kind: HelmRelease
+        name: minio-deployment
+        namespace: minio
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: vault
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: ingress-nginx
+    - name: cert-manager
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./infra/vault
+  prune: true
+  wait: true
+  postBuild:
+    substituteFrom:
+      # prepare a secret with VAULT_AUTOUNSEAL_TOKEN
+      - kind: Secret
+        name: autounseal-creds
+    substitute:
+      VAULT_STORAGE_SIZE: 2Gi
+      VAULT_STORAGE_CLASS: longhorn
+      VAULT_INGRESS_HOSTNAME: vault
+      VAULT_INGRESS_DOMAIN: dev43.sthings-pve.labul.sva.de
+      CLUSTER_ISSUER: cluster-issuer-approle
+  patches:
+    # mount vault ingress tls secret into csi provider for communication with vault
+    - patch: |-
+        - op: add
+          path: /spec/values/csi/volumes
+          value:
+            - name: vault-ingress-tls
+              secret:
+                secretName: vault-ingress-tls
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+    - patch: |-
+        - op: add
+          path: /spec/values/csi/volumeMounts
+          value:
+            - name: "vault-ingress-tls"
+              mountPath: "/mnt/vault-ingress-tls"
+              readOnly: true
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+    - patch: |-
+        - op: add
+          path: /spec/values/csi/extraArgs
+          value:
+            - "-vault-addr=https://vault.dev43.sthings-pve.labul.sva.de"
+            - "-vault-mount=pve-dev43"
+            - "-vault-namespace=root"
+            - "-vault-tls-ca-cert=/mnt/vault-ingress-tls/ca.crt"
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+    # make sure a secret with autounseal token exists
+    - patch: |-
+        - op: add
+          path: /spec/values/secrets
+          value:
+            autounseal-creds:
+              name: autounseal-creds
+              namespace: vault
+              dataType: stringData
+              secretKVs:
+                VAULT_TOKEN: ${VAULT_AUTOUNSEAL_TOKEN}
+      target:
+        kind: HelmRelease
+        name: vault-certificate-configuration
+        namespace: vault
+    # configure auto unseal: add seal stanza and mount vault ingress tls secret
+    - patch: |-
+        - op: add
+          path: /spec/values/server/standalone
+          value:
+            enabled: true
+            config: |
+              ui = true
+
+              listener "tcp" {
+                tls_disable = 1
+                address = "[::]:8200"
+                cluster_address = "[::]:8201"
+              }
+              storage "file" {
+                path = "/vault/data"
+              }
+
+              seal "transit" {
+                address     = "https://vault-pve.labul.sva.de:8200"
+                namespace   = "root"
+                key_name    = "pve_dev43"
+                mount_path  = "autounseal"
+                tls_ca_cert = "/mnt/vault-ingress-tls/ca.crt"
+              }
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+    - patch: |-
+        - op: add
+          path: /spec/values/server/extraSecretEnvironmentVars
+          value:
+            - envName: VAULT_TOKEN
+              secretName: autounseal-creds
+              secretKey: VAULT_TOKEN
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+    - patch: |-
+        - op: add
+          path: /spec/values/server/volumes
+          value:
+            - name: vault-ingress-tls
+              secret:
+                secretName: vault-ingress-tls
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+    - patch: |-
+        - op: add
+          path: /spec/values/server/volumeMounts
+          value:
+            - name: vault-ingress-tls
+              mountPath: /mnt/vault-ingress-tls
+              readOnly: true
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+    - patch: |-
+        - op: add
+          path: /spec/values/server/logLevel
+          value: debug
+      target:
+        kind: HelmRelease
+        name: vault-deployment
+        namespace: vault
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: Bucket
+metadata:
+  name: artifacts-vspherevm
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  endpoint: artifacts.automation.sthings-vsphere.labul.sva.de
+  insecure: false
+  secretRef:
+    name: artifacts-labul-automation
+  bucketName: vspherevm
+  ---
+  apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: crossplane-vspherevm
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  prune: true
+  path: ./
+  sourceRef:
+    kind: Bucket
+    name: artifacts-vspherevm
