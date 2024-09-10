@@ -565,3 +565,9 @@ flux build kustomization vault --path clusters/labul/pve/bootstrap --kustomizati
 ```
 
 </details>
+
+
+
+5360
+
+45682780

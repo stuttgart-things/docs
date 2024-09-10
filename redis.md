@@ -1,5 +1,17 @@
 # stuttgart-things/docs/redis
 
+## REDISEARCH
+
+<details><summary>LOGIN</summary>
+
+```bash
+FT._LIST # LIST ALL INDEXES
+FT.DROPINDEX homerun DD # DROP INDEX
+FT.SEARCH github "@system:github" # SEARCH FOR FILED SYSTEM
+```
+
+</details>
+
 ## CLI
 
 <details><summary>LOGIN</summary>
