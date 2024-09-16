@@ -58,6 +58,21 @@ skopeo copy -f oci tarball:/tmp/bla.tar docker://scr.cd43.sthings-pve.labul.sva.
 
 </details>
 
+<details><summary>BUILD CONTAINER IMAGE w/ KANIKO, MOUNT LOCAL CONTEXT + REGISTRY CERT</summary>
+
+```
+nerdctl run \
+-v $HOME/.docker/config.json:/kaniko/.docker/config.json:ro \
+-v /home/sthings/projects/golang/homerun-react/react-app:/workspace/ \
+gcr.io/kaniko-project/executor:v1.23.1 \
+--dockerfile Dockerfile \
+--destination scr.cd43.sthings-pve.labul.sva.de/homerun/frontend:v11 \
+--skip-tls-verify
+```
+
+</details>
+
+
 ## RUN
 
 <details><summary>GET HTPASSWD</summary>
