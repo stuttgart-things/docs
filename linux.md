@@ -2,6 +2,24 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>TMUX</b></summary>
+
+```bash
+# CREATE NEW SESSION
+tmux new -s runner
+
+# DETACH SESSION (= EXIT W/O END THE SESSION)
+STRG + B + :detach
+
+# LIST EXISTING SESSIONS
+tmux ls
+
+# ATTACH EXISTING SESSION
+tmux a -t runner
+```
+
+</details>
+
 <details><summary><b>REMOVE QUOTES FROM STRING</b></summary>
 
 ```bash
