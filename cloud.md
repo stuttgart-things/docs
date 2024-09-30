@@ -1,5 +1,17 @@
 # stuttgart-things/docs/cloud
 
+## AZURE
+
+### GET AKS KUBECONFIG
+
+```bash
+az login --use-device-code
+RG=homerun
+CLUSTER_NAME=homerun
+az aks get-credentials --resource-group ${RG} --name ${CLUSTER_NAME}
+```
+
+
 ## AWS
 
 ### CLI-SNIPPETS
