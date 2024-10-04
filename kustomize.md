@@ -2,6 +2,57 @@
 
 ## SNIPPETS
 
+<details><summary><b>ADD OBJECT TO AN ARRAY</b></summary>
+
+```bash
+BASE_DIR=./kustomize/crb
+mkdir -p ${BASE_DIR}
+
+cat <<EOF > ${BASE_DIR}/crb.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects: []
+EOF
+
+cat <<EOF > ${BASE_DIR}/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - crb.yaml
+patches:
+  - target:
+      kind: ClusterRoleBinding
+      name: binding
+    patch: |
+      - op: add
+        path: /subjects/0
+        value:
+          kind: ServiceAccount
+          name: name
+          namespace: test1
+  - target:
+      kind: ClusterRoleBinding
+      name: binding
+    patch: |
+      - op: add
+        path: /subjects/1
+        value:
+          kind: ServiceAccount
+          name: name
+          namespace: test2
+EOF
+
+kubectl kustomize ${BASE_DIR}
+```
+
+</details>
+
 <details><summary><b>CONFIGMAP GENERATOR W/ POD-MOUNT</b></summary>
 
 ```bash

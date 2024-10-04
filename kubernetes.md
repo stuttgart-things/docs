@@ -831,6 +831,218 @@ spec:
 
 </details>
 
+## K3S
+
+<details><summary><b>INSTALLATION</b></summary>
+
+```bash
+cat <<EOF > ~/k3s.yaml
+flannel-backend: "none"
+disable-kube-proxy: true
+disable-network-policy: true
+cluster-init: true
+disable:
+  - servicelb
+  - traefik
+EOF
+
+curl -sfL https://get.k3s.io | sh -s - --config=$HOME/k3s.yaml
+```
+
+</details>
+
+<details><summary><b>GET KUBECONFIG</b></summary>
+
+```bash
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+kubectl  get nodes
+```
+
+</details>
+
+<details><summary><b>INSTALL CILIUM CLI</b></summary>
+
+```bash
+CILIUM_CLI_VERSION=$(curl -s https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt)
+CLI_ARCH=amd64
+curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_CLI_VERSION}/cilium-linux-${CLI_ARCH}.tar.gz
+sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
+rm cilium-linux-${CLI_ARCH}.tar.gz
+```
+
+</details>
+
+<details><summary><b>INSTALL CILIUM ON CLUSTER</b></summary>
+
+```bash
+API_SERVER_IP=10.31.102.162 # <IP>
+API_SERVER_PORT=6443 # <PORT>
+cilium install \
+  --set k8sServiceHost=${API_SERVER_IP} \
+  --set k8sServicePort=${API_SERVER_PORT} \
+  --set kubeProxyReplacement=true \
+  --helm-set=operator.replicas=1 # FOR SINGLE NODE CLUSTER
+
+cilium status --wait
+```
+
+</details>
+
+<details><summary><b>INSTALL INGRESS NGINX (HOSTNETWORK - NOT LB)</b></summary>
+
+```bash
+helm upgrade --install my-ingress-nginx ingress-nginx/ingress-nginx --version 4.11.2 --set controller.hostNetwork=true -n ingress-nginx --create-namespace
+```
+
+</details>
+
+
+<details><summary><b>CERT-MANAGER SELF SIGNED</b></summary>
+
+```bash
+helm repo add cert-manager https://charts.jetstack.io
+helm upgrade --install cert-manager cert-manager/cert-manager --version 1.16.0 --set installCRDs=true -n cert-manager --create-namespace
+```
+
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-ca
+spec:
+  isCA: true
+  commonName: test-ca
+  subject:
+    organizations:
+      - stuttgart-things
+    organizationalUnits:
+      - Widgets
+  secretName: test-ca-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-issuer
+    kind: Issuer
+    group: cert-manager.io
+EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: test-ca-issuer
+spec:
+  ca:
+    secretName: test-ca-secret
+EOF
+
+cat <<EOF | kubectl apply -f -
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: test-server
+spec:
+  secretName: test-server-tls
+  isCA: false
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+  - "michigan.labul.sva.de"
+  - "test-server"
+  issuerRef:
+    name: test-ca-issuer
+EOF
+```
+</details>
+
+
+## LB-IPAM
+
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "first-pool"
+spec:
+  blocks:
+    - start: "10.31.102.18"
+      stop: "10.31.102.19"
+EOF
+```
+
+```bash
+cat <<EOF > ~/cilium-config.yaml
+k8sServiceHost: "10.31.102.162" # <IP>
+k8sServicePort: "6443" # <PORT>
+kubeProxyReplacement: true
+l2announcements:
+  enabled: true
+
+externalIPs:
+  enabled: true
+
+operator:
+  replicas: 1  # Uncomment this if you only have one node
+  rollOutPods: true
+  rollOutCiliumPods: true
+
+k8sClientRateLimit:
+  qps: 50
+  burst: 200
+
+ingressController:
+  enabled: true
+  default: true
+  loadbalancerMode: shared
+  service:
+    annotations:
+      io.cilium/lb-ipam-ips: 10.31.102.18
+EOF
+
+cilium upgrade -f ~/cilium-config.yaml
+cilium connectivity test
+```
+
+```bash
+cat <<EOF | kubectl apply -f -
+apiVersion: cilium.io/v2alpha1
+kind: CiliumL2AnnouncementPolicy
+metadata:
+  name: default-l2-announcement-policy
+  namespace: kube-system
+spec:
+  externalIPs: true
+  loadBalancerIPs: true
+EOF
+```
+
+<details><summary><b>UNISTALLATION</b></summary>
+
+```bash
+/usr/local/bin/k3s-uninstall.sh
+```
+
+</details>
+
+
+
+```bash
+
+
 ## KUBEVIRT
 
 <details><summary><b>INSTALLATION</b></summary>
@@ -859,9 +1071,6 @@ export VERSION=$(curl https://storage.googleapis.com/kubevirt-prow/release/kubev
 wget https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/virtctl-${VERSION}-linux-amd64
 sudo chmod +x virtctl-${VERSION}-linux-amd64
 sudo mv virtctl-${VERSION}-linux-amd64 /usr/local/bin/virtctl
-```
-
-```bash
 ```
 
 </details>
