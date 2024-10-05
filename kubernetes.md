@@ -1,5 +1,91 @@
 # stuttgart-things/docs/kubernetes
 
+## CERTIFICATES
+
+<details><summary>CERT MANAGER + DEFAULT CERT INGRESS-NGINX</summary>
+
+GENERATE ROOT CERTIFICATE
+
+```bash
+# CREATE A FOLDER TO STORE CERTIFICATE FILES
+mkdir -p .ssl
+# GENERATE AN RSA KEY
+openssl genrsa -out .ssl/root-ca-key.pem 2048
+# GENERATE ROOT CERTIFICATE
+openssl req -x509 -new -nodes -key .ssl/root-ca-key.pem \
+  -days 3650 -sha256 -out .ssl/root-ca.pem -subj "/CN=kube-ca"
+```
+
+DEPLOY CERT-MANAGER
+
+```bash
+helm upgrade --install --wait --timeout 15m \
+  --namespace cert-manager --create-namespace \
+  --repo https://charts.jetstack.io cert-manager cert-manager \
+  --values - <<EOF
+installCRDs: true
+EOF
+```
+
+CREATE ROOT CERTIFICATE SECRET
+
+```bash
+kubectl create secret tls -n cert-manager root-ca \
+  --cert=.ssl/root-ca.pem \
+  --key=.ssl/root-ca-key.pem
+```
+
+CREATE CLUSTER ISSUER
+
+```bash
+kubectl apply -n cert-manager -f - <<EOF
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: ca-issuer
+spec:
+  ca:
+    secretName: root-ca
+EOF
+```
+
+CREATE INGRESS CERT
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: default-ssl-certificate-tls
+  namespace: ingress-nginx
+spec:
+  dnsNames:
+  - hello.server.com
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: ca-issuer
+  secretName: default-ssl-certificate-tls
+  usages:
+  - digital signature
+  - key encipherment
+EOF
+```
+
+UPDATE INGRESS NGINX DEPLOYMENT ARGS
+
+```
+spec:
+  containers:
+  - args:
+    - --default-ssl-certificate=ingress-nginx/default-ssl-certificate-tls
+```
+
++ add root-ca.pem to your system trust store
+
+</details>
+
+
 ## KUBECTL
 
 <details><summary>FORCE DELETE POD</summary>
