@@ -2,7 +2,7 @@
 
 ## SNIPPETS
 
-<details><summary><b>CALL FUNCTION FROM GIT</b></summary>
+<details><summary><b>CALL FUNCTION (FROM DAGGERVERSE)</b></summary>
 
 ```bash
 # OUTPUT TEXT
@@ -14,5 +14,21 @@ dagger call -m github.com/jpadams/daggerverse/trivy@v0.3.0 scan-image --image-re
 # BUILD GO BINARY
 dagger call -m github.com/felipecruz91/daggerverse/go build --source . --goVersion 1.23.1 -o bin
 ```
+
+</details>
+
+
+<details><summary><b>BASIC COMMANDS</b></summary>
+
+https://docs.dagger.io/quickstart/daggerize
+
+```bash
+# CREATE MODULE (GO); SOURCE: ./hello; NAME: modules
+dagger init --sdk=go --source=./hello --name modules
+
+# RUN PIPELINE (PUBLISH=METHOD NAME)
+dagger call publish --source=.
+```
+
 
 </details>
