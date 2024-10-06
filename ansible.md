@@ -1,6 +1,12 @@
 # stuttgart-things/docs/ansible
 
-## TEST EXISTING ROLE WITH MOLECULE
+## TEST EXISTING ROLE/COLLECTION WITH DEFAULT/DELEGATED DRIVER
+
+```bash
+molecule init scenario --driver-name=default
+```
+
+## TEST EXISTING ROLE WITH MOLECULE DOCKER DRIVER
 
 ```bash
 mkdir -p molecule-testing && cd $_
