@@ -31,6 +31,127 @@ func main() {
 
 ## SNIPPETS
 
+<details><summary>RUN FUNC IN GIVEN TIME PERIOD</summary>
+
+```go
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
+
+// Example job to run
+func randomJob(id int) {
+	fmt.Printf("Running job %d at %s\n", id, time.Now().Format(time.RFC3339))
+}
+
+// Schedule random jobs within a specified timeframe
+func scheduleJobsWithinTimeFrame(countJobs int, seconds int) {
+	jobID := 1
+
+	for {
+		totalJobs := 0
+
+		// Spread jobs over the given time frame
+		for totalJobs < countJobs {
+			// Calculate remaining time for job scheduling
+			timeRemaining := seconds - (totalJobs * (seconds / countJobs))
+
+			// Generate random delay within the remaining time span
+			randomDelay := time.Duration(rand.Intn(timeRemaining/countJobs)) * time.Second
+
+			fmt.Printf("Next job in %v seconds...\n", randomDelay.Seconds())
+			time.Sleep(randomDelay)
+
+			// Execute the random job
+			go randomJob(jobID)
+			jobID++
+			totalJobs++
+		}
+
+		// Sleep for the remaining time in the current period if needed
+		time.Sleep(time.Duration(seconds) * time.Second)
+	}
+}
+
+func main() {
+	// Seed the random number generator
+	rand.Seed(time.Now().UnixNano())
+
+	// Define the max jobs and time period (e.g., 5 jobs in 120 seconds)
+	countJobs := 5
+	seconds := 120
+
+	// Schedule jobs indefinitely
+	scheduleJobsWithinTimeFrame(countJobs, seconds)
+
+}
+```
+</details>
+
+
+<details><summary>RENDER TEMPLATE W/ FUNC IN IT</summary>
+
+```go
+type Author struct {
+	Name  string
+	Email string
+}
+
+type Event struct {
+	Author    Author
+	EventType string
+	Message   string
+}
+
+func FormatMessage(message string) string {
+	return fmt.Sprintf("Formatted Message: %s", message)
+}
+
+func renderTest() {
+	event := Event{
+		Author: Author{
+			Name:  "Blatter, Gino",
+			Email: "gblatter@blabla.com",
+		},
+		EventType: "git",
+		Message:   "Update push-helm-package.yaml",
+	}
+
+	// Template definieren
+	tmpl := `Author: {{ .Author.Name }}
+Email: {{ .Author.Email }}
+Event Type: {{ .EventType }}
+Message: {{ call .FormatMessage .Message }}`
+
+	// Template parsen
+	t, err := template.New("event").Funcs(template.FuncMap{
+		"FormatMessage": FormatMessage,
+	}).Parse(tmpl)
+	if err != nil {
+		log.Fatalf("error parsing template: %v", err)
+	}
+
+	// Template rendern
+	var rendered bytes.Buffer
+	err = t.Execute(&rendered, map[string]interface{}{
+		"Author":        event.Author,
+		"EventType":     event.EventType,
+		"Message":       event.Message,
+		"FormatMessage": FormatMessage,
+	})
+	if err != nil {
+		log.Fatalf("error executing template: %v", err)
+	}
+
+	// Gerendertes Template ausgeben
+	fmt.Println(rendered.String())
+```
+</details>
+
+
 <details><summary>TEST</summary>
 
 ```bash
