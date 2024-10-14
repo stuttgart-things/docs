@@ -1,6 +1,6 @@
 # CI/CD WORKSHOP
 
-### CI/CD WORKSHOP
+![why](https://media.makeameme.org/created/why-cicd.jpg)
 
 <!-- .slide: data-transition="zoom" -->
 ---
@@ -38,7 +38,10 @@ patrick.hermann@sva.de
 ## /STAGING
 ![staging](https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png)
 --
-## /STAGING
+## /GITOPS TOOLS
+![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
+--
+## /GITOPS TOOLS
 ![staging](https://codefresh.io/wp-content/uploads/2023/07/with-caching.png)
 --
 ## /ARGO-CD
@@ -54,11 +57,11 @@ patrick.hermann@sva.de
 * GitOps only allows declarative configuration.
 --
 ## /GitOps PullRequest
-* Changes to application configuration
-* Changes to container images
-* Changes to Kubernetes cluster configuration
-* Fixes to errors in an environment
-* Defining new infrastructure via declarative configuration
-* Updating an environment to new requirements
+* Changes to application configuration <!-- .element: class="fragment fade-up" -->
+* Changes to container images <!-- .element: class="fragment fade-up" -->
+* Changes to Kubernetes cluster configuration <!-- .element: class="fragment fade-up" -->
+* Fixes to errors in an environment <!-- .element: class="fragment fade-up" -->
+* Defining new infrastructure via declarative configuration <!-- .element: class="fragment fade-up" -->
+* Updating an environment to new requirements <!-- .element: class="fragment fade-up" -->
 --
 
