@@ -25,6 +25,11 @@ patrick.hermann@sva.de
 ## /CI-CD PIPELINE
 ![cicdcd](https://miro.medium.com/v2/resize:fit:786/format:webp/0*OC11hb1WJ-th-154.png)
 --
+## /CI-CD-CD
+![cicdcd](https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png.webp?itok=mDEvsSsp)
+---
+# /CI
+--
 ## /CI
 ![cicdcd](https://miro.medium.com/v2/resize:fit:786/format:webp/0*IC_N9P4Eu1NO1UkE.png)
 --
@@ -37,41 +42,71 @@ patrick.hermann@sva.de
 ## /BRANCHING
 ![source](https://codefresh.io/wp-content/uploads/2023/07/use-short-branches.png)
 --
-## /CD
-![source](https://codefresh.io/wp-content/uploads/2023/07/single-build-step.png)
-
-![source](https://codefresh.io/wp-content/uploads/2023/07/many-build-steps.png)
-
-
-
-
-
-## /CI-CD-CD
-![cicdcd](https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png.webp?itok=mDEvsSsp)
+## /BUILD
+[<img src="https://codefresh.io/wp-content/uploads/2023/07/single-build-step.png" width="800"/>](https://www.sva.de/index.html) 
+--
+## /BUILD
+[<img src="https://codefresh.io/wp-content/uploads/2023/07/many-build-steps.png" width="650"/>](https://www.sva.de/index.html) 
 --
 ## /STAGING
 ![staging](https://codefresh.io/wp-content/uploads/2023/07/same-artifact-for-all.png)
+---
+# /GITOPS
+--
+## /PUSH
+![staging](https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/cicd-push-based-deployment.png?width=2560&name=cicd-push-based-deployment.png)
+--
+## /PULL
+![staging](https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/CI-CD-GitOps-Push-Based-Deployments.png?width=2560&name=CI-CD-GitOps-Push-Based-Deployments.png)
+--
+## /DevOps vs GitOps
+* GitOps is a development mechanism, which mainly focuses on automating and tracking environment changes in a declarative manner <!-- .element: class="fragment fade-up" -->
+* DevOps is a pipeline process, which mainly focuses on the operational aspects of software development <!-- .element: class="fragment fade-up" -->
+--
+## /imperative and declarative
+* scripting of deployment operations (imperative) <!-- .element: class="fragment fade-up" -->  
+* containerized apps (declarative) <!-- .element: class="fragment fade-up" -->
+* GitOps only allows declarative configuration <!-- .element: class="fragment fade-up" -->.
+--
+## /FLUX
+[<img src="https://earthly.dev/blog/assets/images/k8s-GitOps-with-FluxCD/bwYwEEQ.jpeg" width="700"/>](https://www.sva.de/index.html) 
+--
+## /FLUX BOOSTRAP
+```
+flux bootstrap github
+--owner=$GITHUB_USER
+--repository=fluxcd-demo
+--branch=main
+--path=./clusters/my-cluster
+--personal
+```
+--
+## /FLUX Kustomization
+```
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  sourceRef:
+    kind: GitRepository
+    name: stuttgart-things-github
+  path: ./infra/cert-manager
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: vault-flux-secrets
+```
 --
 ## /ARGOCD vs. FLUX
-![staging](https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png)
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png" width="700"/>](https://www.sva.de/index.html) 
 --
-## /GITOPS TOOLS
+## /GITOPS REPO FLOW
 ![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
---
-## /GITOPS FLOW
-![staging](https://codefresh.io/wp-content/uploads/2023/07/with-caching.png)
 --
 ## /ARGO-CD
 ![staging](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*SHF6VyFUkqBiStSNgJ6NHQ.gif)
---
-## /DevOps vs GitOps
-* GitOps is a development mechanism, which mainly focuses on automating and tracking environment changes in a declarative manner.
-* DevOps is a pipeline process, which mainly focuses on the operational aspects of software development.
---
-## Imperative and declarative configurations
-* DevOps can be both imperative and declarative. 
-    * scripting of deployment operations(imperative)  * containerized apps (declarative)
-* GitOps only allows declarative configuration.
 --
 ## /GitOps PullRequest
 * Changes to application configuration <!-- .element: class="fragment fade-up" -->
