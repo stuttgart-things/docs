@@ -130,23 +130,40 @@ spec:
   taskRef:
     name: hello
 ```
---
+---
 # /GITOPS
 --
 ## /PUSH
-[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/cicd-push-based-deployment.png?width=2560&name=cicd-push-based-deployment.png") width="700"/>](https://www.sva.de/index.html) 
+[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/cicd-push-based-deployment.png?width=2560&name=cicd-push-based-deployment.png") width="800"/>](https://www.sva.de/index.html) 
 --
 ## /PULL
-[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/CI-CD-GitOps-Push-Based-Deployments.png?width=2560&name=CI-CD-GitOps-Push-Based-Deployments.png") width="700"/>](https://www.sva.de/index.html) 
+[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/CI-CD-GitOps-Push-Based-Deployments.png?width=2560&name=CI-CD-GitOps-Push-Based-Deployments.png") width="800"/>](https://www.sva.de/index.html) 
+--
+## /GitOps PullRequest
+* Changes to application configuration <!-- .element: class="fragment fade-up" -->
+* Changes to container images <!-- .element: class="fragment fade-up" -->
+* Changes to Kubernetes cluster configuration <!-- .element: class="fragment fade-up" -->
+* Fixes to errors in an environment <!-- .element: class="fragment fade-up" -->
+* Defining new infrastructure via declarative configuration <!-- .element: class="fragment fade-up" -->
+* Updating an environment to new requirements <!-- .element: class="fragment fade-up" -->
+--
+## /GITOPS (EXMAPLE) FLOW
+![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
 --
 ## /DevOps vs GitOps
+* DevOps is a pipeline process, which mainly focuses on the operational aspects of software development <!-- .element: class="fragment fade-up" -->  
 * GitOps is a development mechanism, which mainly focuses on automating and tracking environment changes in a declarative manner <!-- .element: class="fragment fade-up" -->
-* DevOps is a pipeline process, which mainly focuses on the operational aspects of software development <!-- .element: class="fragment fade-up" -->
 --
 ## /imperative and declarative
 * scripting of deployment operations (imperative) <!-- .element: class="fragment fade-up" -->  
 * containerized apps (declarative) <!-- .element: class="fragment fade-up" -->
 * GitOps only allows declarative configuration <!-- .element: class="fragment fade-up" -->.
+--
+## /ARGOCD vs. FLUX
+[<img src="https://i.imgflip.com/6nklq1.jpg" width="400"/>](https://www.sva.de/index.html) 
+--
+## /ARGOCD vs. FLUX
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png" width="700"/>](https://www.sva.de/index.html) 
 --
 ## /FLUX
 [<img src="https://earthly.dev/blog/assets/images/k8s-GitOps-with-FluxCD/bwYwEEQ.jpeg" width="700"/>](https://www.sva.de/index.html) 
@@ -178,20 +195,6 @@ spec:
       - kind: Secret
         name: vault-flux-secrets
 ```
---
-## /ARGOCD vs. FLUX
-[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png" width="700"/>](https://www.sva.de/index.html) 
---
-## /GitOps PullRequest
-* Changes to application configuration <!-- .element: class="fragment fade-up" -->
-* Changes to container images <!-- .element: class="fragment fade-up" -->
-* Changes to Kubernetes cluster configuration <!-- .element: class="fragment fade-up" -->
-* Fixes to errors in an environment <!-- .element: class="fragment fade-up" -->
-* Defining new infrastructure via declarative configuration <!-- .element: class="fragment fade-up" -->
-* Updating an environment to new requirements <!-- .element: class="fragment fade-up" -->
---
-## /GITOPS FLOW
-![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
 --
 ## /ARGO-CD
 ![staging](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*SHF6VyFUkqBiStSNgJ6NHQ.gif)
