@@ -94,6 +94,9 @@ tasks:
 ## /CONTAINERIZATION
 [<img src="https://miro.medium.com/v2/resize:fit:786/format:webp/0*hYDV_AEZOTZBRVrr.png") width="400"/>](https://www.sva.de/index.html) 
 --
+## /CONTAINERIZATION
+[<img src="https://www.atatus.com/images/content/containers.png") width="550"/>](https://www.sva.de/index.html) 
+--
 ## /Kubernetes and CI/CD
 * Images instead of binaries  <!-- .element: class="fragment fade-up" -->
 * Clusters: Many environments  <!-- .element: class="fragment fade-up" -->
@@ -147,12 +150,12 @@ spec:
 * Defining new infrastructure via declarative configuration <!-- .element: class="fragment fade-up" -->
 * Updating an environment to new requirements <!-- .element: class="fragment fade-up" -->
 --
-## /GITOPS (EXMAPLE) FLOW
+## /GITOPS (EXAMPLE) FLOW
 ![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
 --
 ## /DevOps vs GitOps
-* DevOps is a pipeline process, which mainly focuses on the operational aspects of software development <!-- .element: class="fragment fade-up" -->  
-* GitOps is a development mechanism, which mainly focuses on automating and tracking environment changes in a declarative manner <!-- .element: class="fragment fade-up" -->
+* DevOps is a pipeline process (focuses on the operational aspects of software development) <!-- .element: class="fragment fade-up" -->  
+* GitOps is a development mechanism (focuses on automating and tracking environment changes in a declarative manner) <!-- .element: class="fragment fade-up" -->
 --
 ## /imperative and declarative
 * scripting of deployment operations (imperative) <!-- .element: class="fragment fade-up" -->  
@@ -198,3 +201,21 @@ spec:
 --
 ## /ARGO-CD
 ![staging](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*SHF6VyFUkqBiStSNgJ6NHQ.gif)
+--
+## /ARGO-CD Application
+```
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/argoproj/argocd-example-apps.git
+    targetRevision: HEAD
+    path: guestbook
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook
+```
