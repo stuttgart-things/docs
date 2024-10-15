@@ -64,16 +64,30 @@ build:
 [<img src="https://codefresh.io/wp-content/uploads/2023/07/single-build-step.png" width="800"/>](https://www.sva.de/index.html) 
 --
 ## /BUILD
-[<img src="https://codefresh.io/wp-content/uploads/2023/07/many-build-steps.png" width="650"/>](https://www.sva.de/index.html) 
+[<img src="https://codefresh.io/wp-content/uploads/2023/07/many-build-steps.png" width="650"/>](https://www.sva.de/index.html)
 --
-## /STAGING
-![staging](https://codefresh.io/wp-content/uploads/2023/07/same-artifact-for-all.png)
+## /LOCAL VS PIPELINE
+[<img src="https://i.redd.it/134ir143zl8a1.jpg" width="650"/>](https://www.sva.de/index.html)
 --
-## /STAGING
-![staging](https://codefresh.io/wp-content/uploads/2023/07/same-artifact-for-all.png)
+## /TASKFILE
+![staging](https://tsh.io/wp-content/uploads/2021/04/taskfile-preference-meme.png)
+--
+## /TASKFILE
+```
+tasks:
+  build:
+    cmds:
+      - go build -v -i main.go
+```
 --
 ## /DRY
-![staging](https://preview.redd.it/r2e86rrndns41.jpg?width=1080&crop=smart&auto=webp&s=4fe4832eaa7d75762850ec174b7e9f99bc358bc9)
+[<img src="https://preview.redd.it/r2e86rrndns41.jpg?width=1080&crop=smart&auto=webp&s=4fe4832eaa7d75762850ec174b7e9f99bc358bc9" width="650"/>](https://www.sva.de/index.html)
+--
+## /STAGING
+![staging](https://codefresh.io/wp-content/uploads/2023/07/same-artifact-for-all.png)
+--
+## /STAGING
+![staging](https://codefresh.io/wp-content/uploads/2023/07/same-artifact-for-all.png)
 ---
 # /CD
 --
@@ -86,18 +100,44 @@ build:
 * Microservices instead of monoliths (Managing dependencies between all services is going to be challenging)  <!-- .element: class="fragment fade-up" -->
 --
 ## /TEKTON CD
-[<img src="https://miro.medium.com/v2/resize:fit:1356/format:webp/1*SqHHsH7dTGNEVd6zTD_-XA.png") width="400"/>](https://www.sva.de/index.html) 
+[<img src="https://miro.medium.com/v2/resize:fit:1356/format:webp/1*SqHHsH7dTGNEVd6zTD_-XA.png") width="1200"/>](https://www.sva.de/index.html) 
 --
 ## /TEKTON CD
-[<img src="https://miro.medium.com/v2/resize:fit:1086/format:webp/1*e5yv4QARvrGgqG7xkkdfSw.png") width="400"/>](https://www.sva.de/index.html) 
----
+[<img src="https://miro.medium.com/v2/resize:fit:1086/format:webp/1*e5yv4QARvrGgqG7xkkdfSw.png") width="1200"/>](https://www.sva.de/index.html) 
+--
+## /TEKTON TASK
+```
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: hello
+spec:
+  steps:
+    - name: echo
+      image: alpine
+      script: |
+        #!/bin/sh
+        echo "Hello World"   
+```
+--
+## /TEKTON TASKRUN
+```
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: hello-task-run
+spec:
+  taskRef:
+    name: hello
+```
+--
 # /GITOPS
 --
 ## /PUSH
-![staging](https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/cicd-push-based-deployment.png?width=2560&name=cicd-push-based-deployment.png)
+[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/cicd-push-based-deployment.png?width=2560&name=cicd-push-based-deployment.png") width="700"/>](https://www.sva.de/index.html) 
 --
 ## /PULL
-![staging](https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/CI-CD-GitOps-Push-Based-Deployments.png?width=2560&name=CI-CD-GitOps-Push-Based-Deployments.png)
+[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/CI-CD-GitOps-Push-Based-Deployments.png?width=2560&name=CI-CD-GitOps-Push-Based-Deployments.png") width="700"/>](https://www.sva.de/index.html) 
 --
 ## /DevOps vs GitOps
 * GitOps is a development mechanism, which mainly focuses on automating and tracking environment changes in a declarative manner <!-- .element: class="fragment fade-up" -->
