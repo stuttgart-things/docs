@@ -8,7 +8,7 @@
 --
 #/AGENDA
 * CI <!-- .element: class="fragment fade-up" -->
-* CI-CD <!-- .element: class="fragment fade-up" -->
+* CD <!-- .element: class="fragment fade-up" -->
 * GITOPS <!-- .element: class="fragment fade-up" -->
 --
 ### /Introduction
@@ -26,13 +26,31 @@ patrick.hermann@sva.de
 ![cicdcd](https://miro.medium.com/v2/resize:fit:786/format:webp/0*OC11hb1WJ-th-154.png)
 --
 ## /CI-CD-CD
-![cicdcd](https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png.webp?itok=mDEvsSsp)
+[<img src="https://www.redhat.com/rhdc/managed-files/styles/wysiwyg_full_width/private/ci-cd-flow-desktop.png.webp?itok=mDEvsSsp" width="1000"/>](https://www.sva.de/index.html)
+--
+## /EXAMPLE
+[<img src="https://docs.gitlab.com/ee/ci/quick_start/img/pipeline_graph_v13_6.png" width="1000"/>](https://www.sva.de/index.html)
+--
+## /EXAMPLE
+```
+stages:
+  - build
+
+build:
+  stage: build
+  image: python:3.19
+  script:
+    - pip install -r requirements.txt
+    - python manage.py makemigrations
+    - python manage.py migrate
+```
 ---
 # /CI
 --
 ## /CI
 ![cicdcd](https://miro.medium.com/v2/resize:fit:786/format:webp/0*IC_N9P4Eu1NO1UkE.png)
 --
+
 ## /Source Control
 ![source](https://codefresh.io/wp-content/uploads/2023/07/everything-in-git.png)
 --
@@ -50,6 +68,28 @@ patrick.hermann@sva.de
 --
 ## /STAGING
 ![staging](https://codefresh.io/wp-content/uploads/2023/07/same-artifact-for-all.png)
+--
+## /STAGING
+![staging](https://codefresh.io/wp-content/uploads/2023/07/same-artifact-for-all.png)
+--
+## /DRY
+![staging](https://preview.redd.it/r2e86rrndns41.jpg?width=1080&crop=smart&auto=webp&s=4fe4832eaa7d75762850ec174b7e9f99bc358bc9)
+---
+# /CD
+--
+## /CONTAINERIZATION
+[<img src="https://miro.medium.com/v2/resize:fit:786/format:webp/0*hYDV_AEZOTZBRVrr.png") width="400"/>](https://www.sva.de/index.html) 
+--
+## /Kubernetes and CI/CD
+* Images instead of binaries  <!-- .element: class="fragment fade-up" -->
+* Clusters: Many environments  <!-- .element: class="fragment fade-up" -->
+* Microservices instead of monoliths (Managing dependencies between all services is going to be challenging)  <!-- .element: class="fragment fade-up" -->
+--
+## /TEKTON CD
+[<img src="https://miro.medium.com/v2/resize:fit:1356/format:webp/1*SqHHsH7dTGNEVd6zTD_-XA.png") width="400"/>](https://www.sva.de/index.html) 
+--
+## /TEKTON CD
+[<img src="https://miro.medium.com/v2/resize:fit:1086/format:webp/1*e5yv4QARvrGgqG7xkkdfSw.png") width="400"/>](https://www.sva.de/index.html) 
 ---
 # /GITOPS
 --
@@ -102,12 +142,6 @@ spec:
 ## /ARGOCD vs. FLUX
 [<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png" width="700"/>](https://www.sva.de/index.html) 
 --
-## /GITOPS REPO FLOW
-![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
---
-## /ARGO-CD
-![staging](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*SHF6VyFUkqBiStSNgJ6NHQ.gif)
---
 ## /GitOps PullRequest
 * Changes to application configuration <!-- .element: class="fragment fade-up" -->
 * Changes to container images <!-- .element: class="fragment fade-up" -->
@@ -116,4 +150,8 @@ spec:
 * Defining new infrastructure via declarative configuration <!-- .element: class="fragment fade-up" -->
 * Updating an environment to new requirements <!-- .element: class="fragment fade-up" -->
 --
-
+## /GITOPS FLOW
+![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
+--
+## /ARGO-CD
+![staging](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*SHF6VyFUkqBiStSNgJ6NHQ.gif)
