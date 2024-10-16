@@ -2,6 +2,39 @@
 
 ## SNIPPETS
 
+<details><summary><b>USE MINIO PLAY FOR TESTING</b></summary>
+
+```bash
+cat << EOF> ~/.mc/config.json
+{
+  "version": "10",
+  "aliases": {
+    "play": {
+      "url": "https://play.min.io",
+      "accessKey": "minioadmin",
+      "secretKey": "minioadmin",
+      "api": "s3v4",
+      "path": "auto"
+    }
+  }
+}
+EOF
+```
+
+```bash
+# ZIP A TEST FOLDER (JUST FOR REFERENCE - NOT REQUIRED)
+zip -r toolkit.zip toolkit/
+
+# CREATE A BUCKET
+mc mb play/ankit
+
+# COPY TO BUCKET
+mc cp toolkit.zip play/ankit
+```
+
+</details>
+
+
 <details><summary><b>MC CONFIG (EXAMPLE)</b></summary>
 
 ```json
