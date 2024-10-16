@@ -6,6 +6,10 @@
 molecule init scenario --driver-name=default
 ```
 
+https://cloudautomation.pharriso.co.uk/post/vmware-molecule/
+https://medium.com/@fabio.marinetti81/validate-ansible-roles-through-molecule-delegated-driver-a2ea2ab395b5
+
+
 ## TEST EXISTING ROLE WITH MOLECULE DOCKER DRIVER
 
 ```bash
