@@ -1,16 +1,57 @@
 # stuttgart-things/docs/ansible
 
-## TEST EXISTING ROLE/COLLECTION WITH DEFAULT/DELEGATED DRIVER
+## MOLECULE
+
+https://cloudautomation.pharriso.co.uk/post/vmware-molecule/
+https://medium.com/@fabio.marinetti81/validate-ansible-roles-through-molecule-delegated-driver-a2ea2ab395b5
+
+<details><summary><b>CUSTOM INVENTORY W/ MOLECULE</b></summary>
 
 ```bash
 molecule init scenario --driver-name=default
 ```
 
-https://cloudautomation.pharriso.co.uk/post/vmware-molecule/
-https://medium.com/@fabio.marinetti81/validate-ansible-roles-through-molecule-delegated-driver-a2ea2ab395b5
+```bash
+cat <<EOF > ./molecule/default/inventory.yaml
+---
+all:
+  hosts:
+    michigan.labul.sva.de
+EOF
+```
 
+```bash
+cat <<EOF > ./molecule/default/molecule.yml
+---
+role_name_check: 1
+driver:
+  name: default
+  managed: False
+platforms:
+  - name: localhost #michigan.labul.sva.de
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_VERBOSITY: 3
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+  inventory:
+    links:
+      hosts: inventory.yaml
 
-## TEST EXISTING ROLE WITH MOLECULE DOCKER DRIVER
+scenario:
+  name: default
+  test_sequence:
+    - dependency
+    - syntax
+    - prepare
+    - converge
+EOF
+```
+
+</details>
+
+<details><summary><b>TEST EXISTING ROLE WITH MOLECULE DOCKER DRIVER</b></summary>
 
 ```bash
 mkdir -p molecule-testing && cd $_
@@ -63,9 +104,11 @@ EOF
 molecule test -s docker_test
 ```
 
-## CREATE-COLLECTIONS
+</details>
 
-<details><summary><b>CREATE, BUILD, INSTALL</b></summary>
+## SNIPETS
+
+<details><summary><b>CREATE-COLLECTIONS</b></summary>
 
 ```bash
 # EXAMPLE COLLECTION CREATION
