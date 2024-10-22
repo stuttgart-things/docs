@@ -70,6 +70,10 @@ https://www.redhat.com/de/topics/automation/ansible-vs-terraform
 ---
 # /AAP-AWX
 ---
+# Beispiele aus der Sprechstunde
+
+[<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
+---
 # Fragen?
 
 [<img src="https://mtyurt.net/img/automate-all-the-things.jpg" width="400"/>](https://www.sva.de/index.html)
