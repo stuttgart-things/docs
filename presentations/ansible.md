@@ -12,9 +12,7 @@
     * Relevanz der Technologie für Kunden und SEs <!-- .element: class="fragment fade-up" --> 
 * Einsatz von Ansible beim Kunden <!-- .element: class="fragment fade-up" -->
 * Beispiele aus der Sprechstunde <!-- .element: class="fragment fade-up" -->
-    * Kunden-Usecases <!-- .element: class="fragment fade-up" -->
     * Code von Kollegen + mögliche Optimierungen <!-- .element: class="fragment fade-up" --> 
-    * Neuigkeiten <!-- .element: class="fragment fade-up" --> 
 * Fragen <!-- .element: class="fragment fade-up" -->
 ---
 # /Einführung in Ansible
@@ -27,6 +25,10 @@
 ### /INFRASTRUCTURE AS CODE
 * Infrastruktur eines Systems – also Netzwerke, Server, Speicher, Datenbanken und andere Ressourcen – mittels Konfigurationsdateien definiert, bereitgestellt und verwaltet
 * Statt manuell Hardware und Software zu konfigurieren, erfolgt dies durch Code. 
+--
+
+### /INFRASTRUCTURE AS CODE
+
 * Dadurch wird die Bereitstellung von Infrastruktur automatisierbar, wiederholbar und versionierbar.
 * IaC kann auf 2 Arten angegangen werden: deklarativ und imperativ.
 --
@@ -34,6 +36,9 @@
 ### /DEKLARATIV VS. IMPERATIV
 
 * Deklarativ: Bei deklarativer IaC wird der gewünschte Zustand des Systems festgelegt. Ressourcen und Eigenschaften werden auf die Ressource angewendet, sobald der Benutzer den gewünschten Zustand angibt. (Bsp: AWS CloudFormation)
+--
+
+### /DEKLARATIV VS. IMPERATIV
 * Imperativ: Imperative IaC spezifiziert Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind. Der Benutzer gibt die gewünschten Befehle an und die Befehle werden ausgeführt, um das System in den gewünschten Zustand zu bringen. (Bsp: AWS CLI)
 --
 
@@ -56,7 +61,7 @@
 * Beschreiben die Aufgaben, die zu erledigen sind, indem sie Konfigurationen deklarieren, um einen verwalteten Knoten in den gewünschten Zustand zu bringen.
 --
 
-### /BASICS
+### /BEISPIEL ANSIBLE PLAYBOOK
 
 ```
 - name: Update web servers
@@ -71,74 +76,57 @@
 ```
 
 --
-### /BEISPIEL ANSIBLE PLAYBOOK
-```
-- hosts: webservers
-  vars:
-    http_port: 80
-    max_clients: 200
-    remote_user: root
-  tasks:
-  - name: ensure apache is at the latest version
-    yum: name=httpd state=latest
-  - name: write the apache config file
-    template: src=/srv/httpd.j2 dest=/etc/httpd.conf
-    notify:
-    - restart apache
-  - name: ensure apache is running (and enable it at boot)
-    service: name=httpd state=started enabled=yes
-    handlers:
-  - name: restart apache
-    service: name=httpd state=restarted
-```
+
+### /ANSIBLE AUTOMATION PLATFORM
+
+
+[<img src="https://www.redhat.com/rhdc/managed-files/ansible-hero-img-ohs1.png" width="700"/>](https://www.sva.de/index.html)
 --
-
-### /MODULES
-
-Ansible kann sowohl deklarativ als auch prozedural sein: Viele Module arbeiten deklarativ, andere folgen einem prozeduralen Programmieransatz. Darüber hinaus können Nutzende mit einigen Konstrukten der Ansible-Sprache, wie Bedingungen und Schleifen, eine prozedurale Logik definieren.
-
-https://www.redhat.com/de/topics/automation/ansible-vs-terraform
---
-### /ANSIBLE TOWER
-
+### /ANSIBLE AUTOMATION PLATFORM
 * gesamte IT-Infrastruktur mit einem visuellen Dashboard in Echtzeit zentralisieren und kontrollieren. 
 * Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden.
 
 --
-# /AAP-AWX
---
-
 
 ### /USE CASES
 
-[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="500"/>](https://www.sva.de/index.html)
+[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="600"/>](https://www.sva.de/index.html)
 
 <span style="color:orange">#DevOps #CICD #Automation #Cloud #IAC</span>
 <span style="color:orange">#Kubernetes #Containerization</span> <br><br>
 ---
-# /Einsatz von Ansible beim Kunden
+## /Einsatz von Ansible beim Kunden
 --
 
-### /USE CASES
-* Provisioning: Einrichtung einer neuen Infrastruktur. Ansible ermöglicht das Anwendungsmanagement, die Bereitstellung, die Orchestrierung und das Konfigurationsmanagement.
-* Continuous Delivery: Mit dem CI-Tool kann ein Ansible-Playbook ausgeführt werden, das zum Testen und automatischen Bereitstellen der Anwendung für die Produktion verwendet werden kann.
-* Application Deployment: Ansible bietet eine einfachere Methode zur Bereitstellung von Anwendungen in der gesamten Infrastruktur. Die Bereitstellung von mehrschichtigen Anwendungen kann vereinfacht werden, und die Infrastruktur kann im Laufe der Zeit leicht geändert werden.
-* Ansible für Cloud Computing: Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern. Ansible enthält mehrere Module und ermöglicht die Verwaltung großer Cloud-Infrastrukturen über die Public-Private- und Hybrid-Cloud.
-* Ansible für Security und Compliance: In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren.
+### /Provisioning
+* Einrichtung einer neuen Infrastruktur. Ansible ermöglicht das Anwendungsmanagement, die Bereitstellung, die Orchestrierung und das Konfigurationsmanagement.
+--
+
+### /Continuous Delivery
+* Mit dem CI-Tool kann ein Ansible-Playbook ausgeführt werden, das zum Testen und automatischen Bereitstellen der Anwendung für die Produktion verwendet werden kann.
+--
+
+### /Application Deployment
+* Ansible bietet eine einfachere Methode zur Bereitstellung von Anwendungen in der gesamten Infrastruktur. Die Bereitstellung von mehrschichtigen Anwendungen kann vereinfacht werden, und die Infrastruktur kann im Laufe der Zeit leicht geändert werden.
+--
+
+### /Cloud Computing
+* Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern. Ansible enthält mehrere Module und ermöglicht die Verwaltung großer Cloud-Infrastrukturen über die Public-Private- und Hybrid-Cloud.
+--
+
+### /Security und Compliance
+* In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren.
 
 ---
-# /Beispiele aus der Sprechstunde
+## /Beispiele aus der Sprechstunde
 
 [<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
 
---
-# /Kunden-Usecases
 
 --
-# /Code von Kollegen + mögliche Optimierungen
+## /Code von Kollegen + mögliche Optimierungen
 
---
-# /Neuigkeiten
+
 
 ---
 # /Fragen?
