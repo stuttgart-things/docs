@@ -1,6 +1,6 @@
 # ANSIBLE
 
-[<img src="https://lh4.googleusercontent.com/proxy/T1l-uRgNzFbx8DcZvsfUqpZ_0nqYCtPdVdymyGSCcynHlO69i6POvT-JVpruB6Hm1cdEXZM1r-0Nwg" width="800"/>](https://www.sva.de/index.html)
+[<img src="https://lh4.googleusercontent.com/proxy/T1l-uRgNzFbx8DcZvsfUqpZ_0nqYCtPdVdymyGSCcynHlO69i6POvT-JVpruB6Hm1cdEXZM1r-0Nwg" width="700"/>](https://www.sva.de/index.html)
 
 # sthings coffee?
 
@@ -29,8 +29,8 @@ bedeutet Idempotenz. Das bedeutet, dass Operationen, die mehr als einmal mit den
 
 ### /DEKLARATIV VS. IMPERATIV
 
-* Deklarativ: Bei deklarativer IaC wird der gewünschte Zustand des Systems festgelegt. Ressourcen und Eigenschaften werden auf die Ressource angewendet, sobald der Benutzer den gewünschten Zustand angibt. Ein Beispiel für ein Tool, das einen deklarativen Ansatz verwendet, ist AWS CloudFormation.
-* Imperativ: Imperative IaC spezifiziert spezifische Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind. Der Benutzer gibt die gewünschten Befehle an und die Befehle werden ausgeführt, um das System in den gewünschten Zustand zu bringen. Ein Beispiel für ein Tool, das einen imperativen Ansatz für IaC verwendet, ist AWS CLI
+* Deklarativ: Bei deklarativer IaC wird der gewünschte Zustand des Systems festgelegt. Ressourcen und Eigenschaften werden auf die Ressource angewendet, sobald der Benutzer den gewünschten Zustand angibt. (Bsp: AWS CloudFormation)
+* Imperativ: Imperative IaC spezifiziert Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind. Der Benutzer gibt die gewünschten Befehle an und die Befehle werden ausgeführt, um das System in den gewünschten Zustand zu bringen. (Bsp: AWS CLI)
 --
 
 ### /Was ist Ansible?
@@ -87,25 +87,9 @@ Ansible ist ein einfaches Konfigurationsmanagement- und IT-Automatisierungsmodul
 
 ### /MODULES
 
-Ansible kann sowohl deklarativ als auch prozedural sein: Viele Module arbeiten deklarativ, andere folgen einem prozeduralen Programmieransatz. Darüber hinaus können Nutzende mit einigen Konstrukten der Ansible-Sprache, wie Bedingungen und Schleifen, eine prozedurale Logik definieren. Dank dieser Flexibilität können Sie sich auf Ihre eigentliche Arbeit konzentrieren, anstatt sich strikt an ein Modell halten zu müssen. 
+Ansible kann sowohl deklarativ als auch prozedural sein: Viele Module arbeiten deklarativ, andere folgen einem prozeduralen Programmieransatz. Darüber hinaus können Nutzende mit einigen Konstrukten der Ansible-Sprache, wie Bedingungen und Schleifen, eine prozedurale Logik definieren.
 
 https://www.redhat.com/de/topics/automation/ansible-vs-terraform
-
---
-### /USE CASES
-
-[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="500"/>](https://www.sva.de/index.html)
-
-<span style="color:orange">#DevOps #CICD #Automation #Cloud #IAC</span>
-<span style="color:orange">#Kubernetes #Containerization</span> <br><br>
---
-
-### /USE CASES
-* Provisioning: Einrichtung einer neuen Infrastruktur. Ansible ermöglicht das Anwendungsmanagement, die Bereitstellung, die Orchestrierung und das Konfigurationsmanagement.
-* Continuous Delivery: Mit dem CI-Tool kann ein Ansible-Playbook ausgeführt werden, das zum Testen und automatischen Bereitstellen der Anwendung für die Produktion verwendet werden kann, wenn die Tests bestanden sind.
-* Application Deployment: Ansible bietet eine einfachere Methode zur Bereitstellung von Anwendungen in der gesamten Infrastruktur. Die Bereitstellung von mehrschichtigen Anwendungen kann vereinfacht werden, und die Infrastruktur kann im Laufe der Zeit leicht geändert werden.
-* Ansible für Cloud Computing: Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern. Ansible enthält mehrere Module und ermöglicht die Verwaltung großer Cloud-Infrastrukturen über die Public-Private- und Hybrid-Cloud.
-* Ansible für Security und Compliance: In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren.
 --
 ### /ANSIBLE TOWER
 
@@ -113,10 +97,40 @@ Ansible Tower ermöglicht es, die gesamte IT-Infrastruktur mit einem visuellen D
 
 --
 # /AAP-AWX
+--
+
+
+### /USE CASES
+
+[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="500"/>](https://www.sva.de/index.html)
+
+<span style="color:orange">#DevOps #CICD #Automation #Cloud #IAC</span>
+<span style="color:orange">#Kubernetes #Containerization</span> <br><br>
+---
+# /Einsatz von Ansible beim Kunden
+--
+
+### /USE CASES
+* Provisioning: Einrichtung einer neuen Infrastruktur. Ansible ermöglicht das Anwendungsmanagement, die Bereitstellung, die Orchestrierung und das Konfigurationsmanagement.
+* Continuous Delivery: Mit dem CI-Tool kann ein Ansible-Playbook ausgeführt werden, das zum Testen und automatischen Bereitstellen der Anwendung für die Produktion verwendet werden kann.
+* Application Deployment: Ansible bietet eine einfachere Methode zur Bereitstellung von Anwendungen in der gesamten Infrastruktur. Die Bereitstellung von mehrschichtigen Anwendungen kann vereinfacht werden, und die Infrastruktur kann im Laufe der Zeit leicht geändert werden.
+* Ansible für Cloud Computing: Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern. Ansible enthält mehrere Module und ermöglicht die Verwaltung großer Cloud-Infrastrukturen über die Public-Private- und Hybrid-Cloud.
+* Ansible für Security und Compliance: In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren.
+
 ---
 # Beispiele aus der Sprechstunde
 
 [<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
+
+--
+# Kunden-Usecases
+
+--
+# Code von Kollegen + mögliche Optimierungen
+
+--
+# Neuigkeiten
+
 ---
 # Fragen?
 
