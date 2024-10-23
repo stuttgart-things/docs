@@ -12,8 +12,16 @@
     * Relevanz der Technologie für Kunden und SEs <!-- .element: class="fragment fade-up" --> 
 * Einsatz von Ansible beim Kunden <!-- .element: class="fragment fade-up" -->
 * Beispiele aus der Sprechstunde <!-- .element: class="fragment fade-up" -->
-    * Code von Kollegen + mögliche Optimierungen <!-- .element: class="fragment fade-up" --> 
 * Fragen <!-- .element: class="fragment fade-up" -->
+---
+## /ANSIBLE SPRECHSTUNDE
+
+* Jeden zweiten Donnerstag des Monats
+* 14:00 bis 16:00
+* Raum: ST M3 -01
+* Wiki: https://wiki.sva.de/pages/viewpage.action?pageId=453482787 
+
+[<img src="https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-ansible.png" width="200"/>](https://www.sva.de/index.html)
 ---
 # /Einführung in Ansible
 --
@@ -23,23 +31,29 @@
 --
 
 ### /INFRASTRUCTURE AS CODE
-* Infrastruktur eines Systems – also Netzwerke, Server, Speicher, Datenbanken und andere Ressourcen – mittels Konfigurationsdateien definiert, bereitgestellt und verwaltet
+* Infrastruktur eines Systems – Netzwerke, Server, Speicher, Datenbanken und andere Ressourcen – mittels Konfigurationsdateien definieren, bereitstellen und verwalten
 * Statt manuell Hardware und Software zu konfigurieren, erfolgt dies durch Code. 
 --
 
 ### /INFRASTRUCTURE AS CODE
 
-* Dadurch wird die Bereitstellung von Infrastruktur automatisierbar, wiederholbar und versionierbar.
+* Bereitstellung von Infrastruktur wird automatisierbar, wiederholbar und versionierbar.
 * IaC kann auf 2 Arten angegangen werden: deklarativ und imperativ.
 --
 
 ### /DEKLARATIV VS. IMPERATIV
 
-* Deklarativ: Bei deklarativer IaC wird der gewünschte Zustand des Systems festgelegt. Ressourcen und Eigenschaften werden auf die Ressource angewendet, sobald der Benutzer den gewünschten Zustand angibt. (Bsp: AWS CloudFormation)
+* Deklarativ: 
+ * Der gewünschte Zustand des Systems wird festgelegt. 
+ * Ressourcen und Eigenschaften werden auf die Ressource angewendet, sobald der Benutzer den gewünschten Zustand angibt.
+ * Bsp: AWS CloudFormation
 --
 
 ### /DEKLARATIV VS. IMPERATIV
-* Imperativ: Imperative IaC spezifiziert Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind. Der Benutzer gibt die gewünschten Befehle an und die Befehle werden ausgeführt, um das System in den gewünschten Zustand zu bringen. (Bsp: AWS CLI)
+* Imperativ: 
+ * Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind. 
+ * Der Benutzer gibt die gewünschten Befehle an und die Befehle werden ausgeführt, um das System in den gewünschten Zustand zu bringen.
+ * Bsp: AWS CLI
 --
 
 ### /Was ist Ansible?
@@ -99,7 +113,8 @@
 --
 
 ### /Provisioning
-* Einrichtung einer neuen Infrastruktur. Ansible ermöglicht das Anwendungsmanagement, die Bereitstellung, die Orchestrierung und das Konfigurationsmanagement.
+* Einrichtung einer neuen Infrastruktur. 
+* Anwendungsmanagement, Bereitstellung, Orchestrierung und Konfigurationsmanagement.
 --
 
 ### /Continuous Delivery
@@ -107,26 +122,78 @@
 --
 
 ### /Application Deployment
-* Ansible bietet eine einfachere Methode zur Bereitstellung von Anwendungen in der gesamten Infrastruktur. Die Bereitstellung von mehrschichtigen Anwendungen kann vereinfacht werden, und die Infrastruktur kann im Laufe der Zeit leicht geändert werden.
+* Ansible bietet eine einfache Methode zur Bereitstellung von Anwendungen in der gesamten Infrastruktur. 
+* Die Bereitstellung von mehrschichtigen Anwendungen kann vereinfacht werden, und die Infrastruktur kann im Laufe der Zeit leicht geändert werden.
 --
 
 ### /Cloud Computing
-* Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern. Ansible enthält mehrere Module und ermöglicht die Verwaltung großer Cloud-Infrastrukturen über die Public-Private- und Hybrid-Cloud.
+* Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern. 
+* Ansible enthält mehrere Module und ermöglicht die Verwaltung großer Cloud-Infrastrukturen über die Public-Private- und Hybrid-Cloud.
 --
 
 ### /Security und Compliance
 * In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren.
 
 ---
+## /ANSIBLE SPRECHSTUNDE
+
+* Jeden zweiten Donnerstag des Monats
+* 14:00 bis 16:00 Uhr
+* Raum: ST M3 -01
+* Wiki: https://wiki.sva.de/pages/viewpage.action?pageId=453482787 
+
+[<img src="https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-ansible.png" width="200"/>](https://www.sva.de/index.html)
+--
 ## /Beispiele aus der Sprechstunde
 
-[<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
+```
+#!/bin/bash
 
+# Benutzer erstellen und Home-Verzeichnis festlegen
+
+useradd -m -d /home/user1 -s /bin/bash user1
+echo "Passwort1" | passwd --stdin user1
+
+useradd -m -d /home/user2 -s /bin/bash user2
+echo "Passwort2" | passwd --stdin user2
+```
 
 --
-## /Code von Kollegen + mögliche Optimierungen
+
+```
+- hosts: all
+  become: true
+  tasks:
+    - name: Create users with home directories and bash shell
+      user:
+        name: "{{ item.name }}"
+        home: "{{ item.home }}"
+        shell: /bin/bash
+        state: present
+        create_home: yes
+      loop:
+        - { name: "user1", home: "/home/user1" }
+        - { name: "user2", home: "/home/user2" }
+        - { name: "user3", home: "/home/user3" }
+```
+
+--
 
 
+
+[<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
+--
+
+[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_1.png" width="200"/>](https://www.sva.de/index.html)
+--
+
+[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_2.jpeg" width="600"/>](https://www.sva.de/index.html)
+--
+
+[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_3.jpeg" width="600"/>](https://www.sva.de/index.html)
+--
+
+[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_4.jpeg" width="600"/>](https://www.sva.de/index.html)
 
 ---
 # /Fragen?
