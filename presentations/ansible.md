@@ -2,9 +2,6 @@
 
 [<img src="https://lh4.googleusercontent.com/proxy/T1l-uRgNzFbx8DcZvsfUqpZ_0nqYCtPdVdymyGSCcynHlO69i6POvT-JVpruB6Hm1cdEXZM1r-0Nwg" width="700"/>](https://www.sva.de/index.html)
 
-# sthings coffee?
-
-
 
 <!-- .slide: data-transition="zoom" -->
 ---
@@ -20,11 +17,15 @@
     * Neuigkeiten <!-- .element: class="fragment fade-up" --> 
 * Fragen <!-- .element: class="fragment fade-up" -->
 ---
-# Einführung in Ansible
+# /Einführung in Ansible
 --
 
 ### /INFRASTRUCTURE AS CODE
-bedeutet Idempotenz. Das bedeutet, dass Operationen, die mehr als einmal mit denselben Parametern aufgerufen werden, keine zusätzlichen Auswirkungen haben. Einige Tools, die nach dem IAC-Ansatz entwickelt wurden, sind Ansible, Terraform, AWS Cloud Formation und ARM-Templates. Infrastructure as Code IaC kann auf 2 Arten angegangen werden: deklarativ und imperativ
+[<img src="https://www.meme-arsenal.com/memes/cc44149278ca0067e7dd198911ef5553.jpg" width="700"/>](https://www.sva.de/index.html)
+--
+
+### /INFRASTRUCTURE AS CODE
+bedeutet Idempotenz. Das bedeutet, dass Operationen, die mehr als einmal mit denselben Parametern aufgerufen werden, keine zusätzlichen Auswirkungen haben. Einige Tools, die nach dem IAC-Ansatz entwickelt wurden, sind Ansible, Terraform, AWS Cloud Formation und ARM-Templates. Infrastructure as Code IaC kann auf 2 Arten angegangen werden: deklarativ und imperativ.
 --
 
 ### /DEKLARATIV VS. IMPERATIV
@@ -37,15 +38,15 @@ bedeutet Idempotenz. Das bedeutet, dass Operationen, die mehr als einmal mit den
 Ansible ist ein einfaches Konfigurationsmanagement- und IT-Automatisierungsmodul für mehrstufige Bereitstellungen. Es automatisiert sowohl die Cloud- als auch die On-Premise-Bereitstellung und -Konfiguration.
 --
 
-### /ANSIBLE ARCHITECTURE
+### /ANSIBLE ARCHITEKTUR
 
-[<img src="https://k21academy.com/wp-content/uploads/2021/06/Ansible_Diagram2-16-1536x692.png"width="800"/>](https://www.sva.de/index.html)
+[<img src="https://k21academy.com/wp-content/uploads/2021/06/Ansible_Diagram2-16-1536x692.png" width="900"/>](https://www.sva.de/index.html)
 --
-### /ANSIBLE ARCHITECTURE
-* Module: Module sind skriptartige Programme, die geschrieben werden, um den gewünschten Zustand des Systems zu spezifizieren. 
-* Plugins: Plugins sind Codestücke, die die Kernfunktionalität von Ansible erweitern.
+### /ANSIBLE ARCHITEKTUR
+* Module: skriptartige Programme, die geschrieben werden, um den gewünschten Zustand des Systems zu spezifizieren. 
+* Plugins: Codestücke, die die Kernfunktionalität von Ansible erweitern.
 * Inventory: Ansible liest Informationen über die Maschinen, die es verwaltet, aus dem Inventory.
-* Playbook: Playbooks beschreiben die Aufgaben, die zu erledigen sind, indem sie Konfigurationen deklarieren, um einen verwalteten Knoten in den gewünschten Zustand zu bringen.
+* Playbook: beschreiben die Aufgaben, die zu erledigen sind, indem sie Konfigurationen deklarieren, um einen verwalteten Knoten in den gewünschten Zustand zu bringen.
 --
 
 ### /BASICS
@@ -63,7 +64,7 @@ Ansible ist ein einfaches Konfigurationsmanagement- und IT-Automatisierungsmodul
 ```
 
 --
-### /EXAMPLE ANSIBLE PLAYBOOK
+### /BEISPIEL ANSIBLE PLAYBOOK
 ```
 - hosts: webservers
   vars:
@@ -118,23 +119,25 @@ Ansible Tower ermöglicht es, die gesamte IT-Infrastruktur mit einem visuellen D
 * Ansible für Security und Compliance: In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren.
 
 ---
-# Beispiele aus der Sprechstunde
+# /Beispiele aus der Sprechstunde
 
 [<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
 
 --
-# Kunden-Usecases
+# /Kunden-Usecases
 
 --
-# Code von Kollegen + mögliche Optimierungen
+# /Code von Kollegen + mögliche Optimierungen
 
 --
-# Neuigkeiten
+# /Neuigkeiten
 
 ---
-# Fragen?
+# /Fragen?
 
-[<img src="https://mtyurt.net/img/automate-all-the-things.jpg" width="400"/>](https://www.sva.de/index.html)
+[<img src="https://github.com/stuttgart-things/docs/raw/main/hugo/sthings-coffee.png" width="500"/>](https://www.sva.de/index.html)
+
+
 
 
 --
