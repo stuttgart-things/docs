@@ -25,7 +25,10 @@
 --
 
 ### /INFRASTRUCTURE AS CODE
-bedeutet Idempotenz. Das bedeutet, dass Operationen, die mehr als einmal mit denselben Parametern aufgerufen werden, keine zusätzlichen Auswirkungen haben. Einige Tools, die nach dem IAC-Ansatz entwickelt wurden, sind Ansible, Terraform, AWS Cloud Formation und ARM-Templates. Infrastructure as Code IaC kann auf 2 Arten angegangen werden: deklarativ und imperativ.
+* Infrastruktur eines Systems – also Netzwerke, Server, Speicher, Datenbanken und andere Ressourcen – mittels Konfigurationsdateien definiert, bereitgestellt und verwaltet
+* Statt manuell Hardware und Software zu konfigurieren, erfolgt dies durch Code. 
+* Dadurch wird die Bereitstellung von Infrastruktur automatisierbar, wiederholbar und versionierbar.
+* IaC kann auf 2 Arten angegangen werden: deklarativ und imperativ.
 --
 
 ### /DEKLARATIV VS. IMPERATIV
@@ -35,18 +38,22 @@ bedeutet Idempotenz. Das bedeutet, dass Operationen, die mehr als einmal mit den
 --
 
 ### /Was ist Ansible?
-Ansible ist ein einfaches Konfigurationsmanagement- und IT-Automatisierungsmodul für mehrstufige Bereitstellungen. Es automatisiert sowohl die Cloud- als auch die On-Premise-Bereitstellung und -Konfiguration.
+* De facto Standard-Configuration-Management-Tool
+* Cloud- und On-Premise
 --
 
 ### /ANSIBLE ARCHITEKTUR
 
 [<img src="https://k21academy.com/wp-content/uploads/2021/06/Ansible_Diagram2-16-1536x692.png" width="900"/>](https://www.sva.de/index.html)
 --
-### /ANSIBLE ARCHITEKTUR
-* Module: skriptartige Programme, die geschrieben werden, um den gewünschten Zustand des Systems zu spezifizieren. 
-* Plugins: Codestücke, die die Kernfunktionalität von Ansible erweitern.
-* Inventory: Ansible liest Informationen über die Maschinen, die es verwaltet, aus dem Inventory.
-* Playbook: beschreiben die Aufgaben, die zu erledigen sind, indem sie Konfigurationen deklarieren, um einen verwalteten Knoten in den gewünschten Zustand zu bringen.
+### /ANSIBLE MODULE
+* Skriptartige Programme, die geschrieben werden, um den gewünschten Zustand des Systems zu spezifizieren. 
+--
+### /ANSIBLE INVENTORY
+* Ansible liest Informationen über die Maschinen, die es verwaltet, aus dem Inventory.
+--
+### /ANSIBLE PLAYBOOK
+* Beschreiben die Aufgaben, die zu erledigen sind, indem sie Konfigurationen deklarieren, um einen verwalteten Knoten in den gewünschten Zustand zu bringen.
 --
 
 ### /BASICS
@@ -94,7 +101,8 @@ https://www.redhat.com/de/topics/automation/ansible-vs-terraform
 --
 ### /ANSIBLE TOWER
 
-Ansible Tower ermöglicht es, die gesamte IT-Infrastruktur mit einem visuellen Dashboard zu zentralisieren und zu kontrollieren. Es zeigt alles, was in der Ansible-Umgebung vor sich geht, in Echtzeit an. Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden.
+* gesamte IT-Infrastruktur mit einem visuellen Dashboard in Echtzeit zentralisieren und kontrollieren. 
+* Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden.
 
 --
 # /AAP-AWX
