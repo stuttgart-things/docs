@@ -126,16 +126,13 @@ additional_master_nodes:
 [<img src="https://www.visualstudiogeeks.com/images/screenshots/tarun/post08_DevOpsFunnyImage.jpg" width="500"/>](https://www.sva.de/index.html)
 * Wiederherstellbarkeit + Vermeidung von Configuration-Drifts
 --
-### /Cloud Computing
-* Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern <!-- .element: class="fragment fade-up" -->
---
-### /Security und Compliance
-* In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren <!-- .element: class="fragment fade-up" -->
+### /Automatisierung Wiederkehrender Aufgaben
+[<img src="https://preview.redd.it/was-it-even-worth-v0-n0dugfgrz5l81.gif?format=png8&s=526d607a75f20065a354d3702369244375715614" width="400"/>](https://www.sva.de/index.html)
+* User|updates|backups|config ..
 ---
 ### /ANSIBLE AUTOMATION PLATFORM
 [<img src="https://www.redhat.com/rhdc/managed-files/ansible-hero-img-ohs1.png" width="700"/>](https://www.sva.de/index.html)
-* gesamte IT-Infrastruktur mit einem visuellen Dashboard in Echtzeit zentralisieren und kontrollieren <!-- .element: class="fragment fade-up" -->
-* Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden <!-- .element: class="fragment fade-up" -->
+* Ansible Ausführung zentralisieren und kontrollieren <!-- .element: class="fragment fade-up" -->
 ---
 # /AWX DEMO
 ---
@@ -147,24 +144,8 @@ additional_master_nodes:
 * Wiki: https://wiki.sva.de/pages/viewpage.action?pageId=453482787 
 
 [<img src="https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-ansible.png" width="200"/>](https://www.sva.de/index.html)
---
-# /Fragen?
-
-
-[<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
-[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_1.png" width="400"/>](https://www.sva.de/index.html)
-
---
-
-
---
-
-
-
-[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_4.jpeg" width="600"/>](https://www.sva.de/index.html)
-
 ---
-
+# /WIKI
+---
+# /Fragen?
 [<img src="https://github.com/stuttgart-things/docs/raw/main/hugo/sthings-coffee.png" width="500"/>](https://www.sva.de/index.html)
-
-
