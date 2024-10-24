@@ -42,7 +42,6 @@ echo "Passwort1" | passwd --stdin user1
 useradd -m -d /home/user2 -s /bin/bash user2
 echo "Passwort2" | passwd --stdin user2
 ```
-<!-- .element: class="fragment fade-up" -->
  * Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind <!-- .element: class="fragment fade-up" -->
 --
 ### /DEKLARATIV 
@@ -63,8 +62,6 @@ echo "Passwort2" | passwd --stdin user2
         - { name: "user2", home: "/home/user2" }
         - { name: "user3", home: "/home/user3" }
 ```
-<!-- .element: class="fragment fade-up" -->
-
  * Der gewünschte Zustand des Systems wird festgelegt <!-- .element: class="fragment fade-up" -->
 --
 ## /ANSIBLE SPRECHSTUNDE
@@ -80,46 +77,67 @@ echo "Passwort2" | passwd --stdin user2
 ---
 ### /ANSIBLE ARCHITEKTUR
 
-[<img src="https://k21academy.com/wp-content/uploads/2021/06/Ansible_Diagram2-16-1536x692.png" width="900"/>](https://www.sva.de/index.html)
+[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/architecture.png" width="900"/>](https://www.sva.de/index.html)
 --
 ### /ANSIBLE CLI
 [<img src="https://miro.medium.com/v2/resize:fit:1400/1*BJTeJ0HQsV08ucvG3Vuj8w.png" width="900"/>](https://www.sva.de/index.html)
-* Python Erweiterung <!-- .element: class="fragment fade-up" -->
+* Python + SSH + ANSIBLE = 🚀 
 --
 ### /ANSIBLE INVENTORY
-* Ansible liest Informationen über die Maschinen, die es verwaltet, aus dem Inventory <!-- .element: class="fragment fade-up" -->
+
+```
+initial_master_node:
+  hosts:
+    rke2-test-molecule.labul.sva.de
+additional_master_nodes:
+  hosts:
+    rke2-test-molecule-2.labul.sva.de:
+    rke2-test-molecule-3.labul.sva.de:
+```
+
+* Deklaration von Zielen (Hosts) welche über SSH erreict werden 
 --
 ### /ANSIBLE PLAYBOOK
-* Beschreiben die Aufgaben, die zu erledigen sind, indem sie Konfigurationen deklarieren, um einen verwalteten Knoten in den gewünschten Zustand zu bringen.
+
+```
+- name: Install a package using the package module
+  hosts: all
+  become: true
+  tasks:
+    - name: Ensure nginx is installed
+      package:
+        name: nginx
+        state: present
+  roles:
+    - deploy-rke-loadbalancer
+```
+* Deklaration: 
+  * welche tasks or roles 
+  * auf welchen hostst ausgeführt werden sollen
 ---
 # /ANSIBLE (CLI DEMO)
 ---
-
-### /ANSIBLE AUTOMATION PLATFORM
-
-
-[<img src="https://www.redhat.com/rhdc/managed-files/ansible-hero-img-ohs1.png" width="700"/>](https://www.sva.de/index.html)
+# /Einsatz beim Kunden
 --
-### /ANSIBLE AUTOMATION PLATFORM
-* gesamte IT-Infrastruktur mit einem visuellen Dashboard in Echtzeit zentralisieren und kontrollieren <!-- .element: class="fragment fade-up" -->
-* Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden <!-- .element: class="fragment fade-up" -->
---
-### /AWX DEMO
----
 ### /USE CASES
-[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="600"/>](https://www.sva.de/index.html)
---
-## /Einsatz beim Kunden
+[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="700"/>](https://www.sva.de/index.html)
 --
 ### /Provisioning
-* Einrichtung einer neuen Infrastruktur <!-- .element: class="fragment fade-up" -->
-* z.B. mehere VMs/Hostst mit Usern, SW und Updates aktuell halten <!-- .element: class="fragment fade-up" -->
+[<img src="https://www.visualstudiogeeks.com/images/screenshots/tarun/post08_DevOpsFunnyImage.jpg" width="500"/>](https://www.sva.de/index.html)
+* Wiederherstellbarkeit + Vermeidung von Configuration-Drifts
 --
 ### /Cloud Computing
 * Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern <!-- .element: class="fragment fade-up" -->
 --
 ### /Security und Compliance
 * In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren <!-- .element: class="fragment fade-up" -->
+---
+### /ANSIBLE AUTOMATION PLATFORM
+[<img src="https://www.redhat.com/rhdc/managed-files/ansible-hero-img-ohs1.png" width="700"/>](https://www.sva.de/index.html)
+* gesamte IT-Infrastruktur mit einem visuellen Dashboard in Echtzeit zentralisieren und kontrollieren <!-- .element: class="fragment fade-up" -->
+* Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden <!-- .element: class="fragment fade-up" -->
+---
+# /AWX DEMO
 ---
 ## /ANSIBLE SPRECHSTUNDE
 
