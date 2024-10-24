@@ -3,16 +3,16 @@
 [<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_4.jpeg" width="500"/>](https://www.sva.de/index.html)
 
 <!-- .slide: data-transition="zoom" -->
----
-# /AGENDA
+--
+[<img src="https://hvops.com/news/ansible/11/batman-robin-ansible.jpg" width="650"/>](https://www.sva.de/index.html)
 --
 ### /AGENDA
 * Begrüßung und Zielsetzung <!-- .element: class="fragment fade-up" -->
 * Einführung in Ansible <!-- .element: class="fragment fade-up" -->
     * Was ist Ansible? <!-- .element: class="fragment fade-up" -->
     * Relevanz der Technologie für Kunden und SEs <!-- .element: class="fragment fade-up" --> 
+    * Beispiele aus der Sprechstunde <!-- .element: class="fragment fade-up" -->
 * Einsatz von Ansible beim Kunden <!-- .element: class="fragment fade-up" -->
-* Beispiele aus der Sprechstunde <!-- .element: class="fragment fade-up" -->
 * Fragen <!-- .element: class="fragment fade-up" -->
 ---
 # /Einführung in Ansible
@@ -28,9 +28,6 @@
 ### /INFRASTRUCTURE AS CODE
 * virtuelle Maschinen, Datenbanken und andere Ressourcen – mittels Konfigurationsdateien (=Code) definieren, bereitstellen und verwalten <!-- .element: class="fragment fade-up" -->
 * automatisierbar, wiederholbar und versionierbar <!-- .element: class="fragment fade-up" -->
---
-### /CICD
-
 --
 ### /IMPERATIV
 
@@ -86,16 +83,17 @@ echo "Passwort2" | passwd --stdin user2
 [<img src="https://k21academy.com/wp-content/uploads/2021/06/Ansible_Diagram2-16-1536x692.png" width="900"/>](https://www.sva.de/index.html)
 --
 ### /ANSIBLE CLI
-* 
+[<img src="https://miro.medium.com/v2/resize:fit:1400/1*BJTeJ0HQsV08ucvG3Vuj8w.png" width="900"/>](https://www.sva.de/index.html)
+* Python Erweiterung <!-- .element: class="fragment fade-up" -->
 --
 ### /ANSIBLE INVENTORY
-* Ansible liest Informationen über die Maschinen, die es verwaltet, aus dem Inventory.
+* Ansible liest Informationen über die Maschinen, die es verwaltet, aus dem Inventory <!-- .element: class="fragment fade-up" -->
 --
 ### /ANSIBLE PLAYBOOK
 * Beschreiben die Aufgaben, die zu erledigen sind, indem sie Konfigurationen deklarieren, um einen verwalteten Knoten in den gewünschten Zustand zu bringen.
---
-
---
+---
+# /ANSIBLE (CLI DEMO)
+---
 
 ### /ANSIBLE AUTOMATION PLATFORM
 
@@ -103,43 +101,25 @@ echo "Passwort2" | passwd --stdin user2
 [<img src="https://www.redhat.com/rhdc/managed-files/ansible-hero-img-ohs1.png" width="700"/>](https://www.sva.de/index.html)
 --
 ### /ANSIBLE AUTOMATION PLATFORM
-* gesamte IT-Infrastruktur mit einem visuellen Dashboard in Echtzeit zentralisieren und kontrollieren. 
-* Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden.
-
+* gesamte IT-Infrastruktur mit einem visuellen Dashboard in Echtzeit zentralisieren und kontrollieren <!-- .element: class="fragment fade-up" -->
+* Funktionen wie rollenbasierte Zugriffskontrolle (RBAC), Auftragsplanung und Bestandsverfolgung über mehrere Cloud-Anbieter hinweg können leicht organisiert und automatisiert werden <!-- .element: class="fragment fade-up" -->
 --
-
-### /USE CASES
-
-[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="600"/>](https://www.sva.de/index.html)
-
-<span style="color:orange">#DevOps #CICD #Automation #Cloud #IAC</span>
-<span style="color:orange">#Kubernetes #Containerization</span> <br><br>
+### /AWX DEMO
 ---
-## /Einsatz von Ansible beim Kunden
+### /USE CASES
+[<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="600"/>](https://www.sva.de/index.html)
 --
-
+## /Einsatz beim Kunden
+--
 ### /Provisioning
-* Einrichtung einer neuen Infrastruktur. 
-* Anwendungsmanagement, Bereitstellung, Orchestrierung und Konfigurationsmanagement.
+* Einrichtung einer neuen Infrastruktur <!-- .element: class="fragment fade-up" -->
+* z.B. mehere VMs/Hostst mit Usern, SW und Updates aktuell halten <!-- .element: class="fragment fade-up" -->
 --
-
-### /Continuous Delivery
-* Mit dem CI-Tool kann ein Ansible-Playbook ausgeführt werden, das zum Testen und automatischen Bereitstellen der Anwendung für die Produktion verwendet werden kann.
---
-
-### /Application Deployment
-* Ansible bietet eine einfache Methode zur Bereitstellung von Anwendungen in der gesamten Infrastruktur. 
-* Die Bereitstellung von mehrschichtigen Anwendungen kann vereinfacht werden, und die Infrastruktur kann im Laufe der Zeit leicht geändert werden.
---
-
 ### /Cloud Computing
-* Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern. 
-* Ansible enthält mehrere Module und ermöglicht die Verwaltung großer Cloud-Infrastrukturen über die Public-Private- und Hybrid-Cloud.
+* Ansible erleichtert die Bereitstellung von Instanzen bei allen Cloud-Anbietern <!-- .element: class="fragment fade-up" -->
 --
-
 ### /Security und Compliance
-* In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren.
-
+* In Ansible können Sicherheitsrichtlinien definiert werden, die die Sicherheitsrichtlinien für alle Maschinen im Netzwerk automatisieren <!-- .element: class="fragment fade-up" -->
 ---
 ## /ANSIBLE SPRECHSTUNDE
 
@@ -150,7 +130,8 @@ echo "Passwort2" | passwd --stdin user2
 
 [<img src="https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-ansible.png" width="200"/>](https://www.sva.de/index.html)
 --
-## /Beispiele aus der Sprechstunde
+# /Fragen?
+
 
 [<img src="https://miro.medium.com/v2/resize:fit:826/0*oZ6czP8_xU-amLfL.jpg" width="400"/>](https://www.sva.de/index.html)
 [<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_1.png" width="400"/>](https://www.sva.de/index.html)
@@ -165,15 +146,7 @@ echo "Passwort2" | passwd --stdin user2
 [<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_4.jpeg" width="600"/>](https://www.sva.de/index.html)
 
 ---
-# /Fragen?
 
 [<img src="https://github.com/stuttgart-things/docs/raw/main/hugo/sthings-coffee.png" width="500"/>](https://www.sva.de/index.html)
 
 
-
-
---
-Patrick Hermann
-System-Engineer SVA Stuttgart
-patrick.hermann@sva.de
---
