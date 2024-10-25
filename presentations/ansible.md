@@ -4,8 +4,6 @@
 
 <!-- .slide: data-transition="zoom" -->
 --
-[<img src="https://hvops.com/news/ansible/11/batman-robin-ansible.jpg" width="650"/>](https://www.sva.de/index.html)
---
 ### /AGENDA
 * Begrüßung und Zielsetzung <!-- .element: class="fragment fade-up" -->
 * Einführung in Ansible <!-- .element: class="fragment fade-up" -->
@@ -18,18 +16,33 @@
 # /Einführung in Ansible
 --
 ### /Was ist Ansible?
+[<img src="https://hvops.com/news/ansible/11/batman-robin-ansible.jpg" width="450"/>](https://www.sva.de/index.html)
 * De facto Standard-Configuration-Management-Tool
-* Cloud- und On-Premise
+* On-Premise und Cloud (ready)
 --
 ### /INFRASTRUCTURE AS CODE
+
+```
+- name: Create a VM from a template
+  hosts: localhost
+  tasks:
+  - name: Clone the template
+    vmware_guest:
+      hostname: "{{ vcenter_ip }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: False
+      name: testvm_2
+      template: template_el7
+      datacenter: "{{ datacenter_name }}"
+```
+
+* automatisierbar, wiederholbar und versionierbar 
+--
+### /IAC
 [<img src="https://www.meme-arsenal.com/memes/cc44149278ca0067e7dd198911ef5553.jpg" width="700"/>](https://www.sva.de/index.html)
 --
-
-### /INFRASTRUCTURE AS CODE
-* virtuelle Maschinen, Datenbanken und andere Ressourcen – mittels Konfigurationsdateien (=Code) definieren, bereitstellen und verwalten <!-- .element: class="fragment fade-up" -->
-* automatisierbar, wiederholbar und versionierbar <!-- .element: class="fragment fade-up" -->
---
-### /IMPERATIV
+### /IMPERATIV (e.g. SHELL)
 
 ```
 #!/bin/bash
@@ -42,9 +55,9 @@ echo "Passwort1" | passwd --stdin user1
 useradd -m -d /home/user2 -s /bin/bash user2
 echo "Passwort2" | passwd --stdin user2
 ```
- * Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind <!-- .element: class="fragment fade-up" -->
+ * Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind 
 --
-### /DEKLARATIV 
+### /DEKLARATIV (e.g. ANSIBLE)
 
 ```
 - hosts: all
@@ -62,18 +75,16 @@ echo "Passwort2" | passwd --stdin user2
         - { name: "user2", home: "/home/user2" }
         - { name: "user3", home: "/home/user3" }
 ```
- * Der gewünschte Zustand des Systems wird festgelegt <!-- .element: class="fragment fade-up" -->
+ * Der gewünschte Zustand des Systems wird festgelegt
 --
 ## /ANSIBLE SPRECHSTUNDE
 
-* Jeden zweiten Donnerstag des Monats
-* 14:00 bis 16:00
-* Raum: ST M3 -01
-* Wiki: https://wiki.sva.de/pages/viewpage.action?pageId=453482787 
+[<img src="https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-ansible.png" width="300"/>](https://www.sva.de/index.html)
 
-[<img src="https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-ansible.png" width="200"/>](https://www.sva.de/index.html)
+* Jeden zweiten Donnerstag des Monats
+* 14:00 bis 16:00 / Raum: ST M3 -01
 --
-[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_2.jpeg" width="600"/>](https://www.sva.de/index.html)
+[<img src="https://artifacts.homerun-dev.sthings-vsphere.labul.sva.de/images/sprechstunde_3.jpeg" width="800"/>](https://www.sva.de/index.html)
 ---
 ### /ANSIBLE ARCHITEKTUR
 
@@ -121,6 +132,7 @@ additional_master_nodes:
 --
 ### /USE CASES
 [<img src="https://media.licdn.com/dms/image/v2/C4E12AQGylXwK8s3m2w/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1606757391660?e=1733356800&v=beta&t=P_-D0mPQO_VN-PQ--CheaaENbJBwBsqhKOUYu3aTsdo" width="700"/>](https://www.sva.de/index.html)
+* Viele Einsatz-Möglichkeiten
 --
 ### /Provisioning
 [<img src="https://www.visualstudiogeeks.com/images/screenshots/tarun/post08_DevOpsFunnyImage.jpg" width="500"/>](https://www.sva.de/index.html)
@@ -131,7 +143,7 @@ additional_master_nodes:
 * User|updates|backups|config ..
 ---
 ### /ANSIBLE AUTOMATION PLATFORM
-[<img src="https://www.redhat.com/rhdc/managed-files/ansible-hero-img-ohs1.png" width="700"/>](https://www.sva.de/index.html)
+[<img src="https://www.redhat.com/rhdc/managed-files/ansible-hero-img-ohs1.png" width="600"/>](https://www.sva.de/index.html)
 * Ansible Ausführung zentralisieren und kontrollieren <!-- .element: class="fragment fade-up" -->
 ---
 # /AWX DEMO
