@@ -106,7 +106,7 @@ additional_master_nodes:
     rke2-test-molecule-3.labul.sva.de:
 ```
 
-* Deklaration von Zielen (Hosts) welche über SSH erreict werden 
+* Deklaration von Zielen (Hosts) welche über SSH erreicht werden 
 --
 ### /ANSIBLE PLAYBOOK
 
@@ -124,7 +124,7 @@ additional_master_nodes:
 ```
 * Deklaration: 
   * welche tasks or roles 
-  * auf welchen hostst ausgeführt werden sollen
+  * auf welchen hosts ausgeführt werden sollen
 ---
 # /ANSIBLE (CLI DEMO)
 ---
