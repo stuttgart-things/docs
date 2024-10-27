@@ -2,6 +2,15 @@
 
 ## GENERAL
 
+<details><summary>CLEAN CACHES</summary>
+
+```bash
+go clean -cache -modcache -testcache
+rm -rf $(go env GOCACHE)
+```
+
+</details>
+
 <details><summary>INSTALL GO</summary>
 
 ```bash
