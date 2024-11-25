@@ -40,6 +40,8 @@ SERVER=localhost
 redis-cli --scan --pattern "*" -h ${SERVER} -p ${PORT} -a ${PASSWORD} | xargs redis-cli -h ${SERVER} -p ${PORT} -a ${PASSWORD} del
 ```
 
+</details>
+
 <details><summary>STREAMS</summary>
 
 ```bash
