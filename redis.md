@@ -31,6 +31,15 @@ KEYS *
 
 </details>
 
+<details><summary>DELETE ALL KEYS</summary>
+
+```bash
+PASSWORD=""
+PORT=5000
+SERVER=localhost
+redis-cli --scan --pattern "*" -h ${SERVER} -p ${PORT} -a ${PASSWORD} | xargs redis-cli -h ${SERVER} -p ${PORT} -a ${PASSWORD} del
+```
+
 <details><summary>STREAMS</summary>
 
 ```bash
