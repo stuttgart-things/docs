@@ -1,0 +1,39 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: generic-pitcher
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - pullRequest:
+        gitlab:
+          project: "12193" # The GitLab project ID.
+          api: https://codehub.sva.de/api/v4 # For self-hosted GitLab (optional)
+          tokenRef:
+            secretName: repo-261271983
+            key: password
+          # labels:
+          # - preview
+          # MR state is used to filter MRs only with a certain state. (optional)
+          pullRequestState: opened
+          insecure: true
+        requeueAfterSeconds: 1800
+  template:
+    metadata:
+      name: 'guestbook'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/argoproj/argocd-example-apps.git
+        targetRevision: HEAD
+        path: guestbook
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated: null
