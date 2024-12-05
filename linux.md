@@ -326,3 +326,17 @@ sudo netplan apply
 ```
 
 </details>
+
+<details><summary><b>Enable ssh password authentication</b></summary>
+
+```bash
+vi /etc/ssh/sshd_config
+# set this variable to yes to allow passwords
+PaswordAuthentication yes
+# Restart Service
+sudo systemctl restart ssh
+# Copy public key to remote machine
+ssh-copy-id ubuntu@192.168.1.157
+```
+
+</details>
