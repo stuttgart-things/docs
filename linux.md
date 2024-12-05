@@ -308,3 +308,21 @@ echo Succeeded pipelineRuns: ${succeeded_prs}
 ```
 
 </details>
+
+
+<details><summary><b>DHCP Network config</b></summary>
+
+```bash
+cat <<EOF > 99_config.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      dhcp4: true
+EOF
+
+sudo netplan apply
+```
+
+</details>
