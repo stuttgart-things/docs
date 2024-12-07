@@ -42,6 +42,135 @@ sudo mv crossplane /usr/local/bin
 
 </details>
 
+<details><summary><b>GO-TEMPLATING</b></summary>
+
+```bash
+cat <<EOF > ./functions.yaml
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: function-go-templating
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/function-go-templating:v0.8.0
+EOF
+```
+
+```bash
+cat <<EOF > ./composition.yaml
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  labels:
+    crossplane.io/xrd: xvsphererke2clusters.resources.stuttgart-things.com
+  name: vsphere-rke2-cluster
+spec:
+  compositeTypeRef:
+    apiVersion: resources.stuttgart-things.com/v1alpha1
+    kind: XVsphereRke2Cluster
+  mode: Pipeline
+  pipeline:
+   - step: inline-test
+     functionRef:
+       name: function-go-templating
+     input:
+       apiVersion: gotemplating.fn.crossplane.io/v1beta1
+       kind: GoTemplate
+       source: Inline
+       inline:
+         template: |
+           apiVersion: tf.upbound.io/v1beta1
+           kind: Workspace
+           metadata:
+             name: example-inline
+             annotations:
+               gotemplating.fn.crossplane.io/composition-resource-name: inline-test
+               gotemplating.fn.crossplane.io/ready: "True"
+           spec:
+             forProvider:
+               source: Inline
+               module: |
+                 output "hello_world" {
+                   value = "{{ .observed.composite.resource.spec.name }}!"
+                 }
+             writeConnectionSecretToRef:
+               namespace: default
+               name: terraform-workspace-example-inline
+           ---
+           apiVersion: resources.stuttgart-things.com/v1alpha1
+           kind: XVsphereRke2Cluster
+           status:
+           {{ if eq $.observed.resources nil }}
+             dummy: cool-status
+           {{ else }}
+             dummy: {{ (index $.observed.resources "inline-test").resource.status.atProvider.outputs.hello_world }}
+           {{ end }}
+EOF
+```
+
+```bash
+cat <<EOF > ./definition.yaml
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xvsphererke2clusters.resources.stuttgart-things.com
+spec:
+  group: resources.stuttgart-things.com
+  names:
+    kind: XVsphereRke2Cluster
+    plural: xvsphererke2clusters
+  claimNames:
+    kind: VsphereRke2Cluster
+    plural: vsphererke2clusters
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          description: A VsphereRke2Cluster is a composite resource that represents
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                  default: hello
+                  description: hello
+            status:
+              description: A Status represents the observed state
+              properties:
+                share:
+                  description: Freeform field containing status information
+                  type: object
+                  x-kubernetes-preserve-unknown-fields: true
+                dummy:
+                  type: string
+                  description: Dummy status field.
+EOF
+```
+
+```bash
+cat <<EOF > ./claim.yaml
+apiVersion: resources.stuttgart-things.com/v1alpha1
+kind: VsphereRke2Cluster
+metadata:
+  name: incluster
+  namespace: crossplane-system
+spec:
+  name: patrick
+```
+
+```bash
+crossplane render claim.yaml composition.yaml functions.yaml
+```
+
+
+</details>
+
 <details><summary><b>PATCH-AND-TRANSFORM</b></summary>
 
 ```bash
