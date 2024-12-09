@@ -2,6 +2,62 @@
 
 ## SNIPPETS
 
+<details><summary>SEMANTIC-RELEASE</summary>
+
+## INSTALL
+
+```bash
+# INSTALL w/ npm
+npm install --save-dev semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/gitlab
+```
+
+## CONFIG (GITLAB; GOLANG)
+
+```bash
+---
+cat <<EOF > .releaserc
+{
+  "branches": ["main"],
+  "repositoryUrl": "https://codehub.sva.de/Lab/stuttgart-things/homerun/homerun-generic-pitcher.git",
+  "gitlabUrl": "https://codehub.sva.de",
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/gitlab",
+      {
+        "assets": ["CHANGELOG.md", "go.mod", "go.sum"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
+EOF
+```
+
+## POSSIBLE COMMITS
+
+```
+git commit -am 'feat: add new authentication middleware' # → Minor version
+git commit -am 'fix: resolve panic in user login' # → Patch version
+git commit -am 'BREAKING CHANGE: switch to OAuth2 for authentication' # → Major version
+```
+
+## DRY RUN
+
+```bash
+npx semantic-release --dry-run
+```
+
+## RELEASE
+
+```bash
+npx semantic-release --debug --no-ci
+```
+
+</details>
+
+
 <details><summary>BRANCHES</summary>
 
 ```bash
