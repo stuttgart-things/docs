@@ -23,6 +23,13 @@ dagger call -m github.com/disaster37/dagger-library-go/image build --source . --
 
 </details>
 
+<details><summary><b>INSTALL DAGGER-CLI</b></summary>
+
+```bash
+curl -fsSL https://dl.dagger.io/dagger/install.sh | BIN_DIR=$HOME/.local/bin sh
+```
+
+</details>
 
 <details><summary><b>BASIC COMMANDS</b></summary>
 
