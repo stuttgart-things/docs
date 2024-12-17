@@ -13,6 +13,12 @@ dagger call -m github.com/jpadams/daggerverse/trivy@v0.3.0 scan-image --image-re
 
 # BUILD GO BINARY
 dagger call -m github.com/felipecruz91/daggerverse/go build --source . --goVersion 1.23.1 -o bin
+
+# LINT DOCKERFILE
+dagger call -m github.com/disaster37/dagger-library-go/image lint --source . --dockerfile images/sthings-packer/Dockerfile
+
+# BUILD & PUSH CONTAINER IMAGE
+dagger call -m github.com/disaster37/dagger-library-go/image build --source . --dockerfile images/sthings-packer/Dockerfile push --repository-name stuttgart-things/test --registry-url ttl.sh --version 60m 
 ```
 
 </details>
