@@ -9,7 +9,7 @@ on:
 jobs:
   markdown-lint:
     name: Lint markdown files
-    uses: stuttgart-things/stuttgart-things/.github/workflows/call-markdown-lint.yaml@main
+    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-markdown-lint.yaml@mc2024-05-14
     with:
       environment-name: k8s
       runs-on: ghr-docs-skyami-cicd
@@ -20,7 +20,7 @@ jobs:
       
   yaml-lint:
     name: Lint yaml files
-    uses: stuttgart-things/stuttgart-things/.github/workflows/call-yaml-lint.yaml@main
+    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-yaml-lint.yaml@mc2024-05-14
     with:
       environment-name: k8s
       runs-on: ghr-docs-skyami-cicd
@@ -31,7 +31,7 @@ jobs:
       
   build-hugo:
     name: Build hugo
-    uses: stuttgart-things/stuttgart-things/.github/workflows/call-hugo-build.yaml@main
+    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-hugo-build.yaml@mc2024-05-14
     needs:
       - markdown-lint
       - yaml-lint
