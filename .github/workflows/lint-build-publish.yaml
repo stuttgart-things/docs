@@ -29,18 +29,18 @@ jobs:
       lintprofile-path: .yamllint
       artifact-name: yaml-lint
       
-  build-hugo:
-    name: Build hugo
-    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-hugo-build.yaml@mc2024-05-14
-    needs:
-      - markdown-lint
-      - yaml-lint
-    with:
-      environment-name: k8s
-      runs-on: ghr-docs-skyami-cicd
-      image: floryn90/hugo:0.126.1-ext-ubuntu-ci
-      creation-script-path: hugo/create-content.sh
-      site-name: blog
-      s3-bucket: hugo
-      s3-endpoint: https://artifacts.app1.sthings-vsphere.labul.sva.de:443
-    secrets: inherit
+#  build-hugo:
+#    name: Build hugo
+##    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-hugo-build.yaml@mc2024-05-14
+ #   needs:
+#      - markdown-lint
+#      - yaml-lint
+#    with:
+#      environment-name: k8s
+#      runs-on: ghr-docs-skyami-cicd
+#      image: floryn90/hugo:0.126.1-ext-ubuntu-ci
+#      creation-script-path: hugo/create-content.sh
+#      site-name: blog
+#      s3-bucket: hugo
+#      s3-endpoint: https://artifacts.app1.sthings-vsphere.labul.sva.de:443
+#    secrets: inherit
