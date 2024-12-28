@@ -455,6 +455,7 @@ go run main.go
 
 ```bash
 export SOPS_AGE_KEY_FILE=${PWD}/sops.key
+# export SOPS_AGE_KEY=AGE-SECRET-KEY-1T22K05UTRD...
 sops --decrypt sops-secret.yaml
 ```
 
