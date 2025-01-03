@@ -7,6 +7,14 @@
 ## INSTALL
 
 ```bash
+sudo apt install npm -y
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+source ~/.bashrc
+nvm install 20 && nvm use 20
+nvm alias default 20
+```
+
+```bash
 # INSTALL w/ npm
 npm install --save-dev semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/gitlab
 ```
