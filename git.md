@@ -2,6 +2,19 @@
 
 ## SNIPPETS
 
+<details><summary>DELETE LARGE FILES FROM HISTORY</summary>
+
+```bash
+git rev-list --objects --all | git cat-file --batch-check='%(objectname) %(objecttype) %(objectsize) %(rest)' |
+sort -k3 -n -r | head -n 10
+
+pip3 install git-filter-repo && export PATH=$PATH:~/.local/bin
+
+git-filter-repo --path <FILENAME> --invert-paths --force
+```
+
+</details>
+
 <details><summary>SEMANTIC-RELEASE</summary>
 
 ## INSTALL
@@ -64,7 +77,6 @@ npx semantic-release --debug --no-ci
 ```
 
 </details>
-
 
 <details><summary>BRANCHES</summary>
 
