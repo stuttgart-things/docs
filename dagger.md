@@ -2,6 +2,30 @@
 
 ## SNIPPETS
 
+<details><summary><b>INIT MODULE</b></summary>
+
+```bash
+dagger init --sdk=go --source=./cicd --name cicd
+```
+
+</details>
+
+<details><summary><b>CALL LOCAL MODULE</b></summary>
+
+```bash
+dagger call -m cicd/ go-pipeline --src ./
+```
+
+</details>
+
+<details><summary><b>INSTALL DEPENDECY/b></summary>
+
+```bash
+dagger install github.com/stuttgart-things/dagger/go@v0.1.0
+```
+
+</details>
+
 <details><summary><b>CALL FUNCTION (FROM DAGGERVERSE)</b></summary>
 
 ```bash
