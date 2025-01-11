@@ -489,7 +489,7 @@ helm upgrade --install argo-cd argo/argo-cd -n argocd --create-namespace --versi
 <details><summary><b>AVP SECRET-MANIFEST</b></summary>
 
 ```bash
-export AVP_VAULT_ADDR=https://vault.cd43.sthings-pve.labul.sva.de
+export AVP_VAULT_ADDR=https://vault.cd43.sthings-pve.example.com
 export AVP_TYPE=vault
 export AVP_AUTH_TYPE=approle
 export AVP_SECRET_ID=<SECRET-ID>
@@ -507,6 +507,36 @@ type: Opaque
 EOF
 
 argocd-vault-plugin generate ./secret.yaml
+```
+
+</details>
+
+<details><summary><b>AVP HELM-CHART</b></summary>
+
+```bash
+# SET VAULT ENV VARS
+export AVP_VAULT_ADDR="https://vault-vsphere.example.com:8200"
+export VAULT_ADDR="https://vault-vsphere.example.com:8200"
+export TYPE=vault
+export AVP_TYPE=vault
+export AVP_AUTH_TYPE=approle
+export AVP_SECRET_ID=<SECRET-ID>
+export AVP_ROLE_ID=<APPROLE-ID>
+
+# SET ARGOCD APP DETAILS
+ARGOCD_APP_NAME=test
+ARGOCD_APP_NAMESPACE=default
+ARGOCD_ENV_HELM_VALUES=$(cat <<EOF
+service:
+  type: <path:apps/data/redis#service>
+  port: 80
+EOF
+)
+
+# TEST RENDER
+git clone https://github.com/helm/examples.git
+cd examples/charts/hello-world
+helm template ${ARGOCD_APP_NAME} -n ${ARGOCD_APP_NAMESPACE} -f <(echo "${ARGOCD_ENV_HELM_VALUES}") . | argocd-vault-plugin generate --verbose-sensitive-output -
 ```
 
 </details>
@@ -535,7 +565,7 @@ spec:
 <details><summary><b>AVP HELM-CHART</b></summary>
 
 ```bash
-export AVP_VAULT_ADDR=https://vault.cd43.sthings-pve.labul.sva.de
+export AVP_VAULT_ADDR=https://vault.cd43.sthings-pve.example.com
 export AVP_TYPE=vault
 export AVP_AUTH_TYPE=approle
 export AVP_SECRET_ID=<SECRET-ID>
@@ -626,7 +656,7 @@ USER 65532
 <details><summary><b>LOGIN</b></summary>
 
 ```bash
-argocd login argo-cd.mgmt.sthings-vsphere.labul.sva.de:443 --insecure
+argocd login argo-cd.mgmt.sthings-vsphere.example.com:443 --insecure
 ```
 
 </details>
