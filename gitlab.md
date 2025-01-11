@@ -2,6 +2,25 @@
 
 ## SNIPPETS
 
+<details><summary>GITLAB RUNNER</summary>
+
+[linux](https://docs.gitlab.com/runner/install/linux-repository.html)
+
+```bash
+curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
+sudo apt install gitlab-runner
+gitlab-runner register  --url ${GITLAB_URL} --token ${RUNNER_TOKEN}
+```
+
+```bash
+cat ${HOME}/.gitlab-runner/config.toml # SHELL RUNNER FOR DAGGER
+gitlab-runner run # START RUNNER ADHOC
+sudo gitlab-runner start # START SERVICE
+```
+
+</details>
+
+
 <details><summary>GITLAB CLI</summary>
 
 ```bash
