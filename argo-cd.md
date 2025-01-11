@@ -482,8 +482,6 @@ helm upgrade --install argo-cd argo/argo-cd -n argocd --create-namespace --versi
 
 </details>
 
-
-
 ## ARGOCD-VAULT-PLUGIN
 
 <details><summary><b>AVP SECRET-MANIFEST</b></summary>
@@ -590,6 +588,145 @@ auth:
 EOF
 
 argocd-vault-plugin generate ./values.yaml
+```
+
+</details>
+
+<details><summary><b>ARGOCD HELM VALUES FOR AVP</b></summary>
+
+```yaml
+server:
+  ingress:
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    ingressClassName: nginx
+    hostname: ${INGRESS_HOSTNAME}.${INGRESS_DOMAIN}
+    tls: true
+configs:
+  secret:
+    argocdServerAdminPassword: ${ARGO_CD_SERVER_ADMIN_PASSWORD}
+    argocdServerAdminPasswordMtime: ${ARGO_CD_PASSWORD_MTIME:-2024-09-16T12:51:06UTC}
+  cmp:
+    create: true
+    plugins:
+      argocd-vault-plugin:
+        allowConcurrency: true
+        discover:
+          find:
+            command:
+              - sh
+              - "-c"
+              - find . -name '*.yaml' | xargs -I {} grep "<path\|avp\.kubernetes\.io" {}
+        generate:
+          command:
+            - argocd-vault-plugin
+            - generate
+            - "."
+        lockRepo: false
+      argocd-vault-plugin-kustomize:
+        allowConcurrency: true
+        discover:
+          find:
+            command:
+              - find
+              - "."
+              - -name
+              - kustomization.yaml
+        generate:
+          command:
+            - sh
+            - "-c"
+            - "kustomize build . | argocd-vault-plugin generate -"
+        lockRepo: false
+      argocd-vault-plugin-helm:
+        allowConcurrency: true
+        discover:
+          find:
+            command:
+              - sh
+              - "-c"
+              - "find . -name 'Chart.yaml' && find . -name 'values.yaml'"
+        init:
+          command:
+            - sh
+            - "-c"
+            - "helm dependency update"
+        generate:
+          command:
+            - sh
+            - "-c"
+            - |
+            helm template '"${ARGOCD_APP_NAME}"' -f <(echo '"${ARGOCD_ENV_HELM_VALUES}"') --include-crds . -n '${ARGOCD_APP_NAMESPACE}' | argocd-vault-plugin generate -
+        lockRepo: false
+repoServer:
+  extraContainers:
+    - name: argocd-vault-plugin
+      command: [/var/run/argocd/argocd-cmp-server]
+      image: ${IMAGE_AVP:ghcr.io/stuttgart-things/sthings-avp:1.18.1-1.30.2-3.16.4}
+      envFrom:
+        - secretRef:
+            name: argocd-vault-plugin-credentials
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+          subPath: argocd-vault-plugin.yaml
+          name: argocd-cmp-cm
+    - name: argocd-vault-plugin-helm
+      command: [/var/run/argocd/argocd-cmp-server]
+      image: ${IMAGE_AVP:ghcr.io/stuttgart-things/sthings-avp:1.18.1-1.30.2-3.16.4}
+      envFrom:
+        - secretRef:
+            name: argocd-vault-plugin-credentials
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+          subPath: argocd-vault-plugin-helm.yaml
+          name: argocd-cmp-cm
+    - name: argocd-vault-plugin-kustomize
+      command: [/var/run/argocd/argocd-cmp-server]
+      image: ${IMAGE_AVP:ghcr.io/stuttgart-things/sthings-avp:1.18.1-1.30.2-3.16.4}
+      envFrom:
+        - secretRef:
+            name: argocd-vault-plugin-credentials
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+          subPath: argocd-vault-plugin-kustomize.yaml
+          name: argocd-cmp-cm
+  volumes:
+    - name: argocd-cmp-cm
+      configMap:
+        name: argocd-cmp-cm
+    - name: helmfile-tmp
+      emptyDir: {}
+    - name: cmp-tmp
+      emptyDir: {}
 ```
 
 </details>
