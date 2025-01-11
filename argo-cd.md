@@ -539,7 +539,7 @@ helm template ${ARGOCD_APP_NAME} -n ${ARGOCD_APP_NAMESPACE} -f <(echo "${ARGOCD_
 
 </details>
 
-<details><summary><b>AVP APPLICATION</b></summary>
+<details><summary><b>AVP APPLICATION (PATH, MANIFEST)</b></summary>
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -556,6 +556,54 @@ spec:
   destination:
     server: 'https://10.31.103.122:6443'
     namespace: default
+```
+
+</details>
+
+<details><summary><b>AVP APPLICATION (PATH, HELM + VALUES)</b></summary>
+
+```yaml
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homerun
+spec:
+  destination:
+    name: ''
+    namespace: homerun
+    server: https://kubernetes.default.svc
+  source:
+    path: homerun
+    repoURL: https://codehub.sva.de/Lab/stuttgart-things/homerun/release.git
+    targetRevision: HEAD
+    plugin:
+      name: argocd-vault-plugin-helm
+      env:
+        - name: HELM_VALUES
+          value: |
+            text-catcher:
+              enabled: true
+            redis-stack:
+              enabled: true
+              global:
+                redis:
+                  password: <path:apps/data/homerun#redisPassword>
+              master:
+                persistence:
+                  enabled: true
+                  storageClass: nfs4-csi
+              replica:
+                persistence:
+                  enabled: true
+                  storageClass: nfs4-csi
+  sources: []
+  project: in-cluster
+  syncPolicy:
+    syncOptions:
+    - Replace=true
+    - Validate=false
+    - CreateNamespace=true
 ```
 
 </details>
