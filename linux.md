@@ -2,6 +2,25 @@
 
 ## BASH-SNIPPETS
 
+<details><summary><b>RESIZE LVM</b></summary>
+
+```bash
+sudo vgdisplay vg0
+
+sudo lvextend -L+20G /dev/mapper/vg0-var
+sudo xfs_growfs /var
+
+sudo lvextend -L+10G /dev/mapper/vg0-home
+sudo xfs_growfs /home
+
+sudo lvextend -L+20G /dev/mapper/vg0-root
+sudo xfs_growfs /
+
+df -h
+```
+
+</details>
+
 <details><summary><b>TMUX</b></summary>
 
 ```bash
