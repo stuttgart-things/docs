@@ -2,6 +2,14 @@
 
 ## SNIPPETS
 
+<details><summary><b>CALL HELP FUNCTION (OF SUBCOMMAND)</b></summary>
+
+```bash
+dagger call -m "github.com/sagikazarmark/daggerverse/gh@main" release create --help
+```
+
+</details>
+
 <details><summary><b>INIT MODULE</b></summary>
 
 ```bash
