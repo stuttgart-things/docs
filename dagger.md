@@ -42,7 +42,14 @@ dagger call -m github.com/felipecruz91/daggerverse/go build --source . --goVersi
 dagger call -m github.com/disaster37/dagger-library-go/image lint --source . --dockerfile images/sthings-packer/Dockerfile
 
 # BUILD & PUSH CONTAINER IMAGE
-dagger call -m github.com/disaster37/dagger-library-go/image build --source . --dockerfile images/sthings-packer/Dockerfile push --repository-name stuttgart-things/test --registry-url ttl.sh --version 60m 
+dagger call -m github.com/disaster37/dagger-library-go/image build --source . --dockerfile images/sthings-packer/Dockerfile push --repository-name stuttgart-things/test --registry-url ttl.sh --version 60m
+
+# CLONE A GITHUB REPO
+export GITHUB_TOKEN=whatever
+dagger call --progress plain -m github.com/sagikazarmark/daggerverse/gh@main \
+repo clone \
+--repository stuttgart-things/stuttgart-things \
+--token=env:GITHUB_TOKEN export --path=/tmp/repo/sthings
 ```
 
 </details>
