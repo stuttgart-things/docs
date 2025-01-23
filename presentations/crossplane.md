@@ -1,7 +1,5 @@
 ## CROSSPLANE: IAC ON STEROIDS
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/intro.jpeg" width="600"/>
-<span style="color:orange">Fachbereichsmeeting Agile IT
-& Software Dev 2024</span>
+<img src="https://miro.medium.com/v2/resize:fit:1200/1*O6CV7S51HSL3NRtCwtKyVg.png" width="600"/>
 --
 <!-- .slide: data-transition="zoom" -->
 ### /AGENDA
@@ -27,7 +25,7 @@ patrick.hermann@sva.de
 ⚡️Provision and manage cloud infrastructure and services using kubectl⚡️
 --
 ### /INTRO
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/00-crossplane-overview.png" width="1200"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/00-crossplane-overview.png" width="1200"/>
 * overview
 --
 ### /CROSSPLANE
@@ -51,12 +49,12 @@ patrick.hermann@sva.de
     ## <!-- .element: class="fragment fade-up" -->
 ---
 ### /CROSSPLANE USECASE MULTICLOUD
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-composition.png" width="400"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/crossplane-composition.png" width="400"/>
 
 🚀 BUNDLE MULTI CLOUD RESOURCES IN ONE COMPOSITION 🚀
 --
 ### /RESOURCE1: GCP BUCKET
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/diagram-crossplane-gcp.png" width="600"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/diagram-crossplane-gcp.png" width="600"/>
 * Deployment crossplane + gcp provider
 --
 ### /RESOURCE1: GCP BUCKET CLAIM
@@ -78,12 +76,12 @@ spec:
 * create gcp bucket via claim
 --
 ### /CREATE BUCKET
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/bucket.gif" width="900"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/bucket.gif" width="900"/>
 * creation of bucket + show managed resources
 
 --
 ### /MANAGED (GCP BUCKET) RESOURCE
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/01-crossplane-gcp-bucket.png" width="900"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/01-crossplane-gcp-bucket.png" width="900"/>
 * gcp resources managed on k8s
 ---
 ### /RESOURCE2: TERRAFORM VSPHEREVM
@@ -92,7 +90,7 @@ spec:
 TERRAFORM PROVIDER
 --
 ### /terraform provider
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="1200"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform.png" width="1200"/>
 * crossplane + terraform provider
 --
 ### /terraform provider
@@ -119,7 +117,7 @@ spec:
 * inline hcl code definition
 --
 ### /REMOTE WORKSPACE
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/terraform-module-call.png" width="850"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/terraform-module-call.png" width="850"/>
 * TERRAFORM MODULE CALL (GIT)
 
 --
@@ -162,26 +160,26 @@ writeConnectionSecretToRef:
 * PART II - EXAMPLE SHORTEND
 --
 ### /MANAGED RESOURCE ON CLUSTER
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-vsphere.gif" width="1050"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/crossplane-vsphere.gif" width="1050"/>
 * View synced resource
 --
 ### /CORRECT DRIFT
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="520"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/drift-meme.png" width="520"/>
 --
 ### /MANAGE TERRAFORM LIEFECYCLE
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform-vm.png"width="900">
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/02-crossplane-terraform-vm.png"width="900">
 * CROSSPLANE SYNCS W/ CLOUD
 --
 ### /XRDS, COMPOSITIONS & CLAIMS
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/xrd-compostion.png" width="1200">
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/xrd-compostion.png" width="1200">
 * scope (+personas) of cluster/namespaced resources
 --
 ### /XRD
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/crossplane-crds.png" width="1200">
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/crossplane-crds.png" width="1200">
 * custom API specification
 --
 ### /COMPOSITION
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspheregcp-composition.png" width="1200">
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/vspheregcp-composition.png" width="1200">
 * composes individual managed resources together into a larger, reusable, solution.
 --
 ### /CLAIM
@@ -209,10 +207,10 @@ spec:
 Usecase Kubernetes 👾
 --
 ### /KUBERNETES
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/kübernetz.jpeg" width="525"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kübernetz.jpeg" width="525"/>
 --
 ### /K8s + HELM PROVIDER
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/k8s-helm-provider.png" width="2500"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/k8s-helm-provider.png" width="2500"/>
 * infra/app deployment (hub-spoke possible)
 --
 ### /EXAMPLE OBJECT
@@ -254,7 +252,7 @@ spec:
 * example helm release
 --
 ### /INFRA EXAMPLE
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/trident-composition.png" width="1200"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/trident-composition.png" width="1200"/>
 * Composition for trident
 --
 ### /TRIDENT CLAIM
@@ -274,7 +272,7 @@ spec:
 * trident claim
 --
 ### /APP EXAMPLE
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/shared-cluster.png" width="600"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/shared-cluster.png" width="600"/>
 * developer consume apps/infra via claims
 --
 ### /HARBOR CLAIM
@@ -292,11 +290,11 @@ spec:
 ```
 --
 ### /VSPHEREVM + ANSIBLERUN
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/vspherevm-ansiblerun.png" width="2500"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/vspherevm-ansiblerun.png" width="2500"/>
 * VSPHEREVM-GCP-ANSIBLE
 --
 ### /CLAIM
-<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/rke2-miami.yaml.png" width="500"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/rke2-miami.yaml.png" width="500"/>
 * VSPHEREVM-GCP-ANSIBLE
 --
 <img src="https://pbs.twimg.com/media/EXfngQCWAAAlQQ6.jpg" width="700"/>
