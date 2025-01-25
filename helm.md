@@ -43,8 +43,6 @@ what (library) templates should be included in the templates dir?
 
 -> example: we provide ingress, custom-resource in the chart but we will not add values for it. the user can use it later by adding values to it but those values are (mostly) depending on a env and therefor non default for an application.
 
-</details>
-
 ```bash
 helm upgrade --install homerun-light-mock . -n homerun-light-mock --create-namespace --set namespace=homerun-light-mock
 ```
@@ -53,7 +51,7 @@ helm uninstall homerun-light-mock -n homerun-light-mock
 
 helmfile template k8s/helmfile.yaml -e homerun-dev
 
-
+</details>
 
 <details><summary><b>RENDER/INSTALL/APPLY</b></summary>
 
