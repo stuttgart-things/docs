@@ -47,9 +47,13 @@ what (library) templates should be included in the templates dir?
 helm upgrade --install homerun-light-mock . -n homerun-light-mock --create-namespace --set namespace=homerun-light-mock
 ```
 
+```bash
 helm uninstall homerun-light-mock -n homerun-light-mock
+```
 
+```bash
 helmfile template k8s/helmfile.yaml -e homerun-dev
+```
 
 </details>
 
