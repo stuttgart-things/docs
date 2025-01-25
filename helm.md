@@ -10,6 +10,50 @@ helm get manifest ghr-install-configure-docker-sthings-cicd -n arc-runners
 
 </details>
 
+<details><summary><b>USAGE HELM-TOOLKIT</b></summary>
+
+```bash
+CHART_NAME=test-chart
+
+mkdir -p ${CHART_NAME}/templates
+
+cat <<EOF > ${CHART_NAME}/Chart.yaml
+apiVersion: v2
+name: ${CHART_NAME}
+description: A Helm chart for Kubernetes
+type: application
+version: v0.1.0
+appVersion: v0.1.0
+dependencies:
+  - name: sthings-helm-toolkit
+    version: 2.4.74
+    repository: oci://eu.gcr.io/stuttgart-things
+EOF
+
+cat <<EOF > ${CHART_NAME}/values.yaml
+---
+EOF
+
+cd ${CHART_NAME}
+helm dep update
+```
+
+what (library) templates should be included in the templates dir?
+- everything which the chart can/should be render (= the app should support)
+
+-> example: we provide ingress, custom-resource in the chart but we will not add values for it. the user can use it later by adding values to it but those values are (mostly) depending on a env and therefor non default for an application.
+
+</details>
+
+```bash
+helm upgrade --install homerun-light-mock . -n homerun-light-mock --create-namespace --set namespace=homerun-light-mock
+```
+
+helm uninstall homerun-light-mock -n homerun-light-mock
+
+helmfile template k8s/helmfile.yaml -e homerun-dev
+
+
 
 <details><summary><b>RENDER/INSTALL/APPLY</b></summary>
 
