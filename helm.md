@@ -2,6 +2,56 @@
 
 ## SNIPPETS
 
+<details><summary><b>USECASE: OPENLDAP CHART</b></summary>
+
+```bash
+# ADD HELM REPOSIORY + SEARCH FOR CHART/VERSION
+helm repo add helm-openldap https://jp-gouin.github.io/helm-openldap/
+helm repo update
+helm search repo openldap
+```
+
+```bash
+# GET DEFAULTS AS FILE
+helm show values helm-openldap/openldap-stack-ha --version 4.3.1 > openldap-values.yaml
+```
+
+### SET VALUES
+
+```bash
+# USED VALUES
+cat <<EOF > openldap-values.yaml
+---
+replicaCount: 1
+replication:
+  enabled: false
+persistence:
+  enabled: false
+ltb-passwd:
+  enabled : true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+    - "ssl-ldap2.fluxdev-3.sthings-vsphere.labul.sva.de"
+phpldapadmin:
+  enabled: true
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    path: /
+    hosts:
+    - phpldapadmin.fluxdev-3.sthings-vsphere.labul.sva.de
+EOF
+```
+
+```bash
+## HELM INSTALL
+helm upgrade --install openldap helm-openldap/openldap-stack-ha --values openldap-values.yaml -n openldap --create-namespace
+```
+
+</details>
+
 <details><summary><b>GET INSTALLED MANIFESTS BY RELEASE</b></summary>
 
 ```bash
