@@ -16,8 +16,6 @@ helm search repo openldap
 helm show values helm-openldap/openldap-stack-ha --version 4.3.1 > openldap-values.yaml
 ```
 
-### SET VALUES
-
 ```bash
 # USED VALUES
 cat <<EOF > openldap-values.yaml
