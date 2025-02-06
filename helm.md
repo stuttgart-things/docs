@@ -48,6 +48,15 @@ EOF
 helm upgrade --install openldap helm-openldap/openldap-stack-ha --values openldap-values.yaml -n openldap --create-namespace
 ```
 
+```bash
+sudo apt install ldap-utils -y
+kubectl port-forward svc/openldap -n openldap 138
+9:389
+
+ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org"
+```
+
+
 </details>
 
 <details><summary><b>GET INSTALLED MANIFESTS BY RELEASE</b></summary>
