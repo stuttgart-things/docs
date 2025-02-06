@@ -51,8 +51,7 @@ helm upgrade --install openldap helm-openldap/openldap-stack-ha --values openlda
 ```bash
 ## REQUIREMENTS
 sudo apt install ldap-utils -y
-kubectl port-forward svc/openldap -n openldap 138
-9:389
+kubectl port-forward svc/openldap -n openldap 1389:389
 ```
 
 ## SEARCH
