@@ -49,11 +49,155 @@ helm upgrade --install openldap helm-openldap/openldap-stack-ha --values openlda
 ```
 
 ```bash
+## REQUIREMENTS
 sudo apt install ldap-utils -y
 kubectl port-forward svc/openldap -n openldap 138
 9:389
+```
 
+## SEARCH
+
+```bash
 ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org"
+#Not@SecurePassw0rd
+```
+
+## CREATE GROUPS
+
+```bash
+cat <<EOF > ou_groups.ldif
+dn: ou=groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups
+EOF
+
+cat <<EOF > group.ldif
+dn: cn=developers,ou=groups,dc=example,dc=org
+objectClass: top
+objectClass: posixGroup
+cn: developers
+gidNumber: 1001
+EOF
+```
+
+```bash
+ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -f ou_groups.ldif
+ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -f group.ldif
+```
+
+## CREATE USERS
+
+```bash
+cat <<EOF > user.ldif
+dn: uid=johndoe,ou=users,dc=example,dc=org
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: johndoe
+cn: John Doe
+sn: Doe
+mail: johndoe@example.com
+uidNumber: 1001
+gidNumber: 1001
+homeDirectory: /home/johndoe
+loginShell: /bin/bash
+userPassword: {SSHA}gprTucQeJjW+66qAGkmShgQ3IJrwY0ER
+EOF
+```
+
+```bash
+# CREATE PASSWORD
+slappasswd -h {SSHA} -s hallobibi
+ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -f user.ldif 
+```
+
+## ADD USER TO GROUP
+
+```bash
+cat <<EOF > group_modify.ldif
+dn: cn=developers,ou=groups,dc=example,dc=org
+changetype: modify
+add: memberUid
+memberUid: johndoe
+EOF
+```
+
+```bash
+ldapmodify -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -f group_modify.ldif
+````
+
+```bash
+## SEARCH USERS
+ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org" # GENERAL
+ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org" "(objectClass=posixAccount)"
+ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org" "(objectClass=posixGroup)"
+ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org" "(&(objectClass=posixGroup)(cn=developers))" memberUid
+```
+
+```python
+# PYTHON LDAP USER LOGIN TEST SCRIPT
+cat <<EOF > ldap_login.py
+import os
+from ldap3 import Server, Connection, ALL, SIMPLE
+import getpass
+
+# LDAP Server Configuration
+LDAP_SERVER = "ldap://localhost:1389"  # Change to your LDAP server
+BASE_DN = "dc=example,dc=org"  # Adjust to match your LDAP structure
+USER_DN_FORMAT = "uid={},ou=users," + BASE_DN  # Adjust based on your LDAP structure
+
+# Retrieve Admin Credentials from Environment Variables
+ADMIN_DN = "cn=admin," + BASE_DN
+ADMIN_PASSWORD = os.getenv("LDAP_ADMIN_PASSWORD", "fallback-password")  # Use a secure method
+
+def authenticate(username, password):
+    """ Authenticate user against the LDAP server """
+    user_dn = USER_DN_FORMAT.format(username)
+    try:
+        conn = Connection(LDAP_SERVER, user=user_dn, password=password, authentication=SIMPLE, auto_bind=True)
+        print("[✅] Authentication successful for user:", username)
+        conn.unbind()
+        return True
+    except Exception as e:
+        print("[❌] Authentication failed:", e)
+        return False
+
+def search_user(username):
+    """ Search for a user in LDAP """
+    try:
+        server = Server(LDAP_SERVER, get_info=ALL)
+        conn = Connection(server, ADMIN_DN, ADMIN_PASSWORD, auto_bind=True)
+
+        search_filter = f"(uid={username})"
+        conn.search(BASE_DN, search_filter, attributes=['cn', 'mail'])
+
+        if conn.entries:
+            print(f"[🔍] Found user: {conn.entries[0]}")
+        else:
+            print("[⚠️] User not found.")
+
+        conn.unbind()
+    except Exception as e:
+        print("[❌] Error searching for user:", e)
+
+if __name__ == "__main__":
+    username = input("Enter username: ")
+    password = getpass.getpass("Enter password: ")
+
+    if authenticate(username, password):
+        search_user(username)  # Optional: Retrieve user details
+    else:
+        print("Login failed. Please try again.")
+EOF
+```
+
+```bash
+pip install ldap3 
+export LDAP_ADMIN_PASSWORD="Not@SecurePassw0rd"
+python3 ldap_login.py
 ```
 
 
