@@ -29,7 +29,7 @@ nvm alias default 20
 
 ```bash
 # INSTALL w/ npm
-npm install --save-dev semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/gitlab
+npm install -g --save-dev semantic-release @semantic-release/commit-analyzer @semantic-release/release-notes-generator @semantic-release/changelog @semantic-release/git @semantic-release/github @semantic-release/gitlab
 ```
 
 ## CONFIG (GITLAB; GOLANG)
