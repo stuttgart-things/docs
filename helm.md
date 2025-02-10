@@ -2,6 +2,65 @@
 
 ## SNIPPETS
 
+<details><summary><b>USECASE: KEYCLOAK DEPLOYMENT</b></summary>
+
+```bash
+cat <<EOF | kubectl apply -f -
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  commonName: keycloak.mycluster.lab.com
+  dnsNames:
+  - keycloak.mycluster.lab.com
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer-approle
+  secretName: keycloak.mycluster.lab.com-tls
+EOF
+
+cat <<EOF > keycloak-values.yaml
+---
+auth:
+  adminUser: admin
+  adminPassword: admin123 # Change this for security
+proxy: edge # Useful for running Keycloak behind an Ingress or LoadBalancer
+service:
+  type: ClusterIP # Change to LoadBalancer if needed
+
+extraEnvVars:
+  - name: KEYCLOAK_LOG_LEVEL
+    value: DEBUG
+  - name: KEYCLOAK_EXTRA_ARGS
+    value: "--import-realm"
+
+global:
+  defaultStorageClass: nfs4-csi
+  storageClass: nfs4-csi
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hostname: keycloak.mycluster.lab.com
+  tls: false
+  extraTls:
+    - hosts:
+        - keycloak.mycluster.lab.com
+      secretName: keycloak.mycluster.lab.com-tls
+
+startupProbe:
+  enabled: true
+  failureThreshold: 30
+  periodSeconds: 10
+EOF
+
+helm upgrade --install keycloak oci://registry-1.docker.io/bitnamicharts/keycloak --version 24.4.9 -n keycloak --create-namespace --values keycloak-values.yaml
+```
+
+</details>
+
 <details><summary><b>USECASE: OPENLDAP CHART</b></summary>
 
 ```bash
@@ -31,7 +90,7 @@ ltb-passwd:
     enabled: true
     ingressClassName: nginx
     hosts:
-    - "ssl-ldap2.fluxdev-3.sthings-vsphere.labul.sva.de"
+    - "ssl-ldap2.mycluster.lab.com"
 phpldapadmin:
   enabled: true
   ingress:
@@ -39,7 +98,7 @@ phpldapadmin:
     ingressClassName: nginx
     path: /
     hosts:
-    - phpldapadmin.fluxdev-3.sthings-vsphere.labul.sva.de
+    - phpldapadmin.mycluster.lab.com
 EOF
 ```
 
@@ -198,7 +257,6 @@ pip install ldap3
 export LDAP_ADMIN_PASSWORD="Not@SecurePassw0rd"
 python3 ldap_login.py
 ```
-
 
 </details>
 
