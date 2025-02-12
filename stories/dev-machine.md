@@ -27,7 +27,7 @@ the following story assums that you are running against a (probably newly create
 
 </details>
 
-## CODEING
+## CODING
 
 <details><summary><b>GOLANG</b></summary>
 
