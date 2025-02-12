@@ -15,6 +15,13 @@ the following story assums that you are running against a (probably newly create
 
 </details>
 
+## ALL-IN-ONE
+
+<details><summary><b>INLCUDE PLAYBOOK</b></summary>
+
+
+</details>
+
 ## BASE
 
 <details><summary><b>BINARIES</b></summary>
@@ -27,7 +34,7 @@ the following story assums that you are running against a (probably newly create
 
 </details>
 
-## CODEING
+## CODING
 
 <details><summary><b>GOLANG</b></summary>
 
