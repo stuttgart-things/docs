@@ -1,6 +1,7 @@
 # DEV-MACHINE
 
-the following story assums that you are running against a (probably newly created) vm/machine w/ ansible.
+* the following story assums that you are running against a (probably newly created) vm/machine w/ ansible
+* you want to use this machine for development of iac automation / kubernetes based microservice code
 
 ## ANSIBLE-REQUIREMENTS
 
@@ -28,7 +29,7 @@ collections:
     version: 6.2.0
   - name: ansible.netcommon
     version: 7.1.0
-  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.5.499/sthings-container-25.5.499.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.4.608.tar.gz/sthings-container-25.4.608.tar.gz
   - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.4.1257/sthings-baseos-25.4.1257.tar.gz
 EOF
 
@@ -71,13 +72,23 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 ## CONTAINER
 
-<details><summary><b>K3S DEV-CLUSTER</b></summary>
+### K3S DEV-CLUSTER
+
+* deploys a single node k3s-cluster for local testing
+* ingress-controller address for browser/curl = fqdn
+* LoadBalancing config over cilium (cluster setup / cli) configurable
+* Certs over cert-manager deployment/integration
+
+![Image](https://github.com/user-attachments/assets/1cc9f39d-6039-43f3-86e8-51a06cfab146)
+
+<details><summary><b>K3S DEV-CLUSTER DEPLOYMENT</b></summary>
 
 ### INVENTORY
 
 ```bash
 cat <<EOF > k3s.yaml
 10.31.104.110
+EOF
 ```
 
 ### CLUSTER-SETUP
@@ -86,7 +97,7 @@ cat <<EOF > k3s.yaml
 ansible-playbook sthings.container.k3s.yaml -i k3s.yaml -vv
 ```
 
-### DEPLOY INGRESS-NGINX FOR LOCALHOST
+### DEPLOY INGRESS-NGINX
 
 ```bash
 ansible-playbook sthings.container.deploy_to_k8s 
@@ -98,8 +109,6 @@ ansible-playbook sthings.container.deploy_to_k8s
 ```
 
 </details>
-
-
 
 ## MANUAL CONFIGURATION & SNIPPETS
 
