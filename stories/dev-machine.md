@@ -74,12 +74,12 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 ### K3S DEV-CLUSTER
 
+<img src="https://github.com/user-attachments/assets/71d5fd21-f41f-434b-83ce-feb63fd3127e" width="500">
+
 * deploys a single node k3s-cluster for local testing
 * ingress-controller address for browser/curl = fqdn
 * LoadBalancing config over cilium (cluster setup / cli) configurable
 * Certs over cert-manager deployment/integration
-
-![Image](https://github.com/user-attachments/assets/1cc9f39d-6039-43f3-86e8-51a06cfab146)
 
 <details><summary><b>K3S DEV-CLUSTER DEPLOYMENT</b></summary>
 
