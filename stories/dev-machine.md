@@ -85,9 +85,9 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 ### INVENTORY
 
-# Change ip to your machine's ip, no special inventory format needed
 ```bash
 cat <<EOF > k3s.yaml
+# Change fqdn/ip to your machine's ip, no special inventory format needed
 #10.31.104.110
 EOF
 ```
@@ -109,20 +109,14 @@ ansible-playbook sthings.container.deploy_to_k8s \
 -vv 
 ```
 
-### TESTING
+### TEST INGRESS-NGINX DEPLOYMENT
 
-<details><summary><b>Testing ingress-nginx</b></summary>
-
-  ```bash
-hostname -f
-curl <hostname>
+```bash
+curl https://<fqdn>
 
 # open browser
-https://<hostname>
-
+https://<fqdn>
 ```
-
-</details>
 
 ### DEPLOY CERT-MANAGER
 
@@ -135,7 +129,47 @@ ansible-playbook sthings.container.deploy_to_k8s \
 -vv 
 ```
 
+### CERT-MANAGER EXAMPLE ISSUER
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned
+spec:
+  ca:
+    secretName: root-ca
+EOF
+```
+
+### CERT-MANAGER EXAMPLE CERT
+
+```bash
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: example-tls
+  namespace: default
+spec:
+  secretName: example-tls-secret
+  issuerRef:
+    name: selfsigned
+    kind: ClusterIssuer
+  commonName: <fqdn>
+  dnsNames:
+    - <fqdn>
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days before expiration
+  privateKey:
+    algorithm: RSA
+    size: 2048
+```
+
 </details>
+
+
+
 
 ## MANUAL CONFIGURATION & SNIPPETS
 
