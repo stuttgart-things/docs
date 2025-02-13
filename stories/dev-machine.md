@@ -81,6 +81,11 @@ ansible-galaxy collection install -r requirements.yaml -f
 * LoadBalancing config over cilium (cluster setup / cli) configurable
 * Certs over cert-manager deployment/integration
 
+<<<<<<< HEAD
+=======
+![Image](https://github.com/user-attachments/assets/71d5fd21-f41f-434b-83ce-feb63fd3127e)
+
+>>>>>>> b5f08597749ae18a9ae7d3f7d073cc76b6d33bee
 <details><summary><b>K3S DEV-CLUSTER DEPLOYMENT</b></summary>
 
 ### INVENTORY
