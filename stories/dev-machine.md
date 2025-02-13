@@ -104,7 +104,18 @@ ansible-playbook sthings.container.k3s.yaml -i k3s.yaml -vv
 ansible-playbook sthings.container.deploy_to_k8s \
 -e profile=ingress-nginx-k3s -i k3s.yaml \
 -e state=present \
--e path_to_kubeconfig=/etc/rancher/k3s/k3s.yaml \
+-e path_to_kubeconfig=/etc/rancher/k3s/k3s.yaml \ # remote path
+-e target_host=all \
+-vv 
+```
+
+### DEPLOY CERT-MANAGER
+
+```bash
+ansible-playbook sthings.container.deploy_to_k8s \
+-e profile=cert-manager -i k3s.yaml \
+-e state=present \
+-e path_to_kubeconfig=/etc/rancher/k3s/k3s.yaml \ # remote path
 -e target_host=all \
 -vv 
 ```
