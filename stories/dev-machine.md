@@ -109,6 +109,21 @@ ansible-playbook sthings.container.deploy_to_k8s \
 -vv 
 ```
 
+### TESTING
+
+<details><summary><b>Testing ingress-nginx</b></summary>
+
+  ```bash
+hostname -f
+curl <hostname>
+
+# open browser
+https://<hostname>
+
+```
+
+</details>
+
 ### DEPLOY CERT-MANAGER
 
 ```bash
@@ -136,22 +151,5 @@ ansible-playbook sthings.container.deploy_to_k8s \
 
 <details><summary><b>REGISTRY LOGINS</b></summary>
 
-
-</details>
-
-## TESTING OF DEPLOYED K8S Resources
-
-<details><summary><b>Testing</b></summary>
-
-### CERT-MANGER
-
-```bash
-hostname -f
-curl <hostname>
-
-# open browser
-https://<hostname>
-
-```
 
 </details>
