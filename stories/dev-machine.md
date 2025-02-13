@@ -146,6 +146,7 @@ EOF
 ### CERT-MANAGER EXAMPLE CERT
 
 ```bash
+kubectl apply -f - <<EOF
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -164,6 +165,7 @@ spec:
   privateKey:
     algorithm: RSA
     size: 2048
+EOF
 ```
 
 </details>
