@@ -29,7 +29,7 @@ collections:
     version: 6.2.0
   - name: ansible.netcommon
     version: 7.1.0
-  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.4.608.tar.gz/sthings-container-25.4.608.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.4.716.tar.gz/sthings-container-25.4.716.tar.gz
   - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.4.1257/sthings-baseos-25.4.1257.tar.gz
 EOF
 
