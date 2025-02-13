@@ -138,3 +138,20 @@ ansible-playbook sthings.container.deploy_to_k8s \
 
 
 </details>
+
+## TESTING OF DEPLOYED K8S Resources
+
+<details><summary><b>Testing</b></summary>
+
+### CERT-MANGER
+
+```bash
+hostname -f
+curl <hostname>
+
+# open browser
+https://<hostname>
+
+```
+
+</details>
