@@ -28,7 +28,7 @@ collections:
     version: 6.2.0
   - name: ansible.netcommon
     version: 7.1.0
-  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.5.499/sthings-container-25.5.499.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.4.608.tar.gz/sthings-container-25.4.608.tar.gz
   - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.4.1257/sthings-baseos-25.4.1257.tar.gz
 EOF
 
@@ -78,6 +78,7 @@ ansible-galaxy collection install -r requirements.yaml -f
 ```bash
 cat <<EOF > k3s.yaml
 10.31.104.110
+EOF
 ```
 
 ### CLUSTER-SETUP
@@ -86,7 +87,7 @@ cat <<EOF > k3s.yaml
 ansible-playbook sthings.container.k3s.yaml -i k3s.yaml -vv
 ```
 
-### DEPLOY INGRESS-NGINX FOR LOCALHOST
+### DEPLOY INGRESS-NGINX
 
 ```bash
 ansible-playbook sthings.container.deploy_to_k8s 
@@ -98,8 +99,6 @@ ansible-playbook sthings.container.deploy_to_k8s
 ```
 
 </details>
-
-
 
 ## MANUAL CONFIGURATION & SNIPPETS
 
