@@ -85,9 +85,10 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 ### INVENTORY
 
+# Change ip to your machine's ip, no special inventory format needed
 ```bash
 cat <<EOF > k3s.yaml
-10.31.104.110
+#10.31.104.110
 EOF
 ```
 
@@ -100,7 +101,7 @@ ansible-playbook sthings.container.k3s.yaml -i k3s.yaml -vv
 ### DEPLOY INGRESS-NGINX
 
 ```bash
-ansible-playbook sthings.container.deploy_to_k8s 
+ansible-playbook sthings.container.deploy_to_k8s \
 -e profile=ingress-nginx-k3s -i k3s.yaml \
 -e state=present \
 -e path_to_kubeconfig=/etc/rancher/k3s/k3s.yaml \
