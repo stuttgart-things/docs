@@ -7,12 +7,7 @@
 ### EXECUTE BASE RKE2-SETUP 
 
 ```
-[initial_master_node]
-192.168.0.1
 
-[additional_master_nodes]
-192.168.0.2
-192.168.0.3
 ```
 
 
@@ -32,7 +27,15 @@ Requirements:
 
 ```bash
 # SET INVENTORY AS B64
-echo -e "[initial_master_node]\n192.168.0.1\n\n[additional_master_nodes]\n192.168.0.2\n192.168.0.3" | base64 -w 0
+
+cat <<EOF | base64 -w 0
+[initial_master_node]
+192.168.0.1
+
+[additional_master_nodes]
+192.168.0.2
+192.168.0.3
+EOF
 
 # SET VARS (ALL COMPLEX OR MULTILINE)
 cat <<EOF | base64 -w 0
