@@ -46,8 +46,79 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 ## ALL-IN-ONE
 
-<details><summary><b>INLCUDE PLAYBOOK</b></summary>
+<details><summary><b>ANSIBLE-CLI</b></summary>
 
+
+</details>
+
+
+
+<details><summary><b>CROSSPLANE - ANSIBLERUN</b></summary>
+
+Usecase:
+  - kubernetes based ansible execution
+
+Requirements:
+  - kubernetes cluster
+  - crossplane
+  - kubernetes provider
+  - tekon-pipelines
+
+```bash
+kubectl apply -f - <<EOF
+---
+apiVersion: resources.stuttgart-things.com/v1alpha1
+kind: AnsibleRun
+metadata:
+  name: dev-machine-setup
+  namespace: crossplane-system
+spec:
+  pipelineRunName: dev-machine-setup5
+  createInventory: "false"
+  varsFile: bmFtZToga29sbGUK # pragma: allowlist secret
+  inventoryFile: MTAuMzEuMTAzLjQxCg== # pragma: allowlist secret
+  playbooks:
+    - "sthings.baseos.prepare_env"
+    - "sthings.baseos.golang"
+    - "sthings.baseos.binaries"
+    - "sthings.container.docker"
+    - "sthings.container.tools"
+  ansibleVarsFile:
+    - golang_version+-1.23.6
+    - manage_filesystem+-true
+    - update_packages+-true
+    - install_requirements+-true
+    - install_motd+-true
+    - username+-sthings
+    - lvm_home_sizing+-'15%'
+    - lvm_root_sizing+-'35%'
+    - lvm_var_sizing+-'50%'
+    - send_to_msteams+-true
+    - reboot_all+-false
+  gitRepoUrl: https://github.com/stuttgart-things/ansible.git
+  gitRevision: main
+  providerRef:
+    name: in-cluster
+  vaultSecretName: vault # pragma: allowlist secret
+  pipelineNamespace: tekton-pipelines
+  workingImage: ghcr.io/stuttgart-things/sthings-ansible:11.0.0
+  roles:
+    - "https://github.com/stuttgart-things/install-requirements.git,2024.05.11"
+    - "https://github.com/stuttgart-things/install-configure-docker,2024.12.30"
+  collections:
+    - community.crypto:2.22.3
+    - community.general:10.1.0
+    - ansible.posix:2.0.0
+    - kubernetes.core:5.0.0
+    - community.docker:4.1.0
+    - community.vmware:5.2.0
+    - awx.awx:24.6.1
+    - community.hashi_vault:6.2.0
+    - ansible.netcommon:7.1.0
+    - https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.3.1202.tar.gz/sthings-baseos-25.3.1202.tar.gz
+    - https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.6.1311.tar.gz/sthings-container-25.6.1311.tar.gz
+EOF
+```
 
 </details>
 
