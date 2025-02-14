@@ -6,12 +6,6 @@
 
 ### EXECUTE BASE RKE2-SETUP 
 
-```
-
-```
-
-
-
 <details><summary>CROSSPLANE - ANSIBLERUN</summary>
 
 ```yaml
@@ -27,7 +21,6 @@ Requirements:
 
 ```bash
 # SET INVENTORY AS B64
-
 cat <<EOF | base64 -w 0
 [initial_master_node]
 192.168.0.1
