@@ -6,6 +6,17 @@
 
 ### EXECUTE BASE RKE2-SETUP 
 
+```
+[initial_master_node]
+192.168.0.1
+
+[additional_master_nodes]
+192.168.0.2
+192.168.0.3
+```
+
+
+
 <details><summary>CROSSPLANE - ANSIBLERUN</summary>
 
 ```yaml
@@ -17,6 +28,22 @@ Requirements:
   - crossplane
   - kubernetes provider
   - tekon-pipelines
+```
+
+```bash
+# SET INVENTORY AS B64
+echo -e "[initial_master_node]\n192.168.0.1\n\n[additional_master_nodes]\n192.168.0.2\n192.168.0.3" | base64 -w 0
+
+# SET VARS (ALL COMPLEX OR MULTILINE)
+cat <<EOF | base64 -w 0
+values_cilium: |
+  ---
+  kubeProxyReplacement: true
+  k8sServiceHost: 127.0.0.1
+  k8sServicePort: 6443
+  cni:
+    chainingMode: "none"
+EOF
 ```
 
 ```bash
