@@ -6,6 +6,7 @@
 local_requirements:
   - ansible
   - task
+  - gh (gh cli)
   - molecule (+venv & docker)
 ```
 
