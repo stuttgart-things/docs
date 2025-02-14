@@ -27,7 +27,8 @@ task branch # e.g. fix/remove-unused-service-condition or feature/add-task-for-v
 ```bash
 task setup-molecule
 task run-molecule
-task commit
+task pr (will trigger workflow + create & merge pr)
+# or task commit (will trigger workflow)
 # -> CI + GH-CLI IS WAITING FOR COMPLETION
 ```
 
