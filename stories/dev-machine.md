@@ -55,6 +55,7 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 <details><summary><b>CROSSPLANE - ANSIBLERUN</b></summary>
 
+```yaml
 Usecase:
   - kubernetes based ansible execution
 
@@ -63,6 +64,7 @@ Requirements:
   - crossplane
   - kubernetes provider
   - tekon-pipelines
+```
 
 ```bash
 kubectl apply -f - <<EOF
@@ -85,16 +87,6 @@ spec:
     - "sthings.container.tools"
   ansibleVarsFile:
     - golang_version+-1.23.6
-    - manage_filesystem+-true
-    - update_packages+-true
-    - install_requirements+-true
-    - install_motd+-true
-    - username+-sthings
-    - lvm_home_sizing+-'15%'
-    - lvm_root_sizing+-'35%'
-    - lvm_var_sizing+-'50%'
-    - send_to_msteams+-true
-    - reboot_all+-false
   gitRepoUrl: https://github.com/stuttgart-things/ansible.git
   gitRevision: main
   providerRef:
