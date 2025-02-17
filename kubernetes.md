@@ -1,5 +1,103 @@
 # stuttgart-things/docs/kubernetes
 
+## CLUSTER
+
+<details><summary>K3D</summary>
+
+#### INSTALL K3D
+
+```bash
+K3D_VERSION=v5.8.3
+wget https://github.com/k3d-io/k3d/releases/download/${K3D_VERSION}/k3d-linux-amd64
+sudo mv /usr/bin/k3d
+sudo chmod +x /usr/bin/k3d
+```
+
+### CREATE (EXAMPLE) CLUSTER
+
+```bash
+CLUSTER_NAME=dev
+cat <<EOF > k3d-${CLUSTER_NAME}.yaml
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: ${CLUSTER_NAME}
+servers: 1
+agents: 2
+ports:
+  - port: 80:80   # Expose HTTP
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443 # Expose HTTPS
+    nodeFilters:
+      - loadbalancer
+options:
+  k3d:
+    wait: true
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"   # Disable default Traefik Ingress
+        nodeFilters:
+          - server:0
+volumes:
+  - volume: /etc/rancher/k3s
+    nodeFilters:
+      - server:0
+EOF
+k3d cluster create --config k3d-${CLUSTER_NAME}.yaml
+kubectl cluster-info
+k3d kubeconfig merge k3d-${CLUSTER_NAME} --kubeconfig-switch-context
+kubectl config use-context k3d-${CLUSTER_NAME} && kubectl get nodes
+```
+
+#### CONFIGURE METALLB
+
+```bash
+CLUSTER_NAME=dev
+docker network inspect k3d-${CLUSTER_NAME} | grep Subnet
+# e.g. 172.19.0.0/16 = 172.19.255.200-172.19.255.250
+IP_RANGE=172.19.255.200-172.19.255.250
+
+kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/config/manifests/metallb-native.yaml
+
+kubectl apply -f - <<EOF
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: my-ip-pool
+  namespace: metallb-system
+spec:
+  addresses:
+    - ${IP_RANGE}
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: my-l2-advertisement
+  namespace: metallb-system
+EOF
+```
+
+#### TEST/CONFIGURE LOADBALANCING
+
+```bash
+kubectl create deployment nginx --image=nginx
+kubectl expose deployment nginx --port=80 --type=LoadBalancer
+kubectl get svc nginx
+
+# LOCAL
+curl ${EXTERNAL_IP_OF_DOCKER_NETWORK} # e.g. 172.19.255.200
+# REMOTE (e.g. VM) - Forward traffic from the VM's external IP to the internal MetalLB IP (172.18.255.200):
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 172.18.255.200:80
+sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination 172.18.255.200:443
+curl ${EXTERNAL_IP_OF_VM} # e.g. 10.31.103.41 from outside
+```
+
+</details>
+
+
+
 ## CERTIFICATES
 
 <details><summary>CERT MANAGER + DEFAULT CERT INGRESS-NGINX</summary>
@@ -84,7 +182,6 @@ spec:
 + add root-ca.pem to your system trust store
 
 </details>
-
 
 ## KUBECTL
 
