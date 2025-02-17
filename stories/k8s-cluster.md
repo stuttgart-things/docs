@@ -2,6 +2,9 @@
 
 ## LAB CLUSTER
 
+### OVERVIEW
+
+
 ### REQUIREMENTS
 
 ### EXECUTE BASE RKE2-SETUP 
@@ -131,7 +134,79 @@ EOF
 
 </details>
 
-### OVERVIEW
+### INFRA DEPLOYMENT (HELMFILE)
+
+<details><summary>GET AND ASSIGN IP (CLUSTERBOOK) VIA MACHINESHOP</summary>
+
+```bash
+machineshop get \
+--system=ips \
+--destination=clusterbook.fluxdev-3.sthings-vsphere.labul.sva.de:443 \
+--path=10.31.103 \
+--output=1
+
+machineshop push \
+--target=ips \
+--destination=clusterbook.fluxdev-3.sthings-vsphere.labul.sva.de:443 \
+--artifacts="10.31.103.4" \
+--assignee=homerun-int2
+```
+
+</details>
+
+<details><summary>APPLY w/ HELMFILE</summary>
+
+```bash
+CLUSTER_NAME=k3d-my-cluster
+mkdir ${CLUSTER_NAME}
+cat <<EOF > ${CLUSTER_NAME}/infra.yaml
+---
+helmfiles:
+  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/metallb.yaml?ref=feature/add-nfs-chart
+    values:
+      - ipRange: 10.31.103.4-10.31.103.4
+      - speaker.secretValue: 6jpcLHi6y5PCdFlCEUB28I0ASKOzLZLgWVNxj1KMHqQnMwsmkTU3qoik8mHQTK0XUctV6JBt62518gu06uVgjIV0as6BAdYkITgaFK6N2Sws4S3ztHleoZ7JtGqdPwfSy9TW6HsLE3VBTD2mXSIb8h8CFX3KGsYcVB9NjgzdqyP1AxY4TNs88btz7EXQTGloPowsBpLlUO9yC9IZHxuXbWPqitgYylHqmcS4e99oEzP0kCd44JxjRUxcF6ex6QkL
+  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/nfs-csi.yaml?ref=feature/add-nfs-chart
+    values:
+      - nfsServerFQDN: 10.31.101.26
+      - nfsSharePath: /data/col1/sthings
+      - clusterName: k3d-my-cluster
+      - nfsSharePath: /data/col1/sthings
+  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/cert-manager.yaml?ref=feature/add-nfs-chart
+    values:
+      - pkiServer: https://vault-vsphere.labul.sva.de:8200
+      - pkiPath: pki/sign/sthings-vsphere.labul.sva.de
+      - issuer: cluster-issuer-approle
+      - approleSecret: ref+vault://apps/vault/secretID
+      - approleID: ref+vault://apps/vault/roleID
+      - pkiCA: ref+vault://apps/vault/vaultCA
+  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/ingress-nginx.yaml?ref=feature/add-nfs-chart
+missingFileHandler: Error
+
+helmDefaults:
+  diffArgs:
+    - "--suppress-secrets"
+  skipSchemaValidation: true
+  force: false
+  verify: false
+EOF
+
+export VAULT_AUTH_METHOD=approle
+export VAULT_ADDR=https://<VAULT-URL>:8200
+export VAULT_SECRET_ID=623c991f-d.. #example value
+export VAULT_ROLE_ID=1d42d7e7-8.. #example value
+export VAULT_NAMESPACE=root
+
+HELMFILE_CACHE_HOME=$(pwd)/${CLUSTER_NAME}/helm_cache
+mkdir -p ${HELMFILE_CACHE_HOME} && 
+export HELMFILE_CACHE_HOME=${HELMFILE_CACHE_HOME}
+
+helmfile init ${CLUSTER_NAME}
+helmfile deps -f ${CLUSTER_NAME}/infra.yaml
+helmfile sync -f ${CLUSTER_NAME}/infra.yaml
+```
+
+</details>
 
 
 ### EXECUTE BASE K3S-SETUP 
