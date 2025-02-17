@@ -193,6 +193,9 @@ ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc
 ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org" "(objectClass=posixAccount)"
 ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org" "(objectClass=posixGroup)"
 ldapsearch -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -b "dc=example,dc=org" "(&(objectClass=posixGroup)(cn=developers))" memberUid
+
+## SEARCH SCHEMA
+ldapsearch -x -H ldap://10.31.101.9:389 -D "cn=admin,dc=charite,dc=de" -W -b "cn=subschema" -s base "(objectclass=*)" attributeTypes
 ```
 
 ```python
