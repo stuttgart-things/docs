@@ -165,7 +165,6 @@ helmfiles:
   - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/metallb.yaml?ref=feature/add-nfs-chart
     values:
       - ipRange: 10.31.103.4-10.31.103.4
-      - speaker.secretValue: 6jpcLHi6y5PCdFlCEUB28I0ASKOzLZLgWVNxj1KMHqQnMwsmkTU3qoik8mHQTK0XUctV6JBt62518gu06uVgjIV0as6BAdYkITgaFK6N2Sws4S3ztHleoZ7JtGqdPwfSy9TW6HsLE3VBTD2mXSIb8h8CFX3KGsYcVB9NjgzdqyP1AxY4TNs88btz7EXQTGloPowsBpLlUO9yC9IZHxuXbWPqitgYylHqmcS4e99oEzP0kCd44JxjRUxcF6ex6QkL
   - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/nfs-csi.yaml?ref=feature/add-nfs-chart
     values:
       - nfsServerFQDN: 10.31.101.26
