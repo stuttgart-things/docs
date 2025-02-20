@@ -9,7 +9,7 @@
 ```bash
 K3D_VERSION=v5.8.3
 wget https://github.com/k3d-io/k3d/releases/download/${K3D_VERSION}/k3d-linux-amd64
-sudo mv /usr/bin/k3d
+sudo mv /usr/bin/k3d-linux-amd64 /usr/bin/k3d
 sudo chmod +x /usr/bin/k3d
 ```
 
