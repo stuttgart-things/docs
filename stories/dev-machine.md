@@ -53,7 +53,7 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 
 
-<details><summary><b>CROSSPLANE - ANSIBLERUN</b></summary>
+<details><summary><b>CROSSPLANE - AnsibleRun</b></summary>
 
 ```yaml
 Usecase:
@@ -113,6 +113,112 @@ EOF
 ```
 
 </details>
+
+<details><summary><b>CROSSPLANE - VsphereVmAnsible</b></summary>
+
+```yaml
+Usecase:
+  - kubernetes based ansible execution
+
+Requirements:
+  - kubernetes cluster
+  - crossplane
+  - kubernetes provider
+  - tekon-pipelines
+```
+
+```bash
+kubectl apply -f - <<EOF
+---
+apiVersion: resources.stuttgart-things.com/v1alpha1
+kind: VsphereVmAnsible
+metadata:
+  name: dev2
+  namespace: crossplane-system
+spec:
+  compositionRef:
+    name: vsphere-vm-ansible
+  providerRef:
+    name: default
+  vm:
+    count: "1"
+    name: dev2
+    cpu: "8"
+    ram: "8192"
+    disk: "128"
+    firmware: bios
+    folderPath: stuttgart-things/testing
+    datacenter: /LabUL
+    datastore: /LabUL/datastore/UL-ESX-SAS-01
+    resourcePool: /LabUL/host/Cluster-V6.5/Resources
+    network: /LabUL/network/LAB-10.31.103
+    template: sthings-u24
+    bootstrap: '["echo STUTTGART-THINGS"]'
+    annotation: VSPHERE-VM BUILD w/ CROSSPLANE FOR STUTTGART-THINGS
+    unverifiedSsl: "true"
+  tfvars:
+    secretName: vsphere-tfvars  # pragma: allowlist secret
+    secretNamespace: crossplane-system  # pragma: allowlist secret
+    secretKey: terraform.tfvars  # pragma: allowlist secret
+  connectionSecret:
+    name: dev2
+    namespace: crossplane-system
+  ansible:
+    pipelineRunName: dev2-provisioning
+    provisioningName: dev2-provisioning
+    playbooks:
+      - "sthings.baseos.prepare_env"
+      - "sthings.baseos.setup"
+      - "sthings.baseos.golang"
+      - "sthings.baseos.binaries"
+      - "sthings.baseos.ansible"
+      - "sthings.baseos.pre_commit"
+      - "sthings.baseos.semantic_release"
+      - "sthings.container.docker"
+      - "sthings.container.tools"
+      - "sthings.container.nerdctl"
+    ansibleVarsFile:
+      - "manage_filesystem+-true"
+      - "update_packages+-true"
+      - "install_requirements+-true"
+      - "install_motd+-true"
+      - "username+-sthings"
+      - "lvm_home_sizing+-'15%'"
+      - "lvm_root_sizing+-'35%'"
+      - "lvm_root_sizing+-'35%'"
+      - "lvm_var_sizing+-'50%'"
+      - "event_author+-crossplane"
+      - "event_tags+-ansible,baseos,crossplane,tekton"
+      - "send_to_msteams+-true"
+      - "reboot_all+-false"
+    gitRepoUrl: https://github.com/stuttgart-things/ansible.git
+    gitRevision: main
+    providerRef:
+      name: in-cluster
+    vaultSecretName: vault  # pragma: allowlist secret
+    pipelineNamespace: tekton-pipelines
+    workingImage: ghcr.io/stuttgart-things/sthings-ansible:11.0.0
+    roles:
+      - "https://github.com/stuttgart-things/install-requirements.git,2024.05.11"
+    collections:
+      - community.crypto:2.22.3
+      - community.general:10.1.0
+      - ansible.posix:2.0.0
+      - kubernetes.core:5.0.0
+      - community.docker:4.1.0
+      - community.vmware:5.2.0
+      - awx.awx:24.6.1
+      - community.hashi_vault:6.2.0
+      - ansible.netcommon:7.1.0
+      - https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.4.871.tar.gz/sthings-container-25.4.871.tar.gz
+      - https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.3.610/sthings-rke-25.3.610.tar.gz
+      - https://github.com/stuttgart-things/ansible/releases/download/sthings-awx-25.4.1409.tar.gz/sthings-awx-25.4.1409.tar.gz
+      - https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.5.437.tar.gz/sthings-baseos-25.5.437.tar.gz
+EOF
+```
+
+</details>
+
 
 ## BASE
 
