@@ -340,17 +340,24 @@ EOF
 </details>
 
 
-
-
 ## MANUAL CONFIGURATION & SNIPPETS
 
 <details><summary><b>GIT-CONFIG</b></summary>
 
+```bash
+cat <<EOF > ~/.gitconfig
+[url "https://<GITHUB_USER>:<GITHUB_TOKEN>@github.com/stuttgart-things/"]
+        insteadOf = https://github.com/stuttgart-things/
+EOF
+```
 
 </details>
 
-<details><summary><b>GH-CLI CONFIG</b></summary>
+<details><summary><b>GH-CLI LOGIN</b></summary>
 
+```bash
+gh auth login --web
+```
 
 </details>
 
