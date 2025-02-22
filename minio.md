@@ -19,6 +19,7 @@ export PATH=$PATH:$HOME/minio-binaries/
 <details><summary><b>USE MINIO PLAY FOR TESTING</b></summary>
 
 ```bash
+mkdir -p ~/.mc/
 cat << EOF> ~/.mc/config.json
 {
   "version": "10",
