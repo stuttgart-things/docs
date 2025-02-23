@@ -154,7 +154,7 @@ machineshop push \
 
 </details>
 
-<details><summary>APPLY w/ HELMFILE</summary>
+<details><summary>APPLY MULTIPLE SERVICES AT ONCE w/ HELMFILE</summary>
 
 ```bash
 CLUSTER_NAME=k3d-my-cluster
@@ -223,6 +223,18 @@ export VAULT_SECRET_ID=""
 export VAULT_ROLE_ID=""
 export VAULT_NAMESPACE=""
 
+# CURL LOADBALANCER IP
+curl 10.31.103.4 # EXAMPLE IP
+
+#  ✅ IF NGINX IS REPLYING
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
 # RUN PLAY
 ansible-playbook sthings.baseos.pdns \
 -e pdns_url=https://pdns-vsphere.labul.sva.de:8443 \
@@ -231,9 +243,10 @@ ansible-playbook sthings.baseos.pdns \
 -e hostname=homerun-int2 \
 -vv
 
-# TEST AGAINST INGRESS CONTROLLER
+# TEST AGAINST WILDCARD URL (*.CLUSTER-DOMAIN)
 curl test123.homerun-int2.sthings-vsphere.labul.sva.de
 
+# ✅ IF NGINX (INGRESS CONTROLLER) IS REPLYING
 <html>
 <head><title>404 Not Found</title></head>
 <body>
