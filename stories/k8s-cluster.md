@@ -154,7 +154,11 @@ machineshop push \
 
 </details>
 
-<details><summary>APPLY MULTIPLE SERVICES AT ONCE w/ HELMFILE</summary>
+<details><summary>APPLY MULTIPLE INFRA SERVICES AT ONCE w/ HELMFILE</summary>
+
+requirements:
+  - ✅ kubeconfig
+  - ✅ helmfile
 
 ```bash
 CLUSTER_NAME=k3d-my-cluster
@@ -200,7 +204,7 @@ HELMFILE_CACHE_HOME=$(pwd)/${CLUSTER_NAME}/helm_cache
 mkdir -p ${HELMFILE_CACHE_HOME} && 
 export HELMFILE_CACHE_HOME=${HELMFILE_CACHE_HOME}
 
-helmfile init ${CLUSTER_NAME}
+helmfile init
 helmfile deps -f ${CLUSTER_NAME}/infra.yaml
 helmfile sync -f ${CLUSTER_NAME}/infra.yaml
 ```
@@ -208,6 +212,10 @@ helmfile sync -f ${CLUSTER_NAME}/infra.yaml
 </details>
 
 <details><summary>ADD LOADBALANCER IP (INGRESS-CONTROLLER) TO POWERDNS</summary>
+
+requirements:
+  - ✅ loadbalancing deployed (e.g metallb or cilium lb)
+  - ✅ ingress-controller deployed + assigned loadbalancer ip
 
 ```bash
 # INSTALL COLLECTION (IF NOT INSTALLED)
@@ -258,6 +266,14 @@ curl test123.homerun-int2.sthings-vsphere.labul.sva.de
 
 </details>
 
+<details><summary>TEST CREATE INGRESS-CERTIFICATES</summary>
+
+requirements:
+  - ✅ kubeconfig + kubectl
+  - ✅ cert manager deployed
+  - ✅ (cluster) issuer configured
+
+</details>
 
 
 ### EXECUTE BASE K3S-SETUP 
