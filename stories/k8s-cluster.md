@@ -162,16 +162,16 @@ mkdir ${CLUSTER_NAME}
 cat <<EOF > ${CLUSTER_NAME}/infra.yaml
 ---
 helmfiles:
-  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/metallb.yaml?ref=feature/add-nfs-chart
+  - path: git::https://github.com/stuttgart-things/helm.git@metallb.yaml?ref=v1.0.0
     values:
       - ipRange: 10.31.103.4-10.31.103.4
-  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/nfs-csi.yaml?ref=feature/add-nfs-chart
+  - path: git::https://github.com/stuttgart-things/helm.git@nfs-csi.yaml?ref=v1.0.0
     values:
       - nfsServerFQDN: 10.31.101.26
       - nfsSharePath: /data/col1/sthings
       - clusterName: k3d-my-cluster
       - nfsSharePath: /data/col1/sthings
-  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/cert-manager.yaml?ref=feature/add-nfs-chart
+  - path: git::https://github.com/stuttgart-things/helm.git@cert-manager.yaml?ref=v1.0.0
     values:
       - pkiServer: https://vault-vsphere.labul.sva.de:8200
       - pkiPath: pki/sign/sthings-vsphere.labul.sva.de
@@ -179,7 +179,7 @@ helmfiles:
       - approleSecret: ref+vault://apps/vault/secretID
       - approleID: ref+vault://apps/vault/roleID
       - pkiCA: ref+vault://apps/vault/vaultCA
-  - path: git::https://github.com/stuttgart-things/flux.git@helmfiles/ingress-nginx.yaml?ref=feature/add-nfs-chart
+  - path: git::https://github.com/stuttgart-things/helm.git@ingress-nginx.yaml?ref=v1.0.0
 missingFileHandler: Error
 
 helmDefaults:
@@ -206,6 +206,45 @@ helmfile sync -f ${CLUSTER_NAME}/infra.yaml
 ```
 
 </details>
+
+<details><summary>ADD LOADBALANCER IP (INGRESS-CONTROLLER) TO POWERDNS</summary>
+
+```bash
+# INSTALL COLLECTION (IF NOT INSTALLED)
+ansible-galaxy collection install https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.0.1178.tar.gz/sthings-baseos-25.0.1178.tar.gz -f
+
+# INSTALL JMESPATH (IF NOT INSTALLED)
+pip3 install jmespath
+
+# SET VAULT ENV VARS
+export VAULT_AUTH_METHOD=approle
+export VAULT_ADDR=""
+export VAULT_SECRET_ID=""
+export VAULT_ROLE_ID=""
+export VAULT_NAMESPACE=""
+
+# RUN PLAY
+ansible-playbook sthings.baseos.pdns \
+-e pdns_url=https://pdns-vsphere.labul.sva.de:8443 \
+-e entry_zone=sthings-vsphere.labul.sva.de. \
+-e ip_address=10.31.103.4 \
+-e hostname=homerun-int2 \
+-vv
+
+# TEST AGAINST INGRESS CONTROLLER
+curl test123.homerun-int2.sthings-vsphere.labul.sva.de
+
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+```
+
+</details>
+
 
 
 ### EXECUTE BASE K3S-SETUP 
