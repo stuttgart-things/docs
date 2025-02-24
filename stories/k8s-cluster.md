@@ -95,6 +95,7 @@ EOF
 ```
 
 ### DESTROY
+
 ```bash
 kubectl apply -f - <<EOF
 ---
@@ -134,9 +135,15 @@ EOF
 
 </details>
 
-### INFRA DEPLOYMENT (HELMFILE)
+### INFRA DEPLOYMENT
 
 <details><summary>GET AND ASSIGN IP (CLUSTERBOOK) VIA MACHINESHOP</summary>
+
+requirements:
+  - ✅ machineshop installed
+  - ✅ know clusterbook address
+  - ✅ cluster up & running - need ip net e.g. 10.31.103
+  - ✅ clustername for assignment
 
 ```bash
 machineshop get \
@@ -245,14 +252,14 @@ curl 10.31.103.4 # EXAMPLE IP
 
 # RUN PLAY
 ansible-playbook sthings.baseos.pdns \
--e pdns_url=https://pdns-vsphere.labul.sva.de:8443 \
--e entry_zone=sthings-vsphere.labul.sva.de. \
+-e pdns_url=https://pdns-vsphere.example.com:8443 \
+-e entry_zone=sthings-vsphere.example.com. \
 -e ip_address=10.31.103.4 \
 -e hostname=homerun-int2 \
 -vv
 
 # TEST AGAINST WILDCARD URL (*.CLUSTER-DOMAIN)
-curl test123.homerun-int2.sthings-vsphere.labul.sva.de
+curl test123.homerun-int2.sthings-vsphere.example.com
 
 # ✅ IF NGINX (INGRESS CONTROLLER) IS REPLYING
 <html>
@@ -271,8 +278,32 @@ curl test123.homerun-int2.sthings-vsphere.labul.sva.de
 requirements:
   - ✅ kubeconfig + kubectl
   - ✅ cert manager deployed
-  - ✅ (cluster) issuer configured
+  - ✅ (cluster-)Issuer configured
 
+```bash
+# EXAMPLE CERT
+kubectl apply -f - <<EOF
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: keycloak
+  namespace: keycloak
+spec:
+  commonName: keycloak.fluxdev-3.sthings-vsphere.example.com
+  dnsNames:
+    - keycloak.fluxdev-3.sthings-vsphere.example.com
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer-approle
+  secretName: keycloak.fluxdev-3.sthings-vsphere.example.com-tls
+EOF
+
+# CHECK FOR READY=TRUE STATUS
+kubectl get Certificate -n keycloak
+
+# CHECK FOR EXISTENCE OF TLS_SECRET 
+kubectl get secret -n keycloak | grep keycloak.fluxdev-3.sthings-vsphere.example.com-tls
 </details>
 
 
