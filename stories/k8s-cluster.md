@@ -231,7 +231,10 @@ requirements:
   - ✅ helmfile
 
 ```bash
-CLUSTER_NAME=k3d-my-cluster
+# IF YOU CONNECTED ON THE CLUSTER (SSH)
+export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
+
+CLUSTER_NAME=dev-cluster
 mkdir ${CLUSTER_NAME}
 cat <<EOF > ${CLUSTER_NAME}/infra.yaml
 ---
@@ -260,7 +263,7 @@ helmDefaults:
   diffArgs:
     - "--suppress-secrets"
   skipSchemaValidation: true
-  force: false
+  force: true
   verify: false
 EOF
 
@@ -274,8 +277,13 @@ HELMFILE_CACHE_HOME=$(pwd)/${CLUSTER_NAME}/helm_cache
 mkdir -p ${HELMFILE_CACHE_HOME} && 
 export HELMFILE_CACHE_HOME=${HELMFILE_CACHE_HOME}
 
+# INIT HELMFILE
 helmfile init
-helmfile deps -f ${CLUSTER_NAME}/infra.yaml
+
+# CHECK IF CHARTS CAN BE DOWNLOADED/RENDRED
+helmfile template -f ${CLUSTER_NAME}/infra.yaml 
+
+# DEPLOY RELEASES
 helmfile sync -f ${CLUSTER_NAME}/infra.yaml
 ```
 
