@@ -304,6 +304,8 @@ kubectl get Certificate -n keycloak
 
 # CHECK FOR EXISTENCE OF TLS_SECRET 
 kubectl get secret -n keycloak | grep keycloak.fluxdev-3.sthings-vsphere.example.com-tls
+```
+
 </details>
 
 
