@@ -61,7 +61,7 @@ ansible-playbook sthings.rke.rke2 \
 -i rke2 \
 -e rke_state=absent \
 -e prepare_rancher_ha_nodes=false \
- -vv
+-vv
 ```
 
 </details>
