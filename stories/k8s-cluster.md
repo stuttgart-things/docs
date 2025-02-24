@@ -30,6 +30,8 @@ EOF
 CLUSTER_NAME=dev-cluster
 mkdir -p /home/sthings/.kube/
 
+# CHECK FOR RKE2 RELEASES: https://github.com/rancher/rke2/releases
+
 ansible-playbook sthings.rke.rke2 \
 -i rke2 \
 -e rke2_fetched_kubeconfig_path=/home/sthings/.kube/${CLUSTER_NAME} \
@@ -109,6 +111,7 @@ EOF
 ```
 
 ### CREATE
+
 ```bash
 kubectl apply -f - <<EOF
 ---
