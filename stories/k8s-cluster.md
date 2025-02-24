@@ -9,6 +9,65 @@
 
 ### EXECUTE BASE RKE2-SETUP 
 
+<details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
+
+### CREATE
+
+```bash
+# INSTALL COLLECTION
+ansible-galaxy collection install https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.1.475.tar.gz/sthings-rke-25.1.475.tar.gz -f 
+
+# CREATE INVENTORY
+cat <<EOF > rke2
+[initial_master_node]
+10.100.136.151
+[additional_master_nodes]
+10.100.136.152
+10.100.136.153
+EOF
+
+# CREATE CLUSTER
+CLUSTER_NAME=dev-cluster
+mkdir -p /home/sthings/.kube/
+
+ansible-playbook sthings.rke.rke2 \
+-i rke2 \
+-e rke2_fetched_kubeconfig_path=/home/sthings/.kube/${CLUSTER_NAME} \
+-e 1.32.1 \
+-e rke2_release_kind=rke2r1
+-vv
+
+# TEST CLUSTER CONNECTION
+export KUBECONFIG=/home/sthings/.kube/${CLUSTER_NAME}
+kubectl get nodes
+```
+
+### DESTROY
+
+```bash
+# INSTALL COLLECTION
+ansible-galaxy collection install https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.1.475.tar.gz/sthings-rke-25.1.475.tar.gz -f 
+
+# CREATE INVENTORY
+cat <<EOF > rke2
+[initial_master_node]
+10.100.136.151
+[additional_master_nodes]
+10.100.136.152
+10.100.136.153
+EOF
+
+ansible-playbook sthings.rke.rke2 \
+-i rke2 \
+-e rke_state=absent \
+-e prepare_rancher_ha_nodes=false \
+ -vv
+```
+
+</details>
+
+</details>
+
 <details><summary>CROSSPLANE - ANSIBLERUN</summary>
 
 ```yaml
