@@ -7,6 +7,42 @@
 
 ### REQUIREMENTS
 
+<details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
+
+```bash
+cat <<EOF > requirements.yaml
+---
+collections:
+  - name: community.crypto
+    version: 2.25.0
+  - name: community.general
+    version: 10.3.1
+  - name: ansible.posix
+    version: 2.0.0
+  - name: kubernetes.core
+    version: 5.0.0
+  - name: community.docker
+    version: 4.4.0
+  - name: community.vmware
+    version: 5.4.0
+  - name: awx.awx
+    version: 24.6.1
+  - name: community.hashi_vault
+    version: 6.2.0
+  - name: ansible.netcommon
+    version: 7.1.0
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.5.499/sthings-container-25.5.499.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.1.682.tar.gz/sthings-baseos-25.1.682.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.5.532.tar.gz/sthings-rke-25.5.532.tar.gz
+EOF
+
+ansible-galaxy collection install -r requirements.yaml -f
+
+pip3 install jmespath kubernetes
+```
+
+</details>
+
 ### EXECUTE BASE RKE2-SETUP 
 
 <details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
