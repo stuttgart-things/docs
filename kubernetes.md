@@ -2,6 +2,33 @@
 
 ## CLUSTER
 
+<details><summary>TALOS (VMWARE)</summary>
+
+[TALOS DOCS (VMWARE)
+](https://www.talos.dev/v1.9/talos-guides/install/virtualized-platforms/vmware/)
+
+### UPLOAD OVA TO VCENTER
+
+```bash
+# SET GOVC VARS
+export GOVC_INSECURE='TRUE'
+export GOVC_URL='https://<USER>:<PW>@10.31.101.51/sdk'
+export GOVC_DATACENTER=LabWhatever
+export CLUSTER_NAME=talos1
+export GOVC_DATASTORE=DD1
+
+# DOWNLOAD TALOS VMWARE SCRIPT
+curl -fsSL "https://raw.githubusercontent.com/siderolabs/talos/master/website/content/v1.9/talos-guides/install/virtualized-platforms/vmware/vmware.sh" | sed s/latest/v1.9.2/ > vmware.sh
+
+# UPLOAD OVA
+export CLUSTER_NAME=talos1
+chmod +x ./vmware.sh
+./vmware.sh upload_ova
+```
+
+</details>
+
+
 <details><summary>K3D</summary>
 
 #### INSTALL K3D
@@ -95,8 +122,6 @@ curl ${EXTERNAL_IP_OF_VM} # e.g. 10.31.103.41 from outside
 ```
 
 </details>
-
-
 
 ## CERTIFICATES
 
