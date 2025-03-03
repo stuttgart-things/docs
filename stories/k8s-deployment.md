@@ -67,3 +67,7 @@ helm upgrade --install headlamp headlamp/headlamp --version 0.28.1 --values head
 ```
 
 </details>
+
+<details><summary>HELMFILE</summary>
+
+</details>
