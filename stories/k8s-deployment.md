@@ -68,6 +68,34 @@ helm upgrade --install headlamp headlamp/headlamp --version 0.28.1 --values head
 
 </details>
 
-<details><summary>HELMFILE</summary>
+<details><summary>CREATING (INCLUDABLE) HELMFILE + VALUE TEMPLATE</summary>
+
+```bash
+# CREATE BRANCH
+task branch
+
+# CREATE APP HELMFILE (EXAMPLE APP/VALUES)
+cat <<EOF > nginx.yaml
+---
+repositories:
+  - name: nginx-stable
+    url: https://charts.bitnami.com/bitnami
+
+releases:
+  - name: nginx
+    namespace: default
+    chart: nginx-stable/nginx
+    version: 15.14.2
+    values:
+      - values/{{ .Values.profile }}.yaml.gotmpl
+EOF
+
+# CREATE APP VALUES (EXAMPLE APP/VALUES)
+cat <<EOF > values/nginx.yaml.gotmpl
+---
+service:
+  type: {{ .Values.serviceType }}
+EOF
+```
 
 </details>
