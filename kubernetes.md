@@ -36,7 +36,7 @@ chmod +x ./vmware.sh
 ```bash
 K3D_VERSION=v5.8.3
 wget https://github.com/k3d-io/k3d/releases/download/${K3D_VERSION}/k3d-linux-amd64
-sudo mv /usr/bin/k3d-linux-amd64 /usr/bin/k3d
+sudo mv k3d-linux-amd64 /usr/bin/k3d
 sudo chmod +x /usr/bin/k3d
 ```
 
@@ -73,6 +73,11 @@ volumes:
 EOF
 k3d cluster create --config k3d-${CLUSTER_NAME}.yaml
 kubectl cluster-info
+
+# CREATE STANDALONE KUBECONFIG
+k3d kubeconfig get dev > ~/.kube/k3d-dev
+
+# MERGE KUBECONFIG INTO EXISTING ONES
 k3d kubeconfig merge k3d-${CLUSTER_NAME} --kubeconfig-switch-context
 kubectl config use-context k3d-${CLUSTER_NAME} && kubectl get nodes
 ```
