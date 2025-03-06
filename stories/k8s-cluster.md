@@ -371,16 +371,23 @@ curl 10.31.103.4 # EXAMPLE IP
 </body>
 </html>
 
+# SET VARS
+ENTRY_ZONE=sthings-vsphere.example.com. # PLEASE MIND THE . AT THE END!
+IP=10.31.103.4 
+HOSTNAME=homerun-int2
+PDNS_URL=https://pdns-vsphere.example.com:8443
+DOMAIN=sthings-vsphere.example.com
+
 # RUN PLAY
 ansible-playbook sthings.baseos.pdns \
--e pdns_url=https://pdns-vsphere.example.com:8443 \
--e entry_zone=sthings-vsphere.example.com. \
--e ip_address=10.31.103.4 \
--e hostname=homerun-int2 \
+-e pdns_url=${PDNS_URL} \
+-e entry_zone=${ENTRY_ZONE} \
+-e ip_address=${IP} \
+-e hostname=${HOSTNAME} \
 -vv
 
 # TEST AGAINST WILDCARD URL (*.CLUSTER-DOMAIN)
-curl test123.homerun-int2.sthings-vsphere.example.com
+curl test.${HOSTNAME}.${DOMAIN}
 
 # ✅ IF NGINX (INGRESS CONTROLLER) IS REPLYING
 <html>
