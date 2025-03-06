@@ -401,7 +401,7 @@ curl test.${HOSTNAME}.${DOMAIN}
 
 </details>
 
-<details><summary>TEST CREATE INGRESS-CERTIFICATES</summary>
+<details><summary>TEST CREATE INGRESS-CERTIFICATE</summary>
 
 requirements:
   - ✅ kubeconfig + kubectl
@@ -409,6 +409,7 @@ requirements:
   - ✅ (cluster-)Issuer configured
 
 ```bash
+# THIS IS JUST A EXAMPLE - YOU DON'T NEED TO DEPLOY KEYCLOAK :-)
 kubectl create ns keycloak
 # EXAMPLE CERT
 kubectl apply -f - <<EOF
