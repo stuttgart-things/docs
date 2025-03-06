@@ -7,6 +7,14 @@
 
 ### REQUIREMENTS
 
+```yaml
+Usecase:
+  - create a shared used cluster in a lab
+  - networking/storage/certificate handling will be deployed after k8s-cluster was created
+requirement:
+  - 1-x vms (base-os already provisioned)
+```
+
 <details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
 
 ```bash
