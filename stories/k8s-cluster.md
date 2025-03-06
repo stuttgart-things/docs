@@ -277,6 +277,7 @@ requirements:
 
 ```bash
 # IF YOU CONNECTED ON THE CLUSTER (SSH)
+sudo chmod 777 /etc/rancher/rke2/rke2.yaml
 export KUBECONFIG=/etc/rancher/rke2/rke2.yaml
 
 CLUSTER_NAME=dev-cluster
