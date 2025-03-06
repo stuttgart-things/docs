@@ -66,6 +66,9 @@ cat <<EOF > rke2
 [additional_master_nodes]
 10.100.136.152
 10.100.136.153
+
+[defaults]
+host_key_checking = False
 EOF
 
 # CREATE CLUSTER
@@ -74,6 +77,7 @@ mkdir -p /home/sthings/.kube/
 
 # CHECK FOR RKE2 RELEASES: https://github.com/rancher/rke2/releases
 
+export ANSIBLE_HOST_KEY_CHECKING=False
 ansible-playbook sthings.rke.rke2 \
 -i rke2 \
 -e rke2_fetched_kubeconfig_path=/home/sthings/.kube/${CLUSTER_NAME} \
