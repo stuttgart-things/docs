@@ -11,6 +11,8 @@ Usecase:
 requirements:
   - ✅ 1-x vms (base-os already provisioned)
 
+### INSTALL REQUIREMENTS 
+
 <details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
 
 ```bash
