@@ -4,16 +4,12 @@
 
 ### OVERVIEW
 
-
-### REQUIREMENTS
-
-```yaml
 Usecase:
-  - create a shared used cluster in a lab
-  - networking/storage/certificate handling will be deployed after k8s-cluster was created
-requirement:
-  - 1-x vms (base-os already provisioned)
-```
+  - create a shared used rke2 cluster (lab based)
+  - networking/dns/storage/certificate handling will be deployed after k8s-cluster was created
+
+requirements:
+  - ✅ 1-x vms (base-os already provisioned)
 
 <details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
 
