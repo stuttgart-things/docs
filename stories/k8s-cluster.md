@@ -78,7 +78,7 @@ ansible-playbook sthings.rke.rke2 \
 -i rke2 \
 -e rke2_fetched_kubeconfig_path=/home/sthings/.kube/${CLUSTER_NAME} \
 -e 1.32.1 \
--e rke2_release_kind=rke2r1
+-e rke2_release_kind=rke2r1 \
 -vv
 
 # TEST CLUSTER CONNECTION
@@ -250,7 +250,7 @@ EOF
 requirements:
   - ✅ machineshop installed
   - ✅ know clusterbook address
-  - ✅ cluster up & running - need ip net e.g. 10.31.103
+  - ✅ cluster up & running - need ip net e.g. 10.31.103 (kubectl get node -> xx.xx.xxx(cut the rest))
   - ✅ clustername for assignment
 
 ```bash
@@ -397,6 +397,7 @@ requirements:
   - ✅ (cluster-)Issuer configured
 
 ```bash
+kubectl create ns keycloak
 # EXAMPLE CERT
 kubectl apply -f - <<EOF
 ---
