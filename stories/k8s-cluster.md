@@ -9,7 +9,7 @@ Usecase:
   - networking/dns/storage/certificate handling will be deployed after k8s-cluster was created
 
 requirements:
-  - ✅ 1-x vms (base-os already provisioned)
+  - ✅ 1-x machines/vms (base-setup for updates/partitioning already provisioned)
 
 ### INSTALL REQUIREMENTS 
 
