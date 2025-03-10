@@ -11,7 +11,7 @@
 ```yaml
 Usecase:
   - ansible (cli) based ansible execution
-  - vm(s) or physical linux system(s)
+  - vm(s) or physical linux system(s) (it does't matter if base-setup was run on the system already or not)
   - ssh access
 
 Requirements:
