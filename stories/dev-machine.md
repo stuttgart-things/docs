@@ -10,6 +10,7 @@
 ```bash
 cat <<EOF > requirements.yaml
 ---
+---
 collections:
   - name: community.crypto
     version: 2.25.0
@@ -29,8 +30,10 @@ collections:
     version: 6.2.0
   - name: ansible.netcommon
     version: 7.1.0
-  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.4.716.tar.gz/sthings-container-25.4.716.tar.gz
-  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.4.1257/sthings-baseos-25.4.1257.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-container-25.4.871.tar.gz/sthings-container-25.4.871.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.3.610/sthings-rke-25.3.610.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-awx-25.4.1409.tar.gz/sthings-awx-25.4.1409.tar.gz
+  - name: https://github.com/stuttgart-things/ansible/releases/download/sthings-baseos-25.1.706.tar.gz/sthings-baseos-25.1.706.tar.gz
 EOF
 
 ansible-galaxy collection install -r requirements.yaml -f
@@ -38,12 +41,25 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 </details>
 
+## OPTIONS
 
-<details><summary><b>INVENTORY</b></summary>
+<details><summary><b>ANSIBLE-CLI</b></summary>
+
+```yaml
+Usecase:
+  - ansible (cli) based ansible execution
+
+Requirements:
+  - ansible
+  - collections installed
+```
+
+<details><summary>INVENTORY</summary>
 
 ```bash
 cat <<EOF > ./inv-dev-vm
-10.100.136.151 #example ip
+# EXAMPLE | CHANGE TO YOUR FQDN/IP
+10.100.136.151 
 [defaults]
 host_key_checking = False
 EOF
@@ -51,22 +67,43 @@ EOF
 
 </details>
 
-## ALL-IN-ONE
 
-<details><summary><b>ANSIBLE-CLI</b></summary>
+<details><summary>VARS</summary>
+
+```bash
+cat <<EOF > ./dev-vars.yaml
+---
+golang_version: 1.24.1
+manage_filesystem: true
+update_packages: true
+install_requirements: true
+install_motd: true
+username: sthings
+lvm_home_sizing: '15%'
+lvm_root_sizing: '35%'
+lvm_root_sizing: '35%'
+lvm_var_sizing: '50%'
+event_author: crossplane
+event_tags: ansible,baseos,crossplane,tekton
+send_to_msteams: true
+reboot_all: false
+EOF
+```
+
+</details>
 
 ```bash
 cat <<EOF > dev-machine.yaml
-- "sthings.baseos.prepare_env"
-- "sthings.baseos.setup"
-- "sthings.baseos.golang"
-- "sthings.baseos.binaries"
-- "sthings.baseos.ansible"
-- "sthings.baseos.pre_commit"
-- "sthings.baseos.semantic_release"
-- "sthings.container.docker"
-- "sthings.container.tools"
-- "sthings.container.nerdctl"
+---
+- import_playbook: "sthings.baseos.setup"
+- import_playbook: "sthings.baseos.golang"
+- import_playbook: "sthings.baseos.binaries"
+- import_playbook: "sthings.baseos.ansible"
+- import_playbook: "sthings.baseos.pre_commit"
+- import_playbook: "sthings.baseos.semantic_release"
+- import_playbook: "sthings.container.docker"
+- import_playbook: "sthings.container.tools"
+- import_playbook: "sthings.container.nerdctl"
 EOF
 
 ansible-playbook -i ./inv-dev-vm dev-machine.yaml -vv
