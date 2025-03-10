@@ -1,15 +1,28 @@
 # DEV-MACHINE
 
-* the following story assums that you are running against a (probably newly created) vm/machine w/ ansible
 * you want to use this machine for development of iac automation / kubernetes based microservice code
+* the following story assums that you are running against a (probably newly created) vm/machine w/ ansible
+* you might want to use vscode remote ssh plugin in combination with a dev machine
 
-## ANSIBLE-REQUIREMENTS
+## OPTIONS
 
-<details><summary><b>COLLECTIONS</b></summary>
+<details><summary>ANSIBLE-CLI</summary>
+
+```yaml
+Usecase:
+  - ansible (cli) based ansible execution
+  - vm(s) or physical linux system(s)
+  - ssh access
+
+Requirements:
+  - ansible
+  - collections installed (see above)
+```
+
+<details><summary><b>REQUIREMENTS/COLLECTIONS</b></summary>
 
 ```bash
 cat <<EOF > requirements.yaml
----
 ---
 collections:
   - name: community.crypto
@@ -40,19 +53,6 @@ ansible-galaxy collection install -r requirements.yaml -f
 ```
 
 </details>
-
-## OPTIONS
-
-<details><summary><b>ANSIBLE-CLI</b></summary>
-
-```yaml
-Usecase:
-  - ansible (cli) based ansible execution
-
-Requirements:
-  - ansible
-  - collections installed
-```
 
 <details><summary>INVENTORY</summary>
 
@@ -92,6 +92,8 @@ EOF
 
 </details>
 
+<details><summary>PLAY</summary>
+
 ```bash
 cat <<EOF > dev-machine.yaml
 ---
@@ -105,9 +107,17 @@ cat <<EOF > dev-machine.yaml
 - import_playbook: "sthings.container.tools"
 - import_playbook: "sthings.container.nerdctl"
 EOF
-
-ansible-playbook -i ./inv-dev-vm dev-machine.yaml -vv
 ```
+
+</details>
+
+<details><summary>EXECUTION</summary>
+
+```bash
+ansible-playbook -i ./inv-dev-vm dev-machine.yaml -e path_to_vars_file=$(pwd)/dev-vars -vv 
+```
+
+</details>
 
 </details>
 
