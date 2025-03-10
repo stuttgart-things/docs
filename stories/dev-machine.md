@@ -6,7 +6,7 @@
 
 ## OPTIONS
 
-<details><summary>ANSIBLE-CLI</summary>
+<details><summary><b>ANSIBLE-CLI</b></summary>
 
 ```yaml
 Usecase:
@@ -19,7 +19,7 @@ Requirements:
   - collections installed (see above)
 ```
 
-<details><summary><b>REQUIREMENTS/COLLECTIONS</b></summary>
+<details><summary>REQUIREMENTS/COLLECTIONS</summary>
 
 ```bash
 cat <<EOF > requirements.yaml
