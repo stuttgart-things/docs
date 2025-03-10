@@ -1,7 +1,7 @@
 # DEV-MACHINE
 
 * you want to use this machine for development of iac automation / kubernetes based microservice code
-* the following story assums that you are running against a (probably newly created) vm/machine w/ ansible
+* the following story assumes that you are running against a (probably newly created) vm/machine w/ ansible
 * you might want to use vscode remote ssh plugin in combination with a dev machine
 
 ## OPTIONS
@@ -11,7 +11,7 @@
 ```yaml
 Usecase:
   - ansible (cli) based ansible execution
-  - vm(s) or physical linux system(s) (it does't matter if base-setup was run on the system already or not)
+  - vm(s) or physical linux system(s) (it doesn't matter if base-setup was run on the system already or not)
   - ssh access
 
 Requirements:
