@@ -41,6 +41,13 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 <details><summary><b>INVENTORY</b></summary>
 
+```bash
+cat <<EOF > ./inv-dev-vm
+10.100.136.151 #example ip
+[defaults]
+host_key_checking = False
+EOF
+```
 
 </details>
 
@@ -48,10 +55,24 @@ ansible-galaxy collection install -r requirements.yaml -f
 
 <details><summary><b>ANSIBLE-CLI</b></summary>
 
+```bash
+cat <<EOF > dev-machine.yaml
+- "sthings.baseos.prepare_env"
+- "sthings.baseos.setup"
+- "sthings.baseos.golang"
+- "sthings.baseos.binaries"
+- "sthings.baseos.ansible"
+- "sthings.baseos.pre_commit"
+- "sthings.baseos.semantic_release"
+- "sthings.container.docker"
+- "sthings.container.tools"
+- "sthings.container.nerdctl"
+EOF
+
+ansible-playbook -i ./inv-dev-vm dev-machine.yaml -vv
+```
 
 </details>
-
-
 
 <details><summary><b>CROSSPLANE - AnsibleRun</b></summary>
 
