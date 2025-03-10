@@ -4,6 +4,29 @@
 * the following story assumes that you are running against a (probably newly created) vm/machine w/ ansible
 * you might want to use vscode remote ssh plugin in combination with a dev machine
 
+<details><summary><b>Vscode Remote SSH Plugin</b></summary>
+
+[remote/ssh](https://code.visualstudio.com/docs/remote/ssh)
+
+```bash
+Host devmachine-t4.example.com
+     AddKeysToAgent yes
+     HostName devmachine-t4.example.com
+     User sthings
+     ForwardAgent yes
+     StrictHostKeyChecking no
+     User sthings
+     IdentityFile /Users/sthings/.ssh/id_rsa
+     Port 22
+     Protocol 2
+     ServerAliveInterval 60
+     ServerAliveCountMax 30
+     SetEnv NAME=patrick
+```
+
+</details>
+
+
 ## OPTIONS
 
 <details><summary><b>ANSIBLE-CLI</b></summary>
