@@ -1,5 +1,20 @@
 # CLUSTER LIFECYCLE
 
+## TESTING (LOCAL) CLUSTER
+
+### OVERVIEW
+
+Usecase:
+  - create a local testing cluster
+
+requirements:
+  - ✅ 1-x machines/vms (base-setup for updates/partitioning already provisioned)
+
+### CREATE KIND CLUSTER
+
+
+
+
 ## SHARED (LAB) CLUSTER
 
 ### OVERVIEW
