@@ -104,7 +104,6 @@ install_motd: true
 username: sthings
 lvm_home_sizing: '15%'
 lvm_root_sizing: '35%'
-lvm_root_sizing: '35%'
 lvm_var_sizing: '50%'
 event_author: crossplane
 event_tags: ansible,baseos,crossplane,tekton
