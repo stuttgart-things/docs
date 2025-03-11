@@ -2,6 +2,27 @@
 
 ## SNIPPETS
 
+<details><summary><b>DEPLOY CUSTOM ENGINE</b></summary>
+
+[custom-ca](https://docs.dagger.io/configuration/custom-ca)
+[connection-interface](https://docs.dagger.io/configuration/custom-runner/#connection-interface)
+
+```bash
+## STOP ANY EXISTING/RUNNING ENGINE(S) w/ DOCKER STOP.. 
+
+docker run -d --rm \
+-v /var/lib/dagger \
+-v /usr/local/share/ca-certificates/:/usr/local/share/ca-certificates/ \
+--name dagger-engine-custom \
+--privileged \
+registry.dagger.io/engine:v0.16.2
+
+export _EXPERIMENTAL_DAGGER_RUNNER_HOST=docker-container://$(docker ps -qf "name=dagger-engine-custom")
+```
+
+</details>
+
+
 <details><summary><b>CALL HELP FUNCTION (OF SUBCOMMAND)</b></summary>
 
 ```bash
