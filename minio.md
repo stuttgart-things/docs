@@ -53,7 +53,7 @@ mc cp toolkit.zip play/ankit
 <details><summary><b>MC CONFIG (EXAMPLE)</b></summary>
 
 ```json
-# cat ~/.mc/config.json
+cat << EOF> ~/.mc/config.json
 {
   "version": "10",
   "aliases": {
@@ -73,6 +73,7 @@ mc cp toolkit.zip play/ankit
     }
   }
 }
+EOF
 ```
 
 </details>
