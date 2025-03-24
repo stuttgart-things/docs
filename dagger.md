@@ -2,6 +2,17 @@
 
 ## SNIPPETS
 
+<details><summary><b>TROUBLESHOOTING</b></summary>
+
+```bash
+# ERROR
+rpc error: code = NotFound desc = socket /run/user/1112/vscode-ssh-auth-sock-713734249 not found
+# SOLUTION
+unset SSH_AUTH_SOCK
+```
+
+</details>
+
 <details><summary><b>DEPLOY CUSTOM ENGINE</b></summary>
 
 [custom-ca](https://docs.dagger.io/configuration/custom-ca)
@@ -21,7 +32,6 @@ export _EXPERIMENTAL_DAGGER_RUNNER_HOST=docker-container://$(docker ps -qf "name
 ```
 
 </details>
-
 
 <details><summary><b>CALL HELP FUNCTION (OF SUBCOMMAND)</b></summary>
 
