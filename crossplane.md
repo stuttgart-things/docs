@@ -26,8 +26,7 @@ kubectl --namespace komoplane port-forward $POD_NAME 8090:$CONTAINER_PORT
 <details><summary><b>CONVERT COMPOSITION FROM RESOURCE TO PIPELINE</b></summary>
 
 ```bash
-crossplane beta convert pipeline-composition apis/composition.yaml -o apis/pi
-peline-composition.yaml
+crossplane beta convert pipeline-composition apis/composition.yaml -o apis/pipeline-composition.yaml
 ```
 
 </details>
