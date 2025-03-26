@@ -111,10 +111,10 @@ helmfiles:
       - clusterIssuer: selfsigned
       - issuerKind: cluster-issuer
       - hostname: argocd
-      - domain: ${DOMAIN)
+      - domain: ${DOMAIN}
       - ingressClassName: nginx
-      - adminPassword: ${adminPassword)
-      - adminPasswordMTime: ${adminPasswordMTime)
+      - adminPassword: ${adminPassword}
+      - adminPasswordMTime: ${adminPasswordMTime}
       - enableAvp: false
 EOF
 
