@@ -46,7 +46,7 @@ nodes:
 EOF
 
 mkdir -p ~/.kube || true
-kind create cluster --name maverick --config argocd-cluster.yaml --kubeconfig ~/.kube/argocd
+kind create cluster --name argocd --config argocd-cluster.yaml --kubeconfig ~/.kube/argocd
 ```
 
 </details>
@@ -100,6 +100,28 @@ kind create cluster --name maverick --config test-cluster.yaml --kubeconfig ~/.k
 ```
 
 </details>
+
+
+<details><summary>CREATE PROJECTS</summary>
+
+Needed for:
+* Team Isolation – Different teams (frontend/backend) have their own projects.
+* Security & Compliance – Restrict deployments to certain namespaces/clusters.
+* Deployment Scheduling – Block deployments during maintenance windows.
+* Multi-Cluster Management – Deploy the same app to different regions.
+
+```bash
+
+```
+
+</details>
+
+
+
+
+
+
+
 
 <details><summary>ADD CLUSTER w/ MANIFEST</summary>
 
