@@ -46,9 +46,8 @@ nodes:
 EOF
 
 mkdir -p ~/.kube || true
+sudo systemctl restart containerd
 kind create cluster --name argocd --config argocd-cluster.yaml --kubeconfig ~/.kube/argocd
-
-
 ```
 
 </details>
