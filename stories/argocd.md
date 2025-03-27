@@ -84,6 +84,7 @@ helmfiles:
       - config: selfsigned
 EOF
 
+export KUBECONFIG=~/.kube/kind-argocd
 helmfile apply -f cluster-infra.yaml || true
 helmfile sync -f cluster-infra.yaml
 ```
@@ -117,6 +118,7 @@ helmfiles:
       - enableAvp: false
 EOF
 
+export KUBECONFIG=~/.kube/kind-argocd
 helmfile template -f argocd.yaml # RENDER ONLY
 helmfile apply -f argocd.yaml # APPLY HELMFILE
 ```
