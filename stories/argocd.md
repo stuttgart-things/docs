@@ -212,6 +212,22 @@ Needed for:
 
 </details>
 
+<details><summary>ADD GIT REPOSIORIES</summary>
+
+```bash
+
+```
+
+</details>
+
+<details><summary>ADD HELM REPOSIORIES</summary>
+
+```bash
+
+```
+
+</details>
+
 ## APPLICATIONS
 
 <details><summary>GIT-SOURCE</summary>
@@ -223,6 +239,14 @@ Needed for:
 </details>
 
 <details><summary>HELM-REPO-SOURCE</summary>
+
+```bash
+
+```
+
+</details>
+
+<details><summary>KUSTOMIZE</summary>
 
 ```bash
 
