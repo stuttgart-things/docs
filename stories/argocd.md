@@ -67,26 +67,33 @@ helmDefaults:
 helmfiles:
   - path: git::https://github.com/stuttgart-things/helm.git@infra/cilium.yaml
     values:
-      - version: 1.17.1
       - config: kind
+      - configureLB: true
       - ipRangeStart: 172.18.250.0
       - ipRangeEnd: 172.18.250.50
-      - clusterName: {{ .clusterName }}
+      - clusterName: argocd
 
   - path: git::https://github.com/stuttgart-things/helm.git@infra/ingress-nginx.yaml
     values:
       - enableHostPort: true
-      - version: 4.12.0
 
   - path: git::https://github.com/stuttgart-things/helm.git@infra/cert-manager.yaml
     values:
-      - version: v1.17.1
       - config: selfsigned
 EOF
 
 export KUBECONFIG=~/.kube/kind-argocd
-helmfile apply -f cluster-infra.yaml || true
-helmfile sync -f cluster-infra.yaml
+export HELMFILE_CACHE_HOME=/tmp/helmfile/argocd-cache
+
+helmfile init --force
+
+for cmd in apply sync; do
+  for i in {1..8}; do
+    helmfile -f cluster-infra.yaml $cmd && break
+    [ $i -eq 8 ] && exit 1
+    sleep 15
+  done
+done
 ```
 
 </details>
