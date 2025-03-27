@@ -111,12 +111,8 @@ echo ${DOMAIN}
 # GENERATE PASSWORD (CHANGE Test2025! IF YOU LIKE)
 sudo apt -y install apache2-utils
 
-# SET PW
-PW='What3ver2025!'
-
 # GEN PW HASES
-adminPassword=$(openssl passwd -5 "$PW" | tr -d '\n')
-echo "$adminPassword"
+adminPassword=$(htpasswd -nbBC 10 "" 'Test2025!' | tr -d ':\n')
 adminPasswordMTime=$(echo $(date +%FT%T%Z))
 
 cat <<EOF > argocd.yaml
@@ -138,10 +134,10 @@ EOF
 export KUBECONFIG=~/.kube/kind-argocd
 helmfile template -f argocd.yaml # RENDER ONLY
 helmfile apply -f argocd.yaml # APPLY HELMFILE
+until kubectl wait --for=condition=Ready --all pods -n argocd --timeout=0s >/dev/null 2>&1; do gum spin --title "Waiting for ArgoCD pods..." -- sleep 5; done
 
 kubectl get po -n argocd
 kubectl get ing -n argocd
-watch curl -k https://argocd.${DOMAIN}
 
 # ADD LOCALHOST ENTRY
 echo ADD THIS TO YOUR LAPTOPS HOSTS FILE!
@@ -156,7 +152,7 @@ echo $(hostname -I | awk '{print $1}') argocd.${DOMAIN}
 LOCAL_IP=$(hostname -I | awk '{print $1}')
 HOST_PORT=$(echo $(( RANDOM % (36443 - 30000 + 1) + 30000 )))
 
-cat <<EOF > /tmp/test-cluster.yaml
+cat <<EOF > test-cluster.yaml
 ---
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -166,36 +162,43 @@ networking:
   kubeProxyMode: none
 nodes:
   - role: control-plane
-    image: kindest/node:v1.32.2
-    kubeadmConfigPatches:
-      - |
-        kind: InitConfiguration
-        nodeRegistration:
-          kubeletExtraArgs:
-            node-labels: "ingress-ready=true"
+    image: kindest/node:v1.32.3
     extraPortMappings:
       - containerPort: 6443
         hostPort: ${HOST_PORT}
         protocol: TCP
   - role: worker
-    image: kindest/node:v1.32.2
+    image: kindest/node:v1.32.3
     extraMounts:
       - hostPath: /mnt/data-node1  # Host directory to mount
         containerPath: /data       # Mount path inside the KinD node
 EOF
 
-mkdir -p ~/.kube || true
-kind create cluster --name maverick --config /tmp/test-cluster.yaml --kubeconfig ~/.kube/kind-maverick
+sudo sysctl fs.inotify.max_user_watches=524288
+sudo sysctl fs.inotify.max_user_instances=512
+kind create cluster --name maverick --config test-cluster.yaml --kubeconfig ~/.kube/kind-maverick
+kubectl get nodes --kubeconfig ~/.kube/kind-maverick
 ```
 
 </details>
 
 ## MANAGE CLUSTERS
 
-<details><summary>ADD CLUSTER w/ CLI</summary>
+<details><summary>ADD TEST CLUSTER w/ CLI</summary>
+
+### LOGIN w/ CLI
 
 ```bash
+export KUBECONFIG=~/.kube/argocd
+DOMAIN=$(echo $(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io)
+argocd login argocd.${DOMAIN}:443 --insecure
+```
 
+### ADD TEST CLUSTER
+
+```bash
+export KUBECONFIG=~/.kube/kind-maverick
+argocd cluster add $(kubectl config current-context) --name maverick --grpc-web
 ```
 
 </details>
