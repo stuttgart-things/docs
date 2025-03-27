@@ -83,7 +83,7 @@ helmfiles:
 EOF
 
 export KUBECONFIG=~/.kube/kind-argocd
-export HELMFILE_CACHE_HOME=/tmp/helmfile/argocd-cache
+export HELMFILE_CACHE_HOME=/tmp/helmfile-cacher/argocd
 
 helmfile init --force
 
@@ -94,6 +94,9 @@ for cmd in apply sync; do
     sleep 15
   done
 done
+
+# CHECK FOR NGINX (INGRESS) NOT FOUND PAGE
+curl $(hostname -f)
 ```
 
 </details>
@@ -102,11 +105,18 @@ done
 
 ```bash
 # OUTPUT INGRESS DOMAIN
-DOMAIN=$(echo *.$(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io)
+DOMAIN=$(echo $(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io)
+echo ${DOMAIN}
 
 # GENERATE PASSWORD (CHANGE Test2025! IF YOU LIKE)
 sudo apt -y install apache2-utils
-adminPassword=$(htpasswd -nbBC 10 "" 'Test2025!' | tr -d ':\n')
+
+# SET PW
+PW='What3ver2025!'
+
+# GEN PW HASES
+adminPassword=$(openssl passwd -5 "$PW" | tr -d '\n')
+echo "$adminPassword"
 adminPasswordMTime=$(echo $(date +%FT%T%Z))
 
 cat <<EOF > argocd.yaml
@@ -128,6 +138,14 @@ EOF
 export KUBECONFIG=~/.kube/kind-argocd
 helmfile template -f argocd.yaml # RENDER ONLY
 helmfile apply -f argocd.yaml # APPLY HELMFILE
+
+kubectl get po -n argocd
+kubectl get ing -n argocd
+watch curl -k https://argocd.${DOMAIN}
+
+# ADD LOCALHOST ENTRY
+echo ADD THIS TO YOUR LAPTOPS HOSTS FILE!
+echo $(hostname -I | awk '{print $1}') argocd.${DOMAIN}
 ```
 
 </details>
