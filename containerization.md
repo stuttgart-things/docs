@@ -196,6 +196,117 @@ sudo nerdctl run eu.gcr.io/stuttgart-things/wled-informer:0.1 --platform=arm64
 
 ## IMAGE HANDLING
 
+<details><summary>HARBOR PULL THROUGH MIRROR</summary>
+
+### HARBOR DEPLOYMENT
+
+```bash
+cat <<EOF > ./harbor.yaml
+adminPassword: whatever
+clusterDomain: example.com
+exposureType: ingress
+externalURL: harbor.example.com
+global:
+  defaultStorageClass: nfs4-csi
+  storageClass: nfs4-csi
+ingress:
+  core:
+    annotations:
+      cert-manager.io/cluster-issuer: cluster-issuer-approle
+      ingress.kubernetes.io/proxy-body-size: "0"
+      ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    extraTls:
+    - hosts:
+      - harbor.example.com
+      secretName: harbor.example.com-tls
+    hostname: harbor.example.com
+    ingressClassName: nginx
+    tls: true
+ipFamily:
+  ipv4:
+    enabled: true
+  ipv6:
+    enabled: false
+persistence:
+  enabled: true
+  persistentVolumeClaim:
+    jobservice:
+      size: 1Gi
+    registry:
+      size: 12Gi
+    trivy:
+      size: 5Gi
+  resourcePolicy: ""
+service:
+  type: ClusterIP
+EOF
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm upgrade --install harbor -n harbor --create-namespace --values values.yaml --version 24.4.1 bitnami/harbor
+
+```
+
+### CREATE DOCKER PROXY MIRROR
+
+* Go to the Registries tab.
+* Create the endpoint for Dockerhub
+* Create a new proxy cache project (e.g. name: docker) using the registry
+
+### TEST DOCKER MIRROR
+
+```bash
+# THIS IS A LOCAL TEST IF THE MIRROR (named docker) IS WORKING
+docker pull harbor.example/docker/nginx:1.26.3-alpine
+```
+
+### DEPLOY PROXY
+
+```bash
+cat <<EOF > ./mirror.yaml
+---
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: docker.harbor.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+   - secretName: docker-mirror
+     hosts:
+       - docker.harbor.example.com
+EOF
+
+helm upgrade --install harbor-mirror oci://ghcr.io/hiddenmarten/harbor-project-proxy --values mirror.yaml -n harbor
+```
+
+### CREATE DOCKER REGISTRY MIRROR
+
+[proxy-cache-harbor](https://felipetrindade.com/proxy-cache-harbor/)
+[harbor-project-proxy](https://github.com/hiddenmarten/harbor-project-proxy/tree/main)
+[proxy-issue](https://github.com/goharbor/harbor/issues/8082)
+
+```bash
+sudo cat <<EOF > /etc/docker/daemon.json
+{
+  "registry-mirrors": ["https://docker.harbor.example.com"],
+  "group": "dockerroot"
+}
+EOF
+
+sudo systemctl restart docker
+```
+
+
+</details>
+
 <details><summary>PULL IMAGES W/ CTR</summary>
 
 ```bash
