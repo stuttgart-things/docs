@@ -217,7 +217,7 @@ Needed for:
 ```bash
 # CREATE APP PROJECT FOR TEST CLUSTER
 
-SERVER_NAME=MAVERICK
+CLUSTER_NAME=MAVERICK
 export KUBECONFIG=~/.kube/kind-maverick
 SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
 
@@ -225,7 +225,7 @@ cat <<EOF > test-cluster-project.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: ${SERVER_NAME}
+  name: ${CLUSTER_NAME}
   namespace: argocd
 spec:
   clusterResourceBlacklist:
@@ -234,9 +234,9 @@ spec:
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
-  description: ${SERVER_NAME} cluster
+  description: ${CLUSTER_NAME} cluster
   destinations:
-    - name: ${SERVER_NAME}
+    - name: ${CLUSTER_NAME}
       namespace: '*'
       server: ${SERVER_URL}
   namespaceResourceBlacklist:
@@ -256,20 +256,65 @@ kubectl apply -f test-cluster-project.yaml
 
 </details>
 
+<details><summary>CREATE HELM BASED APPLICATION</summary>
+
+```bash
+CLUSTER_NAME=MAVERICK
+export KUBECONFIG=~/.kube/kind-maverick
+SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
+
+export KUBECONFIG=~/.kube/kind-argocd
+kubectl apply -f - <<EOF
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: vault
+    server: ${SERVER_URL}
+  source:
+    path: ''
+    repoURL: https://helm.releases.hashicorp.com
+    targetRevision: 0.25.0
+    chart: vault
+    helm:
+      values: |
+        injector:
+          enabled: false
+        server:
+          enabled: true
+        csi:
+          enabled: true
+  sources: []
+  project: ${CLUSTER_NAME}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: null
+EOF
+```
+
+</details>
 
 
 
-
-
-
-
-<details><summary>ADD CLUSTER w/ MANIFEST</summary>
+<details><summary>ADD GIT REPOSIORY</summary>
 
 ```bash
 
 ```
 
 </details>
+
+
+
+
+
+
 
 <details><summary>PROJECTS</summary>
 
@@ -279,13 +324,7 @@ kubectl apply -f test-cluster-project.yaml
 
 </details>
 
-<details><summary>ADD GIT REPOSIORIES</summary>
 
-```bash
-
-```
-
-</details>
 
 <details><summary>ADD HELM REPOSIORIES</summary>
 
