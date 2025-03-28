@@ -280,6 +280,53 @@ SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
 
 # CREATE APPLICATION
 export KUBECONFIG=~/.kube/kind-argocd
+
+kubectl apply -f - <<EOF
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: kube-system
+    server: ${SERVER_URL}
+  source:
+    path: ''
+    repoURL: https://helm.cilium.io
+    targetRevision: 1.17.2
+    chart: cilium
+    helm:
+      values: |
+        autoDirectNodeRoutes: true
+        devices:
+        - eth0
+        - net0
+        externalIPs:
+          enabled: true
+        ipv4NativeRoutingCIDR: 10.244.0.0/16
+        k8sServiceHost: maverick-control-plane
+        k8sServicePort: 6443
+        kubeProxyReplacement: true
+        l2announcements:
+          enabled: true
+          leaseDuration: 3s
+          leaseRenewDeadline: 1s
+          leaseRetryPeriod: 500ms
+        operator:
+          replicas: 1
+        routingMode: native
+  sources: []
+  project: ${CLUSTER_NAME}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    automated: null
+EOF
+
+# DEPLOY VAULT
 kubectl apply -f - <<EOF
 ---
 apiVersion: argoproj.io/v1alpha1
