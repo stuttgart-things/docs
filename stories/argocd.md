@@ -318,9 +318,7 @@ FOLLOW-UP-STEPS:
 
 </details>
 
-<details><summary>CREATE GIT BASED APPLICATION</summary>
-
-<details><summary>ADD MANIFESTS TO GITREPO</summary>
+<details><summary>PREPARATION/OPTIONAL: ADD EXAMPLE MANIFESTS TO A GITREPO</summary>
 
 PREPARATION-STEPS:
 * CREATE PERSONAL GIT REPO (SCM YOUR CHOICE)
@@ -405,27 +403,48 @@ FOLLOW-UP-STEPS:
 
 </details>
 
-
-</details>
-
-
-
-
-
-
-
-
-
-
-
-<details><summary>PROJECTS</summary>
+<details><summary>CREATE GIT/PATH-BASED APPLICATION</summary>
 
 ```bash
+# CREATE APPLICATION
+export KUBECONFIG=~/.kube/kind-argocd
 
+kubectl apply -f - <<EOF
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: deployment-tekton-pipelines # EXAMPLE - CHANGE TO YOURS
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: tekton-pipelines # EXAMPLE - CHANGE TO YOURS
+    server: 'https://kubernetes.default.svc' # EXAMPLE - CHANGE TO YOURS
+  source:
+    path: apps/tekton # EXAMPLE - CHANGE TO YOURS
+    repoURL: 'https://github.com/stuttgart-things/tekton.git' # EXAMPLE - CHANGE TO YOURS
+    targetRevision: HEAD # EXAMPLE - CHANGE TO YOURS
+    directory:
+      recurse: true
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+EOF
 ```
 
-</details>
+VERIFY-STEPS:
+* CHECK ARGOCD GUI FOR APPLICATION STATE AND SYNC APP MANUALY
+* CHECK w/ KUBECONFIG APPLICATION STATE ON ARGOCD CLUSTER (kubectl get application -n argocd)
+* CHECK w/ KUBECONFIG APPLICATION STATE ON TESTING CLUSTER (kubectl get po -n <NAMESPACEXY>)
 
+FOLLOW-UP-STEPS:
+* UPDATE APP IN GIT AND SEE WHAT HAPPENS :-)
+
+</details>
 
 
 <details><summary>ADD HELM REPOSIORIES</summary>
