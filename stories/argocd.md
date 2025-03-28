@@ -476,6 +476,8 @@ FOLLOW-UP-STEPS:
 # CREATE APPLICATION
 export KUBECONFIG=~/.kube/kind-argocd
 
+# PLEASE REPLACE THE DUMMY VALUES w/ YOUR REPO/PATH/PROJECT/NAMESPACE
+
 kubectl apply -f - <<EOF
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -495,7 +497,7 @@ spec:
     directory:
       recurse: true
   sources: []
-  project: default
+  project: default # EXAMPLE - CHANGE TO YOURS
   syncPolicy:
     automated:
       prune: true
