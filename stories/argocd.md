@@ -272,6 +272,8 @@ FOLLOW-UP-STEPS:
 
 <details><summary>CREATE HELM BASED APPLICATION</summary>
 
+### DEPLOY CILIUM
+
 ```bash
 # SET TESTING CLUSTER INFORMATION
 CLUSTER_NAME=maverick
@@ -325,8 +327,19 @@ spec:
       - CreateNamespace=false
     automated: null
 EOF
+```
 
-# DEPLOY VAULT
+### DEPLOY VAULT
+
+```bash
+# SET TESTING CLUSTER INFORMATION
+CLUSTER_NAME=maverick
+export KUBECONFIG=~/.kube/kind-maverick
+SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
+
+# CREATE APPLICATION
+export KUBECONFIG=~/.kube/kind-argocd
+
 kubectl apply -f - <<EOF
 ---
 apiVersion: argoproj.io/v1alpha1
