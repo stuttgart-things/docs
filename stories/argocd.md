@@ -329,7 +329,7 @@ spec:
 EOF
 ```
 
-### DEPLOY VAULT
+### DEPLOY CERT-MANAGER
 
 ```bash
 # SET TESTING CLUSTER INFORMATION
@@ -345,32 +345,28 @@ kubectl apply -f - <<EOF
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vault
+  name: cert-manager
   namespace: argocd
 spec:
   destination:
     name: ''
-    namespace: vault
+    namespace: cert-manager
     server: ${SERVER_URL}
   source:
     path: ''
-    repoURL: https://helm.releases.hashicorp.com
-    targetRevision: 0.25.0
-    chart: vault
+    repoURL: https://charts.jetstack.io
+    targetRevision: v1.17.1
+    chart: cert-manager
     helm:
       values: |
-        injector:
-          enabled: false
-        server:
-          enabled: true
-        csi:
+        crds:
           enabled: true
   sources: []
   project: ${CLUSTER_NAME}
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-    automated: null
+    automated: true
 EOF
 ```
 
