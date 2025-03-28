@@ -1,6 +1,22 @@
 # HOW TO ARGOCD
 
+Goal: Deploy and manage applications using GitOps principles with ArgoCD on KinD clusters.
+
+```bash
+Key Features Demonstrated:
+✅ GitOps Workflow (Git as source of truth)
+✅ Multi-Cluster Management
+✅ Automated Sync + Self-Healing
+✅ Secure Secrets Handling (bcrypt, cert-manager)
+```
+
 ## DEPLOYMENT
+
+argocd cluster (control plane + workers) with:
+* Custom networking (CNI disabled)
+* Ingress-ready nodes
+* Persistent storage mounts
+* maverick test cluster (for deployment targets)
 
 <details><summary>CREATE ARGOCD KIND TESTING CLUSTER (KIND)</summary>
 
@@ -54,6 +70,10 @@ kind create cluster --name argocd --config argocd-cluster.yaml --kubeconfig ~/.k
 
 <details><summary>DEPLOY CLUSTER-INFRA (KIND)</summary>
 
+Helmfile-based:
+* Installs Cilium (CNI), Ingress-Nginx, and Cert-Manager
+* Automated retry logic (helmfile apply/sync)
+
 ```bash
 cat <<EOF > cluster-infra.yaml
 ---
@@ -102,6 +122,11 @@ sleep 30 && curl $(hostname -f)
 </details>
 
 <details><summary>DEPLOY ARGOCD (KIND)</summary>
+
+Customized Deployment:
+* Secure admin password (bcrypt-hashed)
+* Ingress configured with Let's Encrypt/cert-manager
+* Self-signed certs for local development
 
 ```bash
 # OUTPUT INGRESS DOMAIN
@@ -189,6 +214,10 @@ kubectl get nodes --kubeconfig ~/.kube/kind-maverick
 
 ## MANAGE CLUSTERS
 
+Adding Clusters:
+* Register external clusters (argocd cluster add)
+* Projects for RBAC (whitelist/blacklist resources)
+
 <details><summary>ADD TEST CLUSTER w/ CLI</summary>
 
 ### LOGIN w/ CLI
@@ -269,6 +298,13 @@ FOLLOW-UP-STEPS:
 </details>
 
 ## DEPLOY APPLICATIONS
+
+Methods:
+* Helm Charts (from repositories like helm.cilium.io)
+* Git Repositories (raw manifests or Helm charts in Git)
+* Sync Policies:
+  * Automated sync with pruning/self-healing
+  * Manual sync for control
 
 <details><summary>CREATE HELM BASED APPLICATION</summary>
 
