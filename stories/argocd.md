@@ -96,7 +96,7 @@ for cmd in apply sync; do
 done
 
 # CHECK FOR NGINX (INGRESS) NOT FOUND PAGE
-curl $(hostname -f)
+sleep 30 && curl $(hostname -f)
 ```
 
 </details>
@@ -105,6 +105,8 @@ curl $(hostname -f)
 
 ```bash
 # OUTPUT INGRESS DOMAIN
+export KUBECONFIG=~/.kube/kind-argocd
+
 DOMAIN=$(echo $(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io)
 echo ${DOMAIN}
 
