@@ -1,4 +1,4 @@
-# ARGOCD
+# HOW TO ARGOCD
 
 ## DEPLOYMENT
 
