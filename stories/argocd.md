@@ -222,7 +222,7 @@ Needed for:
 ```bash
 # CREATE APP PROJECT FOR TEST CLUSTER
 
-CLUSTER_NAME=MAVERICK
+CLUSTER_NAME=maverick
 export KUBECONFIG=~/.kube/kind-maverick
 SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
 
