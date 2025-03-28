@@ -179,6 +179,9 @@ EOF
 sudo sysctl fs.inotify.max_user_watches=524288
 sudo sysctl fs.inotify.max_user_instances=512
 kind create cluster --name maverick --config test-cluster.yaml --kubeconfig ~/.kube/kind-maverick
+
+# REPLACE IP IN KUBECONFIG
+sed -i "s|server: https://0\.0\.0\.0:|server: https://$LOCAL_IP:|g" ~/.kube/kind-maverick
 kubectl get nodes --kubeconfig ~/.kube/kind-maverick
 ```
 
