@@ -318,15 +318,99 @@ FOLLOW-UP-STEPS:
 
 </details>
 
+<details><summary>CREATE GIT BASED APPLICATION</summary>
 
+<details><summary>ADD MANIFESTS TO GITREPO</summary>
 
-<details><summary>ADD GIT REPOSIORY</summary>
+PREPARATION-STEPS:
+* CREATE PERSONAL GIT REPO (SCM YOUR CHOICE)
+* CLONE REPO TO LOCAL
 
 ```bash
+cd <REPO-DIR>
+mkdir nginx
 
+cat <<EOF > nginx/manifests.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP  # Change to NodePort or LoadBalancer if needed
+EOF
 ```
 
+FOLLOW-UP-STEPS:
+* COMMIT FOLDER TO YOUR REPO/BRANCH
+
 </details>
+
+<details><summary>ADD GIT-REPOSIORY TO ARGOCD</summary>
+
+```bash
+# CREATE APPLICATION
+export KUBECONFIG=~/.kube/kind-argocd
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+stringData:
+  password: "" # BASIC TOKEN IF REPO NOT PUBLIC
+  project: maverick # EXAMPLE - CHANGE TO YOURS
+  type: git
+  url: https://github.com/stuttgart-things/helm.git # EXAMPLE - CHANGE TO YOURS
+  username: "" # USERNAME IF REPO NOT PUBLIC
+kind: Secret
+metadata:
+  annotations:
+    managed-by: argocd.argoproj.io
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: repo-helm  # EXAMPLE - CHANGE TO YOURS
+  namespace: argocd
+type: Opaque
+EOF
+```
+
+FOLLOW-UP-STEPS:
+* CHECK ON ARGOCD GUI FOR GIT-REPOSITORY
+
+</details>
+
+
+</details>
+
+
+
+
 
 
 
