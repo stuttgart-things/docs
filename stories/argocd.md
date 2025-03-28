@@ -47,7 +47,7 @@ EOF
 
 mkdir -p ~/.kube || true
 sudo systemctl restart containerd
-kind create cluster --name argocd --config argocd-cluster.yaml --kubeconfig ~/.kube/argocd
+kind create cluster --name argocd --config argocd-cluster.yaml --kubeconfig ~/.kube/kind-argocd
 ```
 
 </details>
@@ -189,7 +189,7 @@ kubectl get nodes --kubeconfig ~/.kube/kind-maverick
 ### LOGIN w/ CLI
 
 ```bash
-export KUBECONFIG=~/.kube/argocd
+export KUBECONFIG=~/.kube/kind-argocd
 DOMAIN=$(echo $(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io)
 argocd login argocd.${DOMAIN}:443 --insecure
 ```
@@ -204,7 +204,7 @@ argocd cluster add $(kubectl config current-context) --name maverick --grpc-web
 </details>
 
 
-<details><summary>CREATE PROJECTS</summary>
+<details><summary>CREATE APP PROJECTS</summary>
 
 Needed for:
 * Team Isolation – Different teams (frontend/backend) have their own projects.
@@ -212,8 +212,46 @@ Needed for:
 * Deployment Scheduling – Block deployments during maintenance windows.
 * Multi-Cluster Management – Deploy the same app to different regions.
 
-```bash
+### PROJECT FOR TEST CLUSTER (ALL PRIVILIDGES)
 
+```bash
+# CREATE APP PROJECT FOR TEST CLUSTER
+
+SERVER_NAME=MAVERICK
+export KUBECONFIG=~/.kube/kind-maverick
+SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
+
+cat <<EOF > test-cluster-project.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ${SERVER_NAME}
+  namespace: argocd
+spec:
+  clusterResourceBlacklist:
+    - group: ""
+      kind: ""
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  description: ${SERVER_NAME} cluster
+  destinations:
+    - name: ${SERVER_NAME}
+      namespace: '*'
+      server: ${SERVER_URL}
+  namespaceResourceBlacklist:
+    - group: ""
+      kind: ""
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  sourceRepos:
+    - '*'
+EOF
+
+# APPLY TO ARGOCD
+export KUBECONFIG=~/.kube/kind-argocd
+kubectl apply -f test-cluster-project.yaml
 ```
 
 </details>
