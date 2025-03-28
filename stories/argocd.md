@@ -262,6 +262,8 @@ FOLLOW-UP-STEPS:
 
 </details>
 
+## DEPLOY APPLICATIONS
+
 <details><summary>CREATE HELM BASED APPLICATION</summary>
 
 ```bash
@@ -446,7 +448,7 @@ FOLLOW-UP-STEPS:
 
 </details>
 
-
+<!---
 <details><summary>ADD HELM REPOSIORIES</summary>
 
 ```bash
@@ -480,3 +482,4 @@ FOLLOW-UP-STEPS:
 ```
 
 </details>
+-->
