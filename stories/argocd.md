@@ -259,10 +259,12 @@ kubectl apply -f test-cluster-project.yaml
 <details><summary>CREATE HELM BASED APPLICATION</summary>
 
 ```bash
+# SET TESTING CLUSTER INFORMATION
 CLUSTER_NAME=MAVERICK
 export KUBECONFIG=~/.kube/kind-maverick
 SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
 
+# CREATE APPLICATION
 export KUBECONFIG=~/.kube/kind-argocd
 kubectl apply -f - <<EOF
 ---
@@ -297,6 +299,15 @@ spec:
     automated: null
 EOF
 ```
+
+VERIFY-SETPS:
+* CHECK ARGOCD GUI FOR APPLICATION STATE AND SYNC APP MANUALY
+* CHECK w/ KUBECONFIG APPLICATION STATE ON ARGOCD CLUSTER (kubectl get application -n argocd)
+* CHECK w/ KUBECONFIG APPLICATION STATE ON TESTING CLUSTER (kubectl get po -n vault)
+
+FOLLOWOING STEPS-SETPS:
+* DELETE APP WITH GUI
+* ADD APP WITH GUI (INSERT MANIFEST), UPDATE SYNC POLICY TO AUOTMATIC
 
 </details>
 
