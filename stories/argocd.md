@@ -274,7 +274,7 @@ FOLLOW-UP-STEPS:
 
 ```bash
 # SET TESTING CLUSTER INFORMATION
-CLUSTER_NAME=MAVERICK
+CLUSTER_NAME=maverick
 export KUBECONFIG=~/.kube/kind-maverick
 SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
 
