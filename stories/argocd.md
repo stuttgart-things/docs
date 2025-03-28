@@ -366,7 +366,10 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-    automated: true
+    automated:
+      prune: true       # Delete resources when removed from Git
+      selfHeal: true   # Automatically revert manual changes
+      allowEmpty: false # Prevent sync when manifests are empty
 EOF
 ```
 
