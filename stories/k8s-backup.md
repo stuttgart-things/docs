@@ -86,7 +86,7 @@ helmfiles:
 EOF
 
 # REPLACE
-sed -i "s|\\\${PUB_CA}|${PUB_CA}|g" minio.yaml
+sed -i "s|\\\${PUB_CA}|${PUB_CA}|g" velero.yaml
 
 # DEPLOY VELERO
 helmfile sync -f velero.yaml
