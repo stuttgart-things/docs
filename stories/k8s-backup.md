@@ -10,6 +10,8 @@ Key Features:
 
 <details><summary>(OPTIONAL) DEPLOY MINIO (KIND)</summary>
 
+## DEPLOY MINIO
+
 this step assumes you have a kind cluster running with enabled cni, ingress-controller and cert-manager. 
 The example could be also used on a different kind of kubernetes cluster with configured cert-manager and ingress-controller.
 
@@ -40,7 +42,23 @@ sed -i "s|\\\${INGRESS_DOMAIN}|${INGRESS_DOMAIN}|g" minio.yaml
 helmfile apply -f minio.yaml
 ```
 
+## CREATE A BUCKET FOR VELERO
+
+```bash
+kubectl get ingress -A | grep console
+# USE WITH BROWSER AND CREATE BUCKET: VELERO
+```
+
 </details>
+
+<details><summary>INSTALL VELERO CLI</summary>
+
+```bash
+
+```
+
+</details>
+
 
 <details><summary>DEPLOY VELERO (KIND)</summary>
 
