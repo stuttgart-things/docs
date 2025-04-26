@@ -150,5 +150,22 @@ velero restore create demo-restore \
 
 ## KASTEN(K10)
 
+<details><summary>INSTALL CSI-SNAPSHOTTER </summary>
+
+```bash
+kubectl apply -k https://github.com/kubernetes-csi/external-snapshotter/client/config/crd
+```
+
+</details>
+
+<details><summary>INSTALL CSI HOST-PATH DRIVER</summary>
+
+```bash
+git clone https://github.com/kubernetes-csi/csi-driver-host-path.git
+bash csi-driver-host-path/deploy/kubernetes-1.31/deploy.sh 
+```
+
+</details>
+
 
 
