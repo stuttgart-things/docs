@@ -175,3 +175,4 @@ kubectl apply -f csi-driver-host-path/examples/csi-storageclass.yaml
 </details>
 
 https://documentation.suse.com/trd/veeam/html/gs_rancher_veeam-kasten/index.html#id-installing-kasten-k10
+https://patriciocerda.com/?p=1561
