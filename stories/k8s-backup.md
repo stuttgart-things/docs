@@ -59,7 +59,6 @@ kubectl get ingress -A | grep console
 
 </details>
 
-
 <details><summary>DEPLOY VELERO (KIND)</summary>
 
 ```bash
@@ -147,7 +146,6 @@ velero restore create demo-restore \
 
 </details>
 
-
 ## KASTEN(K10)
 
 <details><summary>INSTALL CSI-SNAPSHOTTER </summary>
@@ -163,9 +161,17 @@ kubectl apply -k https://github.com/kubernetes-csi/external-snapshotter/client/c
 ```bash
 git clone https://github.com/kubernetes-csi/csi-driver-host-path.git
 bash csi-driver-host-path/deploy/kubernetes-1.31/deploy.sh 
+kubectl apply -f csi-driver-host-path/examples/csi-storageclass.yaml
 ```
 
 </details>
 
+<details><summary>DEPLOY KASTEN (CLUSTER)</summary>
 
+```bash
 
+```
+
+</details>
+
+https://documentation.suse.com/trd/veeam/html/gs_rancher_veeam-kasten/index.html#id-installing-kasten-k10
