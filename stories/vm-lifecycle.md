@@ -2,7 +2,7 @@
 
 ## CROSSPLANE + TEKTON
 
-<details><summary>DEPLOYMENT OPENEBS, CROSSPLANE + TEKTON</summary>
+<details><summary>OPENEBS, CROSSPLANE + TEKTON DEPLOYMENT</summary>
 
 ```bash
 cat <<EOF > crossplane-tekton.yaml
@@ -48,9 +48,93 @@ helmfile sync -f crossplane-tekton.yaml # APPLY HELMFILE # APPLY HELMFILE
 
 </details>
 
+<details><summary>CROSSPLANE CONFIGURATION</summary>
 
-<details><summary>CONFIGURATION CROSSPLANE</summary>
+```bash
+kubectl apply -f - <<EOF
+---
+# NAMESPACE DEFINTION FOR PROXMOX
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: proxmox
+---
+# NAMESPACE DEFINTION FOR VSPHERE
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vsphere
+---
+apiVersion: tf.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: vsphere-vm
+spec:
+  configuration: |
+    terraform {
+      backend "kubernetes" {
+        secret_suffix     = "vsphere-vm-tfstate" # pragma: allowlist secret
+        namespace         = "crossplane-system"
+        in_cluster_config = true
+      }
+    }
+---
+apiVersion: tf.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: proxmox-vm
+spec:
+  configuration: |
+    terraform {
+      backend "kubernetes" {
+        secret_suffix     = "proxmox-vm-tfstate" # pragma: allowlist secret
+        namespace         = "crossplane-system"
+        in_cluster_config = true
+      }
+    }
+---
+apiVersion: tf.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  configuration: |
+    terraform {
+      backend "kubernetes" {
+        secret_suffix     = "default" # pragma: allowlist secret
+        namespace         = "crossplane-system"
+        in_cluster_config = true
+      }
+    }
+  pluginCache: true
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: kubernetes-incluster
+spec:
+  credentials:
+    source: InjectedIdentity
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: function-go-templating
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/function-go-templating:v0.9.2
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: function-patch-and-transform
+spec:
+  package: xpkg.upbound.io/crossplane-contrib/function-patch-and-transform:v0.8.2
+EOF
+```
 
-
+```bash
+SA=$(kubectl -n crossplane-system get sa -o name | grep provider-kubernetes | sed -e 's|serviceaccount\/|crossplane-system:|g')
+kubectl create clusterrolebinding provider-kubernetes-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}"
+```
 
 </details>
