@@ -218,4 +218,22 @@ type: Opaque
 EOF
 ```
 
+#### VAULT
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+data:
+  VAULT_ADDR: ""
+  VAULT_NAMESPACE: cm9vdA==
+  VAULT_ROLE_ID: ""
+  VAULT_SECRET_ID: ""
+kind: Secret
+metadata:
+  name: vault
+  namespace: tekton-pipelines
+type: Opaque
+EOF
+```
+
 </details>
