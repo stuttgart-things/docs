@@ -60,6 +60,8 @@ sudo systemctl restart containerd
 kind create cluster --name dev --config dev-cluster.yaml --kubeconfig ~/.kube/kind-dev
 ```
 
+</details>
+
 <details><summary>DEPLOY CLUSTER-INFRA</summary>
 
 Helmfile-based:
