@@ -95,7 +95,7 @@ helmfiles:
 EOF
 
 export KUBECONFIG=~/.kube/kind-dev
-export HELMFILE_CACHE_HOME=/tmp/helmfile-cache/kind-dev
+export HELMFILE_CACHE_HOME=/tmp/helm-cache/kind-dev
 
 helmfile init --force
 
