@@ -53,17 +53,50 @@ helmfile sync -f crossplane-tekton.yaml # APPLY HELMFILE # APPLY HELMFILE
 ```bash
 kubectl apply -f - <<EOF
 ---
-# NAMESPACE DEFINTION FOR PROXMOX
 apiVersion: v1
 kind: Namespace
 metadata:
   name: proxmox
 ---
-# NAMESPACE DEFINTION FOR VSPHERE
 apiVersion: v1
 kind: Namespace
 metadata:
   name: vsphere
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: vspherevm-ansible-run
+spec:
+  package: ghcr.io/stuttgart-things/crossplane/vsphere-vm-ansible:v0.1.0
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: proxmox-vm
+spec:
+  package: ghcr.io/stuttgart-things/crossplane/proxmox-vm:v0.3.0
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: ansible-run
+spec:
+  package: ghcr.io/stuttgart-things/crossplane/ansible-run:v0.3.0
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: proxmox-vm-ansible
+spec:
+  package: ghcr.io/stuttgart-things/crossplane/proxmox-vm-ansible:v0.1.0
+---
+apiVersion: pkg.crossplane.io/v1
+kind: Configuration
+metadata:
+  name: vsphere-vm
+spec:
+  package: ghcr.io/stuttgart-things/crossplane/vsphere-vm:v0.1.0
 ---
 apiVersion: tf.upbound.io/v1beta1
 kind: ProviderConfig
@@ -135,6 +168,54 @@ EOF
 ```bash
 SA=$(kubectl -n crossplane-system get sa -o name | grep provider-kubernetes | sed -e 's|serviceaccount\/|crossplane-system:|g')
 kubectl create clusterrolebinding provider-kubernetes-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}"
+```
+
+</details>
+
+<details><summary>CROSSPLANE SECRETS</summary>
+
+#### VSPHERE
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+data:
+  terraform.tfvars: $(cat <<EOVARS | base64 -w0
+vsphere_user = ""
+vsphere_password = ""
+vm_ssh_user = ""
+vm_ssh_password = ""
+vsphere_server = ""
+EOVARS
+)
+kind: Secret
+metadata:
+  name: vsphere-tfvars
+  namespace: crossplane-system
+type: Opaque
+EOF
+```
+
+#### PROXMOX
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+data:
+  terraform.tfvars: $(cat <<EOVARS | base64 -w0
+pve_api_url = ""
+pve_api_user = ""
+pve_api_password = ""
+vm_ssh_user = ""
+vm_ssh_password = ""
+EOVARS
+)
+kind: Secret
+metadata:
+  name: proxmox-tfvars
+  namespace: crossplane-system
+type: Opaque
+EOF
 ```
 
 </details>
