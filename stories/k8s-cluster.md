@@ -12,12 +12,107 @@ requirements:
 
 ### CREATE KIND CLUSTER
 
+<details><summary>KIND CLUSTER w/ INGRESS CONTROLLER</summary>
 
+```bash
+cat <<EOF > dev-cluster.yaml
+---
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  disableDefaultCNI: true
+  kubeProxyMode: none
+nodes:
+  - role: control-plane
+    image: kindest/node:v1.33.0
+    kubeadmConfigPatches:
+      - |
+        kind: InitConfiguration
+        nodeRegistration:
+          kubeletExtraArgs:
+            node-labels: "ingress-ready=true"
+    extraPortMappings:
+      - containerPort: 80
+        hostPort: 80
+        protocol: TCP
+      - containerPort: 443
+        hostPort: 443
+        protocol: TCP
+  - role: worker
+    image: kindest/node:v1.33.0
+    extraMounts:
+      - hostPath: /mnt/data-node1  # Host directory to mount
+        containerPath: /data       # Mount path inside the KinD node
+  - role: worker
+    image: kindest/node:v1.33.0
+    extraMounts:
+      - hostPath: /mnt/data-node2  # Host directory to mount
+        containerPath: /data       # Mount path inside the KinD node
+  - role: worker
+    image: kindest/node:v1.33.0
+    extraMounts:
+      - hostPath: /mnt/data-node3  # Host directory to mount
+        containerPath: /data       # Mount path inside the KinD node
+EOF
 
+mkdir -p ~/.kube || true
+sudo systemctl restart containerd
+kind create cluster --name dev --config dev-cluster.yaml --kubeconfig ~/.kube/kind-dev
+```
 
-## SHARED (LAB) CLUSTER
+<details><summary>DEPLOY CLUSTER-INFRA</summary>
 
-### OVERVIEW
+Helmfile-based:
+* Installs Cilium (CNI), Ingress-Nginx, and Cert-Manager
+* Automated retry logic (helmfile apply/sync)
+
+```bash
+cat <<EOF > cluster-infra.yaml
+---
+helmDefaults:
+  verify: false
+  wait: true
+  timeout: 600
+  recreatePods: false
+  force: true
+
+helmfiles:
+  - path: git::https://github.com/stuttgart-things/helm.git@infra/cilium.yaml
+    values:
+      - config: kind
+      - configureLB: true
+      - ipRangeStart: 172.18.250.0
+      - ipRangeEnd: 172.18.250.50
+      - clusterName: dev
+
+  - path: git::https://github.com/stuttgart-things/helm.git@infra/ingress-nginx.yaml
+    values:
+      - enableHostPort: true
+
+  - path: git::https://github.com/stuttgart-things/helm.git@infra/cert-manager.yaml
+    values:
+      - config: selfsigned
+EOF
+
+export KUBECONFIG=~/.kube/kind-dev
+export HELMFILE_CACHE_HOME=/tmp/helmfile-cache/kind-dev
+
+helmfile init --force
+
+for cmd in apply sync; do
+  for i in {1..8}; do
+    helmfile -f cluster-infra.yaml $cmd && break
+    [ $i -eq 8 ] && exit 1
+    sleep 15
+  done
+done
+```
+
+</details>
+
+### SHARED (LAB) CLUSTER
+
+#### OVERVIEW
 
 Usecase:
   - create a shared used rke2 cluster (lab based)
