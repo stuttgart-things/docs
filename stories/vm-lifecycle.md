@@ -250,3 +250,29 @@ EOF
 ```
 
 </details>
+
+<details><summary>OPTIONAL: ADD EXTERAL CLUSTER BY KUBECONFIG</summary>
+
+```bash
+# KUBECONFIG MUST EXIST ON DISK
+kubectl -n crossplane-system \
+create secret generic fluxdev3 \
+--from-file=kubeconfig=/home/sthings/.kube/fluxdev3
+
+kubectl apply -f - <<EOF
+---
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: fluxdev3
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: fluxdev3
+      key: kubeconfig
+EOF
+```
+
+</details>
