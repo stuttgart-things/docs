@@ -273,6 +273,21 @@ spec:
       name: fluxdev3
       key: kubeconfig
 EOF
+
+kubectl apply -f - <<EOF
+---
+apiVersion: helm.crossplane.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: fluxdev3
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: fluxdev3
+      key: kubeconfig
+EOF
 ```
 
 </details>
