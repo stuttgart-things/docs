@@ -2,6 +2,49 @@
 
 ## SNIPPETS
 
+<details><summary><b>PERSIST CONTAINER STATE OVER MULTIPLE CI-STEPS</b></summary>
+
+```go
+// MOUNT BUILDDIR AND SET WORKING DIRECTORY
+base := m.container(packerVersion, arch).
+    WithMountedDirectory("/src", buildDir).
+    WithWorkdir("/src")
+
+// RUN PACKER INIT AND PERSIST CONTAINER STATE
+initContainer := base.WithExec([]string{"packer", "init", "hello.pkr.hcl"})
+
+// OPTIONALLY GET INIT OUTPUT (FROM A SEPARATE EXECUTION)
+initOut, err := initContainer.WithExec([]string{"packer", "version"}).Stdout(ctx)
+if err != nil {
+    panic(fmt.Errorf("failed to verify init: %w", err))
+}
+fmt.Println("Init complete - Packer version:", initOut)
+```
+
+</details>
+
+
+
+<details><summary><b>BROWSE DAGGER DIRECTORY</b></summary>
+
+```go
+// CLONE
+repoContent, err := m.ClonePrivateRepo(ctx, repoURL, branch, token)
+if err != nil {
+	fmt.Errorf("failed to clone repo: %w", err)
+}
+
+// BROWSE
+entries, err := repoContent.Entries(ctx)
+if err != nil {
+    panic(err)
+}
+fmt.Println("Top-level entries:", entries)
+```
+
+</details>
+
+
 <details><summary><b>TROUBLESHOOTING</b></summary>
 
 ```bash
