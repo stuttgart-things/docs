@@ -551,6 +551,130 @@ FOLLOW-UP-STEPS:
 
 </details>
 
+<details><summary>CREATE GIT/PATH-BASED APPLICATION w/ APPSET FROM PRIVATE REPO</summary>
+
+#### CREATE PRIVATE REPO - PLEASE REPLACE THE DUMMY VALUES w/ YOUR REPO/PATH/PROJECT/NAMESPACE/CREDENTIALS
+
+```bash
+export KUBECONFIG=~/.kube/kind-argocd
+kubectl apply -f - <<EOF
+---
+apiVersion: v1
+stringData:
+  password: ""
+  project: default # EXAMPLE - CHANGE TO YOURS
+  type: git
+  url: https://github.com/stuttgart-things/stuttgart-things.git
+  username: ""
+kind: Secret
+metadata:
+  annotations:
+    managed-by: argocd.argoproj.io
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: stuttgart-things # EXAMPLE - CHANGE TO YOURS
+  namespace: argocd
+type: Opaque
+EOF
+```
+
+#### CREATE APPLICATION FOR APPSET
+
+```bash
+export KUBECONFIG=~/.kube/kind-argocd
+kubectl apply -f - <<EOF
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apps-configuration
+  namespace: argocd
+spec:
+  destination:
+    name: in-cluster # EXAMPLE - CHANGE TO YOURS
+    namespace: argocd
+  source:
+    path: clusters/kind/machinery/apps # EXAMPLE - CHANGE TO YOURS
+    repoURL: 'https://github.com/stuttgart-things/stuttgart-things.git'
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  sources: []
+  project: in-cluster # EXAMPLE - CHANGE TO YOURS
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+EOF
+```
+
+#### CREATE APPSET 
+
+```bash
+export KUBECONFIG=~/.kube/kind-argocd
+
+cat <<EOF > apps-appset.yaml
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+        - app: crossplane
+          project: in-cluster
+          namespace: crossplane-system
+          targetRevision: 1.19.0
+          repoURL: https://charts.crossplane.io/stable
+          destination: in-cluster
+          appValues: |
+            ---
+            args:
+              - '--debug'
+              - '--enable-usages'
+              - '--enable-external-secret-stores'
+            provider:
+              packages:
+                - xpkg.upbound.io/crossplane-contrib/provider-helm:v0.20.4
+                - xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.17.1
+  template:
+    metadata:
+      name: '{{ .app }}-{{ .destination }}'
+    spec:
+      project: '{{ .project }}'
+      source:
+        repoURL: '{{ .repoURL }}'
+        chart: '{{ .app }}'
+        targetRevision: '{{ .targetRevision }}'
+        helm:
+          releaseName: '{{ .app }}-{{ .project }}'
+          values: |
+            {{ .appValues }}
+          skipCrds: false
+      destination:
+        name: '{{ .destination }}'
+        namespace: '{{ .namespace }}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
+EOF
+
+# COMMIT TO GIT
+```
+
+</details>
+
+
+
+
 <!---
 <details><summary>ADD HELM REPOSIORIES</summary>
 

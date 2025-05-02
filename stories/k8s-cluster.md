@@ -55,8 +55,8 @@ nodes:
         containerPath: /data       # Mount path inside the KinD node
 EOF
 
-mkdir -p ~/.kube || true
 sudo systemctl restart containerd
+mkdir -p ~/.kube || true
 kind create cluster --name dev --config dev-cluster.yaml --kubeconfig ~/.kube/kind-dev
 ```
 
