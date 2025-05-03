@@ -409,6 +409,71 @@ spec:
 EOF
 ```
 
+#### DEPLOY CLUSTERISSUER
+
+```bash
+export KUBECONFIG=~/.kube/kind-maverick
+
+kubectl apply -f - <<EOF
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned
+spec:
+  selfSigned: {}
+EOF
+```
+
+### DEPLOY INGRESS-NGINX
+
+```bash
+# SET TESTING CLUSTER INFORMATION
+CLUSTER_NAME=maverick
+export KUBECONFIG=~/.kube/kind-maverick
+SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
+
+# CREATE APPLICATION
+export KUBECONFIG=~/.kube/kind-argocd
+
+kubectl apply -f - <<EOF
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: ingress-nginx
+    server: ${SERVER_URL}
+  source:
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.0.13
+    chart: ingress-nginx
+    helm:
+      values: |
+        controller:
+          replicaCount: 2
+          service:
+            type: NodePort
+            nodePorts:
+              http: 30080
+              https: 30443
+          ingressClassResource:
+            name: nginx
+            controllerValue: "k8s.io/ingress-nginx"
+  project: ${CLUSTER_NAME}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+EOF
+```
+
 VERIFY-STEPS:
 * CHECK ARGOCD GUI FOR APPLICATION STATE AND SYNC APP MANUALY
 * CHECK w/ KUBECONFIG APPLICATION STATE ON ARGOCD CLUSTER (kubectl get application -n argocd)
