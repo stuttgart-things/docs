@@ -168,8 +168,35 @@ kubectl apply -f csi-driver-host-path/examples/csi-storageclass.yaml
 
 <details><summary>DEPLOY KASTEN (CLUSTER)</summary>
 
-```bash
+[htpasswd-generato](https://hostingcanada.org/htpasswd-generator/)
 
+```bash
+cat <<EOF > k10.yaml
+---
+ingress:
+  create: true
+  enabled: true
+  class: nginx
+  host: k10.automation.example.com
+  tls:
+    enabled: true
+    secretName: k10-tls
+
+auth:
+  basicAuth:
+    enabled: true
+    htpasswd: sthings:$apr#...
+EOF
+```
+
+```bash
+helm repo add kasten https://charts.kasten.io/
+helm upgrade --install k10 \
+kasten/k10 \
+--version 7.5.10 \
+--values k10.yaml \
+--namespace k10 \
+--create-namespace
 ```
 
 </details>
