@@ -13,16 +13,18 @@ class = "hotpink"
 background = "#FF4081"
 +++
 
-# AGENDA
+{{< slide id=agenda background-color="#FFD8B1" type="slide" transition="zoom" transition-speed="fast" >}}
+
+{{% section %}}
+
+## /AGENDA
+
+<img src="https://attachments-cdn-s.coub.com/coub_storage/coub/simple/cw_timeline_pic/7e14911f5a8/c1bec6bfed315483bad44/med_1587503875_image.jpg" alt="Alt Text" width="700"/>
+
 
 * KUBERNETES BACKUP <!-- .element: class="fragment fade-up" -->
 * VELERO <!-- .element: class="fragment fade-up" -->
 * KASTEN (K10)<!-- .element: class="fragment fade-up" -->
 * COMPARISON <!-- .element: class="fragment fade-up" -->
 
----
-
-## /BACKUP
-[<img src="https://miro.medium.com/v2/resize:fit:934/0*xgCTrk6NbQGdv_qF.jpeg" width="700"/>](https://www.sva.de/index.html) <!-- .element: class="fragment fade-up" -->
----
-
+{{% /section %}}
