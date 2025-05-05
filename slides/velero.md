@@ -1,24 +1,111 @@
 +++
 weight = 20
 +++
-{{< slide id=velero >}}
 
-## /VELERO
-* open-source Kubernetes backup/restore tool maintained by VMWare
-* complete application backups, disaster recovery, and Kubernetes migration
+{{< slide id=velero background-color="#D4B9FF" type="slide" transition="zoom" transition-speed="fast" >}}
+
+{{% section %}}
+
+# /VELERO
+- open-source kubernetes backup/restore tool maintained by vmware
+- complete application backups, disaster recovery, and kubernetes migration
 
 ---
 
-# BACKUP/RESTORE-EXAMPLE
+## /FEATURES
 
-```
-velero backup create demo-backup --include-namespaces demo-ns
+- Backups: Snapshot cluster resources and persistent volumes.
+- Restores: Restore from backups, including specific resources or namespaces.
+- Schedules: Automate backups on a schedule (e.g., daily, weekly).
+- Volume Snapshots: Integrates with cloud provider snapshot APIs (or Restic for generic PV backup).
+- Cluster Migration: Move workloads between clusters or across cloud regions/providers.
+
+---
+
+## /PLATFORMS
+
+| Platform         | Notes                                                         |
+| ---------------- | ------------------------------------------------------------- |
+| **Azure AKS**    | Uses Azure Disk snapshots and Azure Blob snapshots               |
+| **VMware Tanzu** | Full support with vSphere CSI snapshots (vSphere 7+)          |
+| **OpenShift**    | Fully supported (Red Hat OpenShift is Kubernetes-compatible)  |
+| **Rancher**      | Fully supported                                               |
+
+---
+
+## /On-Prem / Self-Hosted Kubernetes
+Works on any bare-metal or on-prem cluster using:
+
+- CSI volume snapshots (if configured)
+- Restic for generic volume backup
+- Object storage backend (e.g., MinIO, Ceph RGW)
+
+---
+
+## /Is NFS supported?
+🔴 Not directly supported as a backup target.
+Velero requires an object storage backend (e.g. S3, GCS, Azure Blob). NFS is not an object store.
+
+🟡 Workaround:
+You can use NFS with Velero indirectly by Restic integration (Velero can back up volumes to object storage like MinIO, while volumes use NFS).
+
+---
+
+## BackupStorageLocation
+
+```yaml
+apiVersion: velero.io/v1
+kind: BackupStorageLocation
+metadata:
+  name: azure-backup
+  namespace: velero
+spec:
+  provider: azure
+  objectStorage:
+    bucket: velero-container  # The Azure Blob container name
+  config:
+    resourceGroup: velero-rg
+    storageAccount: velerostorage
 ```
 
+---
+
+## /USAGE CLI
+
+```bash
+velero backup create demo-backup \
+--include-namespaces demo-ns
 ```
+
+```bash
 velero restore create demo-restore \
 --from-backup demo-backup \
 --namespace-mappings demo-ns:new-demo-ns
 ```
 
 ---
+
+# USAGE CUSTOM-RESOURCES (YAML)
+
+```yaml
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  name: cluster-backup
+spec:
+  includedNamespaces:
+    - kube-system
+    - my-app
+  storageLocation: azure-backup
+  snapshotVolumes: true
+  ttl: 168h # 7 days
+  hooks:
+    resources:
+      - name: pre-backup-hook
+        includedNamespaces:
+          - my-app
+        includedResources:
+          - pods
+```
+
+{{% /section %}}
