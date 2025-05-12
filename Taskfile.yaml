@@ -13,17 +13,21 @@ tasks:
     desc: Watch files in presentation/ and rerun task serve on changes
     cmds:
       - |
-        find presentations/dagger -type f | entr -r task serve
+        find {{ .presentation }} -type f | entr -r task serve
     silent: true
+    vars:
+      presentation: presentations/devops
 
   serve:
     desc: Run dev server
     cmds:
       - |
         dagger call -m github.com/stuttgart-things/dagger/hugo@v0.10.0 serve \
-        --config presentations/dagger/hugo.toml \
-        --content presentations/dagger \
+        --config {{ .presentation }}/hugo.toml \
+        --content {{ .presentation }} \
         up --progress plain
+    vars:
+      presentation: presentations/devops
 
   do:
     desc: Select a task to run
