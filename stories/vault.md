@@ -128,3 +128,132 @@ done
 ```
 
 </details>
+
+## APPLY VAULT CONFIGURATION
+
+<details><summary><b>APPLY w/ TERRAFOM</b></summary>
+
+```bash
+cat <<EOF > vault-setup.tf
+module "vault-secrets-setup" {
+  source                   = "github.com/stuttgart-things/vault-base-setup"
+  kubeconfig_path          = var.kubeconfig_path
+  context                  = var.context
+  vault_addr               = var.vault_addr
+  cluster_name             = var.cluster_name
+  createDefaultAdminPolicy = true
+  csi_enabled              = false
+  vso_enabled              = false
+  enableApproleAuth        = true
+  skip_tls_verify          = true
+  approle_roles            = var.approle_roles
+  secret_engines           = var.secret_engines
+  kv_policies              = var.kv_policies
+}
+
+  output "role_ids" {
+    description = "Role IDs from the vault approle module"
+    value       = module.vault-secrets-setup.role_id
+  }
+
+  output "secret_ids" {
+    description = "Secret IDs from the vault approle module"
+    value       = module.vault-secrets-setup.secret_id
+    sensitive   = true
+  }
+
+  variable "kubeconfig_path" {
+    type        = string
+    description = "Path to the kubeconfig file"
+  }
+
+  variable "context" {
+    type        = string
+    description = "Kubernetes context to use"
+  }
+
+  variable "vault_addr" {
+    type        = string
+    description = "Address of the Vault server"
+  }
+
+  variable "cluster_name" {
+    type        = string
+    description = "Name of the Kubernetes cluster"
+  }
+
+  variable "approle_roles" {
+    type = list(object({
+      name           = string
+      token_policies = list(string)
+    }))
+  }
+
+  variable "secret_engines" {
+    type = list(object({
+      path        = string
+      name        = string
+      description = string
+      data_json   = string
+    }))
+  }
+
+  variable "kv_policies" {
+    type = list(object({
+      name         = string
+      capabilities = string
+    }))
+  }
+EOF
+
+
+```bash
+cat <<EOF > terraform.tfvars.json
+{
+  "approle_roles": [
+    {
+      "name": "test",
+      "token_policies": ["cloud"]
+    }
+  ],
+  "secret_engines": [
+    {
+      "path": "cloud",
+      "name": "test",
+      "description": "test app secrets",
+      "data_json": "{\"username\": \"andre\", \"password\": \"test123\"}"
+    }
+  ],
+  "kv_policies": [
+    {
+      "name": "cloud",
+      "capabilities": "path \"cloud/data/test\" {\n  capabilities = [\"create\", \"read\", \"update\", \"patch\", \"list\"]\n}"
+    }
+  ]
+}
+EOF
+```
+
+```bash
+export KUBECONFIG=~/.kube/vault-cluster-config # aDD PATH TO KUBECONFIG VAULT IS DEPLYOED ON
+LOG_FILE="vault-init-dev.log" # MUST EXIST (FROM UNSEAL)
+
+CONTEXT=$(kubectl config current-context)
+NAME=$(kubectl config view -o json | jq -r ".contexts[] | select(.name==\"$CONTEXT\") | .name")
+CLUSTER=$(kubectl config view -o json | jq -r ".contexts[] | select(.name==\"$CONTEXT\") | .context.cluster")
+DOMAIN=$(echo $(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io)
+
+export TF_VAR_kubeconfig_path=${KUBECONFIG}
+export TF_VAR_context=${NAME}
+export TF_VAR_vault_addr=https://vault.${DOMAIN}
+export TF_VAR_cluster_name=${CLUSTER}
+export VAULT_TOKEN=$(grep -oE '\bhvs\.[A-Za-z0-9_-]{24,}\b' ${LOG_FILE})
+
+terraform init
+
+terraform apply --auto-approve
+terraform output -json >> ${LOG_FILE}
+cat ${LOG_FILE}
+```
+
+</details>
