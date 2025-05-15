@@ -133,6 +133,8 @@ done
 
 <details><summary><b>APPLY w/ TERRAFOM</b></summary>
 
+<details><summary><b>CREATE/EDIT TERRAFORM FILES</b></summary>
+
 ```bash
 cat <<EOF > vault-setup.tf
 module "vault-secrets-setup" {
@@ -205,7 +207,7 @@ module "vault-secrets-setup" {
     }))
   }
 EOF
-
+```
 
 ```bash
 cat <<EOF > terraform.tfvars.json
@@ -234,6 +236,28 @@ cat <<EOF > terraform.tfvars.json
 EOF
 ```
 
+</details>
+
+<details><summary><b>OPTIONAL: INSTALL VAULT PUCB CERT ON OS</b></summary>
+
+```bash
+# UBUNTU24
+
+# GET/EXTRACT SECRET FROM CLUSTER
+kubectl -n vault get secret vault.172.18.0.5.nip.io-tls -o json | jq -r '.data["ca.crt"]' | base64 --decode > /tmp/vault.172.18.0.5.nip.io.crt
+
+# INSTALL CERT
+sudo cp vault.172.18.0.5.nip.io.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+
+# CHECK
+ls /etc/ssl/certs/ | grep vault.172.18.0.5.nip.io # -> expected to find vault.172.18.0.5.nip.io.pem file
+```
+
+</details>
+
+<details><summary><b>EXECUTE TERRAFORM</b></summary>
+
 ```bash
 export KUBECONFIG=~/.kube/vault-cluster-config # aDD PATH TO KUBECONFIG VAULT IS DEPLYOED ON
 LOG_FILE="vault-init-dev.log" # MUST EXIST (FROM UNSEAL)
@@ -247,7 +271,7 @@ export TF_VAR_kubeconfig_path=${KUBECONFIG}
 export TF_VAR_context=${NAME}
 export TF_VAR_vault_addr=https://vault.${DOMAIN}
 export TF_VAR_cluster_name=${CLUSTER}
-export VAULT_TOKEN=$(grep -oE '\bhvs\.[A-Za-z0-9_-]{24,}\b' ${LOG_FILE})
+export VAULT_TOKEN=$(grep -oE '\bhvs\.[A-Za-z0-9_-]{24,}\b' ${LOG_FILE} | head -n 1)
 
 terraform init
 
@@ -257,3 +281,6 @@ cat ${LOG_FILE}
 ```
 
 </details>
+
+</details>
+
