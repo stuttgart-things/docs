@@ -35,9 +35,9 @@ spec:
     server: ${SERVER_URL}
   source:
     path: ''
-    repoURL: registry-1.docker.io/bitnamicharts
+    repoURL: registry-1.docker.io
     targetRevision: 1.7.0
-    chart: bitnami/vault
+    chart: bitnamicharts/vault
     helm:
       values: |
         server:
