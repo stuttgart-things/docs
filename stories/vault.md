@@ -133,6 +133,11 @@ done
 
 <details><summary><b>APPLY w/ TERRAFOM</b></summary>
 
+REQUIREMENTS:
+✅ Kind Cluster w/ conifgured CNI/Cert-Manager/Ingress Controller
+✅ Vault deployed + unsealed + token
+✅ terrafom installed
+
 <details><summary><b>CREATE/EDIT TERRAFORM FILES</b></summary>
 
 ```bash
