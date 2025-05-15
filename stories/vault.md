@@ -32,6 +32,8 @@ helmfile apply -f vault.yaml
 
 ## UNSEAL VAULT
 
+<details><summary><b>UNSEAL w/ KUBECTL</b></summary>
+
 ```bash
 # LOG FULL OUTPUT TO FILE
 LOG_FILE="vault-init-dev.log"
@@ -68,3 +70,5 @@ for i in {0..2}; do
   kubectl -n vault exec vault-server-0 -- vault operator unseal "${UNSEAL_KEYS[$i]}"
 done
 ```
+
+</details>
