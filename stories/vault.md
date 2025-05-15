@@ -4,6 +4,12 @@
 
 <details><summary><b>DEPLOY w/ HELMFILE ON KIND</b></summary>
 
+REQUIREMENTS:
+
+✅ Kind CLuster w/ conifgured CNI/Cert-Manager/Ingress Controller
+✅ helmfile, kubectl installed
+
+
 ```bash
 cat <<EOF > vault.yaml
 ---
