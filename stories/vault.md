@@ -1,6 +1,68 @@
 # VAULT
 
 ## DEPLOY VAULT
+<details><summary><b>DEPLOY w/ ARGOCD</b></summary>
+
+```bash
+export KUBECONFIG=~/.kube/<kubeconfig> # EXAMPLE - CHANGE TO YOURS
+
+CLUSTER_NAME=TEST_CLUSTER  # EXAMPLE - CHANGE TO YOURS
+
+DOMAIN=$(echo $(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io)
+echo ${DOMAIN}
+
+HOSTNAME=$(kubectl get nodes -o json | jq -r '.items[].metadata.labels."kubernetes.io/hostname"')
+echo ${HOSTNAME}
+
+ISSUERKIND=$(kubectl get clusterissuer -o json | jq -r '.items[].metadata.name')
+echo $ISSUERKIND
+
+SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
+echo ${SERVER_URL}
+```
+
+```yaml
+kubectl apply -f - <<EOF
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: vault
+    server: ${SERVER_URL}
+  source:
+    path: ''
+    repoURL: registry-1.docker.io/bitnamicharts
+    targetRevision: 1.7.0
+    chart: bitnami/vault
+    helm:
+      values: |
+        server:
+          ingress:
+            enabled: true
+            ingressClassName: nginx # EXAMPLE - CHANGE TO YOURS
+            annotations:
+              cert-manager.io/${ISSUERKIND}$: "ca-issuer" # EXAMPLE - CHANGE TO YOURS
+            hostname: ${HOSTNAME}.${DOMAIN}
+            tls: true
+
+        injector:
+          enabled: true
+          serviceAccount:
+            automountServiceAccountToken: true
+  sources: []
+  project: ${CLUSTER_NAME}$
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: null
+EOF
+```
+
+</details>
 
 <details><summary><b>DEPLOY w/ HELMFILE ON KIND</b></summary>
 
