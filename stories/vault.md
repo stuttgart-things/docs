@@ -4,10 +4,11 @@
 
 <details><summary><b>DEPLOY w/ HELMFILE ON KIND</b></summary>
 
+```bash
 REQUIREMENTS:
-* ✅ Kind CLuster w/ conifgured CNI/Cert-Manager/Ingress Controller
-* ✅ helmfile, kubectl installed
-
+✅ Kind Cluster w/ conifgured CNI/Cert-Manager/Ingress Controller
+✅ helmfile, kubectl installed
+```
 
 ```bash
 cat <<EOF > vault.yaml
