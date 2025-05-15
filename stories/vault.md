@@ -1,6 +1,56 @@
 # VAULT
 
 ## DEPLOY VAULT
+<details><summary><b>DEPLOY w/ ARGOCD</b></summary>
+
+```bash
+export KUBECONFIG=~/.kube/<kubeconfig> # EXAMPLE - CHANGE TO YOURS
+export CLUSTER_NAME=default  # EXAMPLE - CHANGE TO YOURS
+export DOMAIN=$(kubectl get nodes -o json | jq -r '.items[] | select(.metadata.labels."ingress-ready" == "true") | .status.addresses[] | select(.type == "InternalIP") | .address').nip.io
+export HOSTNAME=vault
+export ISSUERKIND=$(kubectl get clusterissuer -o json | jq -r '.items[].metadata.name')
+export SERVER_URL=$(awk '/server:/ {print $2}' ${KUBECONFIG})
+
+kubectl apply -f - <<EOF
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: vault
+    server: https://kubernetes.default.svc
+  source:
+    path: ''
+    repoURL: registry-1.docker.io
+    targetRevision: 1.7.0
+    chart: bitnamicharts/vault
+    helm:
+      values: |
+        server:
+          ingress:
+            enabled: true
+            ingressClassName: nginx # EXAMPLE - CHANGE TO YOURS
+            annotations:
+              cert-manager.io/${ISSUERKIND}: "selfsigned" # EXAMPLE - CHANGE TO YOURS
+            hostname: ${HOSTNAME}.${DOMAIN}
+            tls: true
+        injector:
+          enabled: true
+          serviceAccount:
+            automountServiceAccountToken: true
+  sources: []
+  project: ${CLUSTER_NAME}
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated: null
+EOF
+```
+
+</details>
 
 <details><summary><b>DEPLOY w/ HELMFILE ON KIND</b></summary>
 
