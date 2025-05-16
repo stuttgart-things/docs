@@ -31,4 +31,14 @@ weight = 10
 
 ---
 
+## /INTRO
+
+- Local testing: Enable developers to test their code instantly, locally
+- Programmable CI: Replace messy YAML-based, complex CI with code
+- Compatibility: If it runs in a container, you can add it to your pipeline
+- Portability: The same pipeline can run on your local machine, a CI runner, a dedicated server, or any container hosting service
+- Universal caching: Every operation is cached by default, and caching works the same everywhere
+
+
+
 {{% /section %}}
