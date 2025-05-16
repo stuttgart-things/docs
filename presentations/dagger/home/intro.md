@@ -39,6 +39,32 @@ weight = 10
 - Portability: The same pipeline can run on your local machine, a CI runner, a dedicated server, or any container hosting service
 - Universal caching: Every operation is cached by default, and caching works the same everywhere
 
+---
+- Shift CI Left
+- Programmable CI
+- Universal Caching
+- Cross-Language support 
+
+---
+Benefits to app teams
+
+- Reduce complexity: even complex builds can be expressed as a few simple functions
+- No more "push and pray": everything CI can do, your dev environment can do too
+- Use the same language to develop your app and its scripts
+- Easy onboarding of new developers: if you can build, test and deploy - they can too.
+- Everything is cached by default: expect 2x to 10x speedups
+- Parity between dev and CI environments
+- Cross-team collaboration: reuse another team's workflows without learning their stack
+
+---
+
+Benefits to platform teams
+- Reduce CI lock-in. Dagger functions run on all major CI platforms - no proprietary DSL needed.
+- Don't be a bottleneck. Let app teams write their functions. Enable standardisation by providing a library of reusable components.
+- Faster CI runs. CI pipelines that are "Daggerized" typically run 2x to 10x faster, thanks to caching and concurrency. This means developers waste less time waiting for CI, and users spend less money on CI computing.
+- A viable platform strategy. App teams need flexibility and control. Dagger provides users with a way to reconcile the two, in an incremental way that leverages the stack you already have.
+
+https://anaisurl.com/introduction-to-dagger/
 
 
 {{% /section %}}
