@@ -2,6 +2,23 @@
 
 ## SNIPPETS
 
+<details><summary><b>LIST DIRECTORY CONTENTS</b></summary>
+
+```go
+// LIST ALL ENTRIES
+entries, err := src.Entries(ctx)
+if err != nil {
+	panic(err)
+}
+
+// PRINT ALL ENTRIES
+for _, entry := range entries {
+	println(entry)
+}
+```
+
+</details>
+
 <details><summary><b>PERSIST CONTAINER STATE OVER MULTIPLE CI-STEPS</b></summary>
 
 ```go
@@ -22,8 +39,6 @@ fmt.Println("Init complete - Packer version:", initOut)
 ```
 
 </details>
-
-
 
 <details><summary><b>BROWSE DAGGER DIRECTORY</b></summary>
 
