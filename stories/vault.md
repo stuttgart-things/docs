@@ -1,7 +1,50 @@
 # VAULT
 
 ## DEPLOY VAULT
+
+<details><summary><b>DEPLOY w/ HELMFILE ON KIND</b></summary>
+
+```bash
+REQUIREMENTS:
+✅ Kind Cluster w/ conifgured CNI/Cert-Manager/Ingress Controller
+✅ helmfile, kubectl installed
+```
+
+```bash
+cat <<EOF > vault.yaml
+---
+helmfiles:
+  - path: git::https://github.com/stuttgart-things/helm.git@apps/vault.yaml
+    values:
+      - namespace: vault
+      - injectorEnabled: true
+      - clusterIssuer: <CHANGE> # e.g. selfsigned
+      - issuerKind: <CHANGE> # e.g. cluster-issuer
+      - hostname: vault
+      - domain: <CHANGE> # e.g. 172.18.0.4.nip.io
+      - ingressClassName: nginx
+EOF
+```
+
+```bash
+# INIT HELMFILE
+helmfile init --force
+
+# APPLY HELMFILE
+helmfile apply -f vault.yaml 
+```
+
+</details>
+
 <details><summary><b>DEPLOY w/ ARGOCD</b></summary>
+
+```bash
+REQUIREMENTS:
+✅ ArgoCD up & running
+✅ Project + Target Cluster configured
+✅ kubectl installed
+```
+
 
 ```bash
 export KUBECONFIG=~/.kube/<kubeconfig> # EXAMPLE - CHANGE TO YOURS
@@ -52,39 +95,7 @@ EOF
 
 </details>
 
-<details><summary><b>DEPLOY w/ HELMFILE ON KIND</b></summary>
 
-```bash
-REQUIREMENTS:
-✅ Kind Cluster w/ conifgured CNI/Cert-Manager/Ingress Controller
-✅ helmfile, kubectl installed
-```
-
-```bash
-cat <<EOF > vault.yaml
----
-helmfiles:
-  - path: git::https://github.com/stuttgart-things/helm.git@apps/vault.yaml
-    values:
-      - namespace: vault
-      - injectorEnabled: true
-      - clusterIssuer: <CHANGE> # e.g. selfsigned
-      - issuerKind: <CHANGE> # e.g. cluster-issuer
-      - hostname: vault
-      - domain: <CHANGE> # e.g. 172.18.0.4.nip.io
-      - ingressClassName: nginx
-EOF
-```
-
-```bash
-# INIT HELMFILE
-helmfile init --force
-
-# APPLY HELMFILE
-helmfile apply -f vault.yaml 
-```
-
-</details>
 
 ## UNSEAL VAULT
 
@@ -131,12 +142,12 @@ done
 
 ## APPLY VAULT CONFIGURATION
 
-<details><summary><b>APPLY w/ TERRAFOM</b></summary>
-
+```bash
 REQUIREMENTS:
 ✅ Kind Cluster w/ conifgured CNI/Cert-Manager/Ingress Controller
 ✅ Vault deployed + unsealed + token
 ✅ terrafom installed
+```
 
 <details><summary><b>CREATE/EDIT TERRAFORM FILES</b></summary>
 
@@ -288,4 +299,11 @@ cat ${LOG_FILE}
 </details>
 
 </details>
+
+## VAULT USAGE
+
+<details><summary><b>LOOKUP SECRETS w/ ANSIBLE</b></summary>
+
+</details>
+
 
