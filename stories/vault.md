@@ -306,4 +306,7 @@ cat ${LOG_FILE}
 
 </details>
 
+<details><summary><b>ARGOCD VAULT PLUGIN</b></summary>
+
+</details>
 
