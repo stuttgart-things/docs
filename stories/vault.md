@@ -304,15 +304,16 @@ cat ${LOG_FILE}
 
 <details><summary><b>LOOKUP SECRETS w/ ANSIBLE</b></summary>
 
+### APPROLE
+
 ```yaml
 # VAULT EXPORTS 
-export VAULT_TOKEN=<TOKEN>
 export VAULT_AUTH_METHOD=approle
 export VAULT_ADDR=https://vault.example.com
 export VAULT_SECRET_ID=<secretID>
 export VAULT_ROLE_ID=<roleID>
 
-cat <<EOF > test-vault-lookup.yaml
+cat <<EOF > test-vault-lookup-approle.yaml
 ---
 - hosts: localhost
   become: true
@@ -325,7 +326,6 @@ cat <<EOF > test-vault-lookup.yaml
     vault_approle_secret: "{{ lookup('env', 'VAULT_SECRET_ID') }}"
     vault_url: "{{ lookup('env', 'VAULT_ADDR') }}"
     vault_auth_method: "{{ lookup('env', 'VAULT_AUTH_METHOD') }}"
-    vault_token: "{{ lookup('env', 'VAULT_TOKEN') }}"
     test_username: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=cloud/data/test:username validate_certs=false auth_method={{ vault_auth_method }} role_id={{ vault_approle_id }} secret_id={{ vault_approle_secret }} url={{ vault_url }}') }}"
     test_password: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=cloud/data/test:password validate_certs=false auth_method={{ vault_auth_method }} role_id={{ vault_approle_id }} secret_id={{ vault_approle_secret }} url={{ vault_url }}') }}"
 
@@ -339,6 +339,46 @@ cat <<EOF > test-vault-lookup.yaml
 EOF
 ```
 
+```bash
+ansible-playbook test-vault-lookup-approle.yaml -vv
+```
+
+### TOKEN
+
+```yaml
+# VAULT EXPORTS 
+export VAULT_TOKEN=<TOKEN>
+export VAULT_AUTH_METHOD=token
+export VAULT_ADDR=https://vault.example.com
+
+cat <<EOF > test-vault-lookup-token.yaml
+---
+- hosts: localhost
+  become: true
+
+  environment:
+    REQUESTS_CA_BUNDLE: ""
+
+  vars:
+    vault_token: "{{ lookup('env', 'VAULT_TOKEN') }}"
+    vault_url: "{{ lookup('env', 'VAULT_ADDR') }}"
+    vault_auth_method: "{{ lookup('env', 'VAULT_AUTH_METHOD') }}"
+    test_username: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=cloud/data/test:username validate_certs=false token={{ vault_token }} auth_method={{ vault_auth_method }} url={{ vault_url }}') }}"
+    test_password: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=cloud/data/test:password validate_certs=false token={{ vault_token }} auth_method={{ vault_auth_method }} url={{ vault_url }}') }}"
+
+  tasks:
+    - name: Show vault secret user
+      debug:
+        var: test_username
+    - name: Show vault secret pw
+      debug:
+        var: test_password
+EOF
+```
+
+```bash
+ansible-playbook test-vault-lookup-token.yaml -vv
+```
 
 </details>
 
