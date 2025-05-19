@@ -304,6 +304,39 @@ cat ${LOG_FILE}
 
 <details><summary><b>LOOKUP SECRETS w/ ANSIBLE</b></summary>
 
+```yaml
+# Vault creds
+export VAULT_TOKEN=<TOKEN>
+export VAULT_AUTH_METHOD=approle
+export VAULT_ADDR=test.example.com
+export VAULT_SECRET_ID=<secretID>
+export VAULT_ROLE_ID=<roleID>
+
+---
+- hosts: localhost
+  become: true
+
+  environment:
+    REQUESTS_CA_BUNDLE: ""
+
+  vars:
+    vault_approle_id: "{{ lookup('env', 'VAULT_ROLE_ID') }}"
+    vault_approle_secret: "{{ lookup('env', 'VAULT_SECRET_ID') }}"
+    vault_url: "{{ lookup('env', 'VAULT_ADDR') }}"
+    vault_auth_method: "{{ lookup('env', 'VAULT_AUTH_METHOD') }}"
+    vault_token: "{{ lookup('env', 'VAULT_TOKEN') }}"
+    test_username: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=cloud/data/test:username validate_certs=false auth_method={{ vault_auth_method }} role_id={{ vault_approle_id }} secret_id={{ vault_approle_secret }} url={{ vault_url }}') }}"
+    test_password: "{{ lookup('community.hashi_vault.hashi_vault', 'secret=cloud/data/test:password validate_certs=false auth_method={{ vault_auth_method }} role_id={{ vault_approle_id }} secret_id={{ vault_approle_secret }} url={{ vault_url }}') }}"
+
+  tasks:
+    - name: Show vault secret user
+      debug:
+        var: test_username
+    - name: Show vault secret pw
+      debug:
+        var: test_password
+
+```
 </details>
 
 <details><summary><b>ARGOCD VAULT PLUGIN</b></summary>
