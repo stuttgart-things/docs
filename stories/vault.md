@@ -305,14 +305,14 @@ cat ${LOG_FILE}
 <details><summary><b>LOOKUP SECRETS w/ ANSIBLE</b></summary>
 
 ```yaml
-# Vault creds
+# VAULT EXPORTS 
 export VAULT_TOKEN=<TOKEN>
 export VAULT_AUTH_METHOD=approle
-export VAULT_ADDR=test.example.com
+export VAULT_ADDR=https://vault.example.com
 export VAULT_SECRET_ID=<secretID>
 export VAULT_ROLE_ID=<roleID>
 
-cat <<EOF > test.yaml
+cat <<EOF > test-vault-lookup.yaml
 ---
 - hosts: localhost
   become: true
@@ -338,6 +338,8 @@ cat <<EOF > test.yaml
         var: test_password
 EOF
 ```
+
+
 </details>
 
 <details><summary><b>ARGOCD VAULT PLUGIN</b></summary>
