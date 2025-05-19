@@ -312,6 +312,7 @@ export VAULT_ADDR=test.example.com
 export VAULT_SECRET_ID=<secretID>
 export VAULT_ROLE_ID=<roleID>
 
+cat <<EOF > test.yaml
 ---
 - hosts: localhost
   become: true
@@ -335,7 +336,7 @@ export VAULT_ROLE_ID=<roleID>
     - name: Show vault secret pw
       debug:
         var: test_password
-
+EOF
 ```
 </details>
 
