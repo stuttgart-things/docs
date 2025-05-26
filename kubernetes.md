@@ -640,8 +640,14 @@ vcluster connect my-vcluster -n vcluster-my-vcluster
 <details><summary>OCI ARTIFACTS W/ ORAS</summary>
 
 ```bash
-# PUSH
+# LOGIN
 oras login zot.maverick.sthings-pve.labul.sva.de
+# OR
+oras login ghcr.io -u patrick-hermann-sva -p ${GITHUB_TOKEN}
+```
+
+```bash
+# PUSH FILE
 echo "hello world" > artifact.txt
 oras push zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1 \
 --artifact-type application/vnd.acme.rocket.config \
@@ -649,8 +655,16 @@ artifact.txt:text/plain
 ```
 
 ```bash
-# PULL
+# PUSH FOLDER
+cd /tmp/hugo/static/dagger
+oras push \
+ghcr.io/stuttgart-things/static:v1 \
+--artifact-type=application/vnd.unknown.layer.v1+tar .
+
+```bash
+# PULL ARTIFACT
 oras pull zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1
+oras pull ghcr.io/stuttgart-things/static:v1
 ```
 
 </details>

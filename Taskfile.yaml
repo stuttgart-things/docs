@@ -9,25 +9,44 @@ vars:
 dotenv: ['.env', '{{.HOME}}/.env']
 
 tasks:
-  watch:
+  serve:
     desc: Watch files in presentation/ and rerun task serve on changes
     cmds:
       - |
-        find {{ .presentation }} -type f | entr -r task serve
+        find {{ .dir }}/{{ .presentation }} -type f | entr -r \
+        dagger call -m github.com/stuttgart-things/dagger/hugo@v0.11.0 serve \
+        --config {{ .dir }}/{{ .presentation }}/hugo.toml \
+        --content {{ .dir }}/{{ .presentation }} \
+        --port {{ .port }} \
+        up --progress plain
+
     silent: true
     vars:
-      presentation: presentations/devops
+      port: 4425
+      dir: presentations
+      presentation:
+        sh: gum choose $(basename -a {{ .dir }}/*/)
 
-  serve:
-    desc: Run dev server
+  build:
+    desc: Build static content
     cmds:
       - |
-        dagger call -m github.com/stuttgart-things/dagger/hugo@v0.10.0 serve \
-        --config {{ .presentation }}/hugo.toml \
-        --content {{ .presentation }} \
-        up --progress plain
+        # CLEAN UP
+        rm -rf {{ .OUTPUT_PATH_STATIC }} || true
+
+        # BUILD STATIC CONTENT
+        dagger call -m {{ .MODULE }} \
+        build-and-export \
+        --name {{ .presentation }} \
+        --config {{ .dir }}/{{ .presentation }}/hugo.toml \
+        --content {{ .dir }}/{{ .presentation }} \
+        export --path {{ .OUTPUT_PATH_STATIC }}
     vars:
-      presentation: presentations/devops
+      MODULE: github.com/stuttgart-things/dagger/hugo@v0.11.0
+      dir: presentations
+      presentation:
+        sh: gum choose $(basename -a {{ .dir }}/*/)
+      OUTPUT_PATH_STATIC: /tmp/hugo/static/{{ .presentation }}
 
   do:
     desc: Select a task to run
