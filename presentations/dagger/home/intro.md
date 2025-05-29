@@ -18,9 +18,20 @@ Intro • 🛠️ Functions • 🧩 Modules • 💻 Shell • 🔗 Integration
 
 ---
 
-## PUSH & PRAY
+### 💻 ➡️ GIT PUSH & PRAY 🙏
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/pushpray.png" alt="Alt Text" width="750" style="border: 1px; box-shadow: none;" />
+<img
+  src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/pushpray.png"
+  alt="PUSH & PRAY"
+  width="650"
+  style="
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  "
+/>
+
+- push your code, wait in silence, and hope everything worked — like throwing code into a black box and praying it doesn’t catch fire. 🔥🙏
 
 ---
 
@@ -66,6 +77,13 @@ Build modular, language-agnostic workflows that scale with your team.
 
 - Programmable CI
 - Universal Caching
+
+
+
+---
+### /GETTING STARTED
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/install.gif" alt="Alt Text" width="3000" style="border: none; box-shadow: none;" />
 
 
 ---

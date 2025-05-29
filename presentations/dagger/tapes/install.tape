@@ -1,13 +1,19 @@
 Output install.gif
 
-Set TypingSpeed 75ms
-Set FontSize 22
-Set Width 1300
-Set Height 650
+Set TypingSpeed 150ms
+Set FontSize 30
+Set Width 1650
+Set Height 880
+
+Type "docker version"
+
+Sleep 5s
+
+Enter
 
 Type "podman version"
 
-Sleep 500ms
+Sleep 5s
 
 Enter
 
@@ -15,12 +21,12 @@ Type "curl -fsSL https://dl.dagger.io/dagger/install.sh | DAGGER_VERSION=0.18.9 
 
 Enter
 
-Sleep 10s
+Sleep 15s
 
 Type "dagger version"
 
-Sleep 2s
+Sleep 3s
 
 Enter
 
-Sleep 2s
+Sleep 20s
