@@ -9,19 +9,18 @@ weight = 10
 # /INTRODUCTION
 
 ---
-- open-source runtime for composable workflows
-- CI/CD workflows
-- repeatability, modularity, obeservainity + cross-platform support
+
+### /AGENDA
+
+<img src="https://attachments-cdn-s.coub.com/coub_storage/coub/simple/cw_timeline_pic/7e14911f5a8/c1bec6bfed315483bad44/med_1587503875_image.jpg" alt="Alt Text" width="750"/>
+
+Intro • 🛠️ Functions • 🧩 Modules • 💻 Shell • 🔗 Integrations • 🛰️ Service
 
 ---
 
 ## PUSH & PRAY
 
-<img src="https://private-user-images.githubusercontent.com/47567770/440137535-37b51685-bf2d-4583-96d0-83da30ebba5b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDYyOTU3NzgsIm5iZiI6MTc0NjI5NTQ3OCwicGF0aCI6Ii80NzU2Nzc3MC80NDAxMzc1MzUtMzdiNTE2ODUtYmYyZC00NTgzLTk2ZDAtODNkYTMwZWJiYTViLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNTA1MDMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNTAzVDE4MDQzOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTVkNGJjNmE4MjJhZjExMzViMTdjOTJiZGFmYTgzZWYxNDk2MGUyNmZiZTgzYTI4OTBkODI3OTQ5ODIyYzgwN2UmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.zW2PFnF2GMch4X4CfZnwONbUHmz0gPzo60T_GNzSHTQ" alt="Description" width="400"/>
-
----
-
-<img src="https://camo.githubusercontent.com/1c806ded26bb752ba581a3de0ccbfe110770712a609af72013a1410946feff5e/68747470733a2f2f692e726564642e69742f31333469723134337a6c3861312e6a7067.jpg" alt="Alt Text" width="700"/>
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/pushpray.png" alt="Alt Text" width="750" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -31,19 +30,43 @@ weight = 10
 
 ---
 
-## /INTRO
+### /Shift CI Left
 
-- Local testing: Enable developers to test their code instantly, locally
-- Programmable CI: Replace messy YAML-based, complex CI with code
-- Compatibility: If it runs in a container, you can add it to your pipeline
-- Portability: The same pipeline can run on your local machine, a CI runner, a dedicated server, or any container hosting service
-- Universal caching: Every operation is cached by default, and caching works the same everywhere
+https://preview.redd.it/ever-done-this-v0-134ir143zl8a1.jpg?width=640&crop=smart&auto=webp&s=40ce4194b60cabe21a7e414d30bb1b8cc7956732
+
+Enable developers to test their code instantly, locally.
 
 ---
-- Shift CI Left
+
+### /CI as Code
+
+Replace messy YAML-based, complex CI with code
+ Replace brittle, YAML-heavy CI pipelines with clean, reusable code.
+- Cross-Language support
+---
+
+### /Portability
+
+
+Run the same workflows in dev, CI, and production without modification.
+The same pipeline can run on your local machine, a CI runner,
+
+---
+
+### /Compatibility
+
+---
+
+### /Composable Infrastructure:
+
+
+Build modular, language-agnostic workflows that scale with your team.
+
+---
+
 - Programmable CI
 - Universal Caching
-- Cross-Language support 
+
 
 ---
 Benefits to app teams

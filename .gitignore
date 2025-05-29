@@ -1,0 +1,43 @@
+# Node.js dependencies (e.g., Docusaurus)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Python virtual environments and MkDocs
+venv/
+.env/
+__pycache__/
+*.py[cod]
+
+# Hugo / Jekyll / static site generators
+public/
+_site/
+.cache/
+.publish/
+dist/
+
+# Build artifacts
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Editor and OS files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# MkDocs-specific
+site/
+
+# Mac system files
+.DS_Store
+
+# Optional: Ignore generated HTML/PDF if you exp
+
+/presentations/*/images/

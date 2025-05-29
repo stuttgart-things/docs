@@ -1,4 +1,4 @@
-baseURL = '10.31.103.28'
+baseURL = "/"
 languageCode = 'en-us'
 title = 'Dagger'
 theme = ["github.com/joshed-io/reveal-hugo"]

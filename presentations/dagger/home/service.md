@@ -6,6 +6,6 @@ weight = 70
 
 {{% section %}}
 
-# /UP
+# /SERVICE
 
 {{% /section %}}

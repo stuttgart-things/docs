@@ -22,7 +22,7 @@ tasks:
 
     silent: true
     vars:
-      port: 4425
+      port: 4426
       dir: presentations
       presentation:
         sh: gum choose $(basename -a {{ .dir }}/*/)
@@ -42,7 +42,8 @@ tasks:
         --content {{ .dir }}/{{ .presentation }} \
         export --path {{ .OUTPUT_PATH_STATIC }}
     vars:
-      MODULE: github.com/stuttgart-things/dagger/hugo@v0.11.0
+      #MODULE: github.com/stuttgart-things/dagger/hugo@v0.11.0
+      MODULE: /home/sthings/projects/dagger/hugo
       dir: presentations
       presentation:
         sh: gum choose $(basename -a {{ .dir }}/*/)
