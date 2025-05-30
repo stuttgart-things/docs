@@ -6,6 +6,16 @@ weight = 10
 
 {{% section %}}
 
+<img src="https://framerusercontent.com/images/dtoLxVnUgfKiPsuiXXWcTwxGIb4.png?lossless=1" width="500" style="border: none; box-shadow: none;" />
+
+**A tool to run composable workflows in containers**
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 # /INTRODUCTION
 
 ---
@@ -14,7 +24,7 @@ weight = 10
 
 <img src="https://attachments-cdn-s.coub.com/coub_storage/coub/simple/cw_timeline_pic/7e14911f5a8/c1bec6bfed315483bad44/med_1587503875_image.jpg" alt="Alt Text" width="750"/>
 
-Intro • 🛠️ Functions • 🧩 Modules • 💻 Shell • 🔗 Integrations • 🛰️ Service
+Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrations • 🛰️ OUTRO
 
 ---
 
@@ -31,7 +41,7 @@ Intro • 🛠️ Functions • 🧩 Modules • 💻 Shell • 🔗 Integration
   "
 />
 
-- push your code, wait in silence, and hope everything worked — like throwing code into a black box and praying it doesn’t catch fire. 🔥🙏
+> _Push your code, wait in silence, and hope everything worked 🔥🙏
 
 ---
 
@@ -58,11 +68,33 @@ Replace messy YAML-based, complex CI with code
 
 ### /Portability
 
-
 Run the same workflows in dev, CI, and production without modification.
 The same pipeline can run on your local machine, a CI runner,
 
 ---
+
+> ### ❓ Audience
+>
+> **WHAT CI/CD SOLUTION IS YOUR FAVORITE?**
+>
+> - 🦊 GitLab CI
+> - 🐙 GitHub Workflows
+> - ⚙️ Jenkins
+> - 🚀 Tekton
+
+---
+
+> ### ❓ Audience
+>
+> **ARE YOU USING DAGGER?**
+>
+> - ✅ Yes, actively using it
+> - 🧪 Tested it briefly
+> - ❌ Not yet, but interested
+> - 🚫 No, not planning to use
+
+
+<!-- ---
 
 ### /Compatibility
 
@@ -105,7 +137,7 @@ Benefits to platform teams
 - Faster CI runs. CI pipelines that are "Daggerized" typically run 2x to 10x faster, thanks to caching and concurrency. This means developers waste less time waiting for CI, and users spend less money on CI computing.
 - A viable platform strategy. App teams need flexibility and control. Dagger provides users with a way to reconcile the two, in an incremental way that leverages the stack you already have.
 
-https://anaisurl.com/introduction-to-dagger/
+https://anaisurl.com/introduction-to-dagger/ -->
 
 
 {{% /section %}}

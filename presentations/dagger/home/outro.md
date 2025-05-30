@@ -10,7 +10,24 @@ weight = 99
 
 ---
 
-# /PRO+CONS
+### /SUMMARY
+
+✅ Write pipelines as code
+✅ Use containers for everything
+✅ Run locally, in CI, or on any machine
+✅ Test, reuse, share logic
+✅ Cross-language support
+
+Dagger is like **Terraform, but for CI/CD** 🎯
+
+---
+
+> ### ❓ Audience
+>
+> **ARE YOU INTERESTED IN USING/TESTING DAGGER?**
+>
+> - ✅ Yes
+> - 🚫 No
 
 
 

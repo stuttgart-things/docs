@@ -1,5 +1,5 @@
 +++
-weight = 25
+weight = 50
 +++
 
 {{< slide id=module background-color="#B3B3FF" type="slide" transition="zoom" transition-speed="fast" >}}
