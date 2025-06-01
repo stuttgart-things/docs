@@ -10,6 +10,7 @@ tasks:
       - |
         OUTPUT_PATH=$(gum input --value "/tmp/k3s-config.yaml" --prompt "Where to save k3s config? [default: /tmp/k3s-config.yaml]: ")
         K3S_VERSION=$(gum input --value "v1.33.1+k3s1" --prompt "K3S VERSION? [default: v1.33.1+k3s1]: ")
+        CLUSTER_NAME=$(gum input --value "k3s" --prompt "CLUSTER NAME? [default: k3s]: ")
 
         cat <<EOF > ${OUTPUT_PATH}
         write-kubeconfig-mode: 0644
@@ -29,3 +30,5 @@ tasks:
         gum confirm "Do you want to deploy k3s?" || exit 0
 
         curl -sfL https://get.k3s.io | K3S_CONFIG_FILE=k3s.yaml K3S_VERSION=${K3S_VERSION} sudo sh -
+        sudo cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/${CLUSTER_NAME}
+        sudo chmod 777 $HOME/.kube/${CLUSTER_NAME}
