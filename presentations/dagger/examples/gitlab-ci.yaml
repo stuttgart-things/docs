@@ -1,0 +1,14 @@
+---
+verify-check-mr:
+  script:
+    - |
+      dagger call -m ./ci \
+      analyze-merge-request \
+      --token env:GITLAB_TOKEN \
+      --merge-request "$CI_COMMIT_REF_NAME" \
+      --progress plain
+  tags:
+    - dagger
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: always

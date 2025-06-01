@@ -6,11 +6,10 @@ weight = 10
 
 {{% section %}}
 
-<img src="https://framerusercontent.com/images/dtoLxVnUgfKiPsuiXXWcTwxGIb4.png?lossless=1" width="500" style="border: none; box-shadow: none;" />
+<img src="https://framerusercontent.com/images/dtoLxVnUgfKiPsuiXXWcTwxGIb4.png?lossless=1" width="650" style="border: none; box-shadow: none;" />
 
 **A tool to run composable workflows in containers**
 
-<br/>
 <br/>
 <br/>
 <br/>
@@ -25,6 +24,17 @@ weight = 10
 <img src="https://attachments-cdn-s.coub.com/coub_storage/coub/simple/cw_timeline_pic/7e14911f5a8/c1bec6bfed315483bad44/med_1587503875_image.jpg" alt="Alt Text" width="750"/>
 
 Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrations • 🛰️ OUTRO
+
+---
+
+> ### ❓ Audience
+>
+> **WHAT CI/CD SOLUTION IS YOUR FAVORITE?**
+>
+> - 🦊 GitLab CI
+> - 🐙 GitHub Workflows
+> - ⚙️ Jenkins
+> - 🚀 Tekton
 
 ---
 
@@ -70,17 +80,6 @@ Replace messy YAML-based, complex CI with code
 
 Run the same workflows in dev, CI, and production without modification.
 The same pipeline can run on your local machine, a CI runner,
-
----
-
-> ### ❓ Audience
->
-> **WHAT CI/CD SOLUTION IS YOUR FAVORITE?**
->
-> - 🦊 GitLab CI
-> - 🐙 GitHub Workflows
-> - ⚙️ Jenkins
-> - 🚀 Tekton
 
 ---
 
