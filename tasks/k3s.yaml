@@ -1,0 +1,31 @@
+---
+version: 3
+
+vars:
+  KUBECONFIG_FOLDER: ~/.kube
+
+tasks:
+  deploy-k3s:
+    cmds:
+      - |
+        OUTPUT_PATH=$(gum input --value "/tmp/k3s-config.yaml" --prompt "Where to save k3s config? [default: /tmp/k3s-config.yaml]: ")
+        K3S_VERSION=$(gum input --value "v1.33.1+k3s1" --prompt "K3S VERSION? [default: v1.33.1+k3s1]: ")
+
+        cat <<EOF > ${OUTPUT_PATH}
+        write-kubeconfig-mode: 0644
+        flannel-backend: none
+        disable-kube-proxy: true
+        disable-network-policy: true
+        cluster-init: true
+        disable:
+          - servicelb
+          - traefik
+        EOF
+
+        echo "Writing k3s config to ${OUTPUT_PATH}..."
+
+        cat ${OUTPUT_PATH}
+
+        gum confirm "Do you want to deploy k3s?" || exit 0
+
+        curl -sfL https://get.k3s.io | K3S_CONFIG_FILE=k3s.yaml K3S_VERSION=${K3S_VERSION} sudo sh -

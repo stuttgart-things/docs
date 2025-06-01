@@ -12,13 +12,13 @@ tasks:
       - |
         helmfile init --force
 
-        SELECTED_FILE=$(gum choose $(find . -maxdepth 1 -name '*.yaml' -o -name '*.yml' | sort))
-        echo "Selected file: $SELECTED_FILE"
+        SELECTED_HELMFILE=$(gum choose $(find . -maxdepth 1 -name '*.yaml' -o -name '*.yml' | sort))
+        echo "Selected file: $SELECTED_HELMFILE"
 
         for cmd in apply sync; do
           for i in {1..8}; do
-            echo "Running: helmfile -f \"$SELECTED_FILE\" $cmd (attempt $i)..."
-            helmfile -f "$SELECTED_FILE" "$cmd" && break
+            echo "Running: helmfile -f \"$SELECTED_HELMFILE\" $cmd (attempt $i)..."
+            helmfile -f "$SELECTED_HELMFILE" "$cmd" && break
             [ "$i" -eq 8 ] && exit 1
             echo "Retrying in 15s..."
             sleep 15
