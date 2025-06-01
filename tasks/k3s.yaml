@@ -6,6 +6,7 @@ vars:
 
 tasks:
   install:
+    desc: Install k3s cluster
     cmds:
       - |
         OUTPUT_PATH=$(gum input --value "/tmp/k3s-config.yaml" --prompt "Where to save k3s config? [default: /tmp/k3s-config.yaml]: ")
@@ -32,3 +33,9 @@ tasks:
         curl -sfL https://get.k3s.io | K3S_CONFIG_FILE=k3s.yaml K3S_VERSION=${K3S_VERSION} sudo sh -
         sudo cp /etc/rancher/k3s/k3s.yaml $HOME/.kube/${CLUSTER_NAME}
         sudo chmod 777 $HOME/.kube/${CLUSTER_NAME}
+
+  uninstall:
+    desc: Uninstall k3s cluster
+    cmds:
+      - |
+        sudo /usr/local/bin/k3s-uninstall.sh || true
