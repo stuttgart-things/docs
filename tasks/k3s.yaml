@@ -5,7 +5,7 @@ vars:
   KUBECONFIG_FOLDER: ~/.kube
 
 tasks:
-  deploy-k3s:
+  install:
     cmds:
       - |
         OUTPUT_PATH=$(gum input --value "/tmp/k3s-config.yaml" --prompt "Where to save k3s config? [default: /tmp/k3s-config.yaml]: ")
