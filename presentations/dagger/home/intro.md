@@ -29,16 +29,25 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 > ### ❓ Audience
 >
-> **WHAT CI/CD SOLUTION IS YOUR FAVORITE?**
+> **WHAT CI/CD DO YOU USE?**
 >
 > - 🦊 GitLab CI
 > - 🐙 GitHub Workflows
 > - ⚙️ Jenkins
 > - 🚀 Tekton
+> - ..?
 
 ---
 
-### 💻 ➡️ GIT PUSH & PRAY 🙏
+### /Shift CI Left
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/134ir143zl8a1.jpg" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+- Enable developers to test their code instantly, locally
+
+---
+
+### ➡️ PUSH & PRAY 🙏
 
 <img
   src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/pushpray.png"
@@ -51,41 +60,20 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
   "
 />
 
-> _Push your code, wait in silence, and hope everything worked 🔥🙏
+>   Push your code, wait in silence, and hope everything worked 🔥🙏
 
 ---
 
-## Containerized Workflow Execution
-- Transform code into containerized &composable operations.
-- Build reproducible workflows in any language with custom environments, parallel processing, and seamless chaining.
-
----
-
-### /Shift CI Left
-
-https://preview.redd.it/ever-done-this-v0-134ir143zl8a1.jpg?width=640&crop=smart&auto=webp&s=40ce4194b60cabe21a7e414d30bb1b8cc7956732
-
-Enable developers to test their code instantly, locally.
-
----
-
-### /CI as Code
-
-Replace messy YAML-based, complex CI with code
- Replace brittle, YAML-heavy CI pipelines with clean, reusable code.
-- Cross-Language support
----
-
-### /Portability
-
-Run the same workflows in dev, CI, and production without modification.
-The same pipeline can run on your local machine, a CI runner,
-
+### /OVERVIEW DAGGER
+- Replace YAML-heavy complex CI pipelines with clean, reusable code
+- Transform code into containerized + composable operations
+- Build reproducible workflows in any language with custom environments and parallel processing + seamless chaining
+- Run the same pipeline on your local machine or (any) CI runner
 ---
 
 > ### ❓ Audience
 >
-> **ARE YOU USING DAGGER?**
+> **ARE YOU USING DAGGER (YET)?**
 >
 > - ✅ Yes, actively using it
 > - 🧪 Tested it briefly

@@ -8,6 +8,8 @@ weight = 20
 
 # /FUNCTIONS
 
+single composable operationa within a module
+
 <img src="https://i.kym-cdn.com/entries/icons/facebook/000/016/546/hidethepainharold.jpg" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 ```bash
@@ -16,36 +18,32 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 ```
 ---
 
-### /Functions
+### /EXAMPLE: A(NY) YAML-FILE
 
-- Definition: A function is a single composable operation within a module.
-- Structure: Think of it like a method—you call it with parameters and it performs a CI/CD task.
-- Purpose: Represents one specific action in your workflow.
-- Analogy: Like a function in any programming language, but declaratively building pipelines.
-- Example: docker.build() or git.clone().
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/freeze.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
----
-
-### /YAML-FILE
-
-
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/freeze.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+- YAML is indentation-sensitive and whitespace-dependent, so even a small mistake (like an extra space or missing colon) can break the file.
 
 ---
 
 ### /DAGGERVERSE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/daggerverse.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/daggerverse.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
+
+- free service run by Dagger
+- indexes all publicly available Dagger Functions
 
 ---
 
-### /YAML-LINT
+### /YAML-LINT FUNCTION CALL
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/lint.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
+- call it with parameters and it performs a CI/CD task.
+
 ---
 
-### /TRIVY-OPTIONS
+### /FUNCTION PARAMETERS (EXAMPLE TRIVY)
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/function_help.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
@@ -55,7 +53,27 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 dagger call -m <module-path> <function-name> --help
 ```
 
+> ### ❓ Audience
+>
+> **HOW DO YOU USE CI-FUNCTIONS **
+>
+> - 🦊 TO BE CONTINOUS
+> - 🐙 GITHUB ACTIONS
+> - ⚙️ Jenkins
+> - 🚀 Tekton TASKRUNS
+> - 🚀 MAKE/TASKFILE
+
+> - ..?
+
 ---
+
+### EXAMPLE MODULE IN GO
+
+- add source code of a easy task
+
+---
+
+
 
 
 

@@ -1,4 +1,4 @@
-Output triviy.gif
+Output function_triviy.gif
 
 Set TypingSpeed 150ms
 Set FontSize 30

@@ -9,11 +9,9 @@ Sleep 500ms
 
 Type "dagger call -m github.com/sagikazarmark/daggerverse/helm@v0.14.0 package --chart app/ --app-version 1.23 export --path=app-1.23.tgz"
 
-Sleep 10s
-
 Enter
 
-Sleep 10s
+Sleep 7s
 
 Type "helm template app-1.23.tgz"
 

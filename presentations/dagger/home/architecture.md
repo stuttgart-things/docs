@@ -8,8 +8,6 @@ weight = 30
 
 # /ARCHITECTURE
 
----
-
 ### /DAG
 
 DAG stands for Directed Acyclic Graph. It's a type of graph used in computing to model dependencies and workflows where:
@@ -24,6 +22,21 @@ DAG stands for Directed Acyclic Graph. It's a type of graph used in computing to
 - Every operation in your pipeline (build, test, copy file, run command) becomes a node in a DAG.
 - Dependencies (e.g., "compile → then test") form edges between nodes.
 - Dagger resolves this DAG and executes the steps efficiently — with caching.
+
+---
+
+### /Cross-Language Support
+
+Dagger SDKs available in:
+
+- 🐹 Go (`github.com/dagger/dagger`)
+- 🐍 Python (`dagger-io/dagger-python`)
+- 🕸️ Node.js / TypeScript (`@dagger.io/dagger`)
+
+All SDKs talk to the **same GraphQL engine**
+➡️ Language doesn't matter, pipelines behave the same
+
+You can reuse and compose pipeline logic across teams and stacks.
 
 ---
 
@@ -62,22 +75,46 @@ Supports lazy evaluation — only the final outputs you need get computed.
 
 ### /Example: Go SDK Query (Under the Hood)
 
-```bash
-ctr := dag.Container().From("alpine").WithExec([]string{"echo", "hello"})
+```go
+client, err := dagger.Connect(ctx)
+src := client.Host().Directory(".")
+container := client.Container().
+    From("alpine").
+    WithMountedDirectory("/src", src).
+    WithWorkdir("/src").
+    WithExec([]string{"sh", "-c", "echo Hello from Dagger!"})
+output, err := container.Stdout(ctx)
 ```
 
 ---
 
 ### /Example: Go SDK Query (Under the Hood)
 
-```bash
+```graphql
 query {
   container(from: "alpine") {
-    withExec(args: ["echo", "hello"]) {
-      stdout
+    withMountedDirectory(path: "/src", source: {
+      host: {
+        directory(path: ".")
+      }
+    }) {
+      withWorkdir(path: "/src") {
+        withExec(args: ["sh", "-c", "echo Hello from Dagger!"]) {
+          stdout
+        }
+      }
     }
   }
 }
+```
+
+- You write code in a Dagger SDK.
+- It gets converted into a GraphQL query.
+- The Dagger engine resolves it into a declarative build graph.
+- Containers run your logic, and results stream back via GraphQL.
+
+
+
 
 The engine:
 
@@ -90,20 +127,7 @@ Streams the output back to your SDK
 
 ---
 
-### /Cross-Language Support
 
-Dagger SDKs available in:
-
-- 🐹 Go (`github.com/dagger/dagger`)
-- 🐍 Python (`dagger-io/dagger-python`)
-- 🕸️ Node.js / TypeScript (`@dagger.io/dagger`)
-
-All SDKs talk to the **same GraphQL engine**
-➡️ Language doesn't matter, pipelines behave the same
-
-You can reuse and compose pipeline logic across teams and stacks.
-
----
 
 ### 🔄 Summary
 
