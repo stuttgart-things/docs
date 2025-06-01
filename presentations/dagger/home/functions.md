@@ -67,14 +67,31 @@ dagger call -m <module-path> <function-name> --help
 
 ---
 
-### EXAMPLE MODULE IN GO
+### EXAMPLE CONTAINER DEFINTION / BUILD
 
-- add source code of a easy task
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_ctr.png" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
+
+- kyverno container (golang sdk)
+---
+
+### EXAMPLE FUNCTION (GOLANG) FOR KYVERNO VALIDATION
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_validate.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 ---
 
+> ### ❓ Audience
+>
+> **WHAT IS YOUR MAIN PROGRAMING LANGUAGE?**
+>
+> - BASH
+> - PYTHON
+> - GOLANG
+> - RUST
+> - JS/JAVA
+> - ..?
 
-
+---
 
 
 {{% /section %}}

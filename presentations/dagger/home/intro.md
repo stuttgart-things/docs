@@ -41,7 +41,7 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 ### /Shift CI Left
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/134ir143zl8a1.jpg" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/134ir143zl8a1.jpg" alt="Alt Text" width="600" style="border: 1px; box-shadow: none;" />
 
 - Enable developers to test their code instantly, locally
 
@@ -65,6 +65,9 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 ---
 
 ### /OVERVIEW DAGGER
+
+<img src="https://i.ytimg.com/vi/cwa_MBL1kek/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCUYIRpVO-rvIqoANUzRxM5BV4_2g" alt="Alt Text" width="400" style="border: 1px; box-shadow: none;" />
+
 - Replace YAML-heavy complex CI pipelines with clean, reusable code
 - Transform code into containerized + composable operations
 - Build reproducible workflows in any language with custom environments and parallel processing + seamless chaining

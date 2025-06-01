@@ -1,6 +1,5 @@
 ---
 version: 3
-
 vars:
   KUBECONFIG_FOLDER: ~/.kube
   ALL_KUBECONFIGS:
