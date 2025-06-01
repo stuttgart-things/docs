@@ -1,0 +1,65 @@
+---
+version: 3
+vars:
+  KUBECONFIG_FOLDER: ~/.kube
+  ALL_KUBECONFIGS:
+    sh: ls {{ .KUBECONFIG_FOLDER }} | xargs -n1 printf '"%s" '
+
+tasks:
+  unseal:
+    desc: Unseal Vault
+    cmds:
+      - |
+        VAULT_NAMESPACE=$(gum input --value "vault" --prompt "VAULT NAMESPACE? [default: vault]: ")
+        LOG_FILE=$(gum input --value "vault-init-dev.log" --prompt "VAULT INSTALL LOGFILE? [default: vault-init-dev.log]: ")
+
+        # WAIT UNTIL PODS ARE RUNNING
+        while true; do
+          status=$(kubectl get pods -n ${VAULT_NAMESPACE} -o jsonpath='{range .items[*]}{.status.phase}{"\n"}{end}' | uniq)
+          if [ "$status" == "Running" ]; then
+            echo "All pods are running!"
+            break
+          fi
+          sleep 5
+        done
+
+        # RUN INIT AND CAPTURE OUTPUT
+        INIT_OUTPUT=$(kubectl -n ${VAULT_NAMESPACE} exec vault-server-0 -- vault operator init -key-shares=5 -key-threshold=3)
+        echo "${INIT_OUTPUT}" > "${LOG_FILE}"
+
+        # EXTRACT UNSEAL KEYS
+        UNSEAL_KEYS=($(echo "${INIT_OUTPUT}" | grep "Unseal Key" | awk '{print $NF}'))
+
+        # EXTRACT INITIAL ROOT TOKEN (OPTIONAL)
+        ROOT_TOKEN=$(echo "${INIT_OUTPUT}" | grep "Initial Root Token" | awk '{print $NF}')
+
+        # LOG PARSED VALUES
+        {
+          echo ""
+          echo "PARSED UNSEAL KEYS:"
+          for key in "${UNSEAL_KEYS[@]}"; do
+            echo "$key"
+          done
+
+          echo ""
+          #echo "INITIAL ROOT TOKEN:"
+          #echo "$ROOT_TOKEN"
+        } >> "$LOG_FILE"
+
+        # OUTPUT PATH TO LOG
+        echo "Vault init details logged to: $LOG_FILE"
+
+        # UNSEAL VAULT WITH THE FIRST 3 KEYS
+        for i in {0..2}; do
+          echo "Unsealing with key ${i}..."
+          kubectl -n ${VAULT_NAMESPACE} exec vault-server-0 -- vault operator unseal "${UNSEAL_KEYS[$i]}"
+        done
+
+        # WAIT FOR ALL PODS TO BE READY (TIMEOUT AFTER 5 MINUTES)
+        kubectl wait --namespace ${VAULT_NAMESPACE} \
+          --for=condition=Ready \
+          --timeout=300s \
+          pod --all
+    env:
+      KUBECONFIG:
+        sh: echo $(gum choose {{ .ALL_KUBECONFIGS }})
