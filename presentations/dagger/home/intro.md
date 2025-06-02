@@ -64,6 +64,15 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 ---
 
+### /COMPLEX YAML-PIPELINES
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/bla.png" alt="Alt Text" width="8000" style="border: 1px; box-shadow: none;" />
+
+- inline shell = major source of complexity and fragility
+- Debugging usually involves re-running CI until it works
+
+---
+
 ### /OVERVIEW DAGGER
 
 <img src="https://i.ytimg.com/vi/cwa_MBL1kek/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCUYIRpVO-rvIqoANUzRxM5BV4_2g" alt="Alt Text" width="400" style="border: 1px; box-shadow: none;" />
@@ -74,6 +83,27 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 - Run the same pipeline on your local machine or (any) CI runner
 ---
 
+### /Dagger Team
+
+<img src="https://techcrunch.com/wp-content/uploads/2022/03/Dagger-Redpoint.jpeg" alt="Alt Text" width="600" style="border: 1px; box-shadow: none;" />
+
+- Dagger was co-founded by Solomon Hykes in 2021
+- backed by many of the original Docker core engineers
+- The company behind it is called Dagger Inc.
+- Core functionality (open source), Dagger Cloud (commercial)
+---
+
+> ### ❓ Audience
+>
+> **WHAT CONTAINER RUNTIME / CLI ARE YOU USING?**
+>
+> - 🐳 Docker
+> - 🧪 Podman
+> - 🔍 Other — nerdctl, CRI-O, Lima, etc
+> - 🚫 None
+
+---
+
 > ### ❓ Audience
 >
 > **ARE YOU USING DAGGER (YET)?**
@@ -82,7 +112,6 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 > - 🧪 Tested it briefly
 > - ❌ Not yet, but interested
 > - 🚫 No, not planning to use
-
 
 <!-- ---
 

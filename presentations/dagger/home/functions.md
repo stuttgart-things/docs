@@ -26,6 +26,19 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 ---
 
+> ### ❓ Audience
+>
+> **WHAT IS YOUR MAIN PROGRAMING LANGUAGE?**
+>
+> - BASH
+> - PYTHON
+> - GOLANG
+> - RUST
+> - JS/JAVA
+> - ..?
+
+---
+
 ### /DAGGERVERSE
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/daggerverse.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
@@ -74,24 +87,18 @@ dagger call -m <module-path> <function-name> --help
 - kyverno container (golang sdk)
 ---
 
-### EXAMPLE FUNCTION (GOLANG) FOR KYVERNO VALIDATION
+#### EXAMPLE FUNCTION (GOLANG)
+
+- use of kyverno container + dictory mounts
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_validate.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 ---
 
-> ### ❓ Audience
->
-> **WHAT IS YOUR MAIN PROGRAMING LANGUAGE?**
->
-> - BASH
-> - PYTHON
-> - GOLANG
-> - RUST
-> - JS/JAVA
-> - ..?
+### EXAMPLE FUNCTION (PYTHON)
 
----
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/gitlab-mr.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
+- no dedicated container / python json pakage import / usage
 
 {{% /section %}}

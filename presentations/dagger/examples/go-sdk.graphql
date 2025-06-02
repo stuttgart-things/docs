@@ -1,0 +1,15 @@
+query {
+  container(from: "alpine") {
+    withMountedDirectory(path: "/src", source: {
+      host: {
+        directory(path: ".")
+      }
+    }) {
+      withWorkdir(path: "/src") {
+        withExec(args: ["sh", "-c", "echo Hello from Dagger!"]) {
+          stdout
+        }
+      }
+    }
+  }
+}

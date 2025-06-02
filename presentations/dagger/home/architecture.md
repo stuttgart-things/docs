@@ -25,23 +25,39 @@ DAG stands for Directed Acyclic Graph. It's a type of graph used in computing to
 
 ---
 
+### /DAGGER ENGINE
+
+- The Dagger engine is a custom version of BuildKit
+- It is responsible for efficiently running your pipeline as a DAG (Directed Acyclic Graph)
+- It's shipped as a container image and runs as a privileged container.
+
+---
+
+###  /Dagger CLI
+The Dagger CLI is the interface between you and the Dagger engine. It's used to call a module function, among many other things. It requires a container runtime to bootstrap the Dagger engine. Once the bootstrapping is done, Dagger will directly run your pipeline creating its own containers (container-in-container).
+
+---
+
 ### /Cross-Language Support
 
-<img src="https://miro.medium.com/v2/resize:fit:1400/1*gyNRqMRlB4xfm1_s0C7HXQ.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
-
-
-Dagger SDKs available in:
+<img src="https://miro.medium.com/v2/resize:fit:1400/1*gyNRqMRlB4xfm1_s0C7HXQ.png" alt="Alt Text" width="700" style="border: 1px; box-shadow: none;" />
 
 - 🐹 Go (`github.com/dagger/dagger`)
 - 🐍 Python (`dagger-io/dagger-python`)
 - 🕸️ Node.js / TypeScript (`@dagger.io/dagger`)
 
-All SDKs talk to the **same GraphQL engine**
-➡️ Language doesn't matter, pipelines behave the same
+---
 
-You can reuse and compose pipeline logic across teams and stacks.
+### /Cross-Language Support
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/xlanguage.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+
+- All SDKs talk to the **same GraphQL engine**
+- ➡️ Language doesn't matter, pipelines behave the same
+- You can reuse and compose pipeline logic across teams and stacks.
 
 ---
+
 
 ### /Sample Dagger DAG (Mermaid)
 
@@ -76,47 +92,23 @@ Supports lazy evaluation — only the final outputs you need get computed.
 
 ---
 
-### /Example: Go SDK Query (Under the Hood)
+### /Example: Go SDK Query
 
-```go
-client, err := dagger.Connect(ctx)
-src := client.Host().Directory(".")
-container := client.Container().
-    From("alpine").
-    WithMountedDirectory("/src", src).
-    WithWorkdir("/src").
-    WithExec([]string{"sh", "-c", "echo Hello from Dagger!"})
-output, err := container.Stdout(ctx)
-```
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+
+- Write code in a Dagger SDK
+- It gets converted into a GraphQL query
 
 ---
 
-### /Example: Go SDK Query (Under the Hood)
+### /Example: Go SDK Query
 
-```graphql
-query {
-  container(from: "alpine") {
-    withMountedDirectory(path: "/src", source: {
-      host: {
-        directory(path: ".")
-      }
-    }) {
-      withWorkdir(path: "/src") {
-        withExec(args: ["sh", "-c", "echo Hello from Dagger!"]) {
-          stdout
-        }
-      }
-    }
-  }
-}
-```
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk-graph.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
-- You write code in a Dagger SDK.
-- It gets converted into a GraphQL query.
-- The Dagger engine resolves it into a declarative build graph.
-- Containers run your logic, and results stream back via GraphQL.
+- The Dagger engine resolves it into a declarative build graph
+- Containers run logic, results stream back via GraphQL
 
-
+---
 
 
 The engine:

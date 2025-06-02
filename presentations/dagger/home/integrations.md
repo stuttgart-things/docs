@@ -15,6 +15,8 @@ weight = 40
 
 ### /GITHUB
 
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/gh.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+
 ---
 
 ### /GITLAB
@@ -27,10 +29,7 @@ weight = 40
 
 
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/gh.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
-
----
 
 ### /KUBERNETES
 
