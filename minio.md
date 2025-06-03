@@ -40,11 +40,17 @@ EOF
 # ZIP A TEST FOLDER (JUST FOR REFERENCE - NOT REQUIRED)
 zip -r toolkit.zip toolkit/
 
+# LIST BUCKET
+mc ls play
+
 # CREATE A BUCKET
 mc mb play/ankit
 
 # COPY TO BUCKET
 mc cp toolkit.zip play/ankit
+
+# COPY FROM BUCKET
+mc cp play/andreu/xlanguage.png ./bla.png
 ```
 
 </details>
