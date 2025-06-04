@@ -10,8 +10,29 @@ weight = 30
 
 ### /DAG
 
-DAG stands for Directed Acyclic Graph. It's a type of graph used in computing to model dependencies and workflows where:
+```mermaid
+graph TD
+  A[Clone Repo]
+  B[Install Dependencies]
+  C[Build]
+  D[Test]
+  E[Lint]
+  F[Package]
+  G[Publish Image]
 
+  A --> B
+  B --> C
+  C --> D
+  C --> E
+  D --> F
+  E --> F
+  F --> G
+```
+
+---
+
+- DAG = Directed Acyclic Graph
+- Graph to model dependencies and workflows
 - Directed: The connections (edges) between steps (nodes) point in one direction — from one step to another.
 - Acyclic: No cycles — you can’t return to a previous step by following edges.
 

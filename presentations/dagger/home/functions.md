@@ -22,7 +22,8 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/freeze.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
-- YAML is indentation-sensitive and whitespace-dependent, so even a small mistake (like an extra space or missing colon) can break the file.
+- YAML is indentation-sensitive and whitespace-dependent
+- A small mistake can break the file.
 
 ---
 
@@ -52,7 +53,8 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/lint.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
-- call it with parameters and it performs a CI/CD task.
+- call it with parameters
+- performs a CI/CD task.
 
 ---
 
@@ -60,7 +62,7 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/function_help.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
-- shows help text for a specific function within a Dagger module
+- shows help text for a specific function
 
 ```bash
 dagger call -m <module-path> <function-name> --help
@@ -84,12 +86,13 @@ dagger call -m <module-path> <function-name> --help
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_ctr.png" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
-- kyverno container (golang sdk)
+- kyverno installation in container
+- dagger golang sdk / wolfi linux as base
 ---
 
 #### EXAMPLE FUNCTION (GOLANG)
 
-- use of kyverno container + dictory mounts
+- use of kyverno container + directory mounts
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_validate.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
@@ -99,6 +102,7 @@ dagger call -m <module-path> <function-name> --help
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/gitlab-mr.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
-- no dedicated container / python json pakage import / usage
+- no dedicated container used
+- python json pakage import/usage
 
 {{% /section %}}

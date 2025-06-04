@@ -1,11 +1,52 @@
++++
+weight = 25
++++
 
-## DAGGER SHELL - RUN FUNCTION
+{{< slide id=shell background-color="#B3B3FF" type="slide" transition="zoom" transition-speed="fast" >}}
+
+{{% section %}}
+
+# DAGGER SHELL
+
+---
+
+### CALL FUNCTION
 
 ```bash
 dagger -m github.com/stuttgart-things/dagger/docker@v0.9.0
 .help trivy-scan
 trivy-scan nginx:latest
 ```
+
+---
+
+### EXECUTE CONTAINER #1
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/shell_golang.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+
+- install package(s) into container
+
+---
+
+### EXECUTE CONTAINER #2
+
+
+---
+
+### EXECUTE CONTAINER #3
+
+
+---
+
+### EXECUTE CONTAINER #4
+
+---
+
+
+
+
+
+
 
 ## DAGGER SHELL - JUMP INTO CONTAINER
 
@@ -23,7 +64,5 @@ container |
 
 ```
 
-This creates an Alpine container, drops in a text file with your message, sets it to display that message when run, and publishes it to a temporary registry. All in one pipeline - no context switching between Dockerfile creation, build commands, and registry pushes.
 
-
-https://dagger.io/blog/a-shell-for-the-container-age-introducing-dagger-shell
+{{% /section %}}
