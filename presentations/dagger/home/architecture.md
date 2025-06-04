@@ -8,7 +8,9 @@ weight = 30
 
 # /ARCHITECTURE
 
-### /DAG
+---
+
+### DAG = Directed Acyclic Graph
 
 ```mermaid
 graph TD
@@ -29,10 +31,7 @@ graph TD
   F --> G
 ```
 
----
-
-- DAG = Directed Acyclic Graph
-- Graph to model dependencies and workflows
+<!-- - Graph to model dependencies and workflows -->
 - Directed: The connections (edges) between steps (nodes) point in one direction — from one step to another.
 - Acyclic: No cycles — you can’t return to a previous step by following edges.
 
@@ -49,7 +48,7 @@ graph TD
 ### /DAGGER ENGINE
 
 - The Dagger engine is a custom version of BuildKit
-- It is responsible for efficiently running your pipeline as a DAG (Directed Acyclic Graph)
+- It is responsible for efficiently running your pipeline as a DAG
 - It's shipped as a container image and runs as a privileged container.
 
 ---
@@ -79,37 +78,17 @@ The Dagger CLI is the interface between you and the Dagger engine. It's used to 
 
 ---
 
-
-### /Sample Dagger DAG (Mermaid)
-
-```
-graph TD
-  A[Checkout Code] --> B[Build Container]
-  B --> C[Test Application]
-  C --> D1[Run Linter]
-  C --> D2[Publish to Registry]
-```
-
-- Cloning code from a repo
-- Building a container image
-- Running tests
-- Running a linter and publishing the image in parallel after tests
-
----
-
-### /🎯 Why GraphQL?
-GraphQL is strongly typed and introspectable (perfect for generating SDKs).
-
-Lets you dynamically compose and query complex objects (like containers and filesystems).
-
-Supports lazy evaluation — only the final outputs you need get computed.
-
----
-
 ### /🎯 Why GraphQL?
 - You write code in Go/Python/Node using a Dagger SDK.
 - That code sends GraphQL queries to a running Dagger engine (inside a container).
 - The engine interprets the queries, builds the DAG of container operations, executes it, and returns results.
+
+---
+
+### /🎯 Why GraphQL?
+- GraphQL is strongly typed and introspectable (perfect for generating SDKs).
+- Lets you dynamically compose and query complex objects (like containers and filesystems).
+- Supports lazy evaluation — only the final outputs you need get computed.
 
 ---
 
@@ -145,13 +124,6 @@ Streams the output back to your SDK
 
 
 
-### 🔄 Summary
 
-| **Concept**     | **Dagger**                                                                 |
-|------------------|----------------------------------------------------------------------------|
-| **DAG**          | Internal representation of all operations and dependencies                 |
-| **GraphQL API**  | How your local code communicates with the Dagger engine                    |
-| **SDK**          | Thin client that generates and sends GraphQL queries                       |
-| **Engine**       | Containerized GraphQL server that builds, runs, and caches workflows       |
 
 {{% /section %}}

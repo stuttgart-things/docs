@@ -14,7 +14,7 @@ tasks:
     cmds:
       - |
         find {{ .dir }}/{{ .presentation }} -type f | entr -r \
-        dagger call -m {{ daggerModule }} serve \
+        dagger call -m {{ .daggerModule }} serve \
         --config {{ .dir }}/{{ .presentation }}/hugo.toml \
         --content {{ .dir }}/{{ .presentation }} \
         --port {{ .port }} \

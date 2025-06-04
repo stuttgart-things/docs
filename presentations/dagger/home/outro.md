@@ -10,10 +10,23 @@ weight = 99
 
 ---
 
-
-### DAGGER SHELL
-
 ### DAGGER AI
+
+
+---
+
+
+### 🔄 Summary Architecture
+
+| **Concept**     | **Dagger**                                                                 |
+|------------------|----------------------------------------------------------------------------|
+| **DAG**          | Internal representation of all operations and dependencies                 |
+| **GraphQL API**  | How your local code communicates with the Dagger engine                    |
+| **SDK**          | Thin client that generates and sends GraphQL queries                       |
+| **Engine**       | Containerized GraphQL server that builds, runs, and caches workflows       |
+
+
+---
 
 
 
@@ -35,7 +48,6 @@ Dagger is like **Terraform, but for CI/CD** 🎯
 >
 > - ✅ Yes
 > - 🚫 No
-
 
 
 {{% /section %}}
