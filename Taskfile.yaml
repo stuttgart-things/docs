@@ -23,7 +23,7 @@ tasks:
     silent: true
     vars:
       daggerModule: github.com/stuttgart-things/dagger/hugo@v0.12.0
-      port: 4426
+      port: 4427
       dir: presentations
       presentation:
         sh: gum choose $(basename -a {{ .dir }}/*/)

@@ -8,7 +8,7 @@ weight = 20
 
 # /FUNCTIONS
 
-single composable operationa within a module
+single composable operations within a module
 
 <img src="https://i.kym-cdn.com/entries/icons/facebook/000/016/546/hidethepainharold.jpg" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
@@ -27,25 +27,12 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 ---
 
-> ### ❓ Audience
->
-> **WHAT IS YOUR MAIN PROGRAMING LANGUAGE?**
->
-> - BASH
-> - PYTHON
-> - GOLANG
-> - RUST
-> - JS/JAVA
-> - ..?
-
----
-
 ### /DAGGERVERSE
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/daggerverse.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
-- free service run by Dagger
 - indexes all publicly available Dagger Functions
+- free service run by Dagger
 
 ---
 
@@ -55,6 +42,14 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 - call it with parameters
 - performs a CI/CD task.
+
+---
+
+###  /Dagger CLI
+- The Dagger CLI is the interface between you and the Dagger engine.
+- used to call a module function, among many other things
+- it requires a container runtime to bootstrap the Dagger engine
+- Dagger will directly run your pipeline creating its own containers (container-in-container)
 
 ---
 
@@ -82,7 +77,21 @@ dagger call -m <module-path> <function-name> --help
 
 ---
 
-### EXAMPLE CONTAINER DEFINTION / BUILD
+
+> ### ❓ Audience
+>
+> **WHAT IS YOUR MAIN PROGRAMING LANGUAGE?**
+>
+> - BASH
+> - PYTHON
+> - GOLANG
+> - RUST
+> - JS/JAVA
+> - ..?
+
+---
+
+### EXAMPLE CONTAINER DEFINTION
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_ctr.png" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 

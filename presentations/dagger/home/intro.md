@@ -6,12 +6,10 @@ weight = 10
 
 {{% section %}}
 
-<img src="https://framerusercontent.com/images/dtoLxVnUgfKiPsuiXXWcTwxGIb4.png?lossless=1" width="650" style="border: none; box-shadow: none;" />
+<img src="https://framerusercontent.com/images/dtoLxVnUgfKiPsuiXXWcTwxGIb4.png?lossless=1" width="750" style="border: none; box-shadow: none;" />
 
 **A tool to run composable workflows in containers**
 
-<br/>
-<br/>
 <br/>
 <br/>
 
@@ -23,7 +21,7 @@ weight = 10
 
 <img src="https://attachments-cdn-s.coub.com/coub_storage/coub/simple/cw_timeline_pic/7e14911f5a8/c1bec6bfed315483bad44/med_1587503875_image.jpg" alt="Alt Text" width="750"/>
 
-Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrations • 🛰️ OUTRO
+Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrations
 
 ---
 
@@ -43,7 +41,7 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/134ir143zl8a1.jpg" alt="Alt Text" width="600" style="border: 1px; box-shadow: none;" />
 
-- Enable developers to test their code instantly, locally
+- Enable developers to test their code instantly - locally
 
 ---
 
@@ -68,7 +66,7 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/bla.png" alt="Alt Text" width="8000" style="border: 1px; box-shadow: none;" />
 
-- inline shell = major source of complexity and fragility
+- Inline shell = major source of complexity and fragility
 - Debugging usually involves re-running CI until it works
 
 ---
@@ -87,21 +85,9 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 <img src="https://techcrunch.com/wp-content/uploads/2022/03/Dagger-Redpoint.jpeg" alt="Alt Text" width="600" style="border: 1px; box-shadow: none;" />
 
-- Dagger was co-founded by Solomon Hykes in 2021
+- Dagger Inc. was co-founded by Solomon Hykes in 2021
 - backed by many of the original Docker core engineers
-- The company behind it is called Dagger Inc.
 - Core functionality (open source), Dagger Cloud (commercial)
----
-
-> ### ❓ Audience
->
-> **WHAT CONTAINER RUNTIME / CLI ARE YOU USING?**
->
-> - 🐳 Docker
-> - 🧪 Podman
-> - 🔍 Other — nerdctl, CRI-O, Lima, etc
-> - 🚫 None
-
 ---
 
 > ### ❓ Audience

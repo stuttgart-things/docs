@@ -2,7 +2,7 @@
 weight = 25
 +++
 
-{{< slide id=shell background-color="#B3B3FF" type="slide" transition="zoom" transition-speed="fast" >}}
+{{< slide id=shell background-color="#FFA2A2" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
 

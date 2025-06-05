@@ -2,7 +2,7 @@
 weight = 99
 +++
 
-{{< slide id=outro background-color="#D4B9FF" type="slide" transition="zoom" transition-speed="fast" >}}
+{{< slide id=outro background-color="#9FE2BF" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
 
@@ -15,7 +15,6 @@ weight = 99
 
 ---
 
-
 ### 🔄 Summary Architecture
 
 | **Concept**     | **Dagger**                                                                 |
@@ -25,10 +24,7 @@ weight = 99
 | **SDK**          | Thin client that generates and sends GraphQL queries                       |
 | **Engine**       | Containerized GraphQL server that builds, runs, and caches workflows       |
 
-
 ---
-
-
 
 ### /SUMMARY
 
@@ -39,6 +35,14 @@ weight = 99
 ✅ Cross-language support
 
 Dagger is like **Terraform, but for CI/CD** 🎯
+
+---
+
+### /Final Thoughts
+- The initial learning curve can be steep, especially for non-developers like me
+- Dagger is a relatively new project that evolves quickly
+- Regarding the modules available in the Daggerverse, it can be challenging to judge their quality
+- There are no "validated" or "official" modules
 
 ---
 

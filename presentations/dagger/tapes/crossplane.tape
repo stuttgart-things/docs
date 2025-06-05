@@ -7,14 +7,29 @@ Set Height 880
 
 Sleep 500ms
 
-Type "kubectl describe proxmoxvmansible homerun-int-1 -n proxmox"
+Type "kubectl apply -f proxmox-vm.yaml"
 
 Enter
 
-Sleep 7s
+Sleep 20s
 
-Type "crossplane beta trace  proxmoxvmansible manager-dev13 -n proxmox"
+Type "crossplane beta trace proxmoxvmansible manager-dev36 -n proxmox"
+
 
 Enter
 
-Sleep 7s
+Sleep 20s
+
+Type "kubectl describe proxmoxvmansible manager-dev36 -n proxmox"
+
+
+Enter
+
+Sleep 20s
+
+
+Type "tkn pr logs -f manager-dev36-2qpgg-43107375b986 -n tekton-pipelines"
+
+Enter
+
+Sleep 20s

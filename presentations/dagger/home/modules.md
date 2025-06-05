@@ -2,7 +2,7 @@
 weight = 50
 +++
 
-{{< slide id=module background-color="#B3B3FF" type="slide" transition="zoom" transition-speed="fast" >}}
+{{< slide id=module background-color="#FFD4B3" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
 
