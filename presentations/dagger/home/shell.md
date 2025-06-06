@@ -10,17 +10,13 @@ weight = 25
 
 ---
 
-### CALL FUNCTION
+The Dagger CLI includes an interactive shell that translates the familiar Bash syntax to Dagger API requests. It's the simplest and fastest way to run Dagger workflows directly from the command-line.
 
-```bash
-dagger -m github.com/stuttgart-things/dagger/docker@v0.9.0
-.help trivy-scan
-trivy-scan nginx:latest
-```
+You can use it for builds, tests, ephemeral environments, deployments, or any other task you want to automate from the terminal.
 
 ---
 
-### EXECUTE CONTAINER #1
+### /EXECUTE CONTAINER FROM SHELL
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/shell_golang.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
@@ -28,41 +24,45 @@ trivy-scan nginx:latest
 
 ---
 
-### EXECUTE CONTAINER #2
+### /BUILD GO BINARY
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/build.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+
+- Clone git repo
+- Build binary
+- Export binary to dir
+
+---
+
+### /VARIABLES + TERMINAL EXAMPLE
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/shell_node_nginx.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+
+- Set vars
+- Get Interactive terminal
+
+---
+
+### USE IN BASH/SCRIPT
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/script.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### FUNCTION, CONTAINER BUILD + PUBLISH
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/shell_node_publish2.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 
 ---
 
-### EXECUTE CONTAINER #3
+### COMPOSING CONTAINER BUILD
 
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/composing.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
----
-
-### EXECUTE CONTAINER #4
-
----
-
-
-
-
-
-
-
-## DAGGER SHELL - JUMP INTO CONTAINER
-
-```bash
-container |
-  from alpine |
-  with-exec apk add git |
-  terminal
-```
-
-## DAGGER SHELL - SIMPLE CONTAINER BUILD
-
-```bash
-
-
-```
+- loads github.com/dagger/dagger/docs into one pipeline
+- github.com/dagger/dagger/modules/wolfi into another
+- then combines them.
 
 
 {{% /section %}}

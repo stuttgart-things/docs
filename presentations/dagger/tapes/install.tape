@@ -7,13 +7,7 @@ Set Height 880
 
 Type "docker version"
 
-Sleep 5s
-
-Enter
-
-Type "podman version"
-
-Sleep 5s
+Sleep 10s
 
 Enter
 
@@ -25,7 +19,7 @@ Sleep 15s
 
 Type "dagger version"
 
-Sleep 3s
+Sleep 15s
 
 Enter
 

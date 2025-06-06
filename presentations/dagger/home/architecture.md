@@ -105,24 +105,4 @@ graph TD
 - ➡️ Language doesn't matter, pipelines behave the same
 - You can reuse and compose pipeline logic across teams and stacks.
 
----
-
-
-
-
-The engine:
-
-Builds the container image
-
-Runs the echo hello command
-
-Streams the output back to your SDK
-```
-
----
-
-
-
-
-
 {{% /section %}}
