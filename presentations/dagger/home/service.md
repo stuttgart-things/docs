@@ -31,7 +31,7 @@ weight = 70
 
 ### 🧪 /MORE DETAILED
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/test.png" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/test.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 - Build golang bin
 - Run go test
@@ -39,10 +39,14 @@ weight = 70
 
 ---
 
-### 🧪 /ANOTHER ONE
+#### 🧪 /ANOTHER ONE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/serve.png" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/serve.png" alt="Alt Text" width="525" style="border: none; box-shadow: none;" />
 
+---
 
+### 🧪 /SLIDES EXAMPLE
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/service.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 {{% /section %}}

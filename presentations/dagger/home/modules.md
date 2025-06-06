@@ -51,8 +51,22 @@ weight = 50
 
 ---
 
+### /CREATE MODULE
 
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/module.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
+---
 
+### /CHAINING + USE IMPORTS
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/helm-lint.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+
+- Usage of imported helm module
+
+---
+
+### /PIPELINES
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/pipeline.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 {{% /section %}}

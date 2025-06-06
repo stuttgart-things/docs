@@ -12,31 +12,52 @@ weight = 40
 
 ### /DAGGER CLOUD
 
+<img src="https://blog.ogenki.io/post/dagger-intro/dagger-cloud.png" alt="Alt Text" width="600" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /DAGGER CLOUD
+
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/idp/dagger-cloud.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 - Visualize your pipeline's DAG, inputs/outputs, and execution logs
 - Explore how your pipeline is structured, down to each function call
 
-
-<img src="https://blog.ogenki.io/post/dagger-intro/dagger-cloud.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
-
 ---
 
-### /GITHUB
+### /GITHUB WORKFLOW DEFINITION
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/gh.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
+- Runs on dagger runner
+
 ---
 
-### /GITHUB
+### /GITHUB EXECUTION
 
 <img src="https://blog.ogenki.io/post/dagger-intro/github-actions-output.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
+- Workflow output
+
 ---
 
-### /GITLAB
+### /GITLAB WORKFLOW DEFINITION
 
 <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/idp/gl-dagger.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+
+- Runs on dagger runner
+
+---
+
+### /GITLAB EXECUTION
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/gl-pipeline.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /TASKFILE
+
+<img src="https://tsh.io/wp-content/uploads/2021/04/taskfile-preference-meme.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -54,20 +75,41 @@ weight = 40
 
 > ### ❓ Audience
 >
-> **WHAT CONTAINER RUNTIME / CLI ARE YOU USING?**
+> **HOW DO YOU AUTOMATE TASKS LOCALLY?**
 >
-> - 🐳 Docker
-> - 🧪 Podman
-> - 🔍 Other — nerdctl, CRI-O, Lima, etc
+> - 🛠️ make
+> - 📦 Taskfile
+> - 🌍 Earthfile / earthly
+> - 📜 Shell scripts
+> - 🧪 Justfile
 > - 🚫 None
 
 ---
 
-### /MORE
+### /KUBERNETES / GITHUB
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/dind.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+- gh runner deployment w/ flux
+- dind indicates the mode used to launch the containers.
+- ⚠️Dagger must run as a root user and have elevated privileges in order to control containers, volumes, networks, etc.
+
+---
+
+### /KUBERNETES / EKS
+
+<img src="https://blog.ogenki.io/post/dagger-intro/dagger-cache-kubernetes.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+- The Dagger Engine: A single pod exposes an HTTP service
+- Specific Node Pool: A node pool with constraints to obtain local NVME disks
+
+---
+
+### /MORE INTEGRATIONS
 
 - Google Cloud Run
 - Nerdctl
-- Kubernetes
+- Podman
 - OpenShift
 
 

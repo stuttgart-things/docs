@@ -101,15 +101,17 @@ dagger call -m <module-path> <function-name> --help
 
 ---
 
-#### EXAMPLE FUNCTION TRIVY
+### /EXAMPLE FUNCTION TRIVY
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/trivy.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/trivy.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
 
-```bash
-dagger call -m github.com/stuttgart-things/dagger/docker@v0.11.1 trivy-scan --image-ref ghcr.io/stuttgart-things/alpine:1.23 \
---progress plain --with-registry-username=env:USER \
---with-registry-password=env:PASSWORD
-```
+---
+
+### /EXAMPLE CALL TRIVY
+
+<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/call.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+
+- Secrets from env vars
 
 ---
 
