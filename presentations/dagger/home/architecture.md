@@ -71,17 +71,20 @@ graph TD
 
 ### /Example: Go SDK Query
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<div style="display: flex; align-items: center; justify-content: center;">
+
+  <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk.png" alt="Left Image" width="700" style="border: none; box-shadow: none;"/>
+
+  <!-- <div style="flex: 3; text-align: center; padding: 0 80px;">
+    - <code>kinds: ClusterPolicy/Claim</code>
+    - Claim can be checked against Policy
+  </div> -->
+
+  <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk-graph.png" alt="Right Image" width="650" style="border: none; box-shadow: none;"/>
+</div>
 
 - Write code in a Dagger SDK
 - It gets converted into a GraphQL query
-
----
-
-### /Example: Go SDK Query
-
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk-graph.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
-
 - The Dagger engine resolves it into a declarative build graph
 - Containers run logic, results stream back via GraphQL
 
