@@ -239,6 +239,19 @@ metadata:
 
 </details>
 
+<details><summary>K3S IMPORT IMAGE</summary>
+
+```bash
+docker save docker.io/minio/kes:2025-03-12T09-35-18Z -o kes.tar
+sudo k3s ctr images import kes.tar
+
+#containers:
+#  - name: kes
+#    image: docker.io/minio/kes:2025-03-12T09-35-18Z
+#    imagePullPolicy: Never
+```
+
+</details>
 
 <details><summary>PORTFORWARDING</summary>
 
