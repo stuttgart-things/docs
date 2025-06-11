@@ -2,6 +2,46 @@
 
 ## SNIPPETS
 
+<details><summary>SQUASH COMMITS (e.g. PRE-PR) </summary>
+
+```
+# git branch = e.g. feature branch
+# more than one commits on branch
+
+git rebase -i origin/main
+
+# in rebase-editor - pick the first one and squash all others
+# e.g.
+pick 4225ee1 feat: add global storage class
+squash d26e006 feat: add the ability for a global storage
+squash 0815sfg feat: whatever
+
+# save w/ :wq
+
+# in the commit editor - delete eveything unnessesary, just commit message is important
+# e.g.
+
+feat: add global storage class
+
+for deploying vre on multiple sites/clusters
+it's important to have the ability for
+setting a global storage class for all apps
+with one (global) variable. issue:
+111-add-the-ability-to-globally-set-storage-class.
+
+# save w/ :wq
+
+# FORCE PUSH IN GIVEN BRANCH
+git push origin 111-add-the-ability-to-globally-set-storage-class --force
+```
+
+
+
+# remove unnessesary comments/lines
+
+</details>
+
+
 <details><summary>DELETE LARGE FILES FROM HISTORY</summary>
 
 ```bash
