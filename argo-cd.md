@@ -1,5 +1,107 @@
 # stuttgart-things/docs/argocd
 
+## CLUSTER
+
+<details><summary><b>CREATE CLUSTER w/o CLI</b></summary>
+
+### DEPLOY ON TO BE ADDED CLUSTER
+
+```bash
+export KUBECONFIG=~/.kube/tobeaddedcluster
+
+cat <<EOF | kubectl apply -f -
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argocd-manager
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argocd-manager-role
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - '*'
+- nonResourceURLs:
+  - '*'
+  verbs:
+  - '*'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argocd-manager-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argocd-manager-role
+subjects:
+- kind: ServiceAccount
+  name: argocd-manager
+  namespace: kube-system
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-manager-token
+  namespace: kube-system
+  annotations:
+    kubernetes.io/service-account.name: argocd-manager
+type: kubernetes.io/service-account-token
+EOF
+```
+
+### GET CLUSTER DETAILS OF TO BE ADDED CLUSTER
+
+```bash
+export KUBECONFIG=~/.kube/tobeaddedcluster
+
+kubectl config get-contexts # e.g. kind-maverick
+
+# replace context e.g. kind-tobeaddedcluster
+CONTEXT=kind-maverick
+CA=$(kubectl get -n kube-system secret/argocd-manager-token --context=${CONTEXT} -o jsonpath='{.data.ca\.crt}')
+TOKEN=$(kubectl get -n kube-system secret/argocd-manager-token --context=${CONTEXT} -o jsonpath='{.data.token}' | base64 --decode)
+SERVER=$(grep 'server:' ~/.kube/tobeaddedcluster | awk '{print $2}')
+```
+
+### DEPLOY ON ARGOCD CLUSTER
+
+```bash
+export KUBECONFIG=~/.kube/clusterargocdisrunningon
+NAME=kind-maverick
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: cluster
+  name: ${NAME}
+  namespace: argocd
+type: Opaque
+stringData:
+  config: |
+    {
+      "bearerToken": "${TOKEN}",
+      "tlsClientConfig": {
+        "serverName": "${CONTEXT}",
+        "caData": "${CA}"
+      }
+    }
+  name: ${NAME}
+  server: ${SERVER}
+EOF
+```
+
+</details>
+
 ## APPLICATION
 
 <details><summary><b>FOLDER</b></summary>
