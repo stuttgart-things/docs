@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: slides-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: slides
+  template:
+    metadata:
+      labels:
+        app: slides
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.28.0
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: static-content  # Updated volume name
+              mountPath: /usr/share/nginx/html  # Nginx static content directory
+      volumes:
+        - name: static-content  # Updated volume name
+          image:
+            reference: ghcr.io/stuttgart-things/dagger:20250613-095510
+            pullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-static-service
+spec:
+  selector:
+    app: slides
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+      - dagger.idp.kubermatic.sva.dev
+      secretName: dagger-slides-tls
+  rules:
+  - host: dagger.idp.kubermatic.sva.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-static-service
+            port:
+              number: 80
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dagger-slides
+spec:
+  dnsNames:
+    - dagger.idp.kubermatic.sva.dev
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: dagger-slides-tls

@@ -1,0 +1,24 @@
+---
+helmDefaults:
+  verify: false
+  wait: true
+  timeout: 600
+  recreatePods: false
+  force: true
+
+helmfiles:
+  - path: git::https://github.com/stuttgart-things/helm.git@infra/cilium.yaml
+    values:
+      - config: kind
+      - configureLB: true
+      - ipRangeStart: 172.18.250.0
+      - ipRangeEnd: 172.18.250.50
+      - clusterName: slides
+
+  - path: git::https://github.com/stuttgart-things/helm.git@infra/ingress-nginx.yaml
+    values:
+      - enableHostPort: true
+
+  - path: git::https://github.com/stuttgart-things/helm.git@infra/cert-manager.yaml
+    values:
+      - config: selfsigned
