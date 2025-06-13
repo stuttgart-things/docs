@@ -56,7 +56,7 @@ vault write -f auth/approle/role/kes-server/secret-id
 #secret: 3eb58365-7359-f3ed-f2b2-309a14f8a8b6
 ```
 
-### KES CONFIGURATION
+#### KES CONFIGURATION
 
 ```bash
 git clone https://github.com/minio/operator.git
@@ -126,9 +126,7 @@ kubectl get pods -n minio-operator
 kubectl get pods -n tenant-kms-encrypted
 ```      
 
-</details>
-
-### TEST KES ENCRYPTION
+#### TEST KES ENCRYPTION
 
 ```bash
 kubectl -n tenant-kms-encrypted run -it --rm mc   --image=minio/mc:RELEASE.2025-05-21T01-59-54Z-cpuv1   --restart=Never   --command -- sh
@@ -150,6 +148,8 @@ mc cat minio/encryptedbucket/file1.txt
 
 mc stat minio/encryptedbucket/file1.txt
 ```
+
+</details>
 
 <details><summary><b>INSTALL MINIO-CLI (MC)</b></summary>
 
