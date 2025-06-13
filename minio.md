@@ -2,6 +2,155 @@
 
 ## SNIPPETS
 
+<details><summary><b>VAULT-KES-MINIO</b></summary>
+
+[DOC](https://blog.min.io/minio-operator-with-kes-backed-by-vault)
+
+#### DEPLOY MINIO OPERATOR
+
+```bash
+kubectl apply -k github.com/minio/operator
+```
+
+#### VAULT UNSEAL
+
+```bash
+helm repo add unseal https://pytoshka.github.io/vault-autounseal
+
+cat << EOF> unseal-values.yaml
+vault_label_selector: app.kubernetes.io/component=server
+EOF
+
+helm upgrade --install vault-autounseal \
+unseal/vault-autounseal \
+--set=settings.vault_url=http://vault-server.vault.svc:8200 \
+--values unseal-values.yaml \
+-n vault
+```
+
+#### VAULT CONFIG
+
+```bash
+kubectl get po -n vault --show-labels
+
+kubectl -n vault exec -it vault-server-0 -- sh
+
+vault login
+vault secrets enable -version=1 kv
+
+vault policy write kes-policy - <<EOF
+path "kv/*" {
+  capabilities = [ "create", "read", "delete" ]
+}
+EOF
+
+vault auth enable approle
+
+vault write auth/approle/role/kes-server token_num_uses=0 secret_id_num_uses=0 period=5m
+vault write auth/approle/role/kes-server policies=kes-policy
+
+vault read auth/approle/role/kes-server/role-id
+vault write -f auth/approle/role/kes-server/secret-id
+
+#id: 986d855b-d315-2939-13c9-8c69f5097772
+#secret: 3eb58365-7359-f3ed-f2b2-309a14f8a8b6
+```
+
+### KES CONFIGURATION
+
+```bash
+git clone https://github.com/minio/operator.git
+code operator/examples/kustomization/tenant-kes-encryption/kes-configuration-secret.yaml
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kes-configuration
+  namespace: tenant-kms-encrypted
+type: Opaque
+stringData:
+  server-config.yaml: |-
+    version: v1
+    address: :7373
+    admin:
+      identity: _ # Effectively disabled since no root identity necessary.
+    tls:
+      key: /tmp/kes/server.key   # Path to the TLS private key
+      cert: /tmp/kes/server.crt # Path to the TLS certificate
+      proxy:
+        identities: []
+        header:
+          cert: X-Tls-Client-Cert
+    policy:
+      my-policy:
+        allow:
+        - /v1/api
+        - /v1/key/create/*
+        - /v1/key/generate/*
+        - /v1/key/decrypt/*
+        - /v1/key/bulk/decrypt/*
+        identities:
+        - ${MINIO_KES_IDENTITY}
+    cache:
+      expiry:
+        any: 5m0s
+        unused: 20s
+    log:
+      error: on
+      audit: off
+    keystore:
+      vault:
+        endpoint: "http://vault-server.vault.svc.cluster.local:8200"
+        namespace: "default"
+        prefix: "my-minio"    # An optional K/V prefix. The server will store keys under this prefix.
+        approle:
+          id: 986d855b-d315-2939-13c9-8c69f5097772
+          secret: 3eb58365-7359-f3ed-f2b2-309a14f8a8b6
+          retry: 15s
+        tls:
+          key: ""
+          cert: ""
+          ca: ""
+        status:
+          ping: 10s
+```
+
+```bash
+code examples/kustomization/base/tenant.yaml # change e.g. storageClassName
+
+kubectl apply -k operator/examples/kustomization/tenant-kes-encryption
+
+kubectl get pods -n minio-operator                       
+kubectl get pods -n tenant-kms-encrypted
+```      
+
+</details>
+
+### TEST KES ENCRYPTION
+
+```bash
+kubectl -n tenant-kms-encrypted run -it --rm mc   --image=minio/mc:RELEASE.2025-05-21T01-59-54Z-cpuv1   --restart=Never   --command -- sh
+
+mc alias set minio https://myminio-hl.tenant-kms-encrypted.svc.cluster.local:9000 console console12
+3
+
+mc admin kms key create minio encrypted-bucket-key
+mc mb minio/encryptedbucket
+
+mc admin kms key status my encrypted-bucket-key
+
+ echo "Hello" >> file1.txt
+
+mc ls minio/encryptedbucket
+mc cp file1.txt minio/encryptedbucket
+
+mc cat minio/encryptedbucket/file1.txt
+
+mc stat minio/encryptedbucket/file1.txt
+```
+
 <details><summary><b>INSTALL MINIO-CLI (MC)</b></summary>
 
 ```bash
