@@ -28,6 +28,56 @@ tasks:
       presentation:
         sh: gum choose $(basename -a {{ .dir }}/*/)
 
+  build-s3-push:
+    desc: Build static content
+    cmds:
+      - |
+        # CLEAN UP
+        rm -rf {{ .OUTPUT_PATH_STATIC }} || true
+
+        # BUILD STATIC CONTENT
+        dagger call -m {{ .HUGO_MODULE }} \
+        build-sync-export \
+        --name {{ .presentation }} \
+        --config {{ .dir }}/{{ .presentation }}/hugo.toml \
+        --content {{ .dir }}/{{ .presentation }} \
+        --endpoint {{ .s3Endpoint }} \
+        --bucket-name {{ .presentation }} \
+        --insecure={{ .s3Insecure }} \
+        --access-key=env:MINIO_USER \
+        --secret-key=env:MINIO_PASSWORD \
+        --alias-name artifacts \
+        export \
+        --path {{ .OUTPUT_PATH_STATIC }}
+
+        echo "FROM scratch" > {{ .OUTPUT_PATH_STATIC }}/Dockerfile
+        echo "COPY . /" >> {{ .OUTPUT_PATH_STATIC }}/Dockerfile
+
+        dagger call -m {{ .DOCKER_MODULE }} \
+        build-and-push \
+        --source {{ .OUTPUT_PATH_STATIC }} \
+        --repository-name {{ .REPOSITORY }}/{{ .presentation }} \
+        --registry-url {{ .REGISTRY }} \
+        --version {{ .VERSION }} \
+        --progress plain  \
+        --with-registry-username=env:GITHUB_USER \
+        --with-registry-password=env:GITHUB_TOKEN \
+        -vv
+
+    vars:
+      DOCKER_MODULE: github.com/stuttgart-things/dagger/docker@v0.11.1
+      HUGO_MODULE: github.com/stuttgart-things/dagger/hugo@v0.12.0
+      dir: presentations
+      s3Endpoint: https://play.min.io
+      s3Insecure: true
+      presentation:
+        sh: gum choose $(basename -a {{ .dir }}/*/)
+      OUTPUT_PATH_STATIC: /tmp/hugo/static/{{ .presentation }}
+      VERSION:
+        sh: date +"%Y%m%d-%H%M%S"
+      REPOSITORY: stuttgart-things
+      REGISTRY: ghcr.io
+
   build:
     desc: Build static content
     cmds:

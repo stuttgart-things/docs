@@ -20,7 +20,7 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 ###  /INSTALL DAGGER (CLI)
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/install.gif" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/install.gif" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
 ---
 
@@ -34,7 +34,7 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 ### /EXAMPLE: A(NY) YAML-FILE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/freeze.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/freeze.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
 - YAML is indentation-sensitive and whitespace-dependent
 - A small mistake can break the file.
@@ -43,7 +43,7 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 ### /DAGGERVERSE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/daggerverse.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/daggerverse.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
 - indexes all publicly available Dagger Functions
 - free service run by Dagger
@@ -52,7 +52,7 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 ### /YAML-LINT FUNCTION CALL
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/lint.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/lint.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
 - call it with parameters
 - performs a CI/CD task.
@@ -75,7 +75,7 @@ dagger call -m github.com/hidethepain@1.2.3 phone \
 
 ### /FUNCTION PARAMETERS (EXAMPLE TRIVY)
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/function_help.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/function_help.gif" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
 - shows help text for a specific function
 
@@ -87,7 +87,7 @@ dagger call -m <module-path> <function-name> --help
 
 ### EXAMPLE CONTAINER DEFINTION
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_ctr.png" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/kyverno_ctr.png" alt="Alt Text" width="1750" style="border: none; box-shadow: none;" />
 
 - kyverno installation in container
 - dagger golang sdk / wolfi linux as base
@@ -97,19 +97,19 @@ dagger call -m <module-path> <function-name> --help
 
 - use of kyverno container + directory mounts
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/kyverno_validate.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/kyverno_validate.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 ---
 
 ### /EXAMPLE FUNCTION TRIVY
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/trivy.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/trivy.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
 
 ---
 
 ### /EXAMPLE CALL TRIVY
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/call.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/call.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 - Secrets from env vars
 
@@ -130,7 +130,7 @@ dagger call -m <module-path> <function-name> --help
 
 ### EXAMPLE FUNCTION (PYTHON)
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/gitlab-mr.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/gitlab-mr.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 - no dedicated container used
 - python json pakage import/usage

@@ -73,14 +73,14 @@ graph TD
 
 <div style="display: flex; align-items: center; justify-content: center;">
 
-  <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk.png" alt="Left Image" width="700" style="border: none; box-shadow: none;"/>
+  <img src="https://play.min.io/dagger/go-sdk.png" alt="Left Image" width="700" style="border: none; box-shadow: none;"/>
 
   <!-- <div style="flex: 3; text-align: center; padding: 0 80px;">
     - <code>kinds: ClusterPolicy/Claim</code>
     - Claim can be checked against Policy
   </div> -->
 
-  <img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/go-sdk-graph.png" alt="Right Image" width="650" style="border: none; box-shadow: none;"/>
+  <img src="https://play.min.io/dagger/go-sdk-graph.png" alt="Right Image" width="650" style="border: none; box-shadow: none;"/>
 </div>
 
 - Write code in a Dagger SDK
@@ -102,7 +102,7 @@ graph TD
 
 ### /Cross-Language Support
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/xlanguage.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/xlanguage.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
 - All SDKs talk to the **same GraphQL engine**
 - ➡️ Language doesn't matter, pipelines behave the same

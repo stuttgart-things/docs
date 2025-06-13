@@ -18,7 +18,7 @@ weight = 50
 
 ### /Dagger Modules
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/star.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/star.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
 - Modules are just source code
 - Binary artifacts are built locally, and cached.
@@ -30,7 +30,7 @@ weight = 50
 
 ### /(Reusable) Modules
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/idp/module.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/module.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
 - Definition: A module is a reusable package of CI/CD logic written in code (e.g., Go, Python, or any supported language).
 
@@ -42,7 +42,7 @@ weight = 50
 
 ### /(Reusable) Modules
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/functions_crane.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/functions_crane.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
 
 - Analogy: Like a library or plugin for CI/CD workflows.
@@ -53,13 +53,13 @@ weight = 50
 
 ### /CREATE MODULE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/module.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/module.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
 ---
 
 ### /CHAINING + USE IMPORTS
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/helm-lint.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/helm-lint.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
 - Usage of imported helm module
 
@@ -67,6 +67,6 @@ weight = 50
 
 ### /PIPELINES
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/pipeline.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/pipeline.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 {{% /section %}}

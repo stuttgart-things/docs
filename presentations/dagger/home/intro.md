@@ -39,7 +39,7 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 ### /Shift CI Left
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/134ir143zl8a1.jpg" alt="Alt Text" width="600" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/shiftci.jpg" alt="Alt Text" width="600" style="border: 1px; box-shadow: none;" />
 
 - Enable developers to test their code instantly - locally
 
@@ -48,9 +48,9 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 ### ➡️ PUSH & PRAY 🙏
 
 <img
-  src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/pushpray.png"
+  src="https://play.min.io/dagger/pushpray.png"
   alt="PUSH & PRAY"
-  width="650"
+  width="625"
   style="
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -64,7 +64,7 @@ Intro • 🛠️ Functions • 💻 Architecture • 🔗 Modules 🔗 Integrat
 
 ### /COMPLEX YAML-PIPELINES
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/bla.png" alt="Alt Text" width="8000" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/bla.png" alt="Alt Text" width="2000" style="border: 1px; box-shadow: none;" />
 
 - Inline shell = major source of complexity and fragility
 - Debugging usually involves re-running CI until it works
@@ -120,7 +120,7 @@ Build modular, language-agnostic workflows that scale with your team.
 ---
 ### /GETTING STARTED
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/install.gif" alt="Alt Text" width="3000" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/install.gif" alt="Alt Text" width="3000" style="border: none; box-shadow: none;" />
 
 
 ---

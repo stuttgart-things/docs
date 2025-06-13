@@ -18,7 +18,7 @@ weight = 40
 
 ### /DAGGER CLOUD
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/idp/dagger-cloud.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/dagger-cloud.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 - Visualize your pipeline's DAG, inputs/outputs, and execution logs
 - Explore how your pipeline is structured, down to each function call
@@ -27,7 +27,7 @@ weight = 40
 
 ### /GITHUB WORKFLOW DEFINITION
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/images/gh.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/gh.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 - Runs on dagger runner
 
@@ -43,7 +43,7 @@ weight = 40
 
 ### /GITLAB WORKFLOW DEFINITION
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/idp/gl-dagger.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/gl-dagger.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 - Runs on dagger runner
 
@@ -51,7 +51,7 @@ weight = 40
 
 ### /GITLAB EXECUTION
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/gl-pipeline.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/gl-pipeline.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -63,13 +63,13 @@ weight = 40
 
 ### /TASKFILE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/idp/task.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/task.png" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 ---
 
 ### /TASKFILE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/idp/taskfile2.gif" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/taskfile2.gif" alt="Alt Text" width="4000" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -88,7 +88,7 @@ weight = 40
 
 ### /KUBERNETES / GITHUB
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/dind.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+<img src="https://play.min.io/dagger/dind.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 - gh runner deployment w/ flux
 - dind indicates the mode used to launch the containers.

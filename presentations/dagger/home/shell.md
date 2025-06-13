@@ -20,7 +20,7 @@ weight = 25
 
 ### /EXECUTE CONTAINER FROM SHELL
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/shell_golang.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/shell_golang.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 - install package(s)
 
@@ -28,7 +28,7 @@ weight = 25
 
 ### /BUILD GO BINARY
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/build.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/build.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 - Clone git repo
 - Build binary
@@ -38,7 +38,7 @@ weight = 25
 
 ### /VARIABLES + TERMINAL EXAMPLE
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/shell_node_nginx.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/shell_node_nginx.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 - Set vars
 - Get Interactive terminal
@@ -47,13 +47,13 @@ weight = 25
 
 ### /USE FROM BASH (OR SCRIPT)
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/script.png" alt="Alt Text" width="1700" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/script.png" alt="Alt Text" width="1700" style="border: none; box-shadow: none;" />
 
 ---
 
 ### /FUNCTION, CONTAINER BUILD + PUBLISH
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/shell_node_publish2.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/shell_node_publish2.gif" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 ---
 
@@ -73,7 +73,7 @@ weight = 25
 
 ### /COMPOSING CONTAINER BUILD
 
-<img src="https://artifacts.automation.sthings-vsphere.labul.sva.de/dagger/composing.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
+<img src="https://play.min.io/dagger/composing.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
 
 - loads github.com/dagger/dagger/docs into one pipeline
 - github.com/dagger/dagger/modules/wolfi into another
