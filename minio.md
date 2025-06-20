@@ -137,9 +137,9 @@ mc alias set minio https://myminio-hl.tenant-kms-encrypted.svc.cluster.local:900
 mc admin kms key create minio encrypted-bucket-key
 mc mb minio/encryptedbucket
 
-mc admin kms key status my encrypted-bucket-key
+mc admin kms key status minio encrypted-bucket-key
 
- echo "Hello" >> file1.txt
+echo "Hello" >> file1.txt
 
 mc ls minio/encryptedbucket
 mc cp file1.txt minio/encryptedbucket
