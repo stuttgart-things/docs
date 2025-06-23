@@ -2,6 +2,57 @@
 
 ## SNIPPETS
 
+<details><summary>DEPLOY GITEA</summary>
+
+```bash
+kubectl create ns gitea
+
+kubectl apply -f - <<EOF
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: gitea
+  namespace: gitea
+spec:
+  commonName: gitea.example.com
+  dnsNames:
+    - gitea.example.com
+  issuerRef:
+    kind: ClusterIssuer
+    name: vault-issuer
+  secretName: gitea.example.com-tls
+EOF
+
+cat <<EOF > values.yaml
+---
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hostname: gitea.example.com
+  path: /
+  tls: true
+  extraTls:
+    - hosts:
+      - gitea.example.com
+      secretName: gitea.example.com-tls
+persistence:
+  enabled: true
+  storageClass: local-path
+EOF
+
+helm upgrade --install gitea \
+oci://registry-1.docker.io/bitnamicharts/gitea \
+--version 3.2.12 \
+--values values.yaml \
+-n gitea \
+```
+
+
+
+</details>
+
+
 <details><summary>SQUASH COMMITS (e.g. PRE-PR) </summary>
 
 ### REQUIREMNT
@@ -52,7 +103,6 @@ git push origin 111-add-the-ability-to-globally-set-storage-class --force
 ```
 
 </details>
-
 
 <details><summary>DELETE LARGE FILES FROM HISTORY</summary>
 
