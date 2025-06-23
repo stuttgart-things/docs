@@ -1,84 +1,122 @@
 # stuttgart-things/docs/tekton
 
-## PVC|PIPELINERUN CLEANER CRONJOB
+<details><summary><b>EXAMPLE TEKTON-PIPELINE CR</b></summary>
 
 ```yaml
----
-apiVersion: v1
-kind: ServiceAccount
+apiVersion: operator.tekton.dev/v1alpha1
+kind: TektonPipeline
 metadata:
-  name: pod-list-delete
-  namespace: tektoncd
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: pod-list-delete
-  namespace: tektoncd
-rules:
-- apiGroups: [""]
-  resources: ["pods", "persistentvolumeclaims"]
-  verbs: ["list", "get", "delete"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: pod-list-delete
-subjects:
-- kind: ServiceAccount
-  name: pod-list-delete
-  namespace: tektoncd
-roleRef:
-  kind: ClusterRole
-  name: pod-list-delete
-  apiGroup: rbac.authorization.k8s.io
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: pod-list-delete
-  namespace: tektoncd
+  name: pipeline
 spec:
-  schedule: "*/15 * * * *"
-  concurrencyPolicy: Forbid
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          restartPolicy: OnFailure
-          serviceAccount: pod-list-delete
-          containers:
-            - name: kubectl
-              image: ghcr.io/ctron/kubectl:latest
-              command:
-                - /bin/bash
-                - -c
-                - PODS="$(kubectl -n tektoncd get pod | awk 'match($5,/[0-9]+d/) {print $1}')" && kubectl -n tektoncd delete pod ${PODS} || true
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: pvc-list-delete
-  namespace: tektoncd
-spec:
-  schedule: "*/15 * * * *"
-  concurrencyPolicy: Forbid
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          restartPolicy: OnFailure
-          serviceAccount: pod-list-delete
-          containers:
-            - name: kubectl
-              image: ghcr.io/ctron/kubectl:latest
-              command:
-                - /bin/bash
-                - -c
-                - PVC="$(kubectl -n tektoncd get pvc | awk 'match($7,/[0-9]+d/) {print $1}')" && kubectl -n tektoncd delete pvc ${PVC} || true
+  targetNamespace: tekton-pipelines
+  await-sidecar-readiness: true
+  coschedule: workspaces
+  disable-affinity-assistant: false
+  disable-creds-init: false
+  disable-inline-spec: "pipeline,pipelinerun,taskrun"
+  enable-api-fields: stable
+  enable-bundles-resolver: true
+  enable-cel-in-whenexpression: false
+  enable-cluster-resolver: true
+  enable-custom-tasks: false
+  enable-git-resolver: true
+  enable-hub-resolver: true
+  require-git-ssh-secret-known-hosts: false
+  running-in-environment-with-injected-sidecars: true
+  trusted-resources-verification-no-match-policy: ignore
+  performance:
+    disable-ha: false
+    buckets: 1
+    replicas: 1
+    threads-per-controller: 2
+    kube-api-qps: 5.0
+    kube-api-burst: 10
+  options:
+    disabled: false
+    configMaps: {}
+    deployments: {}
 ```
 
-## TASK
+</details>
+
+## TASKS
+
+<details><summary><b>HELLO-TEKTON</b></summary>
+
+```yaml
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: hello-world
+spec:
+  params:
+    - name: message
+      type: string
+      description: The message to print
+  steps:
+    - name: hello
+      image: alpine
+      script: |
+        #!/bin/sh
+        echo "$(params.message)"
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: hello-bibi
+spec:
+  params:
+    - name: message
+      type: string
+      description: The message to print
+  steps:
+    - name: hello
+      image: nginx
+      script: |
+        #!/bin/sh
+        echo "$(params.message)"
+---
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: hello-pipeline
+spec:
+  params:
+    - name: message1
+      type: string
+    - name: message2
+      type: string
+  tasks:
+    - name: run-hello-world
+      taskRef:
+        name: hello-world
+      params:
+        - name: message
+          value: $(params.message1)
+    - name: run-hello-bibi
+      runAfter:
+        - run-hello-world
+      taskRef:
+        name: hello-bibi
+      params:
+        - name: message
+          value: $(params.message2)
+---
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: hello-pipeline-run2
+spec:
+  pipelineRef:
+    name: hello-pipeline
+  params:
+    - name: message1
+      value: "Goodbye, Mr. Burns!"
+    - name: message2
+      value: "You, Rock!"
+```
+
+</details>
 
 <details><summary><b>PACKAGE-HELM</b></summary>
 
