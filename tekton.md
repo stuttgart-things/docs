@@ -1,5 +1,7 @@
 # stuttgart-things/docs/tekton
 
+## TEKTON OPERATOR
+
 <details><summary><b>EXAMPLE TEKTON-PIPELINE CR</b></summary>
 
 ```yaml
