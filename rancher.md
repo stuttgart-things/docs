@@ -2,6 +2,24 @@
 
 ## SNIPPETS
 
+<details><summary>EXPORT IMAGE TO TAR</summary>
+
+```bash
+# LIST IMAGES
+sudo ctr \
+--address /run/k3s/containerd/containerd.sock \
+--namespace k8s.io \
+image list
+
+# EXAMPLE IMAGE EXPORT
+sudo ctr \
+--address /run/k3s/containerd/containerd.sock \
+--namespace k8s.io \
+images export gitea-postgres.tar docker.io/bitnami/postgresql:17.4.0-debian-12-r17
+```
+
+</details>
+
 <details><summary>ADD K3S REGISTRY MIRROR</summary>
 
 ```bash
