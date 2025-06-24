@@ -2,6 +2,23 @@
 
 ## SNIPPETS
 
+<details><summary>ADD K3S REGISTRY MIRROR</summary>
+
+```bash
+sudo cat << EOF > /etc/rancher/k3s/registries.yaml 
+---
+mirrors:
+  docker.io:
+    endpoint:
+      - "https://docker.harbor.idp.example.dev"
+EOF
+
+sudo systemctl restart k3s
+```
+
+</details>
+
+
 <details><summary>DOWNLOAD KUBECONFIG FROM HA-SERVER BY CLUSTER NAME</summary>
 
 ```bash
