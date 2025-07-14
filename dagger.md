@@ -2,6 +2,15 @@
 
 ## SNIPPETS
 
+<details><summary><b>DAGGER SHELL</b></summary>
+
+```bash
+# JUMP INTO CONTAINER (e.g. PACKAGE-TEST-INSTALLATION)
+dagger -c 'container | from cgr.dev/chainguard/wolfi-base:latest | terminal'
+```
+
+</details>
+
 <details><summary><b>LIST DIRECTORY CONTENTS</b></summary>
 
 ```go
