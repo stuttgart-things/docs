@@ -682,6 +682,45 @@ oras pull ghcr.io/stuttgart-things/static:v1
 
 </details>
 
+<details><summary>BUILDAH</summary>
+
+```bash
+# RUN DEBUG CONTAINER
+kubectl run buildah-debug --namespace registry --image=quay.io/buildah/stable:v1 --restart=Never --overrides='
+{
+  "apiVersion": "v1",
+  "spec": {
+    "containers": [{
+      "name": "buildah",
+      "image": "quay.io/buildah/stable:v1",
+      "securityContext": {
+        "privileged": true
+      },
+      "stdin": true,
+      "tty": true
+    }]
+  }
+}'   --stdin --tty --attach
+```
+
+```
+# USE ALIAS FOR PULLED IMAGE
+buildah pull python:3.11-slim
+buildah tag python:3.11-slim registry-docker-registry.registry.svc.cluster.local:5000/python:3.11-slim
+buildah --tls-verify=false push registry-docker-registry.registry.svc.cluster.local:5000/python:3.11-slim
+
+buildah login registry-docker-registry.registry.svc.cluster.local:5000 --tls-verify=false
+
+# change alias in /etc/containers/registries.conf.d/000-shortnames.conf
+# e.g.
+"python" = "registry-docker-registry.registry.svc.cluster.local:5000/python"
+
+curl -u admin:<PW> -X GET http://registry-docker-registry.registry.svc.cluster.local:5000/v2/_catalog
+```
+
+</details>
+
+
 <details><summary>GOLDILOCKS, VPA + PROMETHEUS</summary>
 
 ## DEPLOY VPA
