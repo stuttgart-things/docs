@@ -2,6 +2,26 @@
 
 ## SNIPPETS
 
+<details><summary>RUN A PYPIP-SERVER</summary>
+
+```bash
+# INSTALL SERVER
+pip install pypiserver
+
+# CREATE/DOWNLOADING
+mkdir ~/packages
+pip download requests -d ~/packages
+pip download picker==2.3.0 -d ~/packages
+
+# RUN SERVER
+pypi-server run -p 8080 ~/package
+
+# USE/INSTALL FROM SERVER
+pip install --index-url http://localhost:8080/simple picker
+```
+
+</details>
+
 <details><summary>CLI-ARGS TO DICT</summary>
 
 ```python3
