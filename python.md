@@ -20,6 +20,100 @@ pypi-server run -p 8080 ~/package
 pip install --index-url http://localhost:8080/simple picker
 ```
 
+```yaml
+# DEPLOY ON KUBERNETES
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pypiserver-pvc
+  labels:
+    app.kubernetes.io/name: pypiserver
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pypiserver
+  labels:
+    app.kubernetes.io/name: pypiserver
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: pypiserver
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pypiserver
+  labels:
+    app.kubernetes.io/name: pypiserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pypiserver
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: pypiserver
+    spec:
+      containers:
+        - name: pypiserver
+          image: pypiserver/pypiserver:v2.3.2
+          imagePullPolicy: IfNotPresent
+          args:
+            - run
+            - -a
+            - .
+            - -P
+            - .
+            - /data/packages
+          env:
+            - name: PYPISERVER_PORT
+              value: "8080"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          volumeMounts:
+            - name: packages
+              mountPath: /data/packages
+      volumes:
+        - name: packages
+          persistentVolumeClaim
+            claimName: pypiserver-pvc
+```
+
+```bash
+# COPY PACKAGES TO POD
+kubectl cp ~/packages/ pypiserver-fb7b96d8-cfkf8:/data/
+
+# PORT-FORWARD SVC
+kubectl port-forward svc/pypiserver 8080:8080
+
+# INSTALL PACKAGE FROM SERVER/POD
+pip install --index-url http://localhost:8080/simple picker
+```
+
 </details>
 
 <details><summary>CLI-ARGS TO DICT</summary>
