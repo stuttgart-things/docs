@@ -472,6 +472,150 @@ polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity err
 
 ## MICROSERVICES
 
+<details><summary>DEPLOY APK-MIRROR</summary>
+
+```bash
+# APK MIRROR
+
+## FETCH .apk FILES (DOCKER)
+
+```bash
+# CREATE LOCAL DIR
+mkdir -p ./apk/v3.19/main/x86_64
+```
+
+```bash
+# RUN ALPINE CONTAINER
+docker run --rm -it \
+  -v "$(pwd)/apk/v3.19/main/x86_64:/mirror" \
+  alpine sh
+
+# INSIDE CONTAINER
+cd /mirror
+
+# Optional: set desired repo
+echo "http://dl-cdn.alpinelinux.org/alpine/v3.19/main" > /etc/apk/repositories
+
+# Update index
+apk update
+
+# Fetch packages + dependencies (stored in /mirror)
+apk fetch --recursive --output . busybox curl
+
+# Also fetch APKINDEX
+wget http://dl-cdn.alpinelinux.org/alpine/v3.19/main/x86_64/APKINDEX.tar.gz
+```
+
+## TEST APK-MIRROR IN ALPINE CONTAINER (DOCKER)
+
+```bash
+# RUN ALPINE CONTAINER
+docker run --rm -it alpine sh
+```
+
+```bash
+# using host ip
+echo "http://10.100.136.150:8080/v3.19/main" > /etc/apk/repositories
+apk update
+apk add busybox curl
+```
+
+## DEPLOY ON KUBERNETES
+
+```bash
+kubectl crate ns apk
+
+kubectl -n apk apply -f - <<EOF
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: apk-mirror-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: apk-mirror
+  namespace: default
+  labels:
+    app: apk-mirror
+spec:
+  containers:
+    - name: nginx
+      image: docker.io/bitnami/nginx:1.29.0-debian-12-r2
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: apk-data
+          mountPath: /usr/share/nginx/html/apk
+  volumes:
+    - name: apk-data
+      persistentVolumeClaim:
+        claimName: apk-mirror-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apk-mirror
+  namespace: default
+spec:
+  selector:
+    app: apk-mirror
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+EOF
+```
+
+## UPLOAD .APK PACKAGES TO PVC
+
+```bash
+kubectl -n apk cp ./apk/. apk-mirror/apk-mirror:/usr/share/nginx/html/apk/ -c nginx
+```
+
+```bash
+# TO VERIFY STRUCTURE ON NGINX POD-FILESYSTEM
+kubectl exec -it apk-mirror -- sh
+
+/usr/share/nginx/html/apk # tree
+.
+└── v3.19
+    └── main
+        └── x86_64
+            ├── APKINDEX.tar.gz
+            ├── busybox-1.36.1-r19.apk
+            └── musl-1.2.4_git20230717-r5.apk
+
+3 directories, 3 files
+```
+
+## TEST MIRROR INSIDE POD
+
+```bash
+kubectl run apk-test \
+--image=alpine:3.22.1 \
+--restart=Never \
+--rm -it -- sh
+```
+
+```bash
+echo "http://apk-mirror.default.svc.cluster.local/apk/v3.19/main" > /etc/apk/repositories
+
+apk update
+apk add busybox curl
+```
+
+</details>
+
+
 <details><summary>DEPLOY SFTP/HTTPS CADDY-WEBSERVER</summary>
 
 ```yaml
