@@ -1,0 +1,15 @@
+baseURL = "/"
+languageCode = 'en-us'
+title = 'Dagger'
+theme = ["github.com/joshed-io/reveal-hugo"]
+[module]
+  proxy = "direct"
+  vendored = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[outputFormats.Reveal]
+baseName = "index"
+mediaType = "text/html"
+isHTML = true
