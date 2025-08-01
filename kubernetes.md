@@ -824,6 +824,23 @@ oras pull zot.maverick.sthings-pve.labul.sva.de/hello-artifact:v1
 oras pull ghcr.io/stuttgart-things/static:v1
 ```
 
+```bash
+# EXTRACT CONTENT FROM IMAGE
+
+# Step 1: Copy to OCI layout
+oras copy ghcr.io/stuttgart-things/idp:20250612-093912 --to-oci-layout ./tmp-layout
+
+# Step 2: Find and extract the blob
+cd ./tmp-layout/blobs/sha256
+
+# List blobs by size (to find the tar.gz layer)
+ls -lhS
+
+# Assume it's called e.g. 8f5701f6b2... (your tar.gz)
+mkdir /tmp/idp-content
+tar -xzf 8f5701f6b22e07d8a64e3d6f713a00705e4d0323ed2d32069ebde4d08fe888bd -C /tmp/idp-content
+```
+
 </details>
 
 <details><summary>BUILDAH</summary>
