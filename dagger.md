@@ -2,6 +2,94 @@
 
 ## SNIPPETS
 
+<details><summary><b>AI AGENTS</b></summary>
+
+## USECASE POSTGRESDB
+
+```bash
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+sudo apt update && sudo apt install postgresql-client-17
+
+psql -h $(hostname -f) -p 31641 -U dev
+CREATE DATABASE appdb;
+
+cat <<EOF > ./bootstrap.sql
+-- Create database (only if it doesn't exist)
+DO
+$$
+BEGIN
+   IF NOT EXISTS (SELECT FROM pg_database WHERE datname = 'appdb') THEN
+      CREATE DATABASE "appdb";
+   END IF;
+END
+$$;
+
+-- Switch to new DB
+\c appdb;
+
+-- Drop tables if exist (clean run)
+DROP TABLE IF EXISTS tasks CASCADE;
+DROP TABLE IF EXISTS projects CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
+-- Users table
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(120) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Projects table
+CREATE TABLE projects (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tasks table
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    project_id INT REFERENCES projects(id) ON DELETE CASCADE,
+    assignee_id INT REFERENCES users(id) ON DELETE SET NULL,
+    title VARCHAR(200) NOT NULL,
+    status VARCHAR(50) DEFAULT 'open',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    due_date DATE
+);
+
+-- Insert sample users
+INSERT INTO users (username, email) VALUES
+('alice', 'alice@example.com'),
+('bob', 'bob@example.com'),
+('charlie', 'charlie@example.com');
+
+-- Insert sample projects
+INSERT INTO projects (name, description) VALUES
+('AI Platform', 'Build internal AI platform'),
+('Infra Migration', 'Migrate to new Kubernetes cluster');
+
+-- Insert sample tasks
+INSERT INTO tasks (project_id, assignee_id, title, status, due_date) VALUES
+(1, 1, 'Design database schema', 'in-progress', '2025-09-15'),
+(1, 2, 'Implement API service', 'open', '2025-09-30'),
+(2, 3, 'Migrate Helm charts', 'done', '2025-08-20'),
+(2, NULL, 'Set up monitoring', 'open', NULL);
+EOF
+
+psql -h $(hostname -f) -p 31641 -U dev -d appdb -f bootstrap.sql 
+```
+
+```bash
+export GEMINI_API_KEY="SET-HERE-OR-GPT-OR-ANY-OTHER-SUPPORTED-AI"
+export DB_URL="postgres://$USER:$PASSWORD@maverick.db.host:31641/appdb?sslmode=disable"
+dagger call -m github.com/jasonmccallister/database-agent ask --db-url=env:DB_URL --question="What tables do you have?" -vv
+```
+
+</details>
+
 <details><summary><b>DAGGER SHELL</b></summary>
 
 ```bash
