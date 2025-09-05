@@ -28,7 +28,6 @@ chmod +x ./vmware.sh
 
 </details>
 
-
 <details><summary>K3D</summary>
 
 #### INSTALL K3D
@@ -485,7 +484,7 @@ mkdir -p ./apk/v3.19/main/x86_64
 ```
 
 ```bash
-# RUN ALPINE CONTAINER
+# OPTION1: GET PACKAGES MANUALY FROM ALPINE CONTAINER
 docker run --rm -it \
   -v "$(pwd)/apk/v3.19/main/x86_64:/mirror" \
   alpine sh
@@ -504,6 +503,53 @@ apk fetch --recursive --output . busybox curl
 
 # Also fetch APKINDEX
 wget http://dl-cdn.alpinelinux.org/alpine/v3.19/main/x86_64/APKINDEX.tar.gz
+```
+
+```bash
+# OPTION2: USE SCRIPT
+
+## CREATE SCRIPT
+cat <<EOF > apk-schleuser.sh
+# !/bin/sh
+set -eux
+
+BASE_IMAGE=$1
+APK_PACKAGES=$2
+
+# STEP 1: GET APK FROM BASE
+VERSION_ID=$(docker run --rm $BASE_IMAGE sh -c \
+  "grep '^VERSION_ID=' /etc/os-release | cut -d= -f2 | tr -d '\"' | cut -d. -f1,2")
+echo ${VERSION_ID}
+
+# --- Step 3: run container and fetch APK_PACKAGES ---
+MIRROR_DIR="$(pwd)/apk/v${VERSION_ID}/main/x86_64"
+rm -rf "$MIRROR_DIR" || true
+mkdir -p "$MIRROR_DIR"
+
+docker run --rm -it \
+  -v "$MIRROR_DIR:/mirror" \
+  "$BASE_IMAGE" sh -euxc "
+    cd /mirror
+
+    echo '[INFO] Using Alpine v${VERSION_ID} repository'
+    echo 'http://dl-cdn.alpinelinux.org/alpine/v${VERSION_ID}/main' > /etc/apk/repositories
+
+    apk update
+
+    echo '[INFO] Fetching APK_PACKAGES: $APK_PACKAGES'
+    apk fetch --recursive --output . $APK_PACKAGES
+
+    echo '[INFO] Fetching APKINDEX'
+    wget -q http://dl-cdn.alpinelinux.org/alpine/v${VERSION_ID}/main/x86_64/APKINDEX.tar.gz
+  "
+
+echo "[INFO] APK_PACKAGES and index saved under: $MIRROR_DIR"
+
+zip -r ./apk-packages.zip $MIRROR_DIR
+EOF
+
+## RUN SCRIPT
+sh apk-schleuser.sh python:3.10.0-alpine "curl git"
 ```
 
 ## TEST APK-MIRROR IN ALPINE CONTAINER (DOCKER)
