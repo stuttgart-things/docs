@@ -8,7 +8,7 @@
 # INSTALL SERVER
 pip install pypiserver
 
-# CREATE/DOWNLOADING
+# CREATE/DOWNLOADING / # OPTION1: DOWNLOAD PIP PACKAGES MANUALY
 mkdir ~/packages
 pip download requests -d ~/packages
 pip download picker==2.3.0 -d ~/packages
@@ -18,6 +18,50 @@ pypi-server run -p 8080 ~/package
 
 # USE/INSTALL FROM SERVER
 pip install --index-url http://localhost:8080/simple picker
+```
+
+```bash
+# OPTION2: DOWNLOAD PIP PACKAGES w/ DOCKER
+
+cat <<EOF > pip-schleuser.sh
+#!/bin/sh
+set -eux
+
+BASE_IMAGE=$1
+PIP_PACKAGES=$2
+
+# Local directory on host
+WHEELHOUSE="$(pwd)/wheelhouse"
+mkdir -p "$WHEELHOUSE"
+
+# Run container to build offline wheelhouse
+docker run --rm -it \
+  -v "$WHEELHOUSE:/wheelhouse" \
+  "$BASE_IMAGE" sh -euxc "
+
+    # 1. Create and activate venv
+    python3 -m venv /venv
+    . /venv/bin/activate
+
+    # 2. Upgrade pip tooling
+    pip install --upgrade pip setuptools wheel
+
+    # 3. Download requested packages into /wheelhouse
+    pip download -d /wheelhouse $PIP_PACKAGES
+
+    # 4. Optional: install them (from wheelhouse, offline style)
+    pip install --no-index --find-links=/wheelhouse $PIP_PACKAGES
+
+    # 5. Record installed packages
+    pip freeze > /wheelhouse/installed-packages.txt
+  "
+
+echo "[INFO] pip packages and wheelhouse saved under: $WHEELHOUSE"
+
+zip -r ./pip-packages.zip wheelhouse
+EOF
+
+sh pip-schleuser.sh python:3.10.0-alpine "requests flask"
 ```
 
 ```yaml
