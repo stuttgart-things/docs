@@ -53,6 +53,9 @@ executor --dockerfile Dockerfile \
 ```bash
 skopeo login scr.cd43.sthings-pve.labul.sva.de -u admin -p <PASSWORD>
 
+# OPTIONAL READ DOCKER REG SECRET
+ cat /run/containers/0/auth.json
+
 skopeo copy -f oci tarball:/tmp/bla.tar docker://scr.cd43.sthings-pve.labul.sva.de/crossplane-demo/test:v1
 ```
 
