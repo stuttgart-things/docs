@@ -363,6 +363,45 @@ docker://nginx@sha256:ff2a5d557ca22fa93669f5e70cfbeefda32b98f8fd3d33b38028c582d7
 
 </details>
 
+## COPY TAR TO CLUSTER INTERNAL-DOCKER-REGISTRY
+
+```bash
+# SHELL1
+kubectl -n registry run skopeo \
+  --image=bdwyertech/skopeo \
+  --restart=Never \
+  --overrides='
+{
+  "spec": {
+    "containers": [{
+      "name": "skopeo",
+      "image": "bdwyertech/skopeo",
+      "stdin": true,
+      "tty": true,
+      "securityContext": { "runAsUser": 0 }
+    }]
+  }
+}' \
+--stdin --tty --attach
+
+# SHELL2 - COPY (PREBUILD IMAGE) TAR TO POD
+kubectl -n registry cp base.tar skopeo2:/tmp
+
+# SHELL1 - LOGIN, PUSH + VERIFY
+skopeo login \
+registry-docker-registry.registry.svc.cluster.local:5000 \
+--tls-verify=false
+
+skopeo copy \
+docker-archive:/tmp/base.tar \
+docker://registry-docker-registry.registry.svc.cluster.local:5000/shuffle/shuffle:app_sdk_0.0.25 \
+--tls-verify=false
+
+apk add curl
+curl -u ${REG_USER}:${REG_PASSWORD} \
+http://registry-docker-registry.registry.svc.cluster.local:5000/v2/_catalog
+```
+
 ## SYSTEMD
 
 <details><summary>PODMAN QUATLET</summary>
