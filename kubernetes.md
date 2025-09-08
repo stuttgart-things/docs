@@ -836,6 +836,18 @@ wget wget https://files.dev43.sthings-pve.labul.sva.de/bla.txt
 vcluster create my-vcluster --expose --set storage.className=openebs-hostpath
 vcluster disconnect
 vcluster connect my-vcluster -n vcluster-my-vcluster
+
+
+helm upgrade --install xplane-vlcuster \
+vcluster \
+--repo https://charts.loft.sh \
+--namespace vcluster \
+--repository-config='' \
+--create-namespace
+
+vcluster connect xplane-vlcuster -n vcluster
+
+helm uninstall xplane-vlcuster -n vcluster
 ```
 
 </details>
