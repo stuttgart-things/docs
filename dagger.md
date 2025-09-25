@@ -2,6 +2,38 @@
 
 ## SNIPPETS
 
+<details><summary><b>CONTAINER-USE</b></summary>
+
+### INSTALLATION CONTAINER USE
+
+```bash
+brew install dagger/tap/container-use
+container-use version   # → confirms install
+```
+
+### VSCODE + CONTAINER USE (DEMO STEPS)
+
+* OPEN NEW WINDOW (COULD BE VIA REMOTE EXPORER/SSH)
+* OPEN TERMINAL
+* CREATE DEMO REPO
+  
+```bash
+mkdir hello
+cd hello
+git init
+touch README.md
+git add README.md
+git commit -m "initial commit"
+```
+
+* ADD FOLDER TO PROJECT WINDOW/EXPLORER (VIA VSCODE)
+* START CO-PILOT AGENT CHAT
+* ADD CONTEXT: TOOLS -> MCP-ID (OR CONTAINER USE NAME)
+* PROMPT: "create a go hello world app"
+```
+
+</details>
+
 <details><summary><b>AI AGENTS</b></summary>
 
 ## USECASE POSTGRESDB
