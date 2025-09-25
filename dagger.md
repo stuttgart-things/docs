@@ -4,7 +4,7 @@
 
 <details><summary><b>CONTAINER-USE</b></summary>
 
-### INSTALLATION CONTAINER USE
+### INSTALLATION CONTAINER USE (CLI; TERMINAL)
 
 ```bash
 brew install dagger/tap/container-use
@@ -13,6 +13,7 @@ container-use version   # → confirms install
 
 ### VSCODE + CONTAINER USE (DEMO STEPS)
 
+* SHUFT+CMD+P - ADD MCP SERVER -> STDIO -> ENTER "cu stdio" -> ENTER -> (ADD TO) WORKSPACE
 * OPEN NEW WINDOW (COULD BE VIA REMOTE EXPORER/SSH)
 * OPEN TERMINAL
 * CREATE DEMO REPO
