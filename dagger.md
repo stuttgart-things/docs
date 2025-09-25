@@ -14,6 +14,35 @@ container-use version   # → confirms install
 ### VSCODE + CONTAINER USE (DEMO STEPS)
 
 * SHUFT+CMD+P - ADD MCP SERVER -> STDIO -> ENTER "cu stdio" -> ENTER -> (ADD TO) WORKSPACE
+
+```bash
+# EXAMPLE CONFIG
+{
+	"servers": {
+		"github-mcp": {
+			"type": "http",
+			"url": "https://api.githubcopilot.com/mcp"
+		},
+		"container-use": {
+			"type": "stdio",
+			"command": "container-use",
+			"args": [
+				"stdio"
+			]
+		},
+		"my-mcp-server-38403312": {
+			"type": "stdio",
+			"command": "cu",
+			"args": [
+				"stdio"
+			]
+		}
+	},
+	"inputs": []
+}
+```
+
+
 * OPEN NEW WINDOW (COULD BE VIA REMOTE EXPORER/SSH)
 * OPEN TERMINAL
 * CREATE DEMO REPO
