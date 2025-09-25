@@ -30,6 +30,23 @@ git commit -m "initial commit"
 * START CO-PILOT AGENT CHAT
 * ADD CONTEXT: TOOLS -> MCP-ID (OR CONTAINER USE NAME)
 * PROMPT: "create a go hello world app"
+* TERMINAL:
+
+```bash
+# LIST CONTAINER ENVS
+cu list
+ID              TITLE                           CREATED         UPDATED
+crucial-weasel  Go Hello World App              11 seconds ago  4 seconds ago
+selected-deer   Go Hello World App Development  3 minutes ago   1 minute ago
+
+# CHECK LOGS
+container-use log crucial-weasel
+
+# CHECKOUT CODE
+container-use checkout crucial-weasel
+
+# INTERACTIVE SESSION
+cu terminal
 ```
 
 </details>
