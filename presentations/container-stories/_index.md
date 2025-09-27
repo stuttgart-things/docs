@@ -1,5 +1,5 @@
 +++
-title = "PLATFORM ENGINEERING WORKSHOP"
+title = "CONTAINER STORIES"
 outputs = ["Reveal"]
 [logo]
 src = "sthings-train.png"
@@ -41,6 +41,6 @@ background = "#FF4081"
 <br/>
 <br/>
 
-🚀 Overcome Push & Pray 🙏<br/>🔁 Run the SAME CI/CD everywhere w/ dagger 🔁
+🚀 Overcome Push & Pray 🙏<br/>🔁 Platform Engineering 🔁
 
 {{% /section %}}
