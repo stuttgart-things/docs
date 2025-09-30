@@ -176,6 +176,42 @@ dagger call -m github.com/jasonmccallister/database-agent ask --db-url=env:DB_UR
 dagger -c 'container | from cgr.dev/chainguard/wolfi-base:latest | terminal'
 ```
 
+```bash
+# FOR VAULT LOOKUP
+export VAULT_PATH_PREFIX=kubeconfigs
+
+cat <<EOF > helmfile-container.dagger
+#!/usr/bin/env dagger
+
+container |
+    from cgr.dev/chainguard/wolfi-base |
+    with-exec apk add curl git wget kubectl helm k9s cilium terraform |
+    with-exec -- wget https://github.com/helmfile/helmfile/releases/download/v1.1.7/helmfile_1.1.7_linux_amd64.tar.gz |
+    with-exec -- tar xvfz helmfile_1.1.7_linux_amd64.tar.gz |
+    with-exec -- mv helmfile /usr/bin/ |
+    with-directory /showcase https://github.com/stuttgart-things/platform-engineering-showcase.git#main |
+    with-mounted-file /.kube/config kind-maverick |
+    with-env-variable KUBECONFIG /.kube/config |
+    with-secret-variable VCENTER_FQDN env://VCENTER_FQDN |
+    with-secret-variable BLA vault://eva.kubeconfig |
+    with-mounted-secret /root/.kube/config vault://eva.kubeconfig |
+    #--token=vault://secret/data/github?field=token
+    # MOUNT CURRENT DIR
+    #with-mounted-directory /workspace . |
+
+    # MOUNT CACHE
+    with-mounted-cache /data my-workspace |
+    terminal|
+    with-exec -- mkdir /output |
+    with-exec -- cp -r /data/ /output/data/ |
+    directory /output |
+    export ./output-dir
+EOF
+
+chmox +x helmfile-container.dagger
+./elmfile-container.dagger
+```
+
 </details>
 
 <details><summary><b>LIST DIRECTORY CONTENTS</b></summary>
