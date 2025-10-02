@@ -15,12 +15,21 @@ weight = 20
 
 ---
 
+### DAGGER SERVICE
+
+* GOLANG TESTING
+* K8s / HELM TESTING
+
+---
+
 ### DAGGER AI-AGENTS
 
 
 ---
 
 ### DAGGER SHELL
+
+
 
 
 ---

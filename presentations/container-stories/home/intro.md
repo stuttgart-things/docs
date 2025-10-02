@@ -6,11 +6,9 @@ weight = 10
 
 {{% section %}}
 
-# /INTRODUCTION
+# /🗂️AGENDA
 
 ---
-
-### 🗂️ /AGENDA
 
 # 🗂️ Agenda
 
@@ -24,7 +22,7 @@ weight = 10
 #K3s #Tinkerbell #Tekton #Crossplane #Raspi
 
 ## 4️⃣ #PlatformEngineering
-#Kargo #BackstageTemplates #Buildah
+#Kargo #BackstageTemplates #Buildah #vCLuster #GatewayAPI
 
 ## 5️⃣ #Outro 👋
 #WrapUp #KeyTakeaways #QnA
