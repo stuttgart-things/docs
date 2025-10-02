@@ -12,10 +12,22 @@ weight = 10
 
 ### 🗂️ /AGENDA
 
-- 1️⃣ **Intro** — Setting the stage
+# 🗂️ Agenda
 
+## 1️⃣ #Intro
+#Context #StageSetting
 
-- 6️⃣ 👋 **Outro** — Wrap-up, key takeaways, and Q&A
+## 2️⃣ #Dagger
+#CI #APKO #Shell #AIAgents #Testing
+
+## 3️⃣ #BareMetalProvisioning
+#K3s #Tinkerbell #Tekton #Crossplane #Raspi
+
+## 4️⃣ #PlatformEngineering
+#Kargo #BackstageTemplates #Buildah
+
+## 5️⃣ #Outro 👋
+#WrapUp #KeyTakeaways #QnA
 
 ---
 

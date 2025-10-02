@@ -2,7 +2,7 @@
 title = "CONTAINER STORIES"
 outputs = ["Reveal"]
 [logo]
-src = "sthings-train.png"
+src = "../../hugo/stories.png"
 
 [reveal_hugo]
 
@@ -20,7 +20,7 @@ class = "hotpink"
 background = "#FF4081"
 +++
 
-{{< slide id=agenda background-color="#A2D8FF" type="slide" transition="zoom" transition-speed="fast" background-image="sthings-train.png" background-size="500px" >}}
+{{< slide id=agenda background-color="#A2D8FF" type="slide" transition="zoom" transition-speed="fast" background-image="../../hugo/stories.png" background-size="500px" >}}
 
 {{% section %}}
 
