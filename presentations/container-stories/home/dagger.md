@@ -6,7 +6,7 @@ weight = 20
 
 {{% section %}}
 
-# /OUTRO
+# /DAGGER
 
 ---
 
