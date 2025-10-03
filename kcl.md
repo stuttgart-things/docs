@@ -6,6 +6,92 @@ KCL is an open-source, constraint-based record and functional programming langua
 
 ## SNIPPETS
 
+<details><summary><b>IMPORT PACKAGE</b></summary>
+
+```hcl
+# main.k
+import tekton_pipelines.v1 as tekton
+import .vars
+import datetime
+import crypto
+
+_timestamp = str(datetime.now())
+_suffix = crypto.md5(_timestamp)[:8]
+
+tekton.PipelineRun {
+    metadata = {
+        name = "${vars.pipeline_name_prefix}-${_suffix}"
+        }
+    spec = {
+        pipelineRef = {
+            resolver = "git"
+            params = [
+                {name = k, value = v} for k, v in vars.git_config
+            ]
+        }
+        params = [
+            {name = k, value = v} for k, v in vars.pipeline_params
+        ]
+    }
+} 
+```
+
+```hcl
+# defaults.k
+# Default pipeline parameters
+default_params = {
+    ansibleWorkingImage = "ghcr.io/stuttgart-things/sthings-ansible:11.0.0"
+    createInventory = "false"
+    ansibleTargetHost = "all"
+    gitWorkspaceSubdirectory = "/ansible/workdir/"
+    vaultSecretName = "vault"
+    installExtraRoles = "true"
+}
+```
+
+```hcl
+# values.k
+# Environment-specific overrides
+override_params = {
+    ansibleWorkingImage = "ghcr.io/stuttgart-things/sthings-ansible:12.0.0"
+    gitRepoUrl = "https://github.com/stuttgart-things/stage-time.git"
+    gitRevision = "main"
+    inventory = "MTAuMzEuMTAzLjI3Cg=="
+    ansibleExtraRoles = [
+        "https://github.com/stuttgart-things/install-requirements.git,2024.05.11"
+        "https://github.com/stuttgart-things/manage-filesystem.git,2024.06.07"
+        "https://github.com/stuttgart-things/install-configure-vault.git"
+        "https://github.com/stuttgart-things/create-send-webhook.git,2024-06-06"
+    ]
+}
+```
+
+```hcl
+# vars.k
+import .defaults
+import .values
+
+# Merge defaults with overrides (overrides take precedence)
+pipeline_params = defaults.default_params | values.override_params
+
+# Pipeline reference config
+git_config = {
+    url = "https://github.com/stuttgart-things/stage-time.git"
+    revision = "main"
+    pathInRepo = "pipelines/execute-ansible-playbooks.yaml"
+}
+
+pipeline_name_prefix = "pr-ansible"
+```
+
+```bash
+kcl mod init
+mod add tekton-pipelines
+kcl run main.k 
+```
+
+</details>
+
 <details><summary><b>INIT (KONFIG) KPM MODULE</b></summary>
 
 ### INIT ENVIRONMENT (DEV)
