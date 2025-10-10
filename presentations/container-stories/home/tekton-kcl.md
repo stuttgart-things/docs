@@ -1,12 +1,25 @@
 +++
-weight = 10
+weight = 20
 +++
 
-{{< slide id=introduction background-color="#b36ed0ff" type="slide" transition="zoom" transition-speed="fast" >}}
+{{< slide id=tekton_kcl background-color="#b36ed0ff" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
 
 # /TEKTON+KCL
+
+---
+
+> ### ❓ Audience
+>
+> **WHAT CI/CD DO YOU USE?**
+>
+> - 🦊 GitLab CI
+> - 🐙 GitHub Workflows
+> - ⚙️ Jenkins
+> - 🚀 Tekton
+> - 🚀 Dagger
+> - ..?
 
 ---
 
