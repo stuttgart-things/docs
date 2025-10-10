@@ -2,7 +2,6 @@
 title = "CONTAINER STORIES"
 outputs = ["Reveal"]
 [logo]
-src = "../../hugo/stories.png"
 
 [reveal_hugo]
 
@@ -20,7 +19,9 @@ class = "hotpink"
 background = "#FF4081"
 +++
 
-{{< slide id=agenda background-color="#A2D8FF" type="slide" transition="zoom" transition-speed="fast" background-image="../../hugo/stories.png" background-size="500px" >}}
+CONTAINER STORIES
+
+{{< slide id=agenda background-color="#0f1011ff" type="slide" transition="zoom" transition-speed="fast" background-image="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/stories.jpeg" background-size="500px" >}}
 
 {{% section %}}
 
@@ -41,6 +42,5 @@ background = "#FF4081"
 <br/>
 <br/>
 
-🚀 Overcome Push & Pray 🙏<br/>🔁 Platform Engineering 🔁
 
 {{% /section %}}
