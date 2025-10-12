@@ -25,13 +25,19 @@ weight = 20
 
 ### /TEKTON-PIPELINES
 
-* SHOW TASK (BUILDAH, FREEZE)
+* SHOW GIF OF RUNNING PIPELINE
 
-* SHOW GIF OF PR
+---
+
+### /TEKTON-TASK(S)
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-task.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 ---
 
 ### /TEKTON-RESOLVERS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-resolvers.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -45,14 +51,29 @@ weight = 20
 
 ---
 
-### /KCL-EXAMPLE
+### /GENERAL KCL-EXAMPLE
 
 * SHOW EASY MANIFEST (FREEZE, SERVICE)
 * SHOW GIF FROM TRANSFORMING (KUBECTL APPLY)
 
 ---
 
-### /TEKTON INTEGRATION
+# /KCL TEKTON INTEGRATION
+
+---
+
+### MODULE CREATION
+
+GIF + INIT + MOD DL
+
+---
+
+### SCHEMA
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-schema.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
 
 * TEKTON LIB
 * USECASE EXMAPLE (BUILDAH PR)

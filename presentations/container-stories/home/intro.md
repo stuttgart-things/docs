@@ -6,18 +6,19 @@ weight = 10
 
 {{% section %}}
 
-# /🗂️AGENDA
+# AGENDA
 
 ---
 
-### 🗂️ /AGENDA
+### 🗂️ ./AGENDA
 
 - 1️⃣ **Intro** — Setting the stage
 - 2️⃣ **Tekton, Resolvers & KCL**
 - 3️⃣ **Tinkerbell, Crossplane & GitOps AllTheWay**
 - 4️⃣ **vCLUSTER, Crossplane & Velero**
-- 4️⃣ **DAGGER+KARGO**
--  **Outro** — Setting the stage
+- 5️⃣ **DAGGER + KARGO**
+- 6️⃣ **Outro** - Wrapping up & next steps
 
 ---
+
 {{% /section %}}

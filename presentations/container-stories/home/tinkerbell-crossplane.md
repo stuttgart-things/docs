@@ -24,6 +24,24 @@ weight = 30
 
 ---
 
+### /TINKERBELL
+
+* SHOW GIF OF PROVISIONING
+
+---
+
+
+
+
+### /CROSSPLANE
+
+* SHOW CODE OF XR, COMPOSITION + CLAIM IN YAML
+
+---
+
+
+### /CROSSPLANE + KCL
+
 
 
 

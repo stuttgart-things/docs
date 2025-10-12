@@ -10,7 +10,26 @@ weight = 50
 
 ---
 
+> ### ❓ Audience
+>
+**What are you using for Kubernetes Backup?**
 
+> - ☁️ **Velero**
+> - 🟢 **Kasten K10**
+> - 🧩 **Custom Backup Solution**
+> -🪙 **Other** (please specify)**
 
+---
+
+> ### ❓ Audience
+>
+**What are you using for Local Testing?**
+
+> - ☁️ **Kind**
+> - 🟢 **K3s**
+> - 🧩 **MiniKube**
+> -🪙 **Other** (please specify)**
+
+---
 
 {{% /section %}}

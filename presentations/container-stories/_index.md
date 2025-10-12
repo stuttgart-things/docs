@@ -19,7 +19,6 @@ class = "hotpink"
 background = "#FF4081"
 +++
 
-CONTAINER STORIES
 
 {{< slide id=agenda background-color="#0f1011ff" type="slide" transition="zoom" transition-speed="fast" background-image="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/stories.jpeg" background-size="500px" >}}
 
