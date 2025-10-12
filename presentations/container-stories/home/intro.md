@@ -19,6 +19,4 @@ weight = 10
 - 5️⃣ **DAGGER + KARGO**
 - 6️⃣ **Outro** - Wrapping up & next steps
 
----
-
 {{% /section %}}

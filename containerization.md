@@ -164,6 +164,18 @@ docker build -t myapp:v3 /apps/myapp/
 
 </details>
 
+<details><summary>EXTRACT CONTAINER IMAGE</summary>
+
+```bash
+docker pull ghcr.io/stuttgart-things/dagger:20250613-095510
+docker create --name dagger ghcr.io/stuttgart-things/dagger:20250613-095510 /bin/sh
+docker export dagger -o dagger.tar
+mkdir dagger-fs
+tar -xf dagger.tar -C dagger-fs
+```
+
+</details>
+
 <details><summary>BUILD ARM64 IMAGE W/ NERDCTL</summary>
 
 ```bash

@@ -58,6 +58,21 @@ weight = 20
 
 ---
 
+💬 TL;DR
+
+You can define Kubernetes objects manually — but importing the k8s library gives you:
+
+✅ Type safety
+
+✅ Schema validation
+
+✅ Version compatibility
+
+✅ Autocompletion
+
+✅ Easier composition and reuse
+---
+
 # /KCL TEKTON INTEGRATION
 
 ---

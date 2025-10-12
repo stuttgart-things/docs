@@ -2,9 +2,11 @@
 weight = 30
 +++
 
-{{< slide id=tinkerbell background-color="#9FE2BF" type="slide" transition="zoom" transition-speed="fast" >}}
+{{< slide id=tinkerbell background-color="#dd44b9ff" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tinkerbell.jpeg" alt="Alt Text" width="350" style="border: 1px; box-shadow: none;" />
 
 # /TINKERBELL-CROSSPLANE
 

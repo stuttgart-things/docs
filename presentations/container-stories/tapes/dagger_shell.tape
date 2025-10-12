@@ -1,30 +1,49 @@
-#!/usr/bin/env dagger
+Output dagger_shell.gif
 
-container |
-    from cgr.dev/chainguard/wolfi-base |
-    with-exec apk add curl git bash wget kubectl helm k9s cilium terraform |
-    with-exec -- wget https://github.com/helmfile/helmfile/releases/download/v1.1.7/helmfile_1.1.7_linux_amd64.tar.gz |
-    with-exec -- tar xvfz helmfile_1.1.7_linux_amd64.tar.gz |
-    with-exec -- mv helmfile /usr/bin/ |
-    with-directory /showcase https://github.com/stuttgart-things/platform-engineering-showcase.git#main |
-    with-mounted-file /root/.kube/config ../../../.kube/keycloak-cluster |
-    with-env-variable KUBECONFIG /root/.kube/config |
-    with-mounted-file apply-helm.sh apply-helm.sh |
-    with-mounted-file provisioning.yaml provisioning.yaml |
-    with-mounted-file crds.yaml crds.yaml |
-    terminal
+Set TypingSpeed 150ms
+Set FontSize 30
+Set Width 1650
+Set Height 880
 
-    #with-secret-variable VCENTER_FQDN env://VCENTER_FQDN |
-    #with-secret-variable BLA vault://eva.kubeconfig |
+Sleep 500ms
 
-    #--token=vault://secret/data/github?field=token
-    # MOUNT CURRENT DIR
-    #with-mounted-directory /workspace . |
+Type "dagger"
 
-    # MOUNT CACHE
-    #with-mounted-cache /data my-workspace |
-    #terminal|
-    #with-exec -- mkdir /output |
-    #with-exec -- cp -r /data/ /output/data/ |
-    #directory /output |
-    #export ./output-dir
+Enter
+
+Sleep 3s
+
+Type "container | from cgr.dev/chainguard/wolfi-base | with-exec apk add curl git bash wget kubectl helm k9s cilium | with-directory /showcase https://github.com/stuttgart-things/platform-engineering-showcase.git#main | with-secret-variable KUBECONFIG vault://github.token | with-secret-variable GITHUB_TOKEN vault://eva.kubeconfig | with-secret-variable VCENTER_FQDN env://VCENTER_FQDN | terminal "
+
+Sleep 500ms
+
+Enter
+
+Sleep 45s
+
+
+Output dagger_shell.gif
+Set FontSize 30
+Set Width 1650
+Set Height 880
+Set TypingSpeed 120ms
+
+Sleep 500ms
+Type "dagger"
+Enter
+Sleep 2s
+
+Type "container \\"
+Enter
+Type "  | from cgr.dev/chainguard/wolfi-base \\"
+Type "  | with-exec apk add curl git bash wget kubectl helm k9s cilium \\"
+Type "  | with-directory /showcase https://github.com/stuttgart-things/platform-engineering-showcase.git#main \\"
+Type "  | with-secret-variable KUBECONFIG vault://github.token \\"
+Type "  | with-secret-variable GITHUB_TOKEN vault://eva.kubeconfig \\"
+Type "  | with-secret-variable VCENTER_FQDN env://VCENTER_FQDN \\"
+Type "  | terminal"
+
+Sleep 500ms
+Enter
+
+Sleep 25s
