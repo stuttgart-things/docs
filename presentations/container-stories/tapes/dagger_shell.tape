@@ -13,37 +13,24 @@ Enter
 
 Sleep 3s
 
-Type "container | from cgr.dev/chainguard/wolfi-base | with-exec apk add curl git bash wget kubectl helm k9s cilium | with-directory /showcase https://github.com/stuttgart-things/platform-engineering-showcase.git#main | with-secret-variable KUBECONFIG vault://github.token | with-secret-variable GITHUB_TOKEN vault://eva.kubeconfig | with-secret-variable VCENTER_FQDN env://VCENTER_FQDN | terminal "
+Type "container | from cgr.dev/chainguard/wolfi-base | with-exec apk add curl git bash wget kubectl helm k9s cilium | with-directory /showcase https://github.com/stuttgart-things/platform-engineering-showcase.git#main | with-mounted-secret kube vault://sthings-runner.kubeconfig | with-env-variable KUBECONFIG kube | with-secret-variable GITHUB_TOKEN env://GITHUB_TOKEN | terminal"
 
-Sleep 500ms
+Sleep 3s
 
 Enter
 
-Sleep 45s
+Sleep 10s
 
+Type "kubectl get nodes"
 
-Output dagger_shell.gif
-Set FontSize 30
-Set Width 1650
-Set Height 880
-Set TypingSpeed 120ms
-
-Sleep 500ms
-Type "dagger"
-Enter
 Sleep 2s
 
-Type "container \\"
-Enter
-Type "  | from cgr.dev/chainguard/wolfi-base \\"
-Type "  | with-exec apk add curl git bash wget kubectl helm k9s cilium \\"
-Type "  | with-directory /showcase https://github.com/stuttgart-things/platform-engineering-showcase.git#main \\"
-Type "  | with-secret-variable KUBECONFIG vault://github.token \\"
-Type "  | with-secret-variable GITHUB_TOKEN vault://eva.kubeconfig \\"
-Type "  | with-secret-variable VCENTER_FQDN env://VCENTER_FQDN \\"
-Type "  | terminal"
-
-Sleep 500ms
 Enter
 
-Sleep 25s
+Type "ls showcase/"
+
+Sleep 10s
+
+Enter
+
+Output dagger_shell.gif

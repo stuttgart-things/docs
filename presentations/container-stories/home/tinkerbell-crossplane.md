@@ -28,19 +28,42 @@ weight = 30
 
 ### /TINKERBELL
 
-* SHOW GIF OF PROVISIONING
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2Fprovisioning-logs.gif" alt="Alt Text" width="1800" style="border: 1px; box-shadow: none;" />
 
 ---
 
+### /TINKERBELL
 
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2Fprovisioning-logs2.gif" alt="Alt Text" width="1800" style="border: 1px; box-shadow: none;" />
 
+---
+
+# /CROSSPLANE
+
+---
 
 ### /CROSSPLANE
 
-* SHOW CODE OF XR, COMPOSITION + CLAIM IN YAML
+---
+
+### /XRD
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/crossplane-xrd.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 ---
 
+### /COMPOSITION
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/crossplane-composition.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /CLAIM
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/crossplane-claim.png
+" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
 
 # /CROSSPLANE + KCL
 
@@ -70,6 +93,21 @@ weight = 30
 
 ---
 
+# /TINKERBELL WORKFLOW
+
+---
+
+### /KUBECONFIG SECRET
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/vso.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /CROSSPLANE PROVIDER DEFINITION
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/crossplane-k8s-provider.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
 
 
 {{% /section %}}

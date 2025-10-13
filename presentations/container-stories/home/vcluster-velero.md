@@ -32,4 +32,20 @@ weight = 50
 
 ---
 
+> ### ❓ Audience
+>
+**What are you using for kubernetes secrets?**
+
+> - ☁️ **Sops**
+> - 🟢 **Vault**
+> - 🧩 **Sealed Secrets**
+> -🪙 **Other** (please specify)**
+
+---
+
+
+
+
+
+
 {{% /section %}}

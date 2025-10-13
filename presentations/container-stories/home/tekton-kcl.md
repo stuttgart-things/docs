@@ -25,7 +25,7 @@ weight = 20
 
 ### /TEKTON-PIPELINES
 
-* SHOW GIF OF RUNNING PIPELINE
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton_pr.gif" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -38,6 +38,12 @@ weight = 20
 ### /TEKTON-RESOLVERS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-resolvers.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /TEKTON-PIPELINERUN
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-pr.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -58,19 +64,16 @@ weight = 20
 
 ---
 
-💬 TL;DR
+### /💬 TL;DR
 
 You can define Kubernetes objects manually — but importing the k8s library gives you:
 
-✅ Type safety
+* ✅ Type safety
+* ✅ Schema validation
+* ✅ Version compatibility
+* ✅ Autocompletion
+* ✅ Easier composition and reuse
 
-✅ Schema validation
-
-✅ Version compatibility
-
-✅ Autocompletion
-
-✅ Easier composition and reuse
 ---
 
 # /KCL TEKTON INTEGRATION
@@ -88,6 +91,26 @@ GIF + INIT + MOD DL
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-schema.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 ---
+
+# GUM
+
+---
+
+### CHOOSE
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gum-choose.gif" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### INPUT
+
+---
+
+### SPIDER
+
+---
+
+GIF + INIT + MOD DL
 
 
 * TEKTON LIB
