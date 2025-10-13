@@ -42,8 +42,33 @@ weight = 30
 ---
 
 
-### /CROSSPLANE + KCL
+# /CROSSPLANE + KCL
 
+---
+
+### /KCL FUNCTION
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/xplane-kcl-function.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /KCL COMPOSITION INLINE
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-crossplane-inline.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /KCL MODULE
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-module-tink.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### /KCL COMPOSITION OCI
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/xplane-kcl-composition.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
 
 
 
