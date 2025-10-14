@@ -16,21 +16,32 @@ weight = 30
 
 ### 🚀 Cloud-Native Bare Metal Provisioning
 
-**What Tinkerbell Does**
-- **Automates bare metal infrastructure** like VMs automate cloud infrastructure
 - **Treats physical servers as cattle, not pets** - fully automated lifecycle management
+- **Automates bare metal infrastructure** like VMs automate cloud infrastructure
 - **Provisioning as code** - declarative workflows for consistent, repeatable deployments
-
+- **GitOps Ready** - Version control for provisioning workflows
 ---
 
-### **Why Cloud-Native?** 🏗️
+### **Why is Tinkerbell Cloud-Native?** 🏗️
 
 | Traditional Provisioning | Tinkerbell (Cloud-Native) |
 |-------------------------|---------------------------|
 | ❌ Manual/PXE boot scripts | ✅ **Declarative workflows** |
 | ❌ Golden images | ✅ **Container-based actions** |
-| ❌ Static configurations | ✅ **Dynamic, API-driven** |
 | ❌ Monolithic tools | ✅ **Microservices architecture** |
+
+---
+
+> ### ❓ Audience
+>
+> **What are you using for BareMetal Provisioning?**
+>
+> - 🦊 Tinkerbell
+> - 🐙 Kairos
+> - ⚙️ Metal³ (Cluster API BareMetal Provider)
+> - 🧠 Talos (direct bare-metal install)
+> - 🧩 Custom PXE / iPXE setup
+> - 🪙 Other (please specify)
 
 ---
 
@@ -45,45 +56,42 @@ weight = 30
 
 ---
 
-### **Use Cases**
-- **Bare metal Kubernetes** cluster provisioning
-- **Data center automation** at scale
-- **Edge computing** deployments
-- **Hybrid cloud** infrastructure
-- **Disaster recovery** automation
+### Hardware
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Ftinkerbell-hw.png" alt="Alt Text" width="450" style="border: 1px; box-shadow: none;" />
 
 ---
 
-> ### ❓ Audience
->
-> **What are you using for BareMetal Provisioning?**
->
-> - 🦊 Tinkerbell
-> - 🐙 Kairos
-> - ⚙️ Metal³ (Cluster API BareMetal Provider)
-> - 🧠 Talos (direct bare-metal install)
-> - 🧩 Custom PXE / iPXE setup
-> - 🪙 Other (please specify)
+### TEMPLATE
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Ftinkerbell-template2.png" alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
 
 ---
 
-### Workflow Execution
+### PXE BOOT
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Fpxe-provisioning.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 - Worker boots via **iPXE**
 - Loads **HookOS** (minimal container runtime environment)
-- HookOS connects to **Tink server**
-- Registers itself as available worker
+- HookOS connects to **Tink server** / Registers itself as available worker
 
 ---
 
-### Workflow Execution
+### WORKFLOW
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Factions.png
+" alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
+
+---
+
+### Workflow/Actions
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Fpxe-provisioning.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
 - Tink server starts workflow
 - Assigns **Tasks** to appropriate worker
 - HookOS pulls and runs **action container images sequentially**
-- Each action runs in container with:
-  - Environment variables
-  - Mounted volumes
-  - Defined in Task configuration
 
 ---
 
@@ -97,89 +105,9 @@ weight = 30
 
 ---
 
-## 🔹 Key Architecture Points
-
-- **HookOS**: Minimal runtime → fast boot, secure execution
-- **Container-based**: Each action isolated in containers
-- **Sequential Execution**: Actions run in defined order
-- **Declarative**: Workflows defined as code
-
----
-
-### Hardware
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Ftinkerbell-hw.png" alt="Alt Text" width="350" style="border: 1px; box-shadow: none;" />
-
----
-
-### TEMPLATE
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Ftinkerbell-template2.png" alt="Alt Text" width="350" style="border: 1px; box-shadow: none;" />
-
----
-
-### WORKFLOW
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Ftinkerbell-wf.png
-" alt="Alt Text" width="350" style="border: 1px; box-shadow: none;" />
-
----
-
-> ### ❓ Audience
->
-> **What are you using for BareMetal Provisioning?**
->
-> - 🦊 Tinkerbell
-> - 🐙 Kairos
-> - ⚙️ Metal³ (Cluster API BareMetal Provider)
-> - 🧠 Talos (direct bare-metal install)
-> - 🧩 Custom PXE / iPXE setup
-> - 🪙 Other (please specify)
-
----
-
-### /BOOT
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Fhookos.png" alt="Alt Text" width="1800" style="border: 1px; box-shadow: none;" />
-
----
-
 ### /PROVISIONING
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2Fprovisioning-logs.gif" alt="Alt Text" width="1800" style="border: 1px; box-shadow: none;" />
-
----
-
-### /PROVISIONING
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Fhookos.png
-" alt="Alt Text" width="1800" style="border: 1px; box-shadow: none;" />
-
----
-
-### 🔍 Kubernetes Log Analysis Toolkit
-
-The Trio: **K9s** + **Stern** + **Gonzo**
-
-| Tool | Purpose |
-|------|---------|
-| **K9s** | Cluster navigation & pod management |
-| **Stern** | Multi-pod log tailing with label selectors |
-| **Gonzo** | Log pattern analysis & anomaly detection |
-
-> Don't choose — use all three together! 🚀
-
----
-
-### K9S + GONZO
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/k9s_gonzo_example.gif" alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
-
----
-
-### STERN + GONZO
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/stern_gonzo_example-3.gif" alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -235,6 +163,10 @@ title = "Crossplane: Cloud Native Control Plane"
 
 ---
 
+### /CONFIGURATION
+
+---
+
 # /CROSSPLANE + KCL
 
 ---
@@ -263,7 +195,9 @@ title = "Crossplane: Cloud Native Control Plane"
 
 ---
 
-# /TINKERBELL WORKFLOW
+### /TINKERBELL WORKFLOW
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tink-xplane.png" alt="Alt Text" width="1200" style="border: 1px; box-shadow: none;" />
 
 ---
 

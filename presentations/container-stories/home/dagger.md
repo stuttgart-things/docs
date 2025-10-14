@@ -1,8 +1,8 @@
 +++
-weight = 50
+weight = 40
 +++
 
-{{< slide id=outro background-color="#9FE2BF" type="slide" transition="zoom" transition-speed="fast" >}}
+{{< slide id=outro background-color="#c718daff" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
 
@@ -77,16 +77,15 @@ weight = 50
 
 ---
 
-### /PIPELINES
+### /PIPELINE-DEFINITION
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/pipeline.png" alt="Alt Text" width="800" style="border: none; box-shadow: none;" />
-
-
-
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/pipeline.png" alt="Alt Text" width="700" style="border: none; box-shadow: none;" />
 
 ---
 
 ### DAGGER AI-AGENTS
+
+
 
 
 ---
@@ -97,14 +96,20 @@ weight = 50
 
 ---
 
-### CONTAINER-USE
+### CONTAINER-USE - Isolated Dev Environments for AI Agents
 
-
+- **CLI tool** that plugs into MCP-compatible agents (Claude Code, Cursor)
+- **Gives AI agents superpower**: create/manage isolated dev environments on-demand
+- **Enables parallel task execution** without conflicts
+- **Powered by Dagger** under the hood
 
 ---
 
+### CONTAINER USE CO-PILOT INTEGRATION
 
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/container-use.png" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
+---
 
 > ### ❓ Audience
 >

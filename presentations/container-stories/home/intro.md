@@ -6,23 +6,18 @@ weight = 10
 
 {{% section %}}
 
-# AGENDA
-
----
-
-### 🗂️ ./AGENDA
+### /AGENDA
 
 - 1️⃣ **Intro** — Setting the stage
 - 2️⃣ **Tekton, Resolvers & KCL** — Piplines everywhere
-- 3️⃣ **Tinkerbell, Crossplane & GitOps🔁 ** — Baremetal Cloud Native Workflow
-- 4️⃣ **vCluster, Crossplane & Velero**
-- 5️⃣ **DAGGER** — Run the same CICD everywhere
-- 6️⃣ **Outro** - Wrapping up
+- 3️⃣ **Tinkerbell, Crossplane & GitOps 🔁** — Baremetal Cloud Native Workflow
+- 4️⃣ **Dagger** — Run the same CICD everywhere
+- 5️⃣ **vCluster, Crossplane & Velero**
 
 ---
 
 ### **OCI Artifacts**
-> Built for cloud-native: immutable, signed, versioned, and registry-native — perfect fit for Tekton's Kubernetes-native philosophy.
+> Built for cloud-native: immutable, signed, versioned, and registry-native
 
 - **Break vendor lock-in** - standard protocol
 - **Simplify infrastructure** - one registry type
@@ -30,7 +25,7 @@ weight = 10
 
 ---
 
-### USECASE OCI-VOLUME IMAGES
+### OCI IMAGE-VOLUMES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/slides.png" alt="Alt Text" width="1200" style="border: 1px; box-shadow: none;" />
 
