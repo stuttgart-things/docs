@@ -32,7 +32,7 @@ weight = 10
 
 ### USECASE OCI-VOLUME IMAGES
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/slides.png" alt="Alt Text" width="400" style="border: 1px; box-shadow: none;" />
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/slides.png" alt="Alt Text" width="1200" style="border: 1px; box-shadow: none;" />
 
 
 {{% /section %}}

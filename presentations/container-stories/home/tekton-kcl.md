@@ -46,11 +46,23 @@ weight = 20
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-task.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
+* Reusable tasks
+
 ---
 
 ### /TEKTON-RESOLVERS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-resolvers.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+* Resolve from git tasks
+
+---
+
+### /TEKTON-RESOLVERS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-resolvers.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+* Resolve from oci reg
 
 ---
 
@@ -61,25 +73,35 @@ weight = 20
 ---
 
 ### /KCL
+- **Constraint-based record & functional language** for complex configurations
+- **Cloud-native focused** - perfect for Kubernetes and platform engineering
+- **Enhances configuration writing** with better modularity, scalability, and stability
+- **Open-source** with production usage at Ant Group
 
-* Type Safety: The schema enforces proper types for all fields
-* Reusability: The schema can be reused for multiple PipelineRun configurations
-* Validation: KCL will validate the configuration against the schema
-* Maintainability: Clear separation between schema definition and configuration
-* Extensibility: Easy to add new fields or modify existing ones
+---
+### /KCL SCHMEA + DEFINTIION
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-k8s.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+---
+
+### **Key Characteristics**
+- **Easy-to-use** - Python/Golang-like syntax
+- **Safety-first** - No system-level functions, low security risk
+- **Rich tooling** - IDE extensions, formatting, linting, testing
+- **High performance** - Built with Rust, compiles to native/WASM
 
 ---
 
 ### /GENERAL KCL-EXAMPLE
 
-* SHOW EASY MANIFEST (FREEZE, SERVICE)
 * SHOW GIF FROM TRANSFORMING (KUBECTL APPLY)
 
 ---
 
 ### /💬 TL;DR
 
-You can define Kubernetes objects manually — but importing the k8s library gives you:
+using the kcl k8s library gives you:
 
 * ✅ Type safety
 * ✅ Schema validation
