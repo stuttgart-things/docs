@@ -2,11 +2,21 @@
 weight = 20
 +++
 
-{{< slide id=tekton_kcl background-color="#b36ed0ff" type="slide" transition="zoom" transition-speed="fast" >}}
+{{< slide id=tekton_kcl background-color="rgba(232, 45, 85, 1)" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
 
 # /TEKTON+KCL
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-sthings.png" alt="Alt Text" width="400" style="border: 1px; box-shadow: none;" />
+---
+
+### /TEKTON
+
+- **Kubernetes-native** pipeline automation
+- **Custom Resource Definitions (CRDs)** for pipeline constructs
+- **Serverless execution** - runs entirely within your K8s cluster
+- **Open standard** - part of the CD Foundation
 
 ---
 
@@ -26,6 +36,8 @@ weight = 20
 ### /TEKTON-PIPELINES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton_pr.gif" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+* 🚀 Runs Everywhere Kubernetes Runs
 
 ---
 

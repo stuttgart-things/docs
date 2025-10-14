@@ -20,7 +20,7 @@ background = "#FF4081"
 +++
 
 
-{{< slide id=agenda background-color="#2f343aff" type="slide" transition="zoom" transition-speed="fast" background-image="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-sthings.png" background-size="500px" >}}
+{{< slide id=agenda background-color="#A2D8FF" type="slide" transition="zoom" transition-speed="fast" background-image="sthings-train.png" background-size="500px" >}}
 
 {{% section %}}
 
@@ -40,6 +40,8 @@ background = "#FF4081"
 <br/>
 <br/>
 <br/>
+
+🚀 Container stories<br/>🔁 OCI artifacts everwhere 🔁
 
 
 {{% /section %}}
