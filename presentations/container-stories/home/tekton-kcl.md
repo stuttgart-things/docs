@@ -9,6 +9,7 @@ weight = 20
 # /TEKTON+KCL
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-sthings.png" alt="Alt Text" width="400" style="border: 1px; box-shadow: none;" />
+
 ---
 
 ### /TEKTON
@@ -108,6 +109,25 @@ GIF + INIT + MOD DL
 
 ---
 
+### **Glue for Command Line Tools**
+- **Elegant shell scripts** made easy
+- **Interactive components** for CLI applications
+- **Bash script enhancer** with beautiful UI elements
+- **Part of Charm ecosystem** (like Glow, Soft Serve)
+
+---
+
+### **Interactive Inputs**
+
+| Component | Purpose | Example |
+|-----------|---------|---------|
+| `gum input` | Text input | `name=$(gum input --placeholder "Name")` |
+| `gum choose` | Multiple choice | `env=$(gum choose "dev" "staging" "prod")` |
+| `gum confirm` | Yes/No dialog | `gum confirm "Deploy to prod?"` |
+| `gum filter` | Fuzzy search | `pkg=$(echo "pkg1 pkg2" | gum filter)` |
+
+---
+
 ### CHOOSE
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gum-choose.gif" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
@@ -119,6 +139,10 @@ GIF + INIT + MOD DL
 ---
 
 ### SPIDER
+
+---
+
+### TASKFILE
 
 ---
 
