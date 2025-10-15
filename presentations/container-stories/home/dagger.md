@@ -85,8 +85,7 @@ weight = 40
 
 ### DAGGER AI-AGENTS
 
-
-
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/dagger-ai.png" alt="Alt Text" width="700" style="border: none; box-shadow: none;" />
 
 ---
 

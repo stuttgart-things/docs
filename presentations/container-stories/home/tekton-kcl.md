@@ -64,65 +64,90 @@ weight = 20
 
 ---
 
+> ### ❓ Audience
+>
+> **HOW DO YOU BUILD CONTAINER IMAGES?**
+>
+> - Docker/Buildx
+> - Buildah
+> - Kaniko
+> - Apko
+> - Ko
+> - ..?
+
+---
+
 ### /KCL
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-k8s.png" alt="Alt Text" width="700" style="border: 1px; box-shadow: none;" />
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-k8s.png" alt="Alt Text" width="620" style="border: 1px; box-shadow: none;" />
 
-- **Constraint-based record & functional language** for complex configurations
+- **functional language** for complex configurations
 - **Cloud-native focused** - perfect for Kubernetes and platform engineering
 
 ---
 
-### **Key Characteristics**
+### **KCL Key Characteristics**
 - **Easy-to-use** - Python/Golang-like syntax
 - **Safety-first** - No system-level functions, low security risk
 - **Rich tooling** - IDE extensions, formatting, linting, testing
 - **High performance** - Built with Rust, compiles to native/WASM
+- **Reusable Modules** - Compose and override configs using functions, imports, and variables.
 
 ---
 
-### /GENERAL KCL-EXAMPLE
+### /KCL RUN
 
-* SHOW GIF FROM TRANSFORMING (KUBECTL APPLY)
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-run.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+* runs the kcl code and renders the output (=yaml)
 
 ---
 
-### /💬 TL;DR
+### /KCL TEKTON INTEGRATION
 
-using the kcl k8s library gives you:
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/tekton-lib.png
+" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
-* ✅ Type safety
-* ✅ Schema validation
 * ✅ Version compatibility
 * ✅ Autocompletion
 * ✅ Easier composition and reuse
 
 ---
 
-# /KCL TEKTON INTEGRATION
-GIF + INIT + MOD DL
-
-
-* TEKTON LIB
-* USECASE EXMAPLE (BUILDAH PR)
-* MODULE CODE
----
-
-### SCHEMA
+### TEKTON KCL SCHEMA (SNIPPET)
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-schema.png" alt="Alt Text" width="1400" style="border: 1px; box-shadow: none;" />
+
+* ✅ Type safety
+* ✅ Schema validation
+
+---
+
+### VARIABLES/DEFAULTS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-defaults.png" alt="Alt Text" width="1400" style="border: 1px; box-shadow: none;" />
+
+---
+
+### KCL RUN TEKTON
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl_tkn.gif" alt="Alt Text" width="1400" style="border: 1px; box-shadow: none;" />
+
+---
+
+> ### ❓ Audience
+>
+> **DO YOU LIKE YAML?**
+>
+> - YES
+> - NO
+> - NEXT
+> - ..?
 
 ---
 
 ### 🎨 **GUM: Glue for Command Line Tools**
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gum-choose.gif" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
-
-- **Elegant shell scripts** made easy
-- **Interactive components** for CLI applications
-- **Bash script enhancer** with beautiful UI elements
-
----
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gum-choose.gif" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 - **Elegant shell scripts** made easy

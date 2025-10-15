@@ -64,7 +64,7 @@ weight = 30
 
 ### TEMPLATE
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Ftinkerbell-template2.png" alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Factions.png" alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -113,14 +113,6 @@ weight = 30
 
 ## /CROSSPLANE
 
----
-
-+++
-title = "Crossplane: Cloud Native Control Plane"
-+++
-
-## 🎯 What is Crossplane?
-
 ### **The Cloud Native Control Plane**
 - **Extends Kubernetes API** to manage anything
 - **Universal API for cloud resources** - infrastructure as Kubernetes objects
@@ -165,27 +157,23 @@ title = "Crossplane: Cloud Native Control Plane"
 
 ### /CONFIGURATION
 
----
-
-# /CROSSPLANE + KCL
-
----
-
-### /KCL FUNCTION
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/xplane-config.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/xplane-kcl-function.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+
+- OCI package
 
 ---
 
 ### /KCL COMPOSITION INLINE
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-crossplane-inline.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-crossplane-inline.png" alt="Alt Text" width="740" style="border: 1px; box-shadow: none;" />
 
 ---
 
 ### /KCL MODULE
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-module-tink.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kcl-module-tink.png" alt="Alt Text" width="740" style="border: 1px; box-shadow: none;" />
 
 ---
 
