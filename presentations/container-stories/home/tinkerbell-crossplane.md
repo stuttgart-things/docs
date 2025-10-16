@@ -64,7 +64,7 @@ weight = 30
 
 ### TEMPLATE
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Factions.png" alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Factions.png" alt="Alt Text" width="2000" style="border: 1px; box-shadow: none;" />
 
 ---
 
@@ -80,7 +80,7 @@ weight = 30
 
 ### WORKFLOW
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Factions.png
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/Tinkerbell%2FBilder%2Ftinkerbell-wf.png
 " alt="Alt Text" width="1600" style="border: 1px; box-shadow: none;" />
 
 ---

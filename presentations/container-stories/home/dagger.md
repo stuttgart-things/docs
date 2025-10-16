@@ -6,6 +6,8 @@ weight = 40
 
 {{% section %}}
 
+<img src="https://framerusercontent.com/images/bJT2c1WWr6bzO8aoEkh0Zz1Ra8.webp?width=1854&height=772" alt="Alt Text" width="1000" style="border: 1px; box-shadow: none;" />
+
 # /DAGGER
 
 ---
@@ -27,6 +29,13 @@ weight = 40
 - Dagger Inc. was co-founded by Solomon Hykes in 2021
 - backed by many of the original Docker core engineers
 - Core functionality (open source), Dagger Cloud (commercial)
+
+---
+
+### SHIFT CI
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/shiftci.jpg" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
+
 ---
 
 > ### ❓ Audience
@@ -40,15 +49,15 @@ weight = 40
 
 ---
 
-### DAGGER FUNCTION CALL
+### DAGGER FUNCTION (CODE)
 
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/function_trivy.gif" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
 
 ---
 
-### DAGGER SERVICE
+### DAGGER FUNCTION (CALL)
 
-* GOLANG TESTING
-* K8s / HELM TESTING
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/trivy.png" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
 
 ---
 
@@ -56,16 +65,8 @@ weight = 40
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/functions_crane.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
-
 - Analogy: Like a library or plugin for CI/CD workflows.
-
 - Example: A module called docker might expose functions like build, push, and scan.
-
----
-
-### /CREATE MODULE
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/module.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
 
 ---
 
@@ -83,15 +84,34 @@ weight = 40
 
 ---
 
-### DAGGER AI-AGENTS
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/dagger-ai.png" alt="Alt Text" width="700" style="border: none; box-shadow: none;" />
+### DAGGER SERVICE (CI)
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/service.gif" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
+
+---
+
+### DAGGER SERVICE (UP)
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/service-redis.png" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
+
+---
+
+### DAGGER SHELL (BUILD +PUBLISH)
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/shell_node_publish2.gif" alt="Alt Text" width="1000" style="border: none; box-shadow: none;" />
 
 ---
 
 ### DAGGER SHELL
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/dagger_shell.gif" alt="Alt Text" width="5000" style="border: none; box-shadow: none;" />
+
+---
+
+### DAGGER AI-AGENTS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/dagger-ai.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
 
 ---
 

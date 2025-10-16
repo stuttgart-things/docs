@@ -105,22 +105,6 @@ vcluster create ci-test-1.30 --kubernetes-version 1.30
 > -🪙 **Other** (please specify)**
 
 ---
-## 🔄 **Flux: vCluster +Crossplane**
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/vcluster-velero.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
-
----
-
-### **Deployment Sequence**
-| Step | Kustomization | Purpose | Dependencies |
-|------|---------------|---------|--------------|
-| **1️⃣** | `vault` | Vault secrets & ExternalSecrets | None |
-| **2️⃣** | `crossplane-core` | Crossplane + ProviderConfigs | `vault` |
-| **3️⃣** | `crossplane-configurations` | Restore Crossplane configurations | `crossplane-core` |
-| **4️⃣** | `apps` | Application deployments | `crossplane-restore` |
-| **5️⃣** | `backups` | Backup automation | `apps` |
-
----
 
 ### **When Git Isn't Ideal for Configuration Distribution**
 
@@ -179,5 +163,39 @@ spec:
 - **✅ Immutable Releases** - Version tags never change
 - **✅ Security** - Signed artifacts with Cosign
 - **✅ Air-Gap Friendly** - Mirror registries instead of Git repos
+
+---
+
+### 🔄 **OCI Repo defintion (depends on)**
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/flux-oci.png" alt="Alt Text" width="700" style="border: 1px; box-shadow: none;" />
+
+- Works seamlessly in air-gapped or disconnected environments
+
+---
+
+### 🔄 **Kustomization (depends on)**
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kustomization-oci.png" alt="Alt Text" width="700" style="border: 1px; box-shadow: none;" />
+
+- Dependencies ensure deterministic deployment order
+- Compatible with promotion pipelines (e.g., push v1.1.0 → promote tag to staging/prod)
+
+---
+
+### **Deployment Sequence**
+| Step | Kustomization | Purpose | Dependencies |
+|------|---------------|---------|--------------|
+| **1️⃣** | `vault` | Vault secrets & ExternalSecrets | None |
+| **2️⃣** | `crossplane-core` | Crossplane + ProviderConfigs | `vault` |
+| **3️⃣** | `crossplane-configurations` | Restore Crossplane configurations | `crossplane-core` |
+| **4️⃣** | `apps` | Application deployments | `crossplane-restore` |
+| **5️⃣** | `backups` | Backup automation | `apps` |
+
+---
+
+### 🔄 **Flux: vCluster +Crossplane**
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/vcluster-velero.png" alt="Alt Text" width="800" style="border: 1px; box-shadow: none;" />
 
 {{% /section %}}
