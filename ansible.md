@@ -515,6 +515,10 @@ ansible-galaxy install -r ./roles.yaml -p ./roles
 
 ## Vault Lookups/Refresh Inventory
 
+<details><summary><b>Running Multiple Playbooks with Vault Secrets</b></summary>
+
+### Overview
+
 In this example two playbooks are run automatically and consecutively.
 
 - The first playbook run is meant to obtain the login information of the host from vault secrets and modify.
@@ -533,37 +537,27 @@ The example shows the use of user and password, however the clarification on how
 
 In order to prepare the system, the following environment variables have to be set in case that they have not been set by then.
 
-  <details><summary><b>Environment Variables</b></summary>
-
 ```bash
 export ANSIBLE_HASHI_VAULT_ADDR=<vault-url-addr>
 export ANSIBLE_HASHI_VAULT_ROLE_ID=<approle-id>
 export ANSIBLE_HASHI_VAULT_SECRET_ID=<secret-id>
 ```
 
-</details>
-
-### Running Multiple Playbooks in a Sequence
-
-#### Inventory
+### Inventory Setup
 
 An inventory file should be created with the name of the desired host. Note: This file will change automatically throughout the process.
 
-<details><summary><b>inventory.ini</b></summary>
-
+**inventory.ini:**
 ```bash
 [all]
 hostname
 ```
 
-</details>
-
-#### Playbook1
+### Playbook 1 - Retrieve Vault Secrets
 
 The following playbook uses the environment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as _~/.ssh/vault_key_. Finally the inventory is refreshed with the new user data included.
 
-<details><summary><b>Playbook1.yaml:</b></summary>
-
+**playbook1.yaml:**
 ```yaml
 ---
 - hosts: localhost
@@ -605,13 +599,9 @@ The following playbook uses the environment variables to connect into vault and 
   - meta: refresh_inventory  # Reloads the Inventory
 ```
 
-</details>
+**For SSH connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_password.
 
-**For ssh connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_password.
-
-After the first playbook is run, the inventory will look as follows:
-
-<details><summary><b>Inventory</b></summary>
+**After the first playbook is run**, the inventory will look as follows:
 
 ```bash
 [all:vars]
@@ -620,14 +610,11 @@ ansible_password=<password>
 #ansible_connection=ssh
 ```
 
-</details>
-
-#### Playbook2
+### Playbook 2 - Execute Tasks on Host
 
 The second playbook connects to the host with the information obtained by the first playbook and then runs the desired tasks on the host. The playbook contains a general example of a task to be run within the host, and it is currently used to verify that the connection was made.
 
-<details><summary><b>Playbook2.yaml</b></summary>
-
+**playbook2.yaml:**
 ```yaml
 ---
 - hosts: all
@@ -638,14 +625,11 @@ The second playbook connects to the host with the information obtained by the fi
         uptime
 ```
 
-</details>
-
-#### Consecutively Running Multiple Playbooks within One Playbook
+### Main Playbook - Orchestration
 
 The following format can be used to list the playbooks in the order in which they should be run.
 
-<details><summary><b>main.yaml</b></summary>
-
+**main.yaml:**
 ```yaml
 ---
 - name: Playbook_1
@@ -655,11 +639,9 @@ The following format can be used to list the playbooks in the order in which the
   import_playbook: playbook2.yaml
 ```
 
-</details>
+### Execution
 
 Afterwards, you can run the following command, and the playbooks will be run:
-
-<details><summary><b>Example Run Playbook</b></summary>
 
 ```bash
 ansible-playbook main.yaml -i inventory.ini
