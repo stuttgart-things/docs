@@ -15,13 +15,21 @@ This document tracks tasks related to maintaining and improving Markdown documen
   - Fixed typos (SNIPETS→Snippets, cofigure→configure, ansibel_password→ansible_password)
   - Added consistent syntax highlighting
   - Unified Vault Lookups section structure
+- ✅ Standardized `argo-cd.md` formatting
+  - Fixed heading capitalization (Title Case)
+  - Standardized all details/summary blocks
+  - Fixed typo (BULD→Build)
+  - Corrected syntax highlighting (bash→dockerfile for Dockerfile)
+  - Consistent structure across all sections
+- ✅ Added `.task/` to `.gitignore`
 
 ## Pending Tasks
 
 ### High Priority
 
 - [ ] **Review and standardize all Markdown files in `/docs`**
-  - [ ] `argo-cd.md`
+  - [x] `ansible.md` ✅ Completed 2025-10-23
+  - [x] `argo-cd.md` ✅ Completed 2025-10-23
   - [ ] `argo-events.md`
   - [ ] `argo-workflows.md`
   - [ ] `certificates.md`
@@ -176,12 +184,30 @@ Complete remaining files:
 - `enviornment` → `environment`
 - `prevoius` → `previous`
 - `currenlty` → `currently`
+- `BULD` → `Build`
+
+## Common Fixes Applied
+
+### In ansible.md
+- Fixed 62+ heading capitalization issues
+- Removed nested details blocks
+- Standardized all code block language identifiers
+- Fixed 7 typos
+- Unified Vault Lookups section (removed 18 lines of redundant structure)
+
+### In argo-cd.md
+- Fixed 30+ heading capitalization issues
+- Standardized all details/summary blocks
+- Changed Dockerfile syntax highlighting from `bash` to `dockerfile`
+- Fixed typo: "BULD ENV VAR" → "Build Environment Variables"
+- Improved readability across all sections
 
 ## Progress Tracking
 
 | File | Status | Last Updated | Notes |
 |------|--------|--------------|-------|
 | `ansible.md` | ✅ Complete | 2025-10-23 | Fully standardized, all issues fixed |
+| `argo-cd.md` | ✅ Complete | 2025-10-23 | Title Case, syntax highlighting corrected |
 | Other files | ⏳ Pending | - | Awaiting review |
 
 ## Review Process
