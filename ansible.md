@@ -1,11 +1,11 @@
-# stuttgart-things/docs/ansible
+# Ansible
 
-## MOLECULE
+## Molecule
 
 https://cloudautomation.pharriso.co.uk/post/vmware-molecule/
 https://medium.com/@fabio.marinetti81/validate-ansible-roles-through-molecule-delegated-driver-a2ea2ab395b5
 
-<details><summary><b>CUSTOM INVENTORY W/ MOLECULE</b></summary>
+<details><summary><b>Custom Inventory with Molecule</b></summary>
 
 ```bash
 molecule init scenario --driver-name=default
@@ -51,7 +51,7 @@ EOF
 
 </details>
 
-<details><summary><b>TEST EXISTING ROLE WITH MOLECULE DOCKER DRIVER</b></summary>
+<details><summary><b>Test Existing Role with Molecule Docker Driver</b></summary>
 
 ```bash
 mkdir -p molecule-testing && cd $_
@@ -106,9 +106,9 @@ molecule test -s docker_test
 
 </details>
 
-## SNIPETS
+## Snippets
 
-<details><summary><b>CREATE-COLLECTIONS</b></summary>
+<details><summary><b>Create Collections</b></summary>
 
 ```bash
 # EXAMPLE COLLECTION CREATION
@@ -123,22 +123,22 @@ ansible-galaxy collection install sthings-deploy_rke-1.0.0.tar.gz --force
 
 </details>
 
-<details><summary><b>COPY STANDALONE ROLE</b></summary>
+<details><summary><b>Copy Standalone Role</b></summary>
 
 ```bash
 # CREATE ROLE DIR INSIDE COLLECTION ROLES DIR
-mkdir -p sthings/deploy_rke/roles/install_cofigure_docker
+mkdir -p sthings/deploy_rke/roles/install_configure_docker
 
 # COPY ROLE CONTENT TO COLLECTION ROLE
-cp -R install-configure-docker/* sthings/deploy_rke/roles/install_cofigure_docker
+cp -R install-configure-docker/* sthings/deploy_rke/roles/install_configure_docker
 
 # RENAME (OLD) ROLE NAME/REFERENCES
-sed -i 's/install-configure-docker/install_configure_docker/g' $(find sthings/deploy_rke/roles/install_cofigure_docker -type f)
+sed -i 's/install-configure-docker/install_configure_docker/g' $(find sthings/deploy_rke/roles/install_configure_docker -type f)
 ```
 
 </details>
 
-<details><summary><b>IMPORT PLAYBOOK FROM COLLECTION</b></summary>
+<details><summary><b>Import Playbook from Collection</b></summary>
 
 ```bash
 # CREATE PLAYBOOK DIR INSIDE COLLECTION
@@ -150,7 +150,7 @@ cat <<EOF > sthings/deploy_rke/playbooks/install_docker.yml
 - hosts: "{{ hosts | default('all') }}"
   tasks:
     - include_role:
-        name: install_cofigure_docker
+        name: install_configure_docker
 EOF
 
 # BUILD +INSTALL ROLE
@@ -172,9 +172,9 @@ ansible-playbook sthings.deploy_rke.install_docker -i inv -vv
 
 </details>
 
-## TASK-SNIPPETS
+## Task Snippets
 
-<details><summary><b>LOOP OVER DICT</b></summary>
+<details><summary><b>Loop Over Dict</b></summary>
 
 ```yaml
 ---
@@ -198,7 +198,7 @@ ansible-playbook sthings.deploy_rke.install_docker -i inv -vv
 
 </details>
 
-<details><summary><b>WAIT FOR CUSTOM K8S RESOURCE TO BE CREATED/READY</b></summary>
+<details><summary><b>Wait for Custom K8s Resource to be Created/Ready</b></summary>
 
 ```yaml
 ---
@@ -231,12 +231,11 @@ ansible-playbook sthings.deploy_rke.install_docker -i inv -vv
       delay: 15
 ```
 
- </details>
+</details>
 
-## EXTEND ANSIBLE
+## Extend Ansible
 
-<details><summary><b>ADD (LOCAL) CUSTOM (PYTHON) MODULE</b></summary>
-
+<details><summary><b>Add (Local) Custom (Python) Module</b></summary>
 ```bash
 # GET MODULES PATH
 ansible-config dump |grep DEFAULT_MODULE_PATH
@@ -266,11 +265,11 @@ ansible/plugins/modules
 
 </details>
 
-## EVENT-DRIVEN-ANSIBLE (EDA)
+## Event-Driven Ansible (EDA)
 
-### INSTALLATION
+### Installation
 
-<details><summary><b>Example installation</b></summary>
+<details><summary><b>Example Installation</b></summary>
 
 ```bash
 sudo apt install python3-pip openjdk-17-jdk maven
@@ -282,22 +281,22 @@ pip install wheel ansible-rulebook ansible ansible-runner
 ansible-galaxy collection install community.general ansible.eda
 ```
 
- </details>
+</details>
 
-### INSTALLATION ELASTICSEARCH SOURCE PLUGIN
+### Installation Elasticsearch Source Plugin
 
-<details><summary><b>Example installation elasticsearch plugin</b></summary>
+<details><summary><b>Example Installation Elasticsearch Plugin</b></summary>
 
 ```bash
 pip install aiohttp elasticsearch python-dateutil pyyaml
 ansible-galaxy collection install cloin.eda
 ```
 
- </details>
+</details>
 
-### WEBHOOK RULEBOOK
+### Webhook Rulebook
 
-<details><summary><b>Example webhook rulebook</b></summary>
+<details><summary><b>Example Webhook Rulebook</b></summary>
 
 ```yaml
 ---
@@ -321,11 +320,11 @@ ansible-galaxy collection install cloin.eda
           name: deployK3s2.yaml
 ```
 
- </details>
+</details>
 
-### ELASTICSEARCH RULEBOOK
+### Elasticsearch Rulebook
 
-<details><summary><b>Example elasticsearch rulebook</b></summary>
+<details><summary><b>Example Elasticsearch Rulebook</b></summary>
 
 ```yaml
 ---
@@ -349,11 +348,11 @@ ansible-galaxy collection install cloin.eda
           name: vsphere.yaml
 ```
 
- </details>
+</details>
 
-### INVENTORY EXAMPLE
+### Inventory Example
 
-<details><summary><b>Example inventory</b></summary>
+<details><summary><b>Example Inventory</b></summary>
 
 ```yaml
 all:
@@ -362,11 +361,11 @@ all:
       ansible_connection: local
 ```
 
- </details>
+</details>
 
-### PLAYBOOK EXAMPLES
+### Playbook Examples
 
-<details><summary><b>Example playbook</b></summary>
+<details><summary><b>Example Playbook</b></summary>
 
 ```yaml
 - hosts: localhost
@@ -420,11 +419,11 @@ all:
       when: power_status == "poweredOff"
 ```
 
- </details>
+</details>
 
-### RULEBOOK EXECUTION
+### Rulebook Execution
 
-<details><summary><b>Example rulebook execution</b></summary>
+<details><summary><b>Example Rulebook Execution</b></summary>
 
 ```bash
 ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
@@ -432,19 +431,19 @@ ansible-rulebook --rulebook webhook-source.yaml -i rulebook-inv -vv
 
 </details>
 
-### RULEBOOK/EDA TRIGGERING
+### Rulebook/EDA Triggering
 
-<details><summary><b>Example rulebook/ EDA triggering</b></summary>
+<details><summary><b>Example Rulebook/EDA Triggering</b></summary>
 
 ```bash
 curl -v -H 'Content-Type: application/json' -d '{"message": "install RKE"}' 10.31.103.137:5000/endpoint
 ```
 
- </details>
+</details>
 
-## ANSIBLE-LINT
+## Ansible-Lint
 
-<details><summary><b>Example ansible linting</b></summary>
+<details><summary><b>Example Ansible Linting</b></summary>
 
 ```yaml
 pip3 install ansible-lint
@@ -457,11 +456,11 @@ ansible-lint
 
 </details>
 
-## SNIPPETS
+## Development Snippets
 
-<details><summary><b>(FURTHER) DEVELOPEMENT OF EXISTING ANSIBLE ROLES</b></summary>
+<details><summary><b>(Further) Development of Existing Ansible Roles</b></summary>
 
-### CLONE OR SWITCH TO EXISTING REMOTE BRANCH
+### Clone or Switch to Existing Remote Branch
 
 ```bash
 mkdir -p ~/ansible/dev/ && cd ~/ansible/dev/ # example dir
@@ -483,7 +482,7 @@ git pull origin main
 git switch feature/issue-1/update-version-check && git pull
 ```
 
-### TEST WITH DEV ROLE (IF ROLE IS ALREADY INSTALLED SYSTEMWIDE)
+### Test with Dev Role (if Role is Already Installed Systemwide)
 
 ```bash
 # RUN THE (TEST) PLAYBOOK FROM ROLES DIR OR FROM ROLES TESTS FOLDER
@@ -497,7 +496,7 @@ export ANSIBLE_ROLES_PATH=~/projects/ansible/dev/ # example
 
 </details>
 
-<details><summary><b>INSTALL ROLES FROM REQUIREMENTS FILE</b></summary>
+<details><summary><b>Install Roles from Requirements File</b></summary>
 
 ```yaml
 # roles.yaml
@@ -514,12 +513,12 @@ ansible-galaxy install -r ./roles.yaml -p ./roles
 
 </details>
 
-## VAULT LOOKUPS/REFRESH INVENTORY
+## Vault Lookups/Refresh Inventory
 
 In this example two playbooks are run automatically and consecutively.
 
 - The first playbook run is meant to obtain the login information of the host from vault secrets and modify.
-- The second playbook is meant to run through the host, using the login data obtained on the prevoius playbook.
+- The second playbook is meant to run through the host, using the login data obtained on the previous playbook.
 
 In order for the second playbook to connect to the host, the data obtained from the first playbook is written into the inventory file and the inventory file is then refreshed to work with the new data.
 
@@ -532,7 +531,7 @@ The example shows the use of user and password, however the clarification on how
 
 ### Before we Start
 
-In order to prepare the system, the following environment variables have to be set in case that they have not ben set by then.
+In order to prepare the system, the following environment variables have to be set in case that they have not been set by then.
 
   <details><summary><b>Environment Variables</b></summary>
 
@@ -542,9 +541,9 @@ export ANSIBLE_HASHI_VAULT_ROLE_ID=<approle-id>
 export ANSIBLE_HASHI_VAULT_SECRET_ID=<secret-id>
 ```
 
-  </details>
+</details>
 
-### Running multiple playbooks in a sequence.
+### Running Multiple Playbooks in a Sequence
 
 #### Inventory
 
@@ -561,9 +560,9 @@ hostname
 
 #### Playbook1
 
-The following playbook uses the enviornment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as _~/.ssh/vault_key_. Finally the inventory is refreshed with the new user data included.
+The following playbook uses the environment variables to connect into vault and extract the secrets needed to connect to the host. The username and password are saved into the inventory file (if the inv file is not in the same directory as the playbook, then the path under the "Write vars on inv file" task must be modified.). The ssh-keys (public and private) are stored as _~/.ssh/vault_key_. Finally the inventory is refreshed with the new user data included.
 
-<details><summary><b>Playbook1.yaml: </b></summary>
+<details><summary><b>Playbook1.yaml:</b></summary>
 
 ```yaml
 ---
@@ -572,7 +571,6 @@ The following playbook uses the enviornment variables to connect into vault and 
 
   vars:
     home_dir: "{{ lookup('env','HOME') }}"
-    inv_dir
     vault_approle_id: "{{ lookup('env', 'ANSIBLE_HASHI_VAULT_ROLE_ID') }}"
     vault_approle_secret: "{{ lookup('env', 'ANSIBLE_HASHI_VAULT_SECRET_ID') }}"
     vault_url: "{{ lookup('env', 'ANSIBLE_HASHI_VAULT_ADDR') }}"
@@ -589,7 +587,7 @@ The following playbook uses the enviornment variables to connect into vault and 
       line: |
         [all:vars]
         ansible_user={{ username }}
-        ansibel_password={{ password }}
+        ansible_password={{ password }}
         #ansible_connection=ssh
 
   - name: Creating ssh private key file
@@ -609,7 +607,7 @@ The following playbook uses the enviornment variables to connect into vault and 
 
 </details>
 
-**For ssh connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_pasword.
+**For ssh connection**: To connect via ssh instead of username and password, change the line within the task "Write vars on inv file". Remove the hashtag (#) before ansible_connection and add a hashtag before ansible_user and ansible_password.
 
 After the first playbook is run, the inventory will look as follows:
 
@@ -626,7 +624,7 @@ ansible_password=<password>
 
 #### Playbook2
 
-The second playbook connects to the host with the information obtained by the first playbook and then runs the desired tasks on the host. The playbook contains a general example of a task to be run within the host, and it is currenlty used to verify that the connection was made.
+The second playbook connects to the host with the information obtained by the first playbook and then runs the desired tasks on the host. The playbook contains a general example of a task to be run within the host, and it is currently used to verify that the connection was made.
 
 <details><summary><b>Playbook2.yaml</b></summary>
 
@@ -642,7 +640,7 @@ The second playbook connects to the host with the information obtained by the fi
 
 </details>
 
-#### Consecutively running multiple playbooks within one playbook
+#### Consecutively Running Multiple Playbooks within One Playbook
 
 The following format can be used to list the playbooks in the order in which they should be run.
 
@@ -661,10 +659,10 @@ The following format can be used to list the playbooks in the order in which the
 
 Afterwards, you can run the following command, and the playbooks will be run:
 
-<details><summary><b>Example run playbook</b></summary>
+<details><summary><b>Example Run Playbook</b></summary>
 
 ```bash
 ansible-playbook main.yaml -i inventory.ini
 ```
 
- </details>
+</details>
