@@ -1,10 +1,15 @@
 ---
 version: 3
+includes:
+  git:
+    taskfile: https://raw.githubusercontent.com/stuttgart-things/platform-engineering-showcase/refs/heads/main/taskfiles/git.yaml
+
 vars:
   PROJECT_NAME:
     sh: echo ${PWD##*/}
   BRANCH:
     sh: if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then echo $(git rev-parse --abbrev-ref HEAD); else echo main ; fi
+
 
 dotenv: ['.env', '{{.HOME}}/.env']
 

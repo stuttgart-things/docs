@@ -8,7 +8,7 @@ This document outlines the style and formatting decisions for all Markdown docum
 
 **Decision**: Use **Title Case** for all headings (H2 and below)
 
-**Rationale**: 
+**Rationale**:
 - Provides consistent, professional appearance
 - Improves readability and scannability
 - Aligns with technical documentation best practices
