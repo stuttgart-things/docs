@@ -12,23 +12,23 @@ jobs:
     uses: stuttgart-things/github-workflow-templates/.github/workflows/call-markdown-lint.yaml@mc2024-05-14
     with:
       environment-name: k8s
-      runs-on: ghr-docs-skyami-cicd
+      runs-on: ghr-docs-in-cluster
       continue-error: true
       alpine-version: 3.19.0
       lintprofile-path: .markdownlint.rb
       artifact-name: md-lint
-      
+
   yaml-lint:
     name: Lint yaml files
     uses: stuttgart-things/github-workflow-templates/.github/workflows/call-yaml-lint.yaml@mc2024-05-14
     with:
       environment-name: k8s
-      runs-on: ghr-docs-skyami-cicd
+      runs-on: ghr-docs-in-cluster
       continue-error: true
       yamllint-version: 1
       lintprofile-path: .yamllint
       artifact-name: yaml-lint
-      
+
 #  build-hugo:
 #    name: Build hugo
 ##    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-hugo-build.yaml@mc2024-05-14
@@ -37,7 +37,7 @@ jobs:
 #      - yaml-lint
 #    with:
 #      environment-name: k8s
-#      runs-on: ghr-docs-skyami-cicd
+#      runs-on: ghr-docs-in-cluster
 #      image: floryn90/hugo:0.126.1-ext-ubuntu-ci
 #      creation-script-path: hugo/create-content.sh
 #      site-name: blog
