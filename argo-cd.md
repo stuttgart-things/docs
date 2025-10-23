@@ -1,10 +1,10 @@
-# stuttgart-things/docs/argocd
+# Argo CD
 
-## CLUSTER
+## Cluster Management
 
-<details><summary><b>CREATE CLUSTER w/o CLI</b></summary>
+<details><summary><b>Create Cluster without CLI</b></summary>
 
-### DEPLOY ON TO BE ADDED CLUSTER
+### Deploy on To-Be-Added Cluster
 
 ```bash
 export KUBECONFIG=~/.kube/tobeaddedcluster
@@ -57,7 +57,7 @@ type: kubernetes.io/service-account-token
 EOF
 ```
 
-### GET CLUSTER DETAILS OF TO BE ADDED CLUSTER
+### Get Cluster Details of To-Be-Added Cluster
 
 ```bash
 export KUBECONFIG=~/.kube/tobeaddedcluster
@@ -71,7 +71,7 @@ TOKEN=$(kubectl get -n kube-system secret/argocd-manager-token --context=${CONTE
 SERVER=$(grep 'server:' ~/.kube/tobeaddedcluster | awk '{print $2}')
 ```
 
-### DEPLOY ON ARGOCD CLUSTER
+### Deploy on Argo CD Cluster
 
 ```bash
 export KUBECONFIG=~/.kube/clusterargocdisrunningon
@@ -102,9 +102,9 @@ EOF
 
 </details>
 
-## APPLICATION
+## Application Examples
 
-<details><summary><b>FOLDER</b></summary>
+<details><summary><b>Folder Source</b></summary>
 
 ```yaml
 ---
@@ -134,7 +134,7 @@ spec:
 
 </details>
 
-<details><summary><b>HELM</b></summary>
+<details><summary><b>Helm Source</b></summary>
 
 ```yaml
 ---
@@ -173,7 +173,7 @@ spec:
 
 </details>
 
-<details><summary><b>KUSTOMIZE</b></summary>
+<details><summary><b>Kustomize Source</b></summary>
 
 ```yaml
 # APPLICATION
@@ -216,7 +216,7 @@ configMapGenerator:
 
 </details>
 
-<details><summary><b>MULTISOURCES HELM + GIT VALUES</b></summary>
+<details><summary><b>Multi-Source (Helm + Git Values)</b></summary>
 
 ```yaml
 ---
@@ -251,9 +251,9 @@ spec:
 
 </details>
 
-## APPSET
+## ApplicationSet Examples
 
-<details><summary><b>PULL REQUEST + KUSTOMIZE</b></summary>
+<details><summary><b>Pull Request + Kustomize</b></summary>
 
 ```yaml
 ---
@@ -304,7 +304,7 @@ spec:
 
 </details>
 
-<details><summary><b>LIST GENERATOR, BULD ENV VAR + VAULT PLUGIN VALUES</b></summary>
+<details><summary><b>List Generator with Build Environment Variables + Vault Plugin Values</b></summary>
 
 ```yaml
 ---
@@ -370,7 +370,7 @@ spec:
 
 </details>
 
-<details><summary><b>GIT REPO+PATH</b></summary>
+<details><summary><b>Git Repository + Path</b></summary>
 
 ```yaml
 ---
@@ -412,7 +412,7 @@ spec:
 
 </details>
 
-<details><summary><b>PULL REQUEST + LIST GENERATOR MATRIX</b></summary>
+<details><summary><b>Pull Request + List Generator Matrix</b></summary>
 
 ```yaml
 ---
@@ -515,9 +515,9 @@ spec:
 
 </details>
 
-## CONFIGURATION SNIPPETS
+## Configuration Snippets
 
-<details><summary><b>IN-CLUSTER APP PROJECT</b></summary>
+<details><summary><b>In-Cluster App Project</b></summary>
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -549,7 +549,7 @@ spec:
 
 </details>
 
-<details><summary><b>ADD GIT-REPOSITORY</b></summary>
+<details><summary><b>Add Git Repository</b></summary>
 
 ```yaml
 ---
@@ -573,8 +573,7 @@ type: Opaque
 
 </details>
 
-
-<details><summary><b>DEPLOYMENT W/ HELM</b></summary>
+<details><summary><b>Deployment with Helm</b></summary>
 
 ```bash
 helm repo add argo https://argoproj.github.io/argo-helm
@@ -584,9 +583,9 @@ helm upgrade --install argo-cd argo/argo-cd -n argocd --create-namespace --versi
 
 </details>
 
-## ARGOCD-VAULT-PLUGIN
+## Argo CD Vault Plugin (AVP)
 
-<details><summary><b>AVP SECRET-MANIFEST</b></summary>
+<details><summary><b>AVP Secret Manifest</b></summary>
 
 ```bash
 export AVP_VAULT_ADDR=https://vault.cd43.sthings-pve.example.com
@@ -611,7 +610,7 @@ argocd-vault-plugin generate ./secret.yaml
 
 </details>
 
-<details><summary><b>AVP HELM-CHART</b></summary>
+<details><summary><b>AVP Helm Chart Rendering</b></summary>
 
 ```bash
 # SET VAULT ENV VARS
@@ -641,7 +640,7 @@ helm template ${ARGOCD_APP_NAME} -n ${ARGOCD_APP_NAMESPACE} -f <(echo "${ARGOCD_
 
 </details>
 
-<details><summary><b>AVP APPLICATION (PATH, MANIFEST)</b></summary>
+<details><summary><b>AVP Application (Path, Manifest)</b></summary>
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -662,7 +661,7 @@ spec:
 
 </details>
 
-<details><summary><b>AVP APPLICATION (PATH, HELM + VALUES)</b></summary>
+<details><summary><b>AVP Application (Path, Helm + Values)</b></summary>
 
 ```yaml
 ---
@@ -710,7 +709,7 @@ spec:
 
 </details>
 
-<details><summary><b>AVP HELM-CHART</b></summary>
+<details><summary><b>AVP Helm Chart Values</b></summary>
 
 ```bash
 export AVP_VAULT_ADDR=https://vault.cd43.sthings-pve.example.com
@@ -742,7 +741,7 @@ argocd-vault-plugin generate ./values.yaml
 
 </details>
 
-<details><summary><b>ARGOCD HELM VALUES FOR AVP</b></summary>
+<details><summary><b>Argo CD Helm Values for AVP</b></summary>
 
 ```yaml
 server:
@@ -881,9 +880,9 @@ repoServer:
 
 </details>
 
-<details><summary><b>AVP DOCKERFILE</b></summary>
+<details><summary><b>AVP Dockerfile</b></summary>
 
-```bash
+```dockerfile
 ARG REGISTRY=eu.gcr.io
 ARG REPOSITORY=stuttgart-things
 ARG IMAGE=sthings-alpine
@@ -938,9 +937,9 @@ USER 65532
 
 </details>
 
-## CLI
+## CLI Commands
 
-<details><summary><b>LOGIN</b></summary>
+<details><summary><b>Login</b></summary>
 
 ```bash
 argocd login argo-cd.mgmt.sthings-vsphere.example.com:443 --insecure
@@ -948,7 +947,7 @@ argocd login argo-cd.mgmt.sthings-vsphere.example.com:443 --insecure
 
 </details>
 
-<details><summary><b>ADD CLUSTER</b></summary>
+<details><summary><b>Add Cluster</b></summary>
 
 ```bash
 # download kubeconfig of target cluster local and export KUBECONFIG
@@ -957,7 +956,7 @@ argocd cluster add $(kubectl config current-context) --name sthings-app --grpc-w
 
 </details>
 
-<details><summary><b>TERMINATE APP</b></summary>
+<details><summary><b>Terminate App</b></summary>
 
 ```bash
 argocd app terminate-op yacht-application-server
@@ -965,7 +964,7 @@ argocd app terminate-op yacht-application-server
 
 </details>
 
-<details><summary><b>ADD OCI REPOSITORY</b></summary>
+<details><summary><b>Add OCI Repository</b></summary>
 
 ```bash
 argocd repo add <REGISTRY-URL> --type helm --name aks2 --enable-oci --username <USERNAME> --password <PASSWORD>
