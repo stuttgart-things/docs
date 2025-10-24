@@ -44,3 +44,5 @@ site/
 # Optional: Ignore generated HTML/PDF if you exp
 
 /presentations/*/images/
+
+bin/
