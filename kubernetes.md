@@ -223,6 +223,7 @@ kubectl -n cert-manager get secret ca-issuer -o jsonpath="{.data['tls\.crt']}" |
 USE SCP ON LOCAL WINDOWS MACHINE
 
 ```bash
+# execute this from local windows machine to copy from remote ubuntu VM
 scp user@hostname:/path/to/ca.crt /local/path/to/ca.crt
 ```
 
