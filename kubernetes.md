@@ -212,6 +212,35 @@ spec:
 
 </details>
 
+<details><summary>INGRESS TLS CERTS UNDER WINDOWS</summary>
+
+READ SECRET AND SAVE IN .crt FILE
+
+```bash
+kubectl -n cert-manager get secret ca-issuer -o jsonpath="{.data['tls\.crt']}" | base64 -d > ca.crt
+```
+
+USE SCP ON LOCAL WINDOWS MACHINE
+
+```bash
+scp user@hostname:/path/to/ca.crt /local/path/to/ca.crt
+```
+
+IMPORT .crt INTO WINDOWS TRUST STORE
+
+```
+-> double-click the certificate
+-> click on <install certificate>
+-> choose local machine
+-> Select <Place all certificates in the following store>
+-> Choose <Trusted Root Certification Authorities>
+-> Finish and Confirm
+
+(you need to restart the browser session)
+```
+
+</details>
+
 ## KUBECTL
 
 <details><summary>FORCE DELETE POD</summary>
