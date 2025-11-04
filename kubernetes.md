@@ -242,6 +242,85 @@ IMPORT .crt INTO WINDOWS TRUST STORE
 
 </details>
 
+<details><summary>k3s-setup(WIP)</summary>
+
+```
+cd /home/sthings/project/andre
+
+Delete Cluster:
+ansible-playbook sthings.rke.k3s -e k3s_k8s_version=1.34.1 -i ~/project/andre/inventory -e cilium_lbrange_start_ip=192.168.50.100 -e cilium_lbrange_stop_ip=192.168.50.200 -e k3s_state=absent -vv
+
+create Cluster:
+ansible-playbook sthings.rke.k3s -e k3s_k8s_version=1.34.1 -i ~/project/andre/inventory -e cilium_lbrange_start_ip=192.168.50.100 -e cilium_lbrange_stop_ip=192.168.50.200 -vv
+
+fetch kubeconfig:
+on target machine:
+sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+sudo chmod 0644 ~/.kube/config
+
+scp kubeconfig to source machine:
+scp sthings@192.168.50.11:~/.kube/config ~/.kube/panda-config
+
+export KUBECONFIG=~/.kube/panda-config
+
+deploy issuer selfsigned:
+kubectl apply -f /home/sthings/project/andre/issuer.yaml
+
+deploy headlamp:
+ansible-playbook sthings.container.deploy_to_k8s -i ~/project/andre/inventory -e path_to_kubeconfig=~/.kube/panda-config -vv -e state=present -e ansible_user=sthings -e path=/home/sthings/.ansible/collections/ansible_collections/sthings/container/playbooks/vars -e profile=headlamp -e target_host=192.168.50.11 -e create_cert_resource=true
+
+change clusterip to loadbalancer:
+kubectl patch svc headlamp -n kube-system -p '{"spec": {"type": "ClusterIP"}}'
+kubectl patch svc ingress-nginx-controller -n ingress-nginx -p '{"spec": {"type": "LoadBalancer"}}'
+
+
+install Cert ubuntu:
+kubectl get secret root-ca -n cert-manager -o jsonpath="{.data['tls\.crt']}" | base64 -d > headlamp-ca.crt
+sudo cp headlamp-ca.crt /usr/local/share/ca-certificates/headlamp-ca.crt
+sudo update-ca-certificates
+
+install cert browser:
+For Firefox:
+
+    Go to Settings > Privacy & Security > Certificates > View Certificates
+
+    Under Authorities, click Import
+
+    Select headlamp-ca.crt
+
+    Check Trust this CA to identify websites
+
+For Chrome/Chromium:
+
+    Open chrome://settings/security
+
+    Scroll to Manage certificates
+
+    Under Authorities, click Import
+
+    Select headlamp-ca.crt
+
+    Enable Trust this certificate for identifying websites
+
+Change ingress-nginx-controller service loadbalancing ip to static:
+kubectl patch svc ingress-nginx-controller -n ingress-nginx --type='merge' -p '{"spec": {"loadBalancerIP": "192.168.50.50"}}'
+
+
+Helm changes of ingress-nginx (HostNetwork cant be true in this setup):
+Check values:
+helm get values ingress-nginx -n ingress-nginx
+reinstall if hostNetwork=true:
+helm uninstall ingress-nginx -n ingress-nginx
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install -n ingress-nginx ingress-nginx/ingress-nginx --version 4.14.0
+helm install ingress-nginx ingress-nginx/ingress-nginx --version 4.14.0 -n ingress-nginx
+
+
+
+```
+
+</details>
+
 ## KUBECTL
 
 <details><summary>FORCE DELETE POD</summary>
