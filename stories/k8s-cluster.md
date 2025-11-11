@@ -123,7 +123,7 @@ Usecase:
 requirements:
   - ✅ 1-x machines/vms (base-setup for updates/partitioning already provisioned)
 
-### INSTALL REQUIREMENTS 
+### INSTALL REQUIREMENTS
 
 <details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
 
@@ -161,7 +161,7 @@ pip3 install jmespath kubernetes
 
 </details>
 
-### EXECUTE BASE RKE2-SETUP 
+### EXECUTE BASE RKE2-SETUP
 
 <details><summary>ANSIBLE (CLI - FROM LOCAL)</summary>
 
@@ -169,7 +169,7 @@ pip3 install jmespath kubernetes
 
 ```bash
 # INSTALL COLLECTION
-ansible-galaxy collection install https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.1.475.tar.gz/sthings-rke-25.1.475.tar.gz -f 
+ansible-galaxy collection install https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.1.475.tar.gz/sthings-rke-25.1.475.tar.gz -f
 
 # CREATE INVENTORY
 cat <<EOF > rke2
@@ -210,7 +210,7 @@ ansible-playbook sthings.container.tools -i rke2 -vv
 
 ```bash
 # INSTALL COLLECTION
-ansible-galaxy collection install https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.1.475.tar.gz/sthings-rke-25.1.475.tar.gz -f 
+ansible-galaxy collection install https://github.com/stuttgart-things/ansible/releases/download/sthings-rke-25.1.475.tar.gz/sthings-rke-25.1.475.tar.gz -f
 
 # CREATE INVENTORY
 cat <<EOF > rke2
@@ -436,14 +436,14 @@ export VAULT_ROLE_ID=1d42d7e7-8.. #example value
 export VAULT_NAMESPACE=root
 
 HELMFILE_CACHE_HOME=$(pwd)/${CLUSTER_NAME}/helm_cache
-mkdir -p ${HELMFILE_CACHE_HOME} && 
+mkdir -p ${HELMFILE_CACHE_HOME} &&
 export HELMFILE_CACHE_HOME=${HELMFILE_CACHE_HOME}
 
 # INIT HELMFILE
 helmfile init
 
 # CHECK IF CHARTS CAN BE DOWNLOADED/RENDRED
-helmfile template -f ${CLUSTER_NAME}/infra.yaml 
+helmfile template -f ${CLUSTER_NAME}/infra.yaml
 
 # DEPLOY RELEASES
 helmfile sync -f ${CLUSTER_NAME}/infra.yaml
@@ -485,7 +485,7 @@ curl 10.31.103.4 # EXAMPLE IP
 
 # SET VARS
 ENTRY_ZONE=sthings-vsphere.example.com. # PLEASE MIND THE . AT THE END!
-IP=10.31.103.4 
+IP=10.31.103.4
 HOSTNAME=homerun-int2
 PDNS_URL=https://pdns-vsphere.example.com:8443
 DOMAIN=sthings-vsphere.example.com
@@ -544,14 +544,14 @@ EOF
 # CHECK FOR READY=TRUE STATUS
 kubectl get Certificate -n keycloak
 
-# CHECK FOR EXISTENCE OF TLS_SECRET 
+# CHECK FOR EXISTENCE OF TLS_SECRET
 kubectl get secret -n keycloak | grep keycloak.fluxdev-3.sthings-vsphere.example.com-tls
 ```
 
 </details>
 
 
-### EXECUTE BASE K3S-SETUP 
+### EXECUTE BASE K3S-SETUP
 
 #### OPTION1: ANSIBLE-CLI
 

@@ -5,7 +5,7 @@
 <details><summary><b>USE GUM IN BASH SCRIPTS FOR CHOOSING FILES</b></summary>
 
 ```bash
-KUBECONFIG_FOLDER=~/.kube 
+KUBECONFIG_FOLDER=~/.kube
 ALL_KUBECONFIGS=$(ls ${KUBECONFIG_FOLDER} | xargs -n1 printf '"%s" ') &&
 SELECTED_KUBECONFIG=$(gum choose ${ALL_KUBECONFIGS}) && echo Switching to ${SELECTED_KUBECONFIG//\"/} &&
 export KUBECONFIG=${KUBECONFIG_FOLDER}/${SELECTED_KUBECONFIG//\"/}; kubectl get nodes

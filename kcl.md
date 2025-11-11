@@ -31,7 +31,7 @@ tekton.PipelineRun {
             {name = k, value = v} for k, v in vars.pipeline_params
         ]
     }
-} 
+}
 ```
 
 ```hcl
@@ -85,7 +85,7 @@ pipeline_name_prefix = "pr-ansible"
 ```bash
 kcl mod init
 mod add tekton-pipelines
-kcl run main.k 
+kcl run main.k
 ```
 
 </details>
@@ -198,7 +198,7 @@ spec:
 ```
 
 ```bash
-crossplane render claim.yaml composition.yaml function.yaml 
+crossplane render claim.yaml composition.yaml function.yaml
 ```
 
 </details>

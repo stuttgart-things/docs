@@ -8,7 +8,7 @@
 * Begrüßung und Zielsetzung <!-- .element: class="fragment fade-up" -->
 * Einführung in Ansible <!-- .element: class="fragment fade-up" -->
     * Was ist Ansible? <!-- .element: class="fragment fade-up" -->
-    * Relevanz der Technologie für Kunden und SEs <!-- .element: class="fragment fade-up" --> 
+    * Relevanz der Technologie für Kunden und SEs <!-- .element: class="fragment fade-up" -->
     * Beispiele aus der Sprechstunde <!-- .element: class="fragment fade-up" -->
 * Einsatz von Ansible beim Kunden <!-- .element: class="fragment fade-up" -->
 * Fragen <!-- .element: class="fragment fade-up" -->
@@ -37,7 +37,7 @@
       datacenter: "{{ datacenter_name }}"
 ```
 
-* automatisierbar, wiederholbar und versionierbar 
+* automatisierbar, wiederholbar und versionierbar
 --
 ### /IAC
 [<img src="https://www.meme-arsenal.com/memes/cc44149278ca0067e7dd198911ef5553.jpg" width="700"/>](https://www.sva.de/index.html)
@@ -55,7 +55,7 @@ echo "Passwort1" | passwd --stdin user1
 useradd -m -d /home/user2 -s /bin/bash user2
 echo "Passwort2" | passwd --stdin user2
 ```
- * Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind 
+ * Befehle, die zum Erreichen der gewünschten Konfiguration erforderlich sind
 --
 ### /DEKLARATIV (e.g. ANSIBLE)
 
@@ -92,7 +92,7 @@ echo "Passwort2" | passwd --stdin user2
 --
 ### /ANSIBLE CLI
 [<img src="https://miro.medium.com/v2/resize:fit:1400/1*BJTeJ0HQsV08ucvG3Vuj8w.png" width="900"/>](https://www.sva.de/index.html)
-* Python + SSH + ANSIBLE = 🚀 
+* Python + SSH + ANSIBLE = 🚀
 --
 ### /ANSIBLE INVENTORY
 
@@ -106,7 +106,7 @@ additional_master_nodes:
     rke2-test-molecule-3.labul.sva.de:
 ```
 
-* Deklaration von Zielen (Hosts) welche über SSH erreicht werden 
+* Deklaration von Zielen (Hosts) welche über SSH erreicht werden
 --
 ### /ANSIBLE PLAYBOOK
 
@@ -122,8 +122,8 @@ additional_master_nodes:
   roles:
     - deploy-rke-loadbalancer
 ```
-* Deklaration: 
-  * welche tasks or roles 
+* Deklaration:
+  * welche tasks or roles
   * auf welchen hosts ausgeführt werden sollen
 ---
 # /ANSIBLE (CLI DEMO)
@@ -153,7 +153,7 @@ additional_master_nodes:
 * Jeden zweiten Donnerstag des Monats
 * 14:00 bis 16:00 Uhr
 * Raum: ST M3 -01
-* Wiki: https://wiki.sva.de/pages/viewpage.action?pageId=453482787 
+* Wiki: https://wiki.sva.de/pages/viewpage.action?pageId=453482787
 
 [<img src="https://raw.githubusercontent.com/stuttgart-things/docs/main/hugo/sthings-ansible.png" width="200"/>](https://www.sva.de/index.html)
 ---

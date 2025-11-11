@@ -31,7 +31,7 @@ EOF
 helmfile init --force
 
 # APPLY HELMFILE
-helmfile apply -f vault.yaml 
+helmfile apply -f vault.yaml
 ```
 
 </details>
@@ -307,7 +307,7 @@ cat ${LOG_FILE}
 ### APPROLE
 
 ```yaml
-# VAULT EXPORTS 
+# VAULT EXPORTS
 export VAULT_AUTH_METHOD=approle
 export VAULT_ADDR=https://vault.example.com
 export VAULT_SECRET_ID=<secretID>
@@ -346,7 +346,7 @@ ansible-playbook test-vault-lookup-approle.yaml -vv
 ### TOKEN
 
 ```yaml
-# VAULT EXPORTS 
+# VAULT EXPORTS
 export VAULT_TOKEN=<TOKEN>
 export VAULT_AUTH_METHOD=token
 export VAULT_ADDR=https://vault.example.com
@@ -385,4 +385,3 @@ ansible-playbook test-vault-lookup-token.yaml -vv
 <details><summary><b>ARGOCD VAULT PLUGIN</b></summary>
 
 </details>
-

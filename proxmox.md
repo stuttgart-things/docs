@@ -49,7 +49,7 @@ BUCKET/TOKEN ETC..
 </details>
 
 <details><summary><b>CONFIGURE METRIC SHIPPING ON PROXMOX WEB UI</b></summary>
-  
+
 PVE -> Datacenter -> Metric Server -> Add -> InfluxDB
 
 |Create: InfluxDB|  |  |  |
@@ -65,10 +65,10 @@ PVE -> Datacenter -> Metric Server -> Add -> InfluxDB
 </details>
 
 <details><summary><b>CONFIGURE GRAFANA DASHBOARD</b></summary>
-  
+
 Grafana -> Connections -> Add new connection -> InfluxDB
 
-Change Query language  
+Change Query language
 Query language -> Flux
 
 |HTTP|  |

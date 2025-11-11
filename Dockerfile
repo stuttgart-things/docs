@@ -1,2 +1,2 @@
-FROM scratch 
-COPY /tmp/hugo/static/dagger . 
+FROM scratch
+COPY /tmp/hugo/static/dagger .

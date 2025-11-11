@@ -673,7 +673,7 @@ spec:
 EOF
 ```
 
-#### CREATE APPSET 
+#### CREATE APPSET
 
 ```bash
 export KUBECONFIG=~/.kube/kind-argocd

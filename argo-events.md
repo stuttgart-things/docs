@@ -243,6 +243,3 @@ spec:
         steps: 3
 ```
 </details>
-
-
-

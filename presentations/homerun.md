@@ -19,7 +19,7 @@ Event Observability
 [<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/homerun-architecture.png" width="1000"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/homerun-architecture.png) <!-- .element: class="fragment fade-up" -->
 
 ---
-# /GitLab 
+# /GitLab
 [<img src="https://artifacts.app1.sthings-vsphere.labul.sva.de/images/gitlablogo.png" width="100"/>](https://artifacts.app1.sthings-vsphere.labul.sva.de/images/gitlablogo.png)
 --
 ### /GitLab Overview

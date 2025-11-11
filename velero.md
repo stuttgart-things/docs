@@ -102,7 +102,7 @@ pgsched-20240305093755   Completed   0        0          2024-03-05 10:37:55 +01
 ```
 
 ##### finding, after test backups were created every 5min and thus the expired backups start to stack
-> **_From official documentation:_** https://velero.io/docs/v1.9/how-velero-works/  
+> **_From official documentation:_** https://velero.io/docs/v1.9/how-velero-works/
 > The effects of expiration are not applied immediately, they are applied when the gc-controller runs its reconciliation loop every hour.
 
 </details>

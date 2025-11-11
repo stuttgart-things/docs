@@ -1,6 +1,6 @@
 baseURL = "/"
 languageCode = 'en-us'
-title = 'Dagger'
+title = 'IDP'
 theme = ["github.com/joshed-io/reveal-hugo"]
 [module]
   proxy = "direct"

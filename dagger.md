@@ -46,7 +46,7 @@ container-use version   # → confirms install
 * OPEN NEW WINDOW (COULD BE VIA REMOTE EXPORER/SSH)
 * OPEN TERMINAL
 * CREATE DEMO REPO
-  
+
 ```bash
 mkdir hello
 cd hello
@@ -158,7 +158,7 @@ INSERT INTO tasks (project_id, assignee_id, title, status, due_date) VALUES
 (2, NULL, 'Set up monitoring', 'open', NULL);
 EOF
 
-psql -h $(hostname -f) -p 31641 -U dev -d appdb -f bootstrap.sql 
+psql -h $(hostname -f) -p 31641 -U dev -d appdb -f bootstrap.sql
 ```
 
 ```bash
@@ -289,7 +289,7 @@ unset SSH_AUTH_SOCK
 [connection-interface](https://docs.dagger.io/configuration/custom-runner/#connection-interface)
 
 ```bash
-## STOP ANY EXISTING/RUNNING ENGINE(S) w/ DOCKER STOP.. 
+## STOP ANY EXISTING/RUNNING ENGINE(S) w/ DOCKER STOP..
 
 docker run -d --rm \
 -v /var/lib/dagger \

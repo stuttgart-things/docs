@@ -12,7 +12,7 @@ Key Features:
 
 ## DEPLOY MINIO
 
-this step assumes you have a kind cluster running with enabled cni, ingress-controller and cert-manager. 
+this step assumes you have a kind cluster running with enabled cni, ingress-controller and cert-manager.
 The example could be also used on a different kind of kubernetes cluster with configured cert-manager and ingress-controller.
 
 ```bash
@@ -99,7 +99,7 @@ kubectl get Backupstoragelocations default -n velero
 <details><summary>CREATE BACKUPS w/ VELERO</summary>
 
 ## CREATE TEST DATA
- 
+
 ```bash
 kubectl apply -f - <<EOF
 ---
@@ -160,7 +160,7 @@ kubectl apply -k https://github.com/kubernetes-csi/external-snapshotter/client/c
 
 ```bash
 git clone https://github.com/kubernetes-csi/csi-driver-host-path.git
-bash csi-driver-host-path/deploy/kubernetes-1.31/deploy.sh 
+bash csi-driver-host-path/deploy/kubernetes-1.31/deploy.sh
 kubectl apply -f csi-driver-host-path/examples/csi-storageclass.yaml
 ```
 

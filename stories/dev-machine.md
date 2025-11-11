@@ -82,7 +82,7 @@ ansible-galaxy collection install -r requirements.yaml -f
 ```bash
 cat <<EOF > ./inv-dev-vm
 # EXAMPLE | CHANGE TO YOUR FQDN/IP
-10.100.136.151 
+10.100.136.151
 [defaults]
 host_key_checking = False
 EOF
@@ -136,7 +136,7 @@ EOF
 <details><summary>EXECUTION</summary>
 
 ```bash
-ansible-playbook -i ./inv-dev-vm dev-machine.yaml -e path_to_vars_file=$(pwd)/dev-vars -vv 
+ansible-playbook -i ./inv-dev-vm dev-machine.yaml -e path_to_vars_file=$(pwd)/dev-vars -vv
 ```
 
 </details>
@@ -365,7 +365,7 @@ ansible-playbook sthings.container.deploy_to_k8s \
 -e state=present \
 -e path_to_kubeconfig=/etc/rancher/k3s/k3s.yaml \ # remote path
 -e target_host=all \
--vv 
+-vv
 ```
 
 ### TEST INGRESS-NGINX DEPLOYMENT
@@ -385,7 +385,7 @@ ansible-playbook sthings.container.deploy_to_k8s \
 -e state=present \
 -e path_to_kubeconfig=/etc/rancher/k3s/k3s.yaml \ # remote path
 -e target_host=all \
--vv 
+-vv
 ```
 
 ### CERT-MANAGER EXAMPLE ISSUER

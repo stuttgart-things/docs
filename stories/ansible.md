@@ -14,7 +14,7 @@ local_requirements:
 
 ```bash
 # clone (example!) repo and create a branch
-git clone https://github.com/stuttgart-things/download-install-binary.git 
+git clone https://github.com/stuttgart-things/download-install-binary.git
 cd download-install-binary
 task branch # e.g. fix/remove-unused-service-condition or feature/add-task-for-version-compare
 # -> MAKE CHANGES TO CODE
@@ -37,8 +37,8 @@ task pr (will trigger workflow + create & merge pr)
 <details><summary>UPDATE META INFORMATION + RELEASE</summary>
 
 ```bash
-# -> ADD CHANGES, FIX OLD REFRENCES 
-vi/code README.md 
+# -> ADD CHANGES, FIX OLD REFRENCES
+vi/code README.md
 task pr
 ```
 

@@ -122,9 +122,9 @@ code examples/kustomization/base/tenant.yaml # change e.g. storageClassName
 
 kubectl apply -k operator/examples/kustomization/tenant-kes-encryption
 
-kubectl get pods -n minio-operator                       
+kubectl get pods -n minio-operator
 kubectl get pods -n tenant-kms-encrypted
-```      
+```
 
 #### TEST KES ENCRYPTION
 

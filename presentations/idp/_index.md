@@ -1,9 +1,7 @@
 +++
-title = "Dagger"
+title = "IDP"
 outputs = ["Reveal"]
 [logo]
-src = "sthings-train.png"
-
 
 [reveal_hugo]
 
@@ -21,7 +19,8 @@ class = "hotpink"
 background = "#FF4081"
 +++
 
-{{< slide id=agenda background-color="#A2D8FF" type="slide" transition="zoom" transition-speed="fast" background-image="sthings-train.png" background-size="500px" >}}
+
+{{< slide id=agenda background-color="#A2D8FF" type="slide" transition="zoom" transition-speed="fast" background-image="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/stories2.png" background-size="500px" >}}
 
 {{% section %}}
 
@@ -42,6 +41,7 @@ background = "#FF4081"
 <br/>
 <br/>
 
-🚀 Overcome Push & Pray 🙏<br/>🔁 Run the SAME CI/CD everywhere w/ dagger 🔁
+🚀 Container stories 🚀<br/>🔁 OCI artifacts everywhere 🔁
+
 
 {{% /section %}}

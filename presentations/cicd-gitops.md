@@ -61,7 +61,7 @@ build:
 ![source](https://codefresh.io/wp-content/uploads/2023/07/use-short-branches.png)
 --
 ## /BUILD
-[<img src="https://codefresh.io/wp-content/uploads/2023/07/single-build-step.png" width="800"/>](https://www.sva.de/index.html) 
+[<img src="https://codefresh.io/wp-content/uploads/2023/07/single-build-step.png" width="800"/>](https://www.sva.de/index.html)
 --
 ## /BUILD
 [<img src="https://codefresh.io/wp-content/uploads/2023/07/many-build-steps.png" width="650"/>](https://www.sva.de/index.html)
@@ -92,10 +92,10 @@ tasks:
 # /CD
 --
 ## /CONTAINERIZATION
-[<img src="https://miro.medium.com/v2/resize:fit:786/format:webp/0*hYDV_AEZOTZBRVrr.png") width="400"/>](https://www.sva.de/index.html) 
+[<img src="https://miro.medium.com/v2/resize:fit:786/format:webp/0*hYDV_AEZOTZBRVrr.png") width="400"/>](https://www.sva.de/index.html)
 --
 ## /CONTAINERIZATION
-[<img src="https://www.atatus.com/images/content/containers.png") width="550"/>](https://www.sva.de/index.html) 
+[<img src="https://www.atatus.com/images/content/containers.png") width="550"/>](https://www.sva.de/index.html)
 --
 ## /Kubernetes and CI/CD
 * Images instead of binaries  <!-- .element: class="fragment fade-up" -->
@@ -103,10 +103,10 @@ tasks:
 * Microservices instead of monoliths (Managing dependencies between all services is going to be challenging)  <!-- .element: class="fragment fade-up" -->
 --
 ## /TEKTON CD
-[<img src="https://miro.medium.com/v2/resize:fit:1356/format:webp/1*SqHHsH7dTGNEVd6zTD_-XA.png") width="1200"/>](https://www.sva.de/index.html) 
+[<img src="https://miro.medium.com/v2/resize:fit:1356/format:webp/1*SqHHsH7dTGNEVd6zTD_-XA.png") width="1200"/>](https://www.sva.de/index.html)
 --
 ## /TEKTON CD
-[<img src="https://miro.medium.com/v2/resize:fit:1086/format:webp/1*e5yv4QARvrGgqG7xkkdfSw.png") width="1200"/>](https://www.sva.de/index.html) 
+[<img src="https://miro.medium.com/v2/resize:fit:1086/format:webp/1*e5yv4QARvrGgqG7xkkdfSw.png") width="1200"/>](https://www.sva.de/index.html)
 --
 ## /TEKTON TASK
 ```
@@ -120,7 +120,7 @@ spec:
       image: alpine
       script: |
         #!/bin/sh
-        echo "Hello World"   
+        echo "Hello World"
 ```
 --
 ## /TEKTON TASKRUN
@@ -137,10 +137,10 @@ spec:
 # /GITOPS
 --
 ## /PUSH
-[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/cicd-push-based-deployment.png?width=2560&name=cicd-push-based-deployment.png") width="800"/>](https://www.sva.de/index.html) 
+[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/cicd-push-based-deployment.png?width=2560&name=cicd-push-based-deployment.png") width="800"/>](https://www.sva.de/index.html)
 --
 ## /PULL
-[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/CI-CD-GitOps-Push-Based-Deployments.png?width=2560&name=CI-CD-GitOps-Push-Based-Deployments.png") width="800"/>](https://www.sva.de/index.html) 
+[<img src="https://blog.sparkfabrik.com/hs-fs/hubfs/Blog/CI-CD-GitOps-Push-Based-Deployments.png?width=2560&name=CI-CD-GitOps-Push-Based-Deployments.png") width="800"/>](https://www.sva.de/index.html)
 --
 ## /GitOps PullRequest
 * Changes to application configuration <!-- .element: class="fragment fade-up" -->
@@ -154,22 +154,22 @@ spec:
 ![staging](https://www.inovex.de/wp-content/uploads/2019/07/argocd-workflow.png)
 --
 ## /DevOps vs GitOps
-* DevOps is a pipeline process (focuses on the operational aspects of software development) <!-- .element: class="fragment fade-up" -->  
+* DevOps is a pipeline process (focuses on the operational aspects of software development) <!-- .element: class="fragment fade-up" -->
 * GitOps is a development mechanism (focuses on automating and tracking environment changes in a declarative manner) <!-- .element: class="fragment fade-up" -->
 --
 ## /imperative and declarative
-* scripting of deployment operations (imperative) <!-- .element: class="fragment fade-up" -->  
+* scripting of deployment operations (imperative) <!-- .element: class="fragment fade-up" -->
 * containerized apps (declarative) <!-- .element: class="fragment fade-up" -->
 * GitOps only allows declarative configuration <!-- .element: class="fragment fade-up" -->.
 --
 ## /ARGOCD vs. FLUX
-[<img src="https://i.imgflip.com/6nklq1.jpg" width="400"/>](https://www.sva.de/index.html) 
+[<img src="https://i.imgflip.com/6nklq1.jpg" width="400"/>](https://www.sva.de/index.html)
 --
 ## /ARGOCD vs. FLUX
-[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png" width="700"/>](https://www.sva.de/index.html) 
+[<img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/0*0RwREBh9PBZDvy9a.png" width="700"/>](https://www.sva.de/index.html)
 --
 ## /FLUX
-[<img src="https://earthly.dev/blog/assets/images/k8s-GitOps-with-FluxCD/bwYwEEQ.jpeg" width="700"/>](https://www.sva.de/index.html) 
+[<img src="https://earthly.dev/blog/assets/images/k8s-GitOps-with-FluxCD/bwYwEEQ.jpeg" width="700"/>](https://www.sva.de/index.html)
 --
 ## /FLUX BOOSTRAP
 ```

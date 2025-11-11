@@ -3,7 +3,7 @@
 <details><summary>HELM-CLI</summary>
 
 ```bash
-### ADD A REPO 
+### ADD A REPO
 helm repo add headlamp https://headlamp-k8s.github.io/headlamp/
 helm repo update
 
@@ -53,7 +53,7 @@ ingress:
       paths:
       - path: /
         type: ImplementationSpecific
-  tls: 
+  tls:
    - secretName: headlamp.rahul-story-test-rke.sthings-vsphere.labul.sva.de-tls
      hosts:
        - headlamp.rahul-story-test-rke.sthings-vsphere.labul.sva.de

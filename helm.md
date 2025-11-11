@@ -169,7 +169,7 @@ EOF
 ```bash
 # CREATE PASSWORD
 slappasswd -h {SSHA} -s hallobibi
-ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -f user.ldif 
+ldapadd -x -H ldap://localhost:1389 -D "cn=admin,dc=example,dc=org" -W -f user.ldif
 ```
 
 ## ADD USER TO GROUP
@@ -256,7 +256,7 @@ EOF
 ```
 
 ```bash
-pip install ldap3 
+pip install ldap3
 export LDAP_ADMIN_PASSWORD="Not@SecurePassw0rd"
 python3 ldap_login.py
 ```

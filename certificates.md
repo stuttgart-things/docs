@@ -1,6 +1,6 @@
 # stuttgart-things/docs/certificates
 
-## Install public cert Linux 
+## Install public cert Linux
 
 ```bash
 cd /usr/local/share/ca-certificates/

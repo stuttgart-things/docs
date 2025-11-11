@@ -23,7 +23,7 @@ images export gitea-postgres.tar docker.io/bitnami/postgresql:17.4.0-debian-12-r
 <details><summary>ADD K3S REGISTRY MIRROR</summary>
 
 ```bash
-sudo cat << EOF > /etc/rancher/k3s/registries.yaml 
+sudo cat << EOF > /etc/rancher/k3s/registries.yaml
 ---
 mirrors:
   docker.io:

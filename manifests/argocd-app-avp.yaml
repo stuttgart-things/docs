@@ -3,7 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
   name: test2
   namespace: argocd
-spec:   
+spec:
   project: pve-dev51
   source:
     repoURL: 'https://github.com/stuttgart-things/stuttgart-things.git'
