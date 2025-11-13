@@ -45,4 +45,11 @@ weight = 20
 - 🎛️ Unified control plane across clouds
 - 📡 Cloud-agnostic CI/CD and GitOps
 
+---
+
+### /IDP
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
+
+
 {{% /section %}}
