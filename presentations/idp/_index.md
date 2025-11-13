@@ -1,13 +1,8 @@
 +++
 title = "IDP"
 outputs = ["Reveal"]
-[logo]
 
 [reveal_hugo]
-
-history = true
-slide_number = true
-
 custom_theme = "reveal-hugo/themes/robot-lung.css"
 margin = 0.2
 mermaid = true
@@ -19,29 +14,12 @@ class = "hotpink"
 background = "#FF4081"
 +++
 
-
-{{< slide id=agenda background-color="#A2D8FF" type="slide" transition="zoom" transition-speed="fast" background-image="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/stories2.png" background-size="500px" >}}
+{{< slide id=agenda background-color="#9FE2BF" type="slide" transition="zoom" transition-speed="fast" >}}
 
 {{% section %}}
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+### How to Build an Internal Developer Platform (Fast)
 
-🚀 Container stories 🚀<br/>🔁 OCI artifacts everywhere 🔁
-
+<img src="https://attachments-cdn-s.coub.com/coub_storage/coub/simple/cw_timeline_pic/7e14911f5a8/c1bec6bfed315483bad44/med_1587503875_image.jpg" alt="Alt Text" width="700"/>
 
 {{% /section %}}
