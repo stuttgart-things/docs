@@ -17,15 +17,6 @@ weight = 20
 - platform engineering is a evolution of DevOps
 ---
 
-# 🏗️ Platform Engineering
-
-<img src="https://pbs.twimg.com/media/FnabgQxXwAEDZz6.jpg" alt="Alt Text" width="400"/>
-
-- Platform Engineering is about building **self-service platforms** that abstract complexity.
-- Empower developers to ship faster
-- Remove infrastructure worries from developers' day-to-day
-
----
 
 ### /DEV-EX
 
@@ -44,12 +35,6 @@ weight = 20
 - ☁️ Balance cost, performance & availability
 - 🎛️ Unified control plane across clouds
 - 📡 Cloud-agnostic CI/CD and GitOps
-
----
-
-### /IDP
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
 
 
 {{% /section %}}
