@@ -27,6 +27,11 @@ weight = 20
 - leading to faster delivery and better software quality
 
 ---
+### /IDP
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
+
+---
 
 ### /MULTICLOUD
 
