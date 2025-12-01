@@ -62,8 +62,8 @@ weight = 20
  
 ---
 
-###/ IDP
-####/ BUILD
+### /IDP
+#### /BUILD
 
 **CI/CD Pipeline (GitLab CI, GitHub Actions)**
 
