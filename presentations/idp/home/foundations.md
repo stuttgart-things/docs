@@ -57,7 +57,7 @@ weight = 20
   - Sicherheits- und Architektur-Vorgaben automatisch bei Projekt-Erstellung sichtbar bzw. durchgesetzt.
 - **Integration mit Versionsverwaltung/CI Tools:**
   - Das Portal zeigt z. B. Builds, Pull Requests, Test-Status, so dass Entwicklung in den Überblick integriert ist.
-- **Self-service Aktionen /Scaffolding**
+- **Self-service Aktionen /Scaffolding:**
   - vordefinierten Templates (Golden Paths) und Automatisierungen
  
 ---
@@ -101,9 +101,9 @@ weight = 20
 
 **Deployment Automation (Terraform, Ansible, Helm, ArgoCD)**
 
-- **Self Service Deployment**
+- **Self Service Deployment:**
   - Deployment Triggern, Umgebungen bereitstellen
-- **Deployment Katalog**
+- **Deployment Katalog:**
   - Katalog & Ownership: Services, die deployt werden, im Katalog mit Verantwortlichen, sodass Deployment klar zugeordnet ist.
  
 ---
