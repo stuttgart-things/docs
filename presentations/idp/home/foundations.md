@@ -72,6 +72,8 @@ weight = 20
 - **Integrationen mit Build/CI-Systemen:**
   - Portal kann Build-Ergebnisse/Status visualisieren, macht Builds transparent.
  
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="700"/>
+ 
 ---
 
 ### /IDP
