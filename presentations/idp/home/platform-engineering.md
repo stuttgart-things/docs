@@ -44,6 +44,14 @@ weight = 30
 - Need for self-service and audited defaults (security, compliance)
 
 ---
+
+### PLATFORM TEAMS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="700"/>
+
+
+---
+
 ### EXAMPLE TEAM/COMPANY SIZES
 
 - Small org ~50 devs → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
