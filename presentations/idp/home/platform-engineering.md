@@ -20,6 +20,14 @@ weight = 30
 
 ---
 
+### 🏗️ Platform Engineering
+
+"...  is the discipline of designing and building toolchains and workflows that enable self-service capabilities for software engineering organizations in the cloud-native era. Platform engineers provide an integrated product most often referred to as an “ Internal Developer Platform” covering the operational necessities of the entire lifecycle of an application."
+
+(- Humanitec)
+
+---
+
 ### WHEN PLATFORM ENGINEERING PAYS
 <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="700"/>
 
