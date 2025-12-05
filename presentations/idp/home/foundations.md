@@ -28,6 +28,13 @@ weight = 20
 
 ---
 
+### /DEV-EX
+
+“A means for capturing how developers think and feel about their activities within their working environments.”
+F. Fagerholm & J. Münch, 20212
+
+---
+
 ### /IDP
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
