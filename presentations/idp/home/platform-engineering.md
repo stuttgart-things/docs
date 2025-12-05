@@ -219,4 +219,38 @@ tbc
 
 (https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
+---
+
+### CNCF Platform Maturity Model
+
+| Capability                                              | Description                                                                                                                                                                                                               | Example CNCF/CDF Projects                                                                                      |
+|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| Web portals for provisioning and observing capabilities | Publish documentation, service catalogs, and project templates. Publish telemetry about systems and capabilities.                                                                                                         | Backstage, Skooner, Ortelius                                                                                   |
+| APIs for automatically provisioning capabilities        | Structured formats for automatically creating, updating, deleting and observing capabilities.                                                                                                                             | Kubernetes, Crossplane, Operator Framework, Helm, KubeVela                                                     |
+| Golden path templates and docs                          | Templated compositions of well-integrated code and capabilities for rapid project development.                                                                                                                            | ArtifactHub                                                                                                    |
+| Automation for building and testing products            | Automate build and test of digital products and services.                                                                                                                                                                 | Tekton, Jenkins, Buildpacks, ko, Carvel                                                                        |
+| Automation for delivering and verifying services        | Automate and observe delivery of services.                                                                                                                                                                                | Argo, Flux, Keptn, Flagger, OpenFeature                                                                        |
+| Development environments                                | Enable research and development of applications and systems.                                                                                                                                                              | Devfile, Nocalhost, Telepresence, DevSpace                                                                     |
+| Application observability                               | Instrument applications, gather and analyze telemetry and publish info to stakeholders.                                                                                                                                   | OpenTelemetry, Jaeger, Prometheus, Thanos, Fluentd, Grafana, OpenCost                                          |
+| Infrastructure services                                 | Run application code, connect application components and persist data for applications                                                                                                                                    | Kubernetes, Kubevirt, Knative, WasmEdge, KEDA CNI, Istio, Cilium, Envoy, Linkerd, CoreDNS Rook, Longhorn, Etcd |
+| Data services                                           | Persist structured data for applications                                                                                                                                                                                  | TiKV, Vitess, SchemaHero                                                                                       |
+| Messaging and event services                            | Enable applications to communicate with each other asynchronously                                                                                                                                                         | Strimzi, NATS, gRPC, Knative, Dapr                                                                             |
+| Identity and secret services                            | Ensure workloads have locators and secrets to use resources and capabilities. Enable services to identify themselves to other services                                                                                    | Keycloak, Dex, External Secrets, SPIFFE/SPIRE, Teller, cert-manager                                            |
+| Security services                                       | Observe runtime behavior and report/remediate anomalies. Verify builds and artifacts don't contain vulnerabilities. Constrain activities on the platform per enterprise requirements; notify and/or remediate aberrations | Falco, In-toto, KubeArmor, OPA, Kyverno, Cloud Custodian                                                       |
+| Artifact storage                                        | Store, publish and secure built artifacts for use in production. Cache and analyze third-party artifacts. Store source code.                                                                                              | ArtifactHub, Harbor, Distribution, Porter                                                                      |
+
+---
+
+### CNCF Platform Maturity Model: Investment
+
+Level 1, Provisional — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support. Example Scenarios: Improvements to a CI/CD considered only a ”side effort”
+
+Level 2, Operationalized — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap Example Scenarios: Central team tasked with reducing the build time of applications
+
+Level 3, Scalable — As product Characteristics staff includes product management and UX Designer has a roadmap features are tested end-to-end
+Example Scenarios: Data derived from platform usage metrics is used to make informed decisions
+
+Level 4, Optimizing — Enabled ecosystem Characteristics priority to enable specialists to extend the platform centralized specialists act through the platform
+Example Scenarios: Marketing works with platform builders to introduce consistent user tracking in order to attribute marketing efforts to product outcomes
+
 {{% /section %}}
