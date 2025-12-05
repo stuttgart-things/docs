@@ -154,6 +154,14 @@ weight = 30
 
 ---
 
+### Trail mix for the silver path
+
+tbc
+
+---
+
+
+
 ### TEAM SIZING
 
 <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Team sizing" width="800"/>
