@@ -94,6 +94,18 @@ weight = 30
 
 ---
 
+### Golden Paths Motivation
+
+- Golden Paths help reduce the number of topics and prevent developers from being confronted with everything at once (Cognitive Load Theory)
+- Exchange increases knowledge and awareness - in all directions
+- Features are more important
+- Tools must be perceived as helpful
+- Lack of interest/relevance → Self-efficacy
+
+**Love your Developers, not your Tools.**
+
+---
+
 ### GOLDEN PATH CHECKLIST
 <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Checklist" width="700"/>
 
