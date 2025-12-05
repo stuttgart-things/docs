@@ -38,6 +38,8 @@ weight = 20
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/idps.png" alt="Alt Text" width="700"/>
 
+( - Amazon Web Services)
+
 ---
 
 ### /IDP
