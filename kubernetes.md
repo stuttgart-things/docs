@@ -2,12 +2,27 @@
 
 ## CLUSTER
 
+<details><summary>GOCV</summary>
+
+### UPLOAD OVA TO VCENTER
+
+```bash
+wget https://cloud-images.ubuntu.com/plucky/current/plucky-server-cloudimg-amd64.ova
+
+export GOVC_URL="https://${VCENTER_USER}:${VCENTER_PASSWORD}@${VCENTER_FQDN}/sdk"
+
+govc import.ova -folder /LabUL/vm/stuttgart-things/vm-templates \
+-ds "ESX03-Local" \
+-pool "/LabUL/host/Cluster-V6.7/Resources" \
+./plucky-server-cloudimg-amd64.ova
+```
+
+</details>
+
 <details><summary>TALOS (VMWARE)</summary>
 
 [TALOS DOCS (VMWARE)
 ](https://www.talos.dev/v1.9/talos-guides/install/virtualized-platforms/vmware/)
-
-### UPLOAD OVA TO VCENTER
 
 ```bash
 # SET GOVC VARS
