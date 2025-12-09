@@ -2,6 +2,32 @@
 
 ## CLUSTER
 
+<details><summary>CLOUD-INIT RKE2 CLUSTER</summary>
+
+```bash
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - cloud-guest-utils
+  - lvm2
+runcmd:
+  # Fix GPT and grow partition 3 (where LVM PV actually is)
+  - growpart /dev/sda 3
+  # Resize the LVM physical volume
+  - pvresize /dev/sda3
+  # Extend LV for /var with all free space
+  - lvextend -l +100%FREE /dev/vg0/var
+  # Resize XFS filesystem
+  - xfs_growfs /var
+  # Verify
+  - df -h /var
+  - vgs vg0
+```
+
+</details>
+
+
 <details><summary>GOCV</summary>
 
 ### UPLOAD OVA TO VCENTER
