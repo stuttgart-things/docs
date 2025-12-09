@@ -211,6 +211,31 @@ tbc
 
 ---
 
+## 🚀 What Are Golden Pipelines?
+
+- Predefined, opinionated CI/CD workflows
+- Built by Platform or IDP teams
+- Promote:
+  - 🔒 Security
+  - ⚙️ Consistency
+  - 📈 Efficiency
+- Enable:
+  - Faster onboarding
+  - Compliance by default
+  - Self-service for developers
+
+---
+
+## 🧱 Golden Pipelines in Practice
+
+- **CI/CD:** Automate build, test, security, and deploy
+- **IDP:** Exposed as templates or starter kits
+- **Platform Engineering:** Encapsulate policies and tooling
+
+
+---
+
+
 ### PLATFORM CAPABILITIES
 
 | Capability                                              | Description                                                                                                                                                                                                               | Example CNCF/CDF Projects                                                                                      |
