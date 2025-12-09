@@ -154,6 +154,47 @@ F. Fagerholm & J. Münch, 20212
 - ☁️ Balance cost, performance & availability
 - 🎛️ Unified control plane across clouds
 - 📡 Cloud-agnostic CI/CD and GitOps
+- 
+
+---
+
+### 🔄 /GITOPS
+
+<img src="https://cdn.prod.website-files.com/63c8f7191194d2a0cf4f630e/67951e7770966bf72c93aa96_Screenshot%202025-01-25%20at%2018.25.04.png" alt="Alt Text" width="500"/>
+
+- modern way to do **Continuous Deployment**, using **Git as the single source of truth** for infra and apps
+
+---
+
+### 🔄 /GITOPS
+
+- 📜 **Declarative Infrastructure** — everything is defined in YAML
+- 🔗 **Git as the Source of Truth** — no more config drift
+- 🤖 **Automated Sync** — tools like Argo CD & Flux keep clusters aligned
+- 🕵️ **Audit & Rollback** — powered by Git history and versioning
+
+> 🚀 **Git push = production change**, with full visibility and control
+---
+
+### 🛠️ /GitOps Tools
+
+- **Flux** or **Argo CD** for automated syncing
+- **Kustomize** or **Helm** for templating
+- **Git** for storing desired state
+
+🧠 Changes in Git → Automatically applied to clusters
+
+---
+
+### /Quick Poll
+
+> 🔄 What’s your **go-to GitOps tool** for managing Kubernetes and infrastructure?
+
+- 🚀 **Argo CD** — Declarative, visual, Git-native deployments
+- 🌀 **Flux** — GitOps toolkit built for flexibility and composability
+- 🔧 **Jenkins X**, **Fleet**, or other custom GitOps solutions
+- ❓ Still exploring — curious what all the hype is about?
+
 
 
 {{% /section %}}
