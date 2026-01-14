@@ -1,11 +1,3 @@
-+++
-weight = 30
-+++
-
-{{< slide id=backstage background-color="#B9FFF7" type="slide" transition="zoom" transition-speed="fast" >}}
-
-{{% section %}}
-
 # /BACKSTAGE
 
 ---
@@ -319,5 +311,3 @@ weight = 30
 - TechDocs View in Backstage
 ---
 <img src="images/quiz-quiztime.png" alt="KCP" style="width:80%; border: none; box-shadow: none;" />
-
-{{% /section %}}

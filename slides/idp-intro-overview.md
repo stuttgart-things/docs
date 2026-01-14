@@ -1,11 +1,3 @@
-+++
-weight = 10
-+++
-
-{{< slide id=introduction background-color="#FFB3D1" type="slide" transition="zoom" transition-speed="fast" >}}
-
-{{% section %}}
-
 # /INTRODUCTION
 
 ---
@@ -118,10 +110,3 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 > - 🛠️ Self-service deployment & environment provisioning
 > - 🚦 Policy enforcement -->
 
-
-{{% /section %}}
-
-
-
-| | • Motivation, definitions (IDP, GitOps, Self-Service, IaC) | |
-| | • Showcases & success factors | |
