@@ -28,6 +28,15 @@
 
 ---
 
+### Backstage Concept
+
+- Core: Base functionalities built by open-source project
+- App: An instance deployed (Customized & Glues core with plugins
+- Plugins: Extends core functionalities
+
+
+---
+
 ### / AUTHENTICATION
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage2.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
