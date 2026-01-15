@@ -257,7 +257,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ### /MULTICLOUD
 
-<img src="images/multicloud.jpeg" alt="Alt Text" width="700"/>
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/multicloud.jpeg" alt="Alt Text" width="700"/>
 
 - ☁️ Balance cost, performance & availability
 - 🎛️ Unified control plane across clouds
