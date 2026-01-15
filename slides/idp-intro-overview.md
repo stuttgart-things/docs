@@ -1,7 +1,3 @@
-# /INTRODUCTION
-
----
-
 # /Platform Foundations
 
 ---
