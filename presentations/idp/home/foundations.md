@@ -129,7 +129,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 - 🧱 **Yes, with another tool** — like Port, Cortex, or OpsLevel
 - 🛠️ **We built our own custom IDP** — DIY all the way
 - 🧩 **Heard of IDPs, but not used one yet**
-- 🤷 **What’s an IDP?** — sounds fancy! 
+- 🤷 **What’s an IDP?** — sounds fancy!
 
 
 
@@ -160,7 +160,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
   - Das Portal zeigt z. B. Builds, Pull Requests, Test-Status, so dass Entwicklung in den Überblick integriert ist.
 - **Self-service Aktionen /Scaffolding:**
   - vordefinierten Templates (Golden Paths) und Automatisierungen
- 
+
 ---
 
 ### /IDP
@@ -172,9 +172,9 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
   - Standardisierte Build-Pipelines als Teil eines Self-service-Workflows im Portal.
 - **Integrationen mit Build/CI-Systemen:**
   - Portal kann Build-Ergebnisse/Status visualisieren, macht Builds transparent.
- 
+
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="700"/>
- 
+
 ---
 
 ### /IDP
@@ -196,7 +196,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 - **Workflows / Automatisierung:**
   - Automatisierte Genehmigungen, Rollbacks, Canary-Releases integriert im Portal.
- 
+
 ---
 
 ### /IDP
@@ -208,7 +208,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
   - Deployment Triggern, Umgebungen bereitstellen
 - **Deployment Katalog:**
   - Katalog & Ownership: Services, die deployt werden, im Katalog mit Verantwortlichen, sodass Deployment klar zugeordnet ist.
- 
+
 ---
 
 ### /IDP
@@ -230,7 +230,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 - **Statusüberwachung:**
   - Integrationen mit Observability/Monitoring-Tools: Logs, Metriken, Traces in Portal gebündelt dargestellt.
- 
+
 ---
 
 ### /MULTICLOUD
@@ -240,7 +240,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 - ☁️ Balance cost, performance & availability
 - 🎛️ Unified control plane across clouds
 - 📡 Cloud-agnostic CI/CD and GitOps
-- 
+-
 
 ---
 

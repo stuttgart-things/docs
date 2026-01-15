@@ -109,4 +109,3 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 > - 🔍 Visibility into logs and metrics
 > - 🛠️ Self-service deployment & environment provisioning
 > - 🚦 Policy enforcement -->
-

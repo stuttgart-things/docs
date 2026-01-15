@@ -1,8 +1,8 @@
-# /Architecture
+# Backstage Platform Architecture
 
 ---
 
-### /Overview
+## Overview
 
 ```mermaid
 graph TB
@@ -10,7 +10,7 @@ graph TB
         A[Backstage Portal] --> B[Software Templates]
         A --> C[Plugin Ecosystem]
     end
-    
+
     subgraph "Orchestration Layer"
         D[Backstage Backend] --> E[GitLab Integration]
         D --> F[OpenShift Operators]
@@ -18,15 +18,15 @@ graph TB
         D --> H[Terraform Cloud]
         D --> I[Azure APIs]
     end
-    
+
     subgraph "Infrastructure Layer"
         J[OpenShift 4 Clusters]
         K[Azure Cloud Resources]
         L[GitLab Repositories]
-        M[Ansible AWX/Tower]
+        M[Ansible AWX / Tower]
         N[Terraform Enterprise]
     end
-    
+
     E --> L
     F --> J
     G --> M
@@ -36,98 +36,142 @@ graph TB
 
 ---
 
-### /Architectural Mistakes
+## Architecture Principles — Do
 
-✅ Do:
+**Best Practices**
 
-* Use external authentication provider
-* Implement secrets management
-* Automated backup strategy
-* Regular dependency updates
-* Extend via plugins
+* Use an external authentication provider (OIDC / SSO)
+* Implement centralized secrets management
+* Maintain an automated backup strategy
+* Apply regular dependency and platform updates
+* Extend functionality via well-defined plugins
 
-❌ Don't:
+---
 
-* Run without authentication in production
-* Store secrets in Git repositories
-* Skip database backups
-* Ignore security updates
-* Over-customize core functionality
+## Architecture Anti‑Patterns — Don’t
 
---
+**Common Mistakes to Avoid**
 
-### /Operational Issues
+* Running without authentication in production
+* Storing secrets in Git repositories
+* Skipping database backups
+* Ignoring security updates
+* Over‑customizing core Backstage functionality
 
-Common Problems:
-* Resource Exhaustion
-* Insufficient database connections
-* Memory leaks in plugins
-* Unbounded catalog growth
+---
 
-Performance Degradation:
-* Missing database indexes
-* No caching strategy
-* Synchronous heavy operations
+## Operational Challenges
 
---
+**Frequent Issues**
 
-### /Security Gaps
+* Resource exhaustion (CPU, memory, storage)
+* Insufficient database connection limits
+* Memory leaks in custom or third‑party plugins
+* Unbounded growth of the service catalog
 
-Overly permissive CORS
-Missing rate limiting
-Inadequate audit logging
+---
 
---
+## Performance Degradation
 
-### /Plugin Ecosystem Challenges
+**Typical Root Causes**
 
-Avoid:
+* Missing or inefficient database indexes
+* Lack of caching strategies
+* Synchronous execution of heavy operations
 
-Too many plugins at once
-Unmaintained third-party plugins
-Tightly coupled plugins
-Plugins with different tech stacks
+**Mitigations**
 
-Instead:
+* Introduce caching (Redis, in‑memory)
+* Add async/background processing
+* Continuously monitor query performance
 
-Curated plugin registry
-Version compatibility matrix
-Plugin health monitoring
-Standardized development practices
+---
 
---
+## Security Gaps
 
-Future Considerations
-Preparing for evolution
---
-Emerging Patterns
-Platform Engineering:
+**High‑Risk Areas**
 
-GitOps for everything
-Progressive delivery
-Policy as code
-FinOps integration
+* Overly permissive CORS configurations
+* Missing or insufficient rate limiting
+* Inadequate audit logging and traceability
 
-AI/ML Integration:
+**Recommendations**
 
-Intelligent service recommendations
-Automated documentation
-Predictive scaling
-Code generation assistance
+* Enforce least‑privilege access
+* Apply API rate limits
+* Centralize and retain audit logs
 
---
-Roadmap Items
-Community Directions:
+---
 
-Enhanced plugin framework
-Better multi-tenancy support
-GraphQL API layer
-Mobile application support
-Real-time collaboration features
+## Plugin Ecosystem Challenges
 
-Your Roadmap:
+**Avoid**
 
-Assess current state
-Define success metrics
-Plan incremental improvements
-Regular retrospectives
+* Introducing too many plugins at once
+* Using unmaintained third‑party plugins
+* Tightly coupled plugin implementations
+* Mixing incompatible tech stacks
+
+**Prefer**
+
+* A curated internal plugin registry
+* A version compatibility matrix
+* Plugin health and lifecycle monitoring
+* Standardized development guidelines
+
+---
+
+## Future Considerations
+
+**Preparing for Evolution**
+
+* Design for scalability and multi‑tenancy
+* Minimize vendor lock‑in
+* Automate everything that can be automated
+
+---
+
+## Emerging Patterns
+
+### Platform Engineering
+
+* GitOps for everything
+* Progressive delivery strategies
+* Policy as Code (OPA / Kyverno)
+* FinOps and cost transparency
+
+### AI / ML Integration
+
+* Intelligent service recommendations
+* Automated documentation generation
+* Predictive scaling and capacity planning
+* Code and template generation assistance
+
+---
+
+## Roadmap Items
+
+**Community Direction**
+
+* Enhanced plugin framework
+* Improved multi‑tenancy support
+* Native GraphQL API layer
+* Mobile application support
+* Real‑time collaboration features
+
+---
+
+## Your Roadmap
+
+**Next Steps**
+
+1. Assess the current platform state
+2. Define clear success metrics
+3. Plan incremental, low‑risk improvements
+4. Run regular retrospectives and reviews
+
+---
+
+## Key Takeaway
+
+Backstage succeeds as a platform when **governance, automation, and developer experience** evolve together — supported by strong operational and security foundations.

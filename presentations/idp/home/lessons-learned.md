@@ -19,7 +19,7 @@ weight = 30
   - Provide documentation
 - **Provide Silver Path**
 
-  
+
 ---
 
 ### Helpul Questions
