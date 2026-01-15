@@ -2,12 +2,6 @@
 
 ---
 
-### /GETTING STARTED
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage1.png" alt="Backstage" style="width:80%; border: none; box-shadow: none;" />
-
----
-
 ### /THE Backstage Platform
 
 **Backstage** is an open platform for building Internal Developer Portals, originally created by Spotify.
@@ -33,13 +27,6 @@
 - Core: Base functionalities built by open-source project
 - App: An instance deployed (Customized & Glues core with plugins
 - Plugins: Extends core functionalities
-
-
----
-
-### / AUTHENTICATION
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage2.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
 ---
 
@@ -320,3 +307,83 @@
 - TechDocs View in Backstage
 ---
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/quiz-quiztime.png" alt="KCP" style="width:80%; border: none; box-shadow: none;" />
+
+--
+
+# UPDATED SLIDES
+
+---
+
+## Why Plugins Matter
+
+- Backstage is a **framework**, not a product
+- Plugins turn it into a real **Internal Developer Portal**
+- Good plugin choices:
+  - Improve developer experience
+  - Reduce cognitive load
+  - Enable self-service
+
+---
+
+### GitHub / GitLab Plugins 🧑‍💻
+
+- GitHub Actions / GitLab CI
+- Pull Requests
+- Repo insights
+
+**➡️ Pick what matches your SCM**
+
+---
+
+### CI/CD Plugins ⚙️
+
+- GitHub Actions
+- GitLab Pipelines
+- CircleCI
+- Argo / Flux (GitOps)
+
+**➡️ Visibility without leaving Backstage**
+
+---
+
+## 📊 Observability & Quality
+
+Turn Backstage into a **single pane of glass**.
+
+--
+
+## 📊 Observability & Quality
+
+Turn Backstage into a **single pane of glass**.
+
+--
+
+## 💰 Cost & FinOps
+
+Optional but powerful:
+
+- Cost Insights
+- Infracost
+- OpenCost
+
+**➡️ Useful for cloud-native platforms**
+
+---
+
+## 🧠 Discoverability Plugins
+
+Helps understand complex landscapes:
+
+- Catalog Graph (entity relationships)
+- Tech Radar
+- Linguist (language detection)
+
+---
+
+## 🛎️ Best Practices
+
+- Start small, grow over time
+- Prefer **core plugins** first
+- Avoid plugin overload
+- Treat Backstage as a **product**
+- Align plugins with real developer needs
