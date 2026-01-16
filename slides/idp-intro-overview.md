@@ -6,7 +6,7 @@
 
 <img src="https://media.licdn.com/dms/image/v2/D4D22AQHolX5UwNFzPg/feedshare-shrink_800/B4DZTyTdDSG8Ag-/0/1739231974056?e=2147483647&v=beta&t=0V2HW-dJHygYyHMp4Kv-TbTgrue10vzZL2TYzzZmv_k" alt="Alt Text" width="400"/>
 
-- platform engineering is a evolution of DevOps
+- Platform Engineering is an evolution of DevOps
 
 
 ---
@@ -27,7 +27,7 @@
 
 ### 🏗️ Platform Engineering
 
-"...  is the discipline of designing and building toolchains and workflows that enable self-service capabilities for software engineering organizations in the cloud-native era. Platform engineers provide an integrated product most often referred to as an “ Internal Developer Platform” covering the operational necessities of the entire lifecycle of an application."
+"...  is the discipline of designing and building toolchains and workflows that enable **self-service** capabilities for software engineering organizations in the cloud-native era. Platform engineers provide an integrated product most often referred to as an “ **Internal Developer Platform**” covering the operational necessities of the entire lifecycle of an application."
 
 (- Humanitec)
 
@@ -52,20 +52,20 @@
 
 ### PLATFORM TEAMS
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="700"/>
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="750"/>
 
 
 ---
 
 ### EXAMPLE TEAM/COMPANY SIZES
 
-- Small org ~50 devs → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
+- **Small org ~50 devs** → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
 
-- Mid-size ~200 devs → platform team (6–10 FTE), centralized pipelines, service catalog, self-service infra
+- **Mid-size ~200 devs** → platform team (6–10 FTE), centralized pipelines, service catalog, self-service infra
 
-- Enterprise 1000+ devs → larger platform org (20+ FTE), strong IDP, SLOs, cross-team platform product managers
+- **Enterprise 1000+ devs** → larger platform org (20+ FTE), strong IDP, SLOs, cross-team platform product managers
 
-- Typical benefits reported: faster on-board, less duplicated work, measurable dev-hours saved
+- **Typical benefits reported:** faster on-board, less duplicated work, measurable dev-hours saved
 
 ---
 
