@@ -218,14 +218,15 @@ tbc
 
 ### Platform Capabilities
 
- Capability domains to consider when building platforms for cloud-native computing:
+Capability domains to consider when building platforms for cloud-native computing:
 
-- Infrastructure services including compute runtimes, programmable networks, and block and volume storage
-- Data services including databases, caches, and object stores
-- Messaging and event services including brokers, queues, and event fabrics
-- Identity and secret management services such as service and user identity and authorization, certificate and key issuance, and static secret storage
-- Security services including static analysis of code and artifacts, runtime analysis, and policy enforcement
-- Artifact storage including storage of container image and language-specific packages, custom binaries and libraries, and source code
+- Web portals for observing and provisioning products and capabilities
+- APIs (and CLIs) for automatically provisioning products and capabilities
+- “Golden path” templates and docs enabling optimal use of capabilities in products
+- Automation for building and testing services and products
+- Automation for delivering and verifying services and products
+- Development environments such as hosted IDEs and remote connection tools
+- Observability for services and products using instrumentation and dashboards, including observation of functionality, performance and costs
 
 (https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
@@ -233,7 +234,7 @@ tbc
 
 ### Platform Capabilities
 
- Capability domains to consider when building platforms for cloud-native computing:
+Capability domains to consider when building platforms for cloud-native computing:
 
 - Infrastructure services including compute runtimes, programmable networks, and block and volume storage
 - Data services including databases, caches, and object stores
