@@ -305,10 +305,8 @@
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
 - TechDocs View in Backstage
----
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/quiz-quiztime.png" alt="KCP" style="width:80%; border: none; box-shadow: none;" />
 
---
+---
 
 # UPDATED SLIDES
 
@@ -350,13 +348,7 @@
 
 Turn Backstage into a **single pane of glass**.
 
---
-
-## 📊 Observability & Quality
-
-Turn Backstage into a **single pane of glass**.
-
---
+---
 
 ## 💰 Cost & FinOps
 
