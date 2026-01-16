@@ -248,21 +248,35 @@ Capability domains to consider when building platforms for cloud-native computin
 ---
 
 
-### PLATFORM CAPABILITIES
+**CNCF PLATFORM CAPABILITIES**
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-capabilities.png" alt="Alt Text" width="700"/>
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-capabilities.png" alt="Alt Text" width="1000"/>
 
 (https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
 ---
 
-### CNCF Platform Maturity Model
+**CNCF Platform Maturity Model**
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cncf-maturity-model.png" alt="Alt Text" width="700"/>                                                                    |
+**Level 1** - Build You have a baseline cloud native implementation in place and are in pre-production. Of importance, level one isn’t a lab or POC, you do have an implementation in place. It can be really hard to move from a build to operate stage.
+**Level 2** - Operate The cloud native foundation is established and you are moving to production.
+**Level 3** - Scale Your competency is growing and you are defining processes for scale.
+**Level 4** - Improve You are improving security, policy and governance across your environment.
+**Level 5** - Adapt You are revisiting decisions made earlier and monitoring applications and infrastructure for optimization.
+
+(https://maturitymodel.cncf.io/)
 
 ---
 
-#### EXAMPLE: CNCF Platform Maturity Model: Investment
+**CNCF Platform Maturity Model**
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cncf-maturity-model.png" alt="Alt Text" width="1000"/>
+
+(https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model)
+
+---
+
+#### EXAMPLE: Investment
 
 **Level 1, Provisional** — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support. 
 Example: Improvements to a CI/CD considered only a ”side effort”
@@ -276,6 +290,7 @@ Example: Data derived from platform usage metrics is used to make informed decis
 **Level 4, Optimizing** — Enabled ecosystem Characteristics priority to enable specialists to extend the platform centralized specialists act through the platform
 Example: Marketing works with platform builders to introduce consistent user tracking in order to attribute marketing efforts to product outcomes
 
+(https://maturitymodel.cncf.io/)
 
 ---
 
