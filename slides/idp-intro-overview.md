@@ -195,6 +195,25 @@
 
 ---
 
+### Silver Path:
+
+- Usually understood as a less strictly standardized, alternative path that allows more freedom but offers less convenience and support
+- Paths that do not fully comply with the “blessed” Golden Path but are still within the scope of the platform
+- Users tend to use the IDP as a toolbox (Terraform modules, individual services) without adopting the full Golden Path workflow.
+- Often used as a transitional step until a new, suitable Golden Path is created or a special case can be standardized.
+
+---
+
+### Silver Path:
+
+**Typical characteristics:**
+- Reuses parts of the platform (e.g., only infrastructure modules or only logging), but not the complete Golden Path template.
+- Get less automatic onboarding, less end-to-end automation, and mostly “best effort” support instead of guaranteed support.
+
+Serves as a compromise for teams with special requirements: They don't have to go completely “off road,” but accept more responsibility (e.g., their own pipelines, their own runtime decisions).
+
+---
+
 ### Trail mix for the silver path
 
 tbc
