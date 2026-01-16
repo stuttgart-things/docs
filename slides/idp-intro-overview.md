@@ -214,9 +214,10 @@ Serves as a compromise for teams with special requirements: They don't have to g
 
 ---
 
-### Trail mix for the silver path
+### Example Trail mix for the silver path
 
-tbc
+- Switching off compliance enforcement (should be finely granular)
+- Control adjustments to the reference (via CODEOWNERS and Pull Requests)
 
 ---
 
