@@ -450,8 +450,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-<!-- slide -->
-<!-- ### /Quick Poll #1
+### /Quick Poll #1
 
 > 🎯 Have you ever worked with an **Internal Developer Portal (IDP)**?
 
@@ -461,8 +460,9 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 - 🧩 **Heard of IDPs, but not used one yet**
 - 🤷 **What’s an IDP?** — sounds fancy! -->
 
-<!--
-> ### /Quick Poll #1
+---
+
+> ### /Quick Poll #2
 >
 > Why is it beneficial to build an Internal Developer Platform Portal?
 >
@@ -472,19 +472,25 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-> ### /Quick Poll #2
+> ### /Quick Poll #3
 >
 > Which core IDP feature helps developers deploy and provision environments on their own?
 >
 > - 🔍 Visibility into logs and metrics
 > - 🛠️ Self-service deployment & environment provisioning
-> - 🚦 Policy enforcement -->
+> - 🚦 Policy enforcement
 
 
 ---
 
+# DevOps
 
-### /IDP
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-loop.png" alt="Alt Text" width="700"/>
+
+---
+
+
+### / DevOps --> IDP
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
 
@@ -494,28 +500,28 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 ### /IDP
 #### /PLAN
 
-**Projektplanung (Jira, Confluence, GitHub Projects)**
+**Project planning (Jira, Confluence, GitHub Projects)**
 
-- **Scorecards / Qualität-Metriken:**
-  - Früh zeigen, wie reif bzw. „production-ready“ ein Service oder Modul ist – z. B. technischer Zustand, Wartbarkeit, Sicherheit.
-- **Software / Service Katalog:**
-  - Abbild aller verfügbaren Services, Bibliotheken, Infrastruktur­module inkl. Ownership, Zustand, Abhängigkeiten. Entwickler können früh sehen, was schon existiert
-- **Dokumentations-Hub:**
-  - Katalogisierung von Projekten, Teams, Komponenten und Technologien
- 
+- **Scorecards / quality metrics:**
+  - Show early on how mature or “production-ready” a service or module is – e.g., technical condition, maintainability, security.
+- **Software/service catalog:**
+  - Map of all available services, libraries, infrastructure modules, including ownership, status, dependencies. Developers can see early on what already exists.
+- **Documentation hub:**
+  - Cataloging of projects, teams, components, and technologies.
+
 ---
 
 ### /IDP
 #### /CODE
 
-**Versionskontrolle (GitHub / GitLab, IDEs)**
+**Version control (GitHub/GitLab, IDEs)**
 
-- **Governance & Policies eingebettet:**
-  - Sicherheits- und Architektur-Vorgaben automatisch bei Projekt-Erstellung sichtbar bzw. durchgesetzt.
-- **Integration mit Versionsverwaltung/CI Tools:**
-  - Das Portal zeigt z. B. Builds, Pull Requests, Test-Status, so dass Entwicklung in den Überblick integriert ist.
-- **Self-service Aktionen /Scaffolding:**
-  - vordefinierten Templates (Golden Paths) und Automatisierungen
+- **Embedded governance and policies:**
+  - Security and architecture requirements are automatically visible and enforced when a project is created.
+- **Integration with version control/CI tools:**
+  - The portal displays builds, pull requests, test status, etc., so that development is integrated into the overview.
+- **Self-service actions/scaffolding:**
+  - Predefined templates (Golden Paths) and automations
 
 ---
 
@@ -524,12 +530,11 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 **CI/CD Pipeline (GitLab CI, GitHub Actions)**
 
-- **Automatisierte Workflows / Golden Paths:**
-  - Standardisierte Build-Pipelines als Teil eines Self-service-Workflows im Portal.
-- **Integrationen mit Build/CI-Systemen:**
-  - Portal kann Build-Ergebnisse/Status visualisieren, macht Builds transparent.
+- **Automated workflows / Golden Paths:**
+  - Standardized build pipelines as part of a self-service workflow in the portal.
+- **Integrations with build/CI systems:**
+  - Portal can visualize build results/status, making builds transparent.
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="700"/>
 
 ---
 
@@ -545,12 +550,12 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 ### /IDP
 #### /TEST
 
-**Automatisiertes Testen (JUnit, Selenium)**
+**Automated testing (JUnit, Selenium)**
 
-- **Dashboard / Integrationen mit Test-Tools:**
-  - Testergebnisse, Qualität im Kontext von Services sichtbar gemacht.
-- **Scorecards / Qualitätsmetriken:**
-  - Portal zeigt Test-Coverage, Sicherheitslücken, Wartbarkeit – Entwicklung sieht früh, ob Qualität stimmt.
+- **Dashboard/integrations with testing tools:**
+  - Test results and quality made visible in the context of services.
+- **Scorecards/quality metrics:**
+  - Portal shows test coverage, security gaps, maintainability—development can see early on whether quality is up to standard.
 
 ---
 
@@ -559,8 +564,8 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 **Release-Management Tools (Spinnaker, Octopus Deploy)**
 
-- **Workflows / Automatisierung:**
-  - Automatisierte Genehmigungen, Rollbacks, Canary-Releases integriert im Portal.
+- **Workflows / Automation:**
+  - Automated approvals, rollbacks, and canary releases integrated into the portal.
 
 ---
 
@@ -569,32 +574,32 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 **Deployment Automation (Terraform, Ansible, Helm, ArgoCD)**
 
-- **Self Service Deployment:**
-  - Deployment Triggern, Umgebungen bereitstellen
-- **Deployment Katalog:**
-  - Katalog & Ownership: Services, die deployt werden, im Katalog mit Verantwortlichen, sodass Deployment klar zugeordnet ist.
+- **Self-service deployment:**
+  - Triggering deployment, provisioning environments
+- **Deployment catalog:**
+  - Catalog & ownership: Services that are deployed are listed in the catalog with the responsible parties so that deployment is clearly assigned.
 
 ---
 
 ### /IDP
 #### /OPERATE
 
-**Konfigurationsmanagement (Chef, Puppet)**
+**Configuration management (Chef, Puppet)**
 
-- **Scorecards / Service-Reifegrade:**
-  - Laufende Bewertung eines Services im Betrieb – z. B. Stabilität, MTTR, Kosten.
-- **Governance, Compliance, FinOps:**
-  - Zugriffskontrolle, Audit Trails, Kostenübersicht – Betrieb unter Einhaltung von Vorgaben.
+- **Scorecards / service maturity levels:**
+  - Ongoing evaluation of a service in operation – e.g., stability, MTTR, costs.
+- **Governance, compliance, FinOps:**
+  - Access control, audit trails, cost overview – operation in compliance with specifications.
 
 ---
 
 ### /IDP
 #### /MONITOR
 
-**Monitoring-Tools (Prometheus, ELK)**
+**Monitoring tools (Prometheus, ELK)**
 
-- **Statusüberwachung:**
-  - Integrationen mit Observability/Monitoring-Tools: Logs, Metriken, Traces in Portal gebündelt dargestellt.
+- **Status monitoring:**
+  - Integrations with observability/monitoring tools: logs, metrics, traces displayed together in the portal.
 
 ---
 
