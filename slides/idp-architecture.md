@@ -266,7 +266,32 @@ Kafka / NATS]
 
 ---
 
-## 15. Key Takeaways
+## 15. LESSONS LEARNED
+
+- **Provide Templates for Documentation**
+  - Ensure consistent documentation and clear documentation structures
+  - Reduce effort for developers and faster documentation creation
+  - Increase completeness and clarity
+- **Support Linting**
+  - Increase the quality
+  - Catch errors early
+  - Provide a reusable jobs for CI/CD
+  - Provide documentation
+- **Provide Silver Path**
+
+
+---
+
+## 16. Helpul Questions
+
+- Can you reduce feedback loops? (pair /peer programming)
+- Where is cognitive load highest?
+- Which teams need support?
+- What would great DX look like?
+
+---
+
+## 17. Key Takeaways
 
 * Backstage is a **control plane**, not a workflow engine
 * Policies, events, and observability are mandatory at scale
@@ -275,7 +300,7 @@ Kafka / NATS]
 
 ---
 
-## 16. Final Message
+## 18. Final Message
 
 **A successful internal developer platform is:
 Self-service by default, governed by design, and observable end-to-end.**
