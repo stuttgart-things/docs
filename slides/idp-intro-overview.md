@@ -23,7 +23,8 @@
 ### /DEV-EX
 
 “A means for capturing how developers think and feel about their activities within their working environments.”
-F. Fagerholm & J. Münch, 20212
+
+(F. Fagerholm & J. Münch)
 
 ---
 
