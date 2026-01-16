@@ -71,7 +71,7 @@
 
 ### WHAT ARE GOLDEN PATHS
 
-<img src="https://miro.medium.com/v2/resize:fit:1200/0*BEkTUO3XM3kaQFUl" alt="When to introduce" width="500"/>
+<img src="https://miro.medium.com/v2/resize:fit:1200/0*BEkTUO3XM3kaQFUl" alt="When to introduce" width="450"/>
 
 - Opinionated, well-documented, supported end-to-end workflows teams are encouraged to use
 - Examples: standardized CI/CD pipeline templates, service scaffolding, infra provisioning blueprints
@@ -171,51 +171,6 @@
 
 ---
 
-### Trail mix for the silver path
-
-tbc
-
----
-
-
-
-### TEAM SIZING
-
-<img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Team sizing" width="800"/>
-
----
-
-### TEAM SIZING
-
-- < 30 devs: No dedicated platform org usually — 1–2 infra/DevOps engineers embedded in teams
-- ~30–100 devs: 2–6 people focused on platform features + templates (part-time or small team)
-- 100–500 devs: 6–20 FTEs running IDP, pipelines, service catalog, observability
-- 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
-
-  ---
-
-  ### Platform Capabilities
-
- Capability domains to consider when building platforms for cloud-native computing:
-
-- Web portals for observing and provisioning products and capabilities
-- APIs (and CLIs) for automatically provisioning products and capabilities
-- “Golden path” templates and docs enabling optimal use of capabilities in products
-- Automation for building and testing services and products
-- Automation for delivering and verifying services and products
-- Development environments such as hosted IDEs and remote connection tools
-- Observability for services and products using instrumentation and dashboards, including observation of functionality, performance and costs
-- Infrastructure services including compute runtimes, programmable networks, and block and volume storage
-- Data services including databases, caches, and object stores
-- Messaging and event services including brokers, queues, and event fabrics
-- Identity and secret management services such as service and user identity and authorization, certificate and key issuance, and static secret storage
-- Security services including static analysis of code and artifacts, runtime analysis, and policy enforcement
-- Artifact storage including storage of container image and language-specific packages, custom binaries and libraries, and source code
-
-(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
-
----
-
 ## 🚀 What Are Golden Pipelines?
 
 - Predefined, opinionated CI/CD workflows
@@ -240,24 +195,61 @@ tbc
 
 ---
 
+### Trail mix for the silver path
+
+tbc
+
+---
+
+### TEAM SIZING
+
+<img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Team sizing" width="800"/>
+
+---
+
+### TEAM SIZING
+
+- < 30 devs: No dedicated platform org usually — 1–2 infra/DevOps engineers embedded in teams
+- ~30–100 devs: 2–6 people focused on platform features + templates (part-time or small team)
+- 100–500 devs: 6–20 FTEs running IDP, pipelines, service catalog, observability
+- 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
+
+---
+
+### Platform Capabilities
+
+ Capability domains to consider when building platforms for cloud-native computing:
+
+- Infrastructure services including compute runtimes, programmable networks, and block and volume storage
+- Data services including databases, caches, and object stores
+- Messaging and event services including brokers, queues, and event fabrics
+- Identity and secret management services such as service and user identity and authorization, certificate and key issuance, and static secret storage
+- Security services including static analysis of code and artifacts, runtime analysis, and policy enforcement
+- Artifact storage including storage of container image and language-specific packages, custom binaries and libraries, and source code
+
+(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
+
+---
+
+### Platform Capabilities
+
+ Capability domains to consider when building platforms for cloud-native computing:
+
+- Infrastructure services including compute runtimes, programmable networks, and block and volume storage
+- Data services including databases, caches, and object stores
+- Messaging and event services including brokers, queues, and event fabrics
+- Identity and secret management services such as service and user identity and authorization, certificate and key issuance, and static secret storage
+- Security services including static analysis of code and artifacts, runtime analysis, and policy enforcement
+- Artifact storage including storage of container image and language-specific packages, custom binaries and libraries, and source code
+
+(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
+
+---
+
 
 ### PLATFORM CAPABILITIES
 
-| Capability                                              | Description                                                                                                                                                                                                               | Example CNCF/CDF Projects                                                                                      |
-|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| Web portals for provisioning and observing capabilities | Publish documentation, service catalogs, and project templates. Publish telemetry about systems and capabilities.                                                                                                         | Backstage, Skooner, Ortelius                                                                                   |
-| APIs for automatically provisioning capabilities        | Structured formats for automatically creating, updating, deleting and observing capabilities.                                                                                                                             | Kubernetes, Crossplane, Operator Framework, Helm, KubeVela                                                     |
-| Golden path templates and docs                          | Templated compositions of well-integrated code and capabilities for rapid project development.                                                                                                                            | ArtifactHub                                                                                                    |
-| Automation for building and testing products            | Automate build and test of digital products and services.                                                                                                                                                                 | Tekton, Jenkins, Buildpacks, ko, Carvel                                                                        |
-| Automation for delivering and verifying services        | Automate and observe delivery of services.                                                                                                                                                                                | Argo, Flux, Keptn, Flagger, OpenFeature                                                                        |
-| Development environments                                | Enable research and development of applications and systems.                                                                                                                                                              | Devfile, Nocalhost, Telepresence, DevSpace                                                                     |
-| Application observability                               | Instrument applications, gather and analyze telemetry and publish info to stakeholders.                                                                                                                                   | OpenTelemetry, Jaeger, Prometheus, Thanos, Fluentd, Grafana, OpenCost                                          |
-| Infrastructure services                                 | Run application code, connect application components and persist data for applications                                                                                                                                    | Kubernetes, Kubevirt, Knative, WasmEdge, KEDA CNI, Istio, Cilium, Envoy, Linkerd, CoreDNS Rook, Longhorn, Etcd |
-| Data services                                           | Persist structured data for applications                                                                                                                                                                                  | TiKV, Vitess, SchemaHero                                                                                       |
-| Messaging and event services                            | Enable applications to communicate with each other asynchronously                                                                                                                                                         | Strimzi, NATS, gRPC, Knative, Dapr                                                                             |
-| Identity and secret services                            | Ensure workloads have locators and secrets to use resources and capabilities. Enable services to identify themselves to other services                                                                                    | Keycloak, Dex, External Secrets, SPIFFE/SPIRE, Teller, cert-manager                                            |
-| Security services                                       | Observe runtime behavior and report/remediate anomalies. Verify builds and artifacts don't contain vulnerabilities. Constrain activities on the platform per enterprise requirements; notify and/or remediate aberrations | Falco, In-toto, KubeArmor, OPA, Kyverno, Cloud Custodian                                                       |
-| Artifact storage                                        | Store, publish and secure built artifacts for use in production. Cache and analyze third-party artifacts. Store source code.                                                                                              | ArtifactHub, Harbor, Distribution, Porter                                                                      |
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-capabilities.png" alt="Alt Text" width="700"/>
 
 (https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
@@ -265,35 +257,23 @@ tbc
 
 ### CNCF Platform Maturity Model
 
-| Capability                                              | Description                                                                                                                                                                                                               | Example CNCF/CDF Projects                                                                                      |
-|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| Web portals for provisioning and observing capabilities | Publish documentation, service catalogs, and project templates. Publish telemetry about systems and capabilities.                                                                                                         | Backstage, Skooner, Ortelius                                                                                   |
-| APIs for automatically provisioning capabilities        | Structured formats for automatically creating, updating, deleting and observing capabilities.                                                                                                                             | Kubernetes, Crossplane, Operator Framework, Helm, KubeVela                                                     |
-| Golden path templates and docs                          | Templated compositions of well-integrated code and capabilities for rapid project development.                                                                                                                            | ArtifactHub                                                                                                    |
-| Automation for building and testing products            | Automate build and test of digital products and services.                                                                                                                                                                 | Tekton, Jenkins, Buildpacks, ko, Carvel                                                                        |
-| Automation for delivering and verifying services        | Automate and observe delivery of services.                                                                                                                                                                                | Argo, Flux, Keptn, Flagger, OpenFeature                                                                        |
-| Development environments                                | Enable research and development of applications and systems.                                                                                                                                                              | Devfile, Nocalhost, Telepresence, DevSpace                                                                     |
-| Application observability                               | Instrument applications, gather and analyze telemetry and publish info to stakeholders.                                                                                                                                   | OpenTelemetry, Jaeger, Prometheus, Thanos, Fluentd, Grafana, OpenCost                                          |
-| Infrastructure services                                 | Run application code, connect application components and persist data for applications                                                                                                                                    | Kubernetes, Kubevirt, Knative, WasmEdge, KEDA CNI, Istio, Cilium, Envoy, Linkerd, CoreDNS Rook, Longhorn, Etcd |
-| Data services                                           | Persist structured data for applications                                                                                                                                                                                  | TiKV, Vitess, SchemaHero                                                                                       |
-| Messaging and event services                            | Enable applications to communicate with each other asynchronously                                                                                                                                                         | Strimzi, NATS, gRPC, Knative, Dapr                                                                             |
-| Identity and secret services                            | Ensure workloads have locators and secrets to use resources and capabilities. Enable services to identify themselves to other services                                                                                    | Keycloak, Dex, External Secrets, SPIFFE/SPIRE, Teller, cert-manager                                            |
-| Security services                                       | Observe runtime behavior and report/remediate anomalies. Verify builds and artifacts don't contain vulnerabilities. Constrain activities on the platform per enterprise requirements; notify and/or remediate aberrations | Falco, In-toto, KubeArmor, OPA, Kyverno, Cloud Custodian                                                       |
-| Artifact storage                                        | Store, publish and secure built artifacts for use in production. Cache and analyze third-party artifacts. Store source code.                                                                                              | ArtifactHub, Harbor, Distribution, Porter                                                                      |
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cncf-maturity-model.png" alt="Alt Text" width="700"/>                                                                    |
 
 ---
 
-### CNCF Platform Maturity Model: Investment
+#### EXAMPLE: CNCF Platform Maturity Model: Investment
 
-Level 1, Provisional — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support. Example Scenarios: Improvements to a CI/CD considered only a ”side effort”
+**Level 1, Provisional** — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support. 
+Example: Improvements to a CI/CD considered only a ”side effort”
 
-Level 2, Operationalized — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap Example Scenarios: Central team tasked with reducing the build time of applications
+**Level 2, Operationalized** — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap 
+Example: Central team tasked with reducing the build time of applications
 
-Level 3, Scalable — As product Characteristics staff includes product management and UX Designer has a roadmap features are tested end-to-end
-Example Scenarios: Data derived from platform usage metrics is used to make informed decisions
+**Level 3, Scalable** — As product Characteristics staff includes product management and UX Designer has a roadmap features are tested end-to-end
+Example: Data derived from platform usage metrics is used to make informed decisions
 
-Level 4, Optimizing — Enabled ecosystem Characteristics priority to enable specialists to extend the platform centralized specialists act through the platform
-Example Scenarios: Marketing works with platform builders to introduce consistent user tracking in order to attribute marketing efforts to product outcomes
+**Level 4, Optimizing** — Enabled ecosystem Characteristics priority to enable specialists to extend the platform centralized specialists act through the platform
+Example: Marketing works with platform builders to introduce consistent user tracking in order to attribute marketing efforts to product outcomes
 
 
 ---
@@ -325,7 +305,6 @@ Example Scenarios: Marketing works with platform builders to introduce consisten
 - ☁️ Balance cost, performance & availability
 - 🎛️ Unified control plane across clouds
 - 📡 Cloud-agnostic CI/CD and GitOps
--
 
 ---
 
@@ -366,8 +345,6 @@ Example Scenarios: Marketing works with platform builders to introduce consisten
 - 🔧 **Jenkins X**, **Fleet**, or other custom GitOps solutions
 - ❓ Still exploring — curious what all the hype is about?
 
-
----
 
 ---
 
@@ -535,6 +512,15 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
   - Standardisierte Build-Pipelines als Teil eines Self-service-Workflows im Portal.
 - **Integrationen mit Build/CI-Systemen:**
   - Portal kann Build-Ergebnisse/Status visualisieren, macht Builds transparent.
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="700"/>
+
+---
+
+### /IDP
+#### /BUILD
+
+**CI/CD Pipeline (GitLab CI, GitHub Actions)**
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="700"/>
 
