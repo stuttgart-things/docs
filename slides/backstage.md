@@ -379,3 +379,217 @@ Helps understand complex landscapes:
 - Avoid plugin overload
 - Treat Backstage as a **product**
 - Align plugins with real developer needs
+
+
+---
+
+# Backstage Software Templates
+
+How Templates, Rendering & Catalog Work Together
+
+---
+
+## Template Languages
+
+Backstage uses **two templating languages**:
+
+| Location | Language | Syntax |
+|----------|----------|--------|
+| template.yaml | Nunjucks | `${{ parameters.name }}` |
+| Template files | Nunjucks/Jinja2 | `${{ values.name }}` |
+
+---
+
+## The Rendering Flow
+
+```
+User Input → template.yaml → Template Files → GitLab Repo
+     ↓              ↓               ↓              ↓
+  (Form)      (Parameters)    (Nunjucks)     (Published)
+```
+
+---
+
+## template.yaml Structure
+
+```yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:     # Template metadata
+spec:
+  parameters: # User input form definition
+  steps:      # Actions to execute
+  output:     # Links and messages
+```
+
+---
+
+## Parameters → User Form
+
+Parameters define the **input form** users see:
+
+```yaml
+parameters:
+  - title: Repository Information
+    properties:
+      project_name:
+        type: string
+      provider:
+        type: string
+        enum: [aws, azure, gcp]
+```
+
+Backstage renders this as an interactive form.
+
+---
+
+## Steps: The Action Pipeline
+
+Steps define **what happens** after form submission:
+
+1. **fetch:template** - Render template files
+2. **publish:gitlab** - Create repository
+3. **catalog:register** - Add to Backstage catalog
+
+---
+
+## fetch:template Action
+
+```yaml
+- id: fetch-base
+  action: fetch:template
+  input:
+    url: ./template
+    values:
+      project_name: ${{ parameters.project_name }}
+      provider: ${{ parameters.provider }}
+```
+
+Maps **parameters** → **values** for template rendering.
+
+---
+
+## Template File Rendering
+
+Files in `./template/` use Nunjucks syntax:
+
+```hcl
+# In template/versions.tf
+{%- if values.provider == "aws" %}
+    aws = {
+      source  = "hashicorp/aws"
+    }
+{%- elif values.provider == "azure" %}
+    azurerm = {
+      source  = "hashicorp/azurerm"
+    }
+{%- endif %}
+```
+
+---
+
+## Nunjucks Features Used
+
+| Feature | Syntax | Purpose |
+|---------|--------|---------|
+| Variable | `${{ values.name }}` | Insert value |
+| Condition | `{%- if %}` | Conditional content |
+| Filter | `{{ name \| upper }}` | Transform value |
+| Loop | `{%- for item in list %}` | Iterate |
+
+---
+
+## publish:gitlab Action
+
+After rendering, files are pushed to GitLab:
+
+```yaml
+- id: publish
+  action: publish:gitlab
+  input:
+    repoUrl: ${{ parameters.repoUrl }}
+    defaultBranch: main
+```
+
+Creates the repository with rendered content.
+
+---
+
+## catalog:register Action
+
+Registers the new repo in Backstage:
+
+```yaml
+- id: register
+  action: catalog:register
+  input:
+    repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+    catalogInfoPath: '/catalog-info.yaml'
+```
+
+---
+
+## The catalog-info.yaml
+
+Every component needs this file for Backstage:
+
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.project_name }}
+spec:
+  type: infrastructure
+  owner: group:default/engineering
+```
+
+Also rendered with Nunjucks!
+
+---
+
+## Complete Flow Diagram
+
+```
+┌─────────────┐
+│  User Form  │  ← parameters defined in template.yaml
+└──────┬──────┘
+       ↓
+┌─────────────┐
+│fetch:template│ ← renders ./template/* files
+└──────┬──────┘
+       ↓
+┌─────────────┐
+│publish:gitlab│ ← creates repo with rendered files
+└──────┬──────┘
+       ↓
+┌─────────────┐
+│catalog:register│ ← adds to Backstage catalog
+└─────────────┘
+```
+
+---
+
+## Step Outputs & Chaining
+
+Steps can reference **previous step outputs**:
+
+```yaml
+# publish step produces output.repoContentsUrl
+# register step consumes it:
+repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+```
+
+---
+
+## Key Takeaways
+
+1. **template.yaml** defines form + actions
+2. **Nunjucks** renders all template files
+3. **parameters** → user input
+4. **values** → available in template files
+5. **Steps chain** via outputs
+
+---
+
+
+
