@@ -6,200 +6,7 @@
 
 <img src="https://media.licdn.com/dms/image/v2/D4D22AQHolX5UwNFzPg/feedshare-shrink_800/B4DZTyTdDSG8Ag-/0/1739231974056?e=2147483647&v=beta&t=0V2HW-dJHygYyHMp4Kv-TbTgrue10vzZL2TYzzZmv_k" alt="Alt Text" width="400"/>
 
-- platform engineering is a evolution of DevOps
----
-
-
-### /DEV-EX
-
-<img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fbeozmmi208ae3ye2dr3v.jpg" alt="Alt Text" width="500"/>
-
-- Developer Experience = creating an environment in which a developer can do their best work
-- Good DevEx = fewer frustrations and more productivity
-- leading to faster delivery and better software quality
-
----
-
-### /DEV-EX
-
-“A means for capturing how developers think and feel about their activities within their working environments.”
-F. Fagerholm & J. Münch, 20212
-
----
-
-### /IDP
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
-
----
-
-### /IDP
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/idps.png" alt="Alt Text" width="700"/>
-
-( - Amazon Web Services)
-
----
-
-### /IDP
-
-Why it is a good idea to build an **Internal Developer Platform Portal**:
-
-- 🧩 **A centralized UI for developers**
-- 🤖 **A self-service layer over infrastructure**
-- 🚀🛡️ **A tool to accelerate delivery with guardrails**
-
-<br>
-<br>
-<br>
-<br>
-
-> Think: “PaaS built by your platform team”
-
----
-
-### 🚀 DORA Metrics
-
-DORA (DevOps Research and Assessment) metrics measure software delivery performance:
-
-- **Deployment Frequency**
-- **Lead Time for Changes**
-- **Change Failure Rate**
-- **Mean Time to Recovery (MTTR)**
-
----
-
-# 📈 IDPs Make DORA Metrics Actionable
-
-| Metric | How an IDP Helps |
-|--------|------------------|
-| 📦 Deployment Frequency | Self-service deploys, GitOps integration |
-| ⏱️ Lead Time for Changes | Track from commit → production |
-| ❌ Change Failure Rate | Show failed rollouts, incident links |
-| 🛠️ MTTR | Connect services to runbooks, SLOs, and ownership |
-
----
-
-### ⚙️ /Core Features
-
-<img src="https://pradeepl.com/blog/internal-developer-portals-spotify-backstage/images/Backstage-Templates.png" alt="Alt Text" width="1000"/>
-
-- 🛠️ Self-service deployment & environment provisioning
-- 🔍 Visibility into logs, metrics, and deployments
-- 🚦 Policy enforcement (e.g. security, cost, compliance)
-- 📦 Template catalogs for fast onboarding
-
----
-
-### 🚀 /Key IDP Benefits
-
-➡️ **Developers Focus on Code, Not Infrastructure**
-
-- ⚡️ **Focus on shipping features faster**
-  → *"From idea to production in minutes, not days"*
-
-- 🧠 **Focus purely on business logic**
-  → *"No more YAML archaeology or cloud config headaches"*
-
-- 🎓 **Self-service resources**
-  *"Provision full dev environment with single click"*
-
-- 🧩 **Clear ownership boundaries**
-  → *"Devs own code, Platform owns infrastructure"*
-
----
-### 📈 /Measuring Adoption
-
-> Adoption shows whether developers trust, use, and benefit from the platform
-
-- 🔁 **DAU/WAU/MAU**: Daily / Weekly / Monthly active users
-- 🚀 **Self-service actions**: Number of created services, environments, deployments
-- 🔍 **Time to First Deploy (TTFD)**: How fast a dev goes from repo to running app
-- 💬 **Feedback loops**: Surveys, interviews, support tickets
-
----
-
-<!-- slide -->
-<!-- ### /Quick Poll #1
-
-> 🎯 Have you ever worked with an **Internal Developer Portal (IDP)**?
-
-- 🎭 **Yes, with Backstage** — love the plugin ecosystem!
-- 🧱 **Yes, with another tool** — like Port, Cortex, or OpsLevel
-- 🛠️ **We built our own custom IDP** — DIY all the way
-- 🧩 **Heard of IDPs, but not used one yet**
-- 🤷 **What’s an IDP?** — sounds fancy! -->
-
-<!--
-> ### /Quick Poll #1
->
-> Why is it beneficial to build an Internal Developer Platform Portal?
->
-> - 👨‍💻 To centralize developer UI and accelerate delivery
-> - ⚙️ To make infrastructure more complex
-> - ⏳ To increase onboarding time
-
----
-
-> ### /Quick Poll #2
->
-> Which core IDP feature helps developers deploy and provision environments on their own?
->
-> - 🔍 Visibility into logs and metrics
-> - 🛠️ Self-service deployment & environment provisioning
-> - 🚦 Policy enforcement -->
-
-
----
-
-
-### /MULTICLOUD
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/multicloud.jpeg" alt="Alt Text" width="700"/>
-
-- ☁️ Balance cost, performance & availability
-- 🎛️ Unified control plane across clouds
-- 📡 Cloud-agnostic CI/CD and GitOps
--
-
----
-
-### 🔄 /GITOPS
-
-<img src="https://cdn.prod.website-files.com/63c8f7191194d2a0cf4f630e/67951e7770966bf72c93aa96_Screenshot%202025-01-25%20at%2018.25.04.png" alt="Alt Text" width="500"/>
-
-- modern way to do **Continuous Deployment**, using **Git as the single source of truth** for infra and apps
-
----
-
-### 🔄 /GITOPS
-
-- 📜 **Declarative Infrastructure** — everything is defined in YAML
-- 🔗 **Git as the Source of Truth** — no more config drift
-- 🤖 **Automated Sync** — tools like Argo CD & Flux keep clusters aligned
-- 🕵️ **Audit & Rollback** — powered by Git history and versioning
-
-> 🚀 **Git push = production change**, with full visibility and control
----
-
-### 🛠️ /GitOps Tools
-
-- **Flux** or **Argo CD** for automated syncing
-- **Kustomize** or **Helm** for templating
-- **Git** for storing desired state
-
-🧠 Changes in Git → Automatically applied to clusters
-
----
-
-### /Quick Poll
-
-> 🔄 What’s your **go-to GitOps tool** for managing Kubernetes and infrastructure?
-
-- 🚀 **Argo CD** — Declarative, visual, Git-native deployments
-- 🌀 **Flux** — GitOps toolkit built for flexibility and composability
-- 🔧 **Jenkins X**, **Fleet**, or other custom GitOps solutions
-- ❓ Still exploring — curious what all the hype is about?
+- Platform Engineering is an evolution of DevOps
 
 
 ---
@@ -220,7 +27,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ### 🏗️ Platform Engineering
 
-"...  is the discipline of designing and building toolchains and workflows that enable self-service capabilities for software engineering organizations in the cloud-native era. Platform engineers provide an integrated product most often referred to as an “ Internal Developer Platform” covering the operational necessities of the entire lifecycle of an application."
+"...  is the discipline of designing and building toolchains and workflows that enable **self-service** capabilities for software engineering organizations in the cloud-native era. Platform engineers provide an integrated product most often referred to as an “ **Internal Developer Platform**” covering the operational necessities of the entire lifecycle of an application."
 
 (- Humanitec)
 
@@ -245,26 +52,26 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ### PLATFORM TEAMS
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="700"/>
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="750"/>
 
 
 ---
 
 ### EXAMPLE TEAM/COMPANY SIZES
 
-- Small org ~50 devs → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
+- **Small org ~50 devs** → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
 
-- Mid-size ~200 devs → platform team (6–10 FTE), centralized pipelines, service catalog, self-service infra
+- **Mid-size ~200 devs** → platform team (6–10 FTE), centralized pipelines, service catalog, self-service infra
 
-- Enterprise 1000+ devs → larger platform org (20+ FTE), strong IDP, SLOs, cross-team platform product managers
+- **Enterprise 1000+ devs** → larger platform org (20+ FTE), strong IDP, SLOs, cross-team platform product managers
 
-- Typical benefits reported: faster on-board, less duplicated work, measurable dev-hours saved
+- **Typical benefits reported:** faster on-board, less duplicated work, measurable dev-hours saved
 
 ---
 
 ### WHAT ARE GOLDEN PATHS
 
-<img src="https://miro.medium.com/v2/resize:fit:1200/0*BEkTUO3XM3kaQFUl" alt="When to introduce" width="500"/>
+<img src="https://miro.medium.com/v2/resize:fit:1200/0*BEkTUO3XM3kaQFUl" alt="When to introduce" width="450"/>
 
 - Opinionated, well-documented, supported end-to-end workflows teams are encouraged to use
 - Examples: standardized CI/CD pipeline templates, service scaffolding, infra provisioning blueprints
@@ -364,51 +171,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### Trail mix for the silver path
-
-tbc
-
----
-
-
-
-### TEAM SIZING
-
-<img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Team sizing" width="800"/>
-
----
-
-### TEAM SIZING
-
-- < 30 devs: No dedicated platform org usually — 1–2 infra/DevOps engineers embedded in teams
-- ~30–100 devs: 2–6 people focused on platform features + templates (part-time or small team)
-- 100–500 devs: 6–20 FTEs running IDP, pipelines, service catalog, observability
-- 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
-
-  ---
-
-  ### Platform Capabilities
-
- Capability domains to consider when building platforms for cloud-native computing:
-
-- Web portals for observing and provisioning products and capabilities
-- APIs (and CLIs) for automatically provisioning products and capabilities
-- “Golden path” templates and docs enabling optimal use of capabilities in products
-- Automation for building and testing services and products
-- Automation for delivering and verifying services and products
-- Development environments such as hosted IDEs and remote connection tools
-- Observability for services and products using instrumentation and dashboards, including observation of functionality, performance and costs
-- Infrastructure services including compute runtimes, programmable networks, and block and volume storage
-- Data services including databases, caches, and object stores
-- Messaging and event services including brokers, queues, and event fabrics
-- Identity and secret management services such as service and user identity and authorization, certificate and key issuance, and static secret storage
-- Security services including static analysis of code and artifacts, runtime analysis, and policy enforcement
-- Artifact storage including storage of container image and language-specific packages, custom binaries and libraries, and source code
-
-(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
-
----
-
 ## 🚀 What Are Golden Pipelines?
 
 - Predefined, opinionated CI/CD workflows
@@ -433,88 +195,353 @@ tbc
 
 ---
 
+### Silver Path:
 
-### PLATFORM CAPABILITIES
+- Usually understood as a less strictly standardized, alternative path that allows more freedom but offers less convenience and support
+- Paths that do not fully comply with the “blessed” Golden Path but are still within the scope of the platform
+- Users tend to use the IDP as a toolbox (Terraform modules, individual services) without adopting the full Golden Path workflow.
+- Often used as a transitional step until a new, suitable Golden Path is created or a special case can be standardized.
 
-| Capability                                              | Description                                                                                                                                                                                                               | Example CNCF/CDF Projects                                                                                      |
-|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| Web portals for provisioning and observing capabilities | Publish documentation, service catalogs, and project templates. Publish telemetry about systems and capabilities.                                                                                                         | Backstage, Skooner, Ortelius                                                                                   |
-| APIs for automatically provisioning capabilities        | Structured formats for automatically creating, updating, deleting and observing capabilities.                                                                                                                             | Kubernetes, Crossplane, Operator Framework, Helm, KubeVela                                                     |
-| Golden path templates and docs                          | Templated compositions of well-integrated code and capabilities for rapid project development.                                                                                                                            | ArtifactHub                                                                                                    |
-| Automation for building and testing products            | Automate build and test of digital products and services.                                                                                                                                                                 | Tekton, Jenkins, Buildpacks, ko, Carvel                                                                        |
-| Automation for delivering and verifying services        | Automate and observe delivery of services.                                                                                                                                                                                | Argo, Flux, Keptn, Flagger, OpenFeature                                                                        |
-| Development environments                                | Enable research and development of applications and systems.                                                                                                                                                              | Devfile, Nocalhost, Telepresence, DevSpace                                                                     |
-| Application observability                               | Instrument applications, gather and analyze telemetry and publish info to stakeholders.                                                                                                                                   | OpenTelemetry, Jaeger, Prometheus, Thanos, Fluentd, Grafana, OpenCost                                          |
-| Infrastructure services                                 | Run application code, connect application components and persist data for applications                                                                                                                                    | Kubernetes, Kubevirt, Knative, WasmEdge, KEDA CNI, Istio, Cilium, Envoy, Linkerd, CoreDNS Rook, Longhorn, Etcd |
-| Data services                                           | Persist structured data for applications                                                                                                                                                                                  | TiKV, Vitess, SchemaHero                                                                                       |
-| Messaging and event services                            | Enable applications to communicate with each other asynchronously                                                                                                                                                         | Strimzi, NATS, gRPC, Knative, Dapr                                                                             |
-| Identity and secret services                            | Ensure workloads have locators and secrets to use resources and capabilities. Enable services to identify themselves to other services                                                                                    | Keycloak, Dex, External Secrets, SPIFFE/SPIRE, Teller, cert-manager                                            |
-| Security services                                       | Observe runtime behavior and report/remediate anomalies. Verify builds and artifacts don't contain vulnerabilities. Constrain activities on the platform per enterprise requirements; notify and/or remediate aberrations | Falco, In-toto, KubeArmor, OPA, Kyverno, Cloud Custodian                                                       |
-| Artifact storage                                        | Store, publish and secure built artifacts for use in production. Cache and analyze third-party artifacts. Store source code.                                                                                              | ArtifactHub, Harbor, Distribution, Porter                                                                      |
+---
+
+### Silver Path:
+
+**Typical characteristics:**
+- Reuses parts of the platform (e.g., only infrastructure modules or only logging), but not the complete Golden Path template.
+- Get less automatic onboarding, less end-to-end automation, and mostly “best effort” support instead of guaranteed support.
+
+Serves as a compromise for teams with special requirements: They don't have to go completely “off road,” but accept more responsibility (e.g., their own pipelines, their own runtime decisions).
+
+---
+
+### Example Trail mix for the silver path
+
+- Switching off compliance enforcement (should be finely granular)
+- Control adjustments to the reference (via CODEOWNERS and Pull Requests)
+
+---
+
+### TEAM SIZING
+
+<img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Team sizing" width="800"/>
+
+---
+
+### TEAM SIZING
+
+- < 30 devs: No dedicated platform org usually — 1–2 infra/DevOps engineers embedded in teams
+- ~30–100 devs: 2–6 people focused on platform features + templates (part-time or small team)
+- 100–500 devs: 6–20 FTEs running IDP, pipelines, service catalog, observability
+- 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
+
+---
+
+### Platform Capabilities
+
+Capability domains to consider when building platforms for cloud-native computing:
+
+- Web portals for observing and provisioning products and capabilities
+- APIs (and CLIs) for automatically provisioning products and capabilities
+- “Golden path” templates and docs enabling optimal use of capabilities in products
+- Automation for building and testing services and products
+- Automation for delivering and verifying services and products
+- Development environments such as hosted IDEs and remote connection tools
+- Observability for services and products using instrumentation and dashboards, including observation of functionality, performance and costs
 
 (https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
 ---
 
-### CNCF Platform Maturity Model
+### Platform Capabilities
 
-| Capability                                              | Description                                                                                                                                                                                                               | Example CNCF/CDF Projects                                                                                      |
-|---------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
-| Web portals for provisioning and observing capabilities | Publish documentation, service catalogs, and project templates. Publish telemetry about systems and capabilities.                                                                                                         | Backstage, Skooner, Ortelius                                                                                   |
-| APIs for automatically provisioning capabilities        | Structured formats for automatically creating, updating, deleting and observing capabilities.                                                                                                                             | Kubernetes, Crossplane, Operator Framework, Helm, KubeVela                                                     |
-| Golden path templates and docs                          | Templated compositions of well-integrated code and capabilities for rapid project development.                                                                                                                            | ArtifactHub                                                                                                    |
-| Automation for building and testing products            | Automate build and test of digital products and services.                                                                                                                                                                 | Tekton, Jenkins, Buildpacks, ko, Carvel                                                                        |
-| Automation for delivering and verifying services        | Automate and observe delivery of services.                                                                                                                                                                                | Argo, Flux, Keptn, Flagger, OpenFeature                                                                        |
-| Development environments                                | Enable research and development of applications and systems.                                                                                                                                                              | Devfile, Nocalhost, Telepresence, DevSpace                                                                     |
-| Application observability                               | Instrument applications, gather and analyze telemetry and publish info to stakeholders.                                                                                                                                   | OpenTelemetry, Jaeger, Prometheus, Thanos, Fluentd, Grafana, OpenCost                                          |
-| Infrastructure services                                 | Run application code, connect application components and persist data for applications                                                                                                                                    | Kubernetes, Kubevirt, Knative, WasmEdge, KEDA CNI, Istio, Cilium, Envoy, Linkerd, CoreDNS Rook, Longhorn, Etcd |
-| Data services                                           | Persist structured data for applications                                                                                                                                                                                  | TiKV, Vitess, SchemaHero                                                                                       |
-| Messaging and event services                            | Enable applications to communicate with each other asynchronously                                                                                                                                                         | Strimzi, NATS, gRPC, Knative, Dapr                                                                             |
-| Identity and secret services                            | Ensure workloads have locators and secrets to use resources and capabilities. Enable services to identify themselves to other services                                                                                    | Keycloak, Dex, External Secrets, SPIFFE/SPIRE, Teller, cert-manager                                            |
-| Security services                                       | Observe runtime behavior and report/remediate anomalies. Verify builds and artifacts don't contain vulnerabilities. Constrain activities on the platform per enterprise requirements; notify and/or remediate aberrations | Falco, In-toto, KubeArmor, OPA, Kyverno, Cloud Custodian                                                       |
-| Artifact storage                                        | Store, publish and secure built artifacts for use in production. Cache and analyze third-party artifacts. Store source code.                                                                                              | ArtifactHub, Harbor, Distribution, Porter                                                                      |
+Capability domains to consider when building platforms for cloud-native computing:
+
+- Infrastructure services including compute runtimes, programmable networks, and block and volume storage
+- Data services including databases, caches, and object stores
+- Messaging and event services including brokers, queues, and event fabrics
+- Identity and secret management services such as service and user identity and authorization, certificate and key issuance, and static secret storage
+- Security services including static analysis of code and artifacts, runtime analysis, and policy enforcement
+- Artifact storage including storage of container image and language-specific packages, custom binaries and libraries, and source code
+
+(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
 ---
 
-### CNCF Platform Maturity Model: Investment
 
-Level 1, Provisional — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support. Example Scenarios: Improvements to a CI/CD considered only a ”side effort”
+**CNCF PLATFORM CAPABILITIES**
 
-Level 2, Operationalized — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap Example Scenarios: Central team tasked with reducing the build time of applications
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-capabilities.png" alt="Alt Text" width="1000"/>
 
-Level 3, Scalable — As product Characteristics staff includes product management and UX Designer has a roadmap features are tested end-to-end
-Example Scenarios: Data derived from platform usage metrics is used to make informed decisions
+(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
-Level 4, Optimizing — Enabled ecosystem Characteristics priority to enable specialists to extend the platform centralized specialists act through the platform
-Example Scenarios: Marketing works with platform builders to introduce consistent user tracking in order to attribute marketing efforts to product outcomes
+---
+
+**CNCF Platform Maturity Model**
+
+**Level 1** - Build You have a baseline cloud native implementation in place and are in pre-production. Of importance, level one isn’t a lab or POC, you do have an implementation in place. It can be really hard to move from a build to operate stage.
+**Level 2** - Operate The cloud native foundation is established and you are moving to production.
+**Level 3** - Scale Your competency is growing and you are defining processes for scale.
+**Level 4** - Improve You are improving security, policy and governance across your environment.
+**Level 5** - Adapt You are revisiting decisions made earlier and monitoring applications and infrastructure for optimization.
+
+(https://maturitymodel.cncf.io/)
+
+---
+
+**CNCF Platform Maturity Model**
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cncf-maturity-model.png" alt="Alt Text" width="1000"/>
+
+(https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model)
+
+---
+
+#### EXAMPLE: Investment
+
+**Level 1, Provisional** — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support. 
+Example: Improvements to a CI/CD considered only a ”side effort”
+
+**Level 2, Operationalized** — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap 
+Example: Central team tasked with reducing the build time of applications
+
+**Level 3, Scalable** — As product Characteristics staff includes product management and UX Designer has a roadmap features are tested end-to-end
+Example: Data derived from platform usage metrics is used to make informed decisions
+
+**Level 4, Optimizing** — Enabled ecosystem Characteristics priority to enable specialists to extend the platform centralized specialists act through the platform
+Example: Marketing works with platform builders to introduce consistent user tracking in order to attribute marketing efforts to product outcomes
+
+(https://maturitymodel.cncf.io/)
+
+---
+
+### /DEV-EX
+
+<img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fbeozmmi208ae3ye2dr3v.jpg" alt="Alt Text" width="500"/>
+
+- Developer Experience = creating an environment in which a developer can do their best work
+- Good DevEx = fewer frustrations and more productivity
+- leading to faster delivery and better software quality
+
+---
+
+### /DEV-EX
+
+“A means for capturing how developers think and feel about their activities within their working environments.”
+
+(F. Fagerholm & J. Münch)
+
+---
+
+
+
+### /MULTICLOUD
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/multicloud.jpeg" alt="Alt Text" width="700"/>
+
+- ☁️ Balance cost, performance & availability
+- 🎛️ Unified control plane across clouds
+- 📡 Cloud-agnostic CI/CD and GitOps
+
+---
+
+### 🔄 /GITOPS
+
+<img src="https://cdn.prod.website-files.com/63c8f7191194d2a0cf4f630e/67951e7770966bf72c93aa96_Screenshot%202025-01-25%20at%2018.25.04.png" alt="Alt Text" width="500"/>
+
+- modern way to do **Continuous Deployment**, using **Git as the single source of truth** for infra and apps
+
+---
+
+### 🔄 /GITOPS
+
+- 📜 **Declarative Infrastructure** — everything is defined in YAML
+- 🔗 **Git as the Source of Truth** — no more config drift
+- 🤖 **Automated Sync** — tools like Argo CD & Flux keep clusters aligned
+- 🕵️ **Audit & Rollback** — powered by Git history and versioning
+
+> 🚀 **Git push = production change**, with full visibility and control
+---
+
+### 🛠️ /GitOps Tools
+
+- **Flux** or **Argo CD** for automated syncing
+- **Kustomize** or **Helm** for templating
+- **Git** for storing desired state
+
+🧠 Changes in Git → Automatically applied to clusters
+
+---
+
+### /Quick Poll
+
+> 🔄 What’s your **go-to GitOps tool** for managing Kubernetes and infrastructure?
+
+- 🚀 **Argo CD** — Declarative, visual, Git-native deployments
+- 🌀 **Flux** — GitOps toolkit built for flexibility and composability
+- 🔧 **Jenkins X**, **Fleet**, or other custom GitOps solutions
+- ❓ Still exploring — curious what all the hype is about?
+
+
+---
+
+### /IDP
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/idps.png" alt="Alt Text" width="700"/>
+
+( - Amazon Web Services)
+
+---
+
+### /IDP
+
+Why it is a good idea to build an **Internal Developer Platform Portal**:
+
+- 🧩 **A centralized UI for developers**
+- 🤖 **A self-service layer over infrastructure**
+- 🚀🛡️ **A tool to accelerate delivery with guardrails**
+
+<br>
+<br>
+<br>
+<br>
+
+> Think: “PaaS built by your platform team”
+
+---
+
+### 🚀 DORA Metrics
+
+DORA (DevOps Research and Assessment) metrics measure software delivery performance:
+
+- **Deployment Frequency**
+- **Lead Time for Changes**
+- **Change Failure Rate**
+- **Mean Time to Recovery (MTTR)**
+
+---
+
+# 📈 IDPs Make DORA Metrics Actionable
+
+| Metric | How an IDP Helps |
+|--------|------------------|
+| 📦 Deployment Frequency | Self-service deploys, GitOps integration |
+| ⏱️ Lead Time for Changes | Track from commit → production |
+| ❌ Change Failure Rate | Show failed rollouts, incident links |
+| 🛠️ MTTR | Connect services to runbooks, SLOs, and ownership |
+
+---
+
+### ⚙️ /Core Features
+
+<img src="https://pradeepl.com/blog/internal-developer-portals-spotify-backstage/images/Backstage-Templates.png" alt="Alt Text" width="1000"/>
+
+- 🛠️ Self-service deployment & environment provisioning
+- 🔍 Visibility into logs, metrics, and deployments
+- 🚦 Policy enforcement (e.g. security, cost, compliance)
+- 📦 Template catalogs for fast onboarding
+
+---
+
+### 🚀 /Key IDP Benefits
+
+➡️ **Developers Focus on Code, Not Infrastructure**
+
+- ⚡️ **Focus on shipping features faster**
+  → *"From idea to production in minutes, not days"*
+
+- 🧠 **Focus purely on business logic**
+  → *"No more YAML archaeology or cloud config headaches"*
+
+- 🎓 **Self-service resources**
+  *"Provision full dev environment with single click"*
+
+- 🧩 **Clear ownership boundaries**
+  → *"Devs own code, Platform owns infrastructure"*
+
+---
+### 📈 /Measuring Adoption
+
+> Adoption shows whether developers trust, use, and benefit from the platform
+
+- 🔁 **DAU/WAU/MAU**: Daily / Weekly / Monthly active users
+- 🚀 **Self-service actions**: Number of created services, environments, deployments
+- 🔍 **Time to First Deploy (TTFD)**: How fast a dev goes from repo to running app
+- 💬 **Feedback loops**: Surveys, interviews, support tickets
+
+---
+
+### /Quick Poll #1
+
+> 🎯 Have you ever worked with an **Internal Developer Portal (IDP)**?
+
+- 🎭 **Yes, with Backstage** — love the plugin ecosystem!
+- 🧱 **Yes, with another tool** — like Port, Cortex, or OpsLevel
+- 🛠️ **We built our own custom IDP** — DIY all the way
+- 🧩 **Heard of IDPs, but not used one yet**
+- 🤷 **What’s an IDP?** — sounds fancy! -->
+
+---
+
+> ### /Quick Poll #2
+>
+> Why is it beneficial to build an Internal Developer Platform Portal?
+>
+> - 👨‍💻 To centralize developer UI and accelerate delivery
+> - ⚙️ To make infrastructure more complex
+> - ⏳ To increase onboarding time
+
+---
+
+> ### /Quick Poll #3
+>
+> Which core IDP feature helps developers deploy and provision environments on their own?
+>
+> - 🔍 Visibility into logs and metrics
+> - 🛠️ Self-service deployment & environment provisioning
+> - 🚦 Policy enforcement
+
+
+---
+
+# DevOps
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-loop.png" alt="Alt Text" width="700"/>
+
+---
+
+
+### / DevOps --> IDP
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
+
 
 ---
 
 ### /IDP
 #### /PLAN
 
-**Projektplanung (Jira, Confluence, GitHub Projects)**
+**Project planning (Jira, Confluence, GitHub Projects)**
 
-- **Scorecards / Qualität-Metriken:**
-  - Früh zeigen, wie reif bzw. „production-ready“ ein Service oder Modul ist – z. B. technischer Zustand, Wartbarkeit, Sicherheit.
-- **Software / Service Katalog:**
-  - Abbild aller verfügbaren Services, Bibliotheken, Infrastruktur­module inkl. Ownership, Zustand, Abhängigkeiten. Entwickler können früh sehen, was schon existiert
-- **Dokumentations-Hub:**
-  - Katalogisierung von Projekten, Teams, Komponenten und Technologien
+- **Scorecards / quality metrics:**
+  - Show early on how mature or “production-ready” a service or module is – e.g., technical condition, maintainability, security.
+- **Software/service catalog:**
+  - Map of all available services, libraries, infrastructure modules, including ownership, status, dependencies. Developers can see early on what already exists.
+- **Documentation hub:**
+  - Cataloging of projects, teams, components, and technologies.
 
 ---
 
 ### /IDP
 #### /CODE
 
-**Versionskontrolle (GitHub / GitLab, IDEs)**
+**Version control (GitHub/GitLab, IDEs)**
 
-- **Governance & Policies eingebettet:**
-  - Sicherheits- und Architektur-Vorgaben automatisch bei Projekt-Erstellung sichtbar bzw. durchgesetzt.
-- **Integration mit Versionsverwaltung/CI Tools:**
-  - Das Portal zeigt z. B. Builds, Pull Requests, Test-Status, so dass Entwicklung in den Überblick integriert ist.
-- **Self-service Aktionen /Scaffolding:**
-  - vordefinierten Templates (Golden Paths) und Automatisierungen
+- **Embedded governance and policies:**
+  - Security and architecture requirements are automatically visible and enforced when a project is created.
+- **Integration with version control/CI tools:**
+  - The portal displays builds, pull requests, test status, etc., so that development is integrated into the overview.
+- **Self-service actions/scaffolding:**
+  - Predefined templates (Golden Paths) and automations
 
 ---
 
@@ -523,10 +550,18 @@ Example Scenarios: Marketing works with platform builders to introduce consisten
 
 **CI/CD Pipeline (GitLab CI, GitHub Actions)**
 
-- **Automatisierte Workflows / Golden Paths:**
-  - Standardisierte Build-Pipelines als Teil eines Self-service-Workflows im Portal.
-- **Integrationen mit Build/CI-Systemen:**
-  - Portal kann Build-Ergebnisse/Status visualisieren, macht Builds transparent.
+- **Automated workflows / Golden Paths:**
+  - Standardized build pipelines as part of a self-service workflow in the portal.
+- **Integrations with build/CI systems:**
+  - Portal can visualize build results/status, making builds transparent.
+
+
+---
+
+### /IDP
+#### /BUILD
+
+**CI/CD Pipeline (GitLab CI, GitHub Actions)**
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="700"/>
 
@@ -535,12 +570,12 @@ Example Scenarios: Marketing works with platform builders to introduce consisten
 ### /IDP
 #### /TEST
 
-**Automatisiertes Testen (JUnit, Selenium)**
+**Automated testing (JUnit, Selenium)**
 
-- **Dashboard / Integrationen mit Test-Tools:**
-  - Testergebnisse, Qualität im Kontext von Services sichtbar gemacht.
-- **Scorecards / Qualitätsmetriken:**
-  - Portal zeigt Test-Coverage, Sicherheitslücken, Wartbarkeit – Entwicklung sieht früh, ob Qualität stimmt.
+- **Dashboard/integrations with testing tools:**
+  - Test results and quality made visible in the context of services.
+- **Scorecards/quality metrics:**
+  - Portal shows test coverage, security gaps, maintainability—development can see early on whether quality is up to standard.
 
 ---
 
@@ -549,8 +584,8 @@ Example Scenarios: Marketing works with platform builders to introduce consisten
 
 **Release-Management Tools (Spinnaker, Octopus Deploy)**
 
-- **Workflows / Automatisierung:**
-  - Automatisierte Genehmigungen, Rollbacks, Canary-Releases integriert im Portal.
+- **Workflows / Automation:**
+  - Automated approvals, rollbacks, and canary releases integrated into the portal.
 
 ---
 
@@ -559,32 +594,32 @@ Example Scenarios: Marketing works with platform builders to introduce consisten
 
 **Deployment Automation (Terraform, Ansible, Helm, ArgoCD)**
 
-- **Self Service Deployment:**
-  - Deployment Triggern, Umgebungen bereitstellen
-- **Deployment Katalog:**
-  - Katalog & Ownership: Services, die deployt werden, im Katalog mit Verantwortlichen, sodass Deployment klar zugeordnet ist.
+- **Self-service deployment:**
+  - Triggering deployment, provisioning environments
+- **Deployment catalog:**
+  - Catalog & ownership: Services that are deployed are listed in the catalog with the responsible parties so that deployment is clearly assigned.
 
 ---
 
 ### /IDP
 #### /OPERATE
 
-**Konfigurationsmanagement (Chef, Puppet)**
+**Configuration management (Chef, Puppet)**
 
-- **Scorecards / Service-Reifegrade:**
-  - Laufende Bewertung eines Services im Betrieb – z. B. Stabilität, MTTR, Kosten.
-- **Governance, Compliance, FinOps:**
-  - Zugriffskontrolle, Audit Trails, Kostenübersicht – Betrieb unter Einhaltung von Vorgaben.
+- **Scorecards / service maturity levels:**
+  - Ongoing evaluation of a service in operation – e.g., stability, MTTR, costs.
+- **Governance, compliance, FinOps:**
+  - Access control, audit trails, cost overview – operation in compliance with specifications.
 
 ---
 
 ### /IDP
 #### /MONITOR
 
-**Monitoring-Tools (Prometheus, ELK)**
+**Monitoring tools (Prometheus, ELK)**
 
-- **Statusüberwachung:**
-  - Integrationen mit Observability/Monitoring-Tools: Logs, Metriken, Traces in Portal gebündelt dargestellt.
+- **Status monitoring:**
+  - Integrations with observability/monitoring tools: logs, metrics, traces displayed together in the portal.
 
 ---
 

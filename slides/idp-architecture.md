@@ -1,4 +1,4 @@
-# Backstage Platform Architecture — Evolution & Maturity Model
+## Backstage Platform Architecture — Evolution & Maturity Model
 
 ---
 
@@ -91,9 +91,9 @@ Kafka / NATS]
 
 ---
 
-## 3. Architecture Evolution — Phase 1
+### 3. Architecture Evolution — Phase 1
 
-### Initial Adoption
+#### Initial Adoption
 
 **Characteristics**
 
@@ -114,9 +114,9 @@ Kafka / NATS]
 
 ---
 
-## 4. Architecture Evolution — Phase 2
+### 4. Architecture Evolution — Phase 2
 
-### Controlled Self-Service
+#### Controlled Self-Service
 
 **Characteristics**
 
@@ -137,9 +137,9 @@ Kafka / NATS]
 
 ---
 
-## 5. Architecture Evolution — Phase 3
+### 5. Architecture Evolution — Phase 3
 
-### Policy-Driven Platform
+#### Policy-Driven Platform
 
 **Characteristics**
 
@@ -160,9 +160,9 @@ Kafka / NATS]
 
 ---
 
-## 6. Architecture Evolution — Phase 4
+### 6. Architecture Evolution — Phase 4
 
-### Platform at Scale
+#### Platform at Scale
 
 **Characteristics**
 
@@ -198,9 +198,9 @@ Kafka / NATS]
 
 ## 8. Anti-Patterns — Control Plane
 
-❌ Backstage triggers infra changes directly
-❌ Business logic embedded in plugins
-❌ No approval or policy checks
+❌ Backstage triggers infra changes directly <br>
+❌ Business logic embedded in plugins <br>
+❌ No approval or policy checks <br>
 
 ✅ Backstage orchestrates, never executes
 
@@ -208,9 +208,9 @@ Kafka / NATS]
 
 ## 9. Anti-Patterns — Identity & Policy
 
-❌ Hardcoded permissions
-❌ Tool-specific RBAC only
-❌ No audit trail
+❌ Hardcoded permissions <br>
+❌ Tool-specific RBAC only <br>
+❌ No audit trail <br>
 
 ✅ Central identity + policy as code
 
@@ -218,9 +218,9 @@ Kafka / NATS]
 
 ## 10. Anti-Patterns — Eventing
 
-❌ Synchronous long-running tasks
-❌ Plugins blocking the backend
-❌ Tight coupling between tools
+❌ Synchronous long-running tasks <br>
+❌ Plugins blocking the backend <br>
+❌ Tight coupling between tools <br>
 
 ✅ Async, event-driven workflows
 
@@ -228,9 +228,9 @@ Kafka / NATS]
 
 ## 11. Anti-Patterns — Observability
 
-❌ No metrics for plugins
-❌ Logs only at infrastructure level
-❌ No SLOs
+❌ No metrics for plugins <br>
+❌ Logs only at infrastructure level <br>
+❌ No SLOs <br>
 
 ✅ Full-stack observability
 
@@ -238,9 +238,9 @@ Kafka / NATS]
 
 ## 12. Anti-Patterns — Secrets
 
-❌ Secrets in Git
-❌ Secrets passing through Backstage
-❌ No rotation
+❌ Secrets in Git <br>
+❌ Secrets passing through Backstage <br>
+❌ No rotation <br>
 
 ✅ Runtime-only secret injection
 
@@ -248,25 +248,50 @@ Kafka / NATS]
 
 ## 13. Anti-Patterns — Catalog Governance
 
-❌ No owners
-❌ Stale services
-❌ Unlimited growth
-
+❌ No owners <br>
+❌ Stale services <br>
+❌ Unlimited growth <br>
+ 
 ✅ Ownership, lifecycle & validation
 
 ---
 
 ## 14. Anti-Patterns — FinOps
 
-❌ Cost visibility outside platform
-❌ No quotas or budgets
-❌ No accountability
+❌ Cost visibility outside platform <br>
+❌ No quotas or budgets <br>
+❌ No accountability <br>
 
 ✅ Cost tied to ownership & metadata
 
 ---
 
-## 15. Key Takeaways
+## 15. LESSONS LEARNED
+
+- **Provide Templates for Documentation**
+  - Ensure consistent documentation and clear documentation structures
+  - Reduce effort for developers and faster documentation creation
+  - Increase completeness and clarity
+- **Support Linting**
+  - Increase the quality
+  - Catch errors early
+  - Provide a reusable jobs for CI/CD
+  - Provide documentation
+- **Provide Silver Path**
+
+
+---
+
+## 16. Helpul Questions
+
+- Can you reduce feedback loops? (pair /peer programming)
+- Where is cognitive load highest?
+- Which teams need support?
+- What would great DX look like?
+
+---
+
+## 17. Key Takeaways
 
 * Backstage is a **control plane**, not a workflow engine
 * Policies, events, and observability are mandatory at scale
@@ -275,7 +300,7 @@ Kafka / NATS]
 
 ---
 
-## 16. Final Message
+## 18. Final Message
 
 **A successful internal developer platform is:
 Self-service by default, governed by design, and observable end-to-end.**
