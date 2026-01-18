@@ -591,5 +591,188 @@ repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
 
 ---
 
+---
+title: TechDocs in Backstage
+theme: black
+revealOptions:
+  transition: slide
+  controls: true
+  progress: true
+  center: true
+  hash: true
+---
+
+# TechDocs in Backstage
+
+### Beautiful Documentation for Your Infrastructure
+
+---
+
+## How It Works
+
+When a user creates a new repository using this template...
+
+---
+
+### Step 1
+
+## Backstage Generates the Repo
+
+📦 All documentation is included automatically
+
+---
+
+### Step 2
+
+## TechDocs Annotation
+
+```yaml
+annotations:
+  backstage.io/techdocs-ref: dir:.
+```
+
+Tells Backstage where to find docs
+
+---
+
+### Step 3
+
+## MkDocs Builds & Renders
+
+🔨 Backstage's TechDocs plugin processes the MkDocs site
+
+---
+
+### Step 4
+
+## Users See the "Docs" Tab
+
+📚 Beautiful documentation right in Backstage!
+
+---
+
+## Viewing TechDocs in Backstage
+
+---
+
+### 1️⃣ Create a Repo
+
+Use the template in Backstage to scaffold your project
+
+---
+
+### 2️⃣ Navigate to Component
+
+Find your component in the Backstage catalog
+
+---
+
+### 3️⃣ Click "Docs" Tab
+
+✨ The beautiful documentation renders there!
+
+---
+
+## TechDocs Build Modes
+
+---
+
+### Local Mode
+
+| | |
+|---|---|
+| **Mode** | `local` |
+| **How** | Backstage builds docs on-demand |
+| **Best for** | Development, small teams |
+
+---
+
+### External Mode
+
+| | |
+|---|---|
+| **Mode** | `external` |
+| **How** | CI/CD builds & publishes to storage |
+| **Best for** | Production, large teams |
+
+---
+
+## External Mode Setup
+
+Add to your `.gitlab-ci.yml`:
+
+```yaml
+build-docs:
+  image: spotify/techdocs
+  script:
+    - techdocs-cli generate --no-docker
+    - techdocs-cli publish \
+        --publisher-type awsS3 \
+        --storage-name $BUCKET
+```
+
+---
+
+## Preview Locally
+
+---
+
+### Install TechDocs CLI
+
+```bash
+npm install -g @techdocs/cli
+```
+
+---
+
+### Generate & Serve
+
+```bash
+cd template
+techdocs-cli serve
+```
+
+---
+
+### View Preview
+
+🌐 Opens at `http://localhost:3000`
+
+---
+
+## Documentation Structure
+
+```
+docs/
+├── index.md
+├── getting-started/
+├── architecture/
+├── operations/
+├── development/
+└── reference/
+```
+
+---
+
+## What's Included
+
+- 📖 **14 documentation pages**
+- 📊 **Mermaid diagrams**
+- 🎨 **Material theme**
+- 🔧 **Provider-specific content**
+
+---
+
+## Questions?
+
+### Happy Documenting! 📚
+
+---
+
+## Resources
+
+- [Backstage TechDocs](https://backstage.io/docs/features/techdocs/)
+- [MkDocs](https://www.mkdocs.org/)
+- [TechDocs CLI](https://github.com/backstage/techdocs-cli)
 
 
