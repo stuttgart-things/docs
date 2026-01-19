@@ -389,6 +389,12 @@
 
 ### /IDP
 
+<img src="https://artifacts-console.demo-infra.sthings-vsphere.labul.sva.de/browser/images/abstraction.jpeg" alt="Alt Text" width="700"/>
+
+---
+
+### /IDP
+
 Why it is a good idea to build an **Internal Developer Platform Portal**:
 
 - 🧩 **A centralized UI for developers**
