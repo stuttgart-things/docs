@@ -59,9 +59,40 @@
 
 <img src="https://pbs.twimg.com/media/FnabgQxXwAEDZz6.jpg" alt="Alt Text" width="400"/>
 
-- Platform Engineering is about building **self-service platforms** that abstract complexity.
-- Empower developers to ship faster
-- Remove infrastructure worries from developers' day-to-day
+| Principle | Description |
+|-----------|-------------|
+| 🧰 **Self-Service Platforms** | Abstract complexity behind easy-to-use interfaces |
+| 🚀 **Developer Velocity** | Empower teams to ship faster with less friction |
+| 🎯 **Focus on Value** | Remove infrastructure worries from day-to-day work |
+| 🔄 **Standardization** | Consistent tooling, patterns, and best practices |
+
+---
+
+### 🏗️ Platform Engineering: The Shift
+
+| Traditional DevOps | Platform Engineering |
+|--------------------|----------------------|
+| 🎫 Ticket-based requests | 🛒 Self-service portal |
+| 🔧 Manual provisioning | ⚡ Automated workflows |
+| 📚 Tribal knowledge | 📖 Documented golden paths |
+| 🏃 Reactive support | 🎯 Proactive enablement |
+| 👤 Individual expertise | 🧩 Productized capabilities |
+
+> **"You build it, you run it"** → **"You build it, we help you run it better"**
+
+---
+
+### 🏗️ Platform Team Responsibilities
+
+| Area | What They Do |
+|------|--------------|
+| 🛠️ **Toolchain** | Build and maintain CI/CD, IaC, and observability stack |
+| 📋 **Templates** | Create golden paths, starter kits, and scaffolding |
+| 🔐 **Guardrails** | Implement security, compliance, and cost policies |
+| 📊 **Metrics** | Track DORA, adoption, and developer satisfaction |
+| 🤝 **Enablement** | Documentation, training, and developer support |
+
+> Platform teams are **product teams** — developers are their customers
 
 ---
 
