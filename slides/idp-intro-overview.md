@@ -6,6 +6,55 @@
 
 ---
 
+### /MULTICLOUD
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/multicloud.jpeg" alt="Alt Text" width="700"/>
+
+- ☁️ Balance cost, performance & availability
+- 🎛️ Unified control plane across clouds
+- 📡 Cloud-agnostic CI/CD and GitOps
+
+---
+
+### 🔄 /GITOPS
+
+<img src="https://cdn.prod.website-files.com/63c8f7191194d2a0cf4f630e/67951e7770966bf72c93aa96_Screenshot%202025-01-25%20at%2018.25.04.png" alt="Alt Text" width="500"/>
+
+- modern way to do **Continuous Deployment**, using **Git as the single source of truth** for infra and apps
+
+---
+
+### 🔄 /GITOPS
+
+- 📜 **Declarative Infrastructure** — everything is defined in YAML
+- 🔗 **Git as the Source of Truth** — no more config drift
+- 🤖 **Automated Sync** — tools like Argo CD & Flux keep clusters aligned
+- 🕵️ **Audit & Rollback** — powered by Git history and versioning
+
+> 🚀 **Git push = production change**, with full visibility and control
+---
+
+<!-- ### 🛠️ /GitOps Tools
+
+- **Flux** or **Argo CD** for automated syncing
+- **Kustomize** or **Helm** for templating
+- **Git** for storing desired state
+
+🧠 Changes in Git → Automatically applied to clusters -->
+
+---
+
+### /Quick Poll
+
+> 🔄 What’s your **go-to GitOps tool** for managing Kubernetes and infrastructure?
+
+- 🚀 **Argo CD** — Declarative, visual, Git-native deployments
+- 🌀 **Flux** — GitOps toolkit built for flexibility and composability
+- 🔧 **Jenkins X**, **Fleet**, or other custom GitOps solutions
+- ❓ Still exploring — curious what all the hype is about?
+
+---
+
 ### 🏗️ Platform Engineering
 
 <img src="https://pbs.twimg.com/media/FnabgQxXwAEDZz6.jpg" alt="Alt Text" width="400"/>
@@ -26,7 +75,7 @@
 
 ### When to Invest in Platform Engineering
 
-<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/>
+<!-- <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/> -->
 
 | Signal | Description |
 |--------|-------------|
@@ -61,30 +110,38 @@
 
 ---
 
-### Golden Paths Motivation
+### Why Golden Paths?
 
-- Golden Paths help reduce the number of topics and prevent developers from being confronted with everything at once (Cognitive Load Theory)
-- Exchange increases knowledge and awareness - in all directions
-- Features are more important
-- Tools must be perceived as helpful
-- Lack of interest/relevance → Self-efficacy
+| Principle | Benefit |
+|-----------|---------|
+| 🧠 Reduce Cognitive Load | Don't overwhelm devs — focus on what matters |
+| 🎯 Features over Tooling | Let developers ship, not configure |
+| 🤝 Knowledge Sharing | Best practices flow in all directions |
+| ✅ Perceived Value | Tools must feel helpful, not imposed |
 
-**Love your Developers, not your Tools.**
+> **"Love your Developers, not your Tools."**
 
 ---
 
-### GOLDEN PATH CHECKLIST
+### Golden Path Checklist: Build
 
 | Step | Action |
 |------|--------|
-| 🚀 Service Types | Identify 1–3 common service types (web service, job, library) |
-| 🧩 Templates | Create a minimal, documented pipeline template for each type |
-| 📦 Scaffolding | Provide scaffolding + repo template (CLI or GitHub template) |
-| ⚙️ Onboarding | Automate onboarding (one command to get dev environment + run tests) |
-| 📊 Observability | Provide defaults (metrics, alerting, tracing) baked into templates |
-| 🛡️ Security | Add security & compliance hooks (SAST, secrets scanning) as default steps |
-| 🔧 Flexibility | Offer escape hatches and extension points (custom steps, opt-out) |
-| 📈 Measure | Track time-to-first-deploy, infra ticket volume, pipeline failure rate, dev satisfaction |
+| 🚀 Service Types | Identify 1–3 common types (web service, job, library) |
+| 🧩 Templates | Create minimal, documented pipeline template per type |
+| 📦 Scaffolding | Provide repo template (CLI or GitHub template) |
+| ⚙️ Onboarding | One command → dev environment + run tests |
+
+---
+
+### Golden Path Checklist: Operate & Improve
+
+| Step | Action |
+|------|--------|
+| 📊 Observability | Bake in metrics, alerting, tracing by default |
+| 🛡️ Security | Add SAST, secrets scanning as default steps |
+| 🔧 Flexibility | Offer escape hatches and extension points |
+| 📈 Measure | Track TTFD, ticket volume, failure rate, dev satisfaction |
 
 ---
 
@@ -99,13 +156,15 @@
 
 --- -->
 
-### METRICS TO TRACK
+### Metrics to Track
 
-- DORA metrics: Deployment Frequency, Lead Time for Changes, MTTR, Change Failure Rate
-- Time to first green build / Time to first deploy for new devs
-- Number of infra/platform tickets per sprint (support load)
-- Developer satisfaction / NPS for platform (qualitative)
-- Cost metrics: infra cost per service, CI minutes saved, engineer hours saved
+| Category | Metrics |
+|----------|---------|
+| 🚀 DORA | Deployment Frequency, Lead Time, MTTR, Change Failure Rate |
+| ⏱️ Onboarding | Time to first green build, Time to first deploy |
+| 🎫 Support Load | Infra/platform tickets per sprint |
+| 😊 Satisfaction | Developer NPS, platform feedback surveys |
+| 💰 Cost | Infra cost per service, CI minutes saved, engineer hours saved |
 
 ---
 <!--
@@ -115,13 +174,16 @@
 
 --- -->
 
-### Pitfalls
+### Pitfalls to Avoid
 
-- Building a “Golden Cage”: too rigid, blocks innovation
-- Over-engineering before real needs exist
-- Poor documentation / lack of support → low adoption
-- Start small, measure, iterate based on real usage
-- Treat platform as product: product manager + developer support rota
+| Pitfall | How to Prevent |
+|---------|----------------|
+| 🔒 "Golden Cage" | Don't be too rigid — allow escape hatches |
+| 🏗️ Over-engineering | Start with real needs, not hypothetical ones |
+| 📚 Poor Docs | No docs = no adoption — invest in onboarding |
+| 🎯 Big Bang | Start small, measure, iterate based on usage |
+
+> **Mindset shift:** Treat platform as a product — assign a PM + support rota
 
 ---
 
@@ -235,29 +297,61 @@
 
 ---
 
-### CNCF Platform Capabilities
+### CNCF Platform Capabilities: Developer Experience
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-capabilities.png" alt="Alt Text" width="1000"/>
-
----
-
-**CNCF Platform Maturity Model**
-
-**Level 1** - Build You have a baseline cloud native implementation in place and are in pre-production. Of importance, level one isn’t a lab or POC, you do have an implementation in place. It can be really hard to move from a build to operate stage.
-**Level 2** - Operate The cloud native foundation is established and you are moving to production.
-**Level 3** - Scale Your competency is growing and you are defining processes for scale.
-**Level 4** - Improve You are improving security, policy and governance across your environment.
-**Level 5** - Adapt You are revisiting decisions made earlier and monitoring applications and infrastructure for optimization.
-
-(https://maturitymodel.cncf.io/)
+| Capability | Description | CNCF/CDF Examples |
+|------------|-------------|-------------------|
+| 🌐 Web Portals | Publish docs, service catalogs, project templates, telemetry | Backstage, Skooner, Ortelius |
+| 🔌 APIs | Auto-create, update, delete, observe capabilities | Kubernetes, Crossplane, Helm, KubeVela |
+| 🛤️ Golden Paths | Templated code + capabilities for rapid dev | ArtifactHub |
+| 🔄 Build & Test | Automate build and test of products/services | Tekton, Jenkins, Buildpacks, ko, Carvel |
+| 🚀 Delivery | Automate and observe delivery of services | Argo, Flux, Keptn, Flagger, OpenFeature |
+| 💻 Dev Environments | Enable R&D of applications and systems | Devfile, Nocalhost, Telepresence, DevSpace |
+| 📊 Observability | Instrument, gather, analyze telemetry | OpenTelemetry, Jaeger, Prometheus, Grafana |
 
 ---
 
-**CNCF Platform Maturity Model**
+### CNCF Platform Capabilities: Infrastructure
+
+| Capability | Description | CNCF/CDF Examples |
+|------------|-------------|-------------------|
+| 🖥️ Infrastructure | Run code, connect components, persist data | Kubernetes, Kubevirt, Knative, Istio, Cilium, Envoy |
+| 🗄️ Data Services | Persist structured data for applications | TiKV, Vitess, SchemaHero |
+| 📨 Messaging | Enable async communication between apps | Strimzi, NATS, gRPC, Knative, Dapr |
+| 🔐 Identity & Secrets | Locators, secrets, service identity | Keycloak, Dex, External Secrets, SPIFFE/SPIRE, cert-manager |
+
+---
+
+### CNCF Platform Capabilities: Security & Storage
+
+| Capability | Description | CNCF/CDF Examples |
+|------------|-------------|-------------------|
+| 🛡️ Security | Runtime analysis, vulnerability scanning, policy enforcement | Falco, In-toto, KubeArmor, OPA, Kyverno, Cloud Custodian |
+| 📦 Artifact Storage | Store, publish, secure built artifacts | ArtifactHub, Harbor, Distribution, Porter |
+
+> Source: [CNCF Platforms Whitepaper](https://tag-app-delivery.cncf.io/whitepapers/platforms/)
+
+---
+
+### CNCF Platform Maturity Model
+
+| Level | Name | Focus |
+|-------|------|-------|
+| 1️⃣ | Build | Baseline cloud-native in pre-production (not a lab/POC) |
+| 2️⃣ | Operate | Foundation established, moving to production |
+| 3️⃣ | Scale | Growing competency, defining processes for scale |
+| 4️⃣ | Improve | Enhancing security, policy, and governance |
+| 5️⃣ | Adapt | Revisiting decisions, optimizing apps and infra |
+
+> Source: [CNCF Maturity Model](https://maturitymodel.cncf.io/)
+
+---
+
+### CNCF Platform Maturity Model
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cncf-maturity-model.png" alt="Alt Text" width="1000"/>
 
-(https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model)
+> Source: [CNCF Platform Engineering Maturity Model](https://tag-app-delivery.cncf.io/whitepapers/platform-eng-maturity-model)
 
 ---
 
@@ -292,55 +386,7 @@
 
 --- -->
 
-### /MULTICLOUD
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/multicloud.jpeg" alt="Alt Text" width="700"/>
-
-- ☁️ Balance cost, performance & availability
-- 🎛️ Unified control plane across clouds
-- 📡 Cloud-agnostic CI/CD and GitOps
-
----
-
-### 🔄 /GITOPS
-
-<img src="https://cdn.prod.website-files.com/63c8f7191194d2a0cf4f630e/67951e7770966bf72c93aa96_Screenshot%202025-01-25%20at%2018.25.04.png" alt="Alt Text" width="500"/>
-
-- modern way to do **Continuous Deployment**, using **Git as the single source of truth** for infra and apps
-
----
-
-### 🔄 /GITOPS
-
-- 📜 **Declarative Infrastructure** — everything is defined in YAML
-- 🔗 **Git as the Source of Truth** — no more config drift
-- 🤖 **Automated Sync** — tools like Argo CD & Flux keep clusters aligned
-- 🕵️ **Audit & Rollback** — powered by Git history and versioning
-
-> 🚀 **Git push = production change**, with full visibility and control
----
-
-<!-- ### 🛠️ /GitOps Tools
-
-- **Flux** or **Argo CD** for automated syncing
-- **Kustomize** or **Helm** for templating
-- **Git** for storing desired state
-
-🧠 Changes in Git → Automatically applied to clusters -->
-
----
-
-### /Quick Poll
-
-> 🔄 What’s your **go-to GitOps tool** for managing Kubernetes and infrastructure?
-
-- 🚀 **Argo CD** — Declarative, visual, Git-native deployments
-- 🌀 **Flux** — GitOps toolkit built for flexibility and composability
-- 🔧 **Jenkins X**, **Fleet**, or other custom GitOps solutions
-- ❓ Still exploring — curious what all the hype is about?
-
-
----
 
 <!-- ### /IDP
 
