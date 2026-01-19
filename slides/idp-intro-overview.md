@@ -41,8 +41,8 @@
 - **Git** for storing desired state
 
 🧠 Changes in Git → Automatically applied to clusters -->
-
----
+<!--
+--- -->
 
 ### /Quick Poll
 
@@ -83,6 +83,19 @@
 | 🔧 Infra Friction | Long onboarding, many infra tickets, inconsistent CI/CD |
 | 🔁 Duplication | Many similar services (microservices) with duplicated build/deploy logic |
 | 🛡️ Governance | Need for self-service and audited defaults (security, compliance) |
+
+---
+
+### Pitfalls to Avoid
+
+| Pitfall | How to Prevent |
+|---------|----------------|
+| 🔒 "Golden Cage" | Don't be too rigid — allow escape hatches |
+| 🏗️ Over-engineering | Start with real needs, not hypothetical ones |
+| 📚 Poor Docs | No docs = no adoption — invest in onboarding |
+| 🎯 Big Bang | Start small, measure, iterate based on usage |
+
+> **Mindset shift:** Treat platform as a product — assign a PM + support rota
 
 ---
 
@@ -156,17 +169,6 @@
 
 --- -->
 
-### Metrics to Track
-
-| Category | Metrics |
-|----------|---------|
-| 🚀 DORA | Deployment Frequency, Lead Time, MTTR, Change Failure Rate |
-| ⏱️ Onboarding | Time to first green build, Time to first deploy |
-| 🎫 Support Load | Infra/platform tickets per sprint |
-| 😊 Satisfaction | Developer NPS, platform feedback surveys |
-| 💰 Cost | Infra cost per service, CI minutes saved, engineer hours saved |
-
----
 <!--
 ### PITFALLS & ESCAPE-HATCHES
 
@@ -174,20 +176,8 @@
 
 --- -->
 
-### Pitfalls to Avoid
 
-| Pitfall | How to Prevent |
-|---------|----------------|
-| 🔒 "Golden Cage" | Don't be too rigid — allow escape hatches |
-| 🏗️ Over-engineering | Start with real needs, not hypothetical ones |
-| 📚 Poor Docs | No docs = no adoption — invest in onboarding |
-| 🎯 Big Bang | Start small, measure, iterate based on usage |
-
-> **Mindset shift:** Treat platform as a product — assign a PM + support rota
-
----
-
-## 🚀 What Are Golden Pipelines?
+<!-- ## 🚀 What Are Golden Pipelines?
 
 - Predefined, opinionated CI/CD workflows
 - Built by Platform or IDP teams
@@ -200,7 +190,7 @@
   - Compliance by default
   - Self-service for developers
 
----
+--- -->
 
 <!-- ## 🧱 Golden Pipelines in Practice
 
@@ -269,6 +259,16 @@
 - 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
 
 --- -->
+
+### /DEV-EX
+
+<img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fbeozmmi208ae3ye2dr3v.jpg" alt="Alt Text" width="500"/>
+
+- Developer Experience = creating an environment in which a developer can do their best work
+- Good DevEx = fewer frustrations and more productivity
+- leading to faster delivery and better software quality
+
+---
 
 ### Platform Capabilities: Developer Experience
 
@@ -368,15 +368,6 @@
 
 ---
 
-### /DEV-EX
-
-<img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fbeozmmi208ae3ye2dr3v.jpg" alt="Alt Text" width="500"/>
-
-- Developer Experience = creating an environment in which a developer can do their best work
-- Good DevEx = fewer frustrations and more productivity
-- leading to faster delivery and better software quality
-
----
 <!--
 ### /DEV-EX
 
@@ -616,6 +607,18 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 - **Status monitoring:**
   - Integrations with observability/monitoring tools: logs, metrics, traces displayed together in the portal.
+
+---
+
+### Metrics to Track
+
+| Category | Metrics |
+|----------|---------|
+| 🚀 DORA | Deployment Frequency, Lead Time, MTTR, Change Failure Rate |
+| ⏱️ Onboarding | Time to first green build, Time to first deploy |
+| 🎫 Support Load | Infra/platform tickets per sprint |
+| 😊 Satisfaction | Developer NPS, platform feedback surveys |
+| 💰 Cost | Infra cost per service, CI minutes saved, engineer hours saved |
 
 ---
 
