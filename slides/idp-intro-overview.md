@@ -1,6 +1,6 @@
-# Platform Foundations
+## Platform Foundations
 
-<img src="https://media.licdn.com/dms/image/v2/D4D22AQHolX5UwNFzPg/feedshare-shrink_800/B4DZTyTdDSG8Ag-/0/1739231974056?e=2147483647&v=beta&t=0V2HW-dJHygYyHMp4Kv-TbTgrue10vzZL2TYzzZmv_k" alt="Alt Text" width="400"/>
+<img src="https://media.licdn.com/dms/image/v2/D4D22AQHolX5UwNFzPg/feedshare-shrink_800/B4DZTyTdDSG8Ag-/0/1739231974056?e=2147483647&v=beta&t=0V2HW-dJHygYyHMp4Kv-TbTgrue10vzZL2TYzzZmv_k" alt="Alt Text" width="350"/>
 
 - Platform Engineering is an evolution of DevOps
 
@@ -16,55 +16,48 @@
 
 ---
 
-### 🏗️ Platform Engineering
+<!-- ### 🏗️ Platform Engineering
 
 "...  is the discipline of designing and building toolchains and workflows that enable **self-service** capabilities for software engineering organizations in the cloud-native era. Platform engineers provide an integrated product most often referred to as an “ **Internal Developer Platform**” covering the operational necessities of the entire lifecycle of an application."
 
 (- Humanitec)
 
----
+--- -->
 
-### Signals it’s worth investing
+### When to Invest in Platform Engineering
 
 <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/>
 
-- ~50 engineers OR rapid growth toward that number
-
-- Repeated infra friction: long onboarding, many infra tickets, inconsistent CI/CD
-
-- Many similar services (microservices) with duplicated build/deploy logic
-
-- Need for self-service and audited defaults (security, compliance)
+| Signal | Description |
+|--------|-------------|
+| 👥 Team Size | ~50 engineers OR rapid growth toward that number |
+| 🔧 Infra Friction | Long onboarding, many infra tickets, inconsistent CI/CD |
+| 🔁 Duplication | Many similar services (microservices) with duplicated build/deploy logic |
+| 🛡️ Governance | Need for self-service and audited defaults (security, compliance) |
 
 ---
 
-### WHEN TO INTRODUCE GOLDEN PATHS
+### When to Introduce Golden Paths
 
-<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When to introduce" width="700"/>
+| Signal | Description |
+|--------|-------------|
+| 👥 Team Scale | Multiple teams (≈10+) doing similar CI/CD work |
+| 🔧 Pipeline Pain | Repeated pipeline maintenance and breakage across teams |
+| ⏱️ Slow Onboarding | Onboarding takes weeks, not days |
+| 🧠 Cognitive Load | Desire to reduce complexity and increase platform ROI |
+| ⚠️ Too Early If | Every service is unique and experimentation speed matters more than consistency |
 
 ---
 
 ### WHAT ARE GOLDEN PATHS
 
-<img src="https://miro.medium.com/v2/resize:fit:1200/0*BEkTUO3XM3kaQFUl" alt="When to introduce" width="450"/>
+<!-- <img src="https://miro.medium.com/v2/resize:fit:1200/0*BEkTUO3XM3kaQFUl" alt="When to introduce" width="450"/> -->
 
-- Opinionated, well-documented, supported end-to-end workflows teams are encouraged to use
-- Examples: standardized CI/CD pipeline templates, service scaffolding, infra provisioning blueprints
-- Goal: let teams ship safely and fast using trusted defaults, keep flexibility via “escape hatches”
-
----
-
-### Good time to start:
-
-- Multiple teams (≈10+) doing similar CI/CD work
-
-- Repeated pipeline maintenance and breakage across teams
-
-- Onboarding takes weeks, not days
-
-- Desire to reduce cognitive load and increase platform ROI
-
-- Too early if every service is unique and experimentation speed matters more than consistency
+| Aspect | Description |
+|--------|-------------|
+| 📋 Definition | Opinionated, well-documented, supported end-to-end workflows teams are encouraged to use |
+| 🧩 Examples | Standardized CI/CD pipeline templates, service scaffolding, infra provisioning blueprints |
+| 🎯 Goal | Let teams ship safely and fast using trusted defaults, keep flexibility via "escape hatches" |
 
 ---
 
@@ -81,29 +74,21 @@
 ---
 
 ### GOLDEN PATH CHECKLIST
-<img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Checklist" width="700"/>
+
+| Step | Action |
+|------|--------|
+| 🚀 Service Types | Identify 1–3 common service types (web service, job, library) |
+| 🧩 Templates | Create a minimal, documented pipeline template for each type |
+| 📦 Scaffolding | Provide scaffolding + repo template (CLI or GitHub template) |
+| ⚙️ Onboarding | Automate onboarding (one command to get dev environment + run tests) |
+| 📊 Observability | Provide defaults (metrics, alerting, tracing) baked into templates |
+| 🛡️ Security | Add security & compliance hooks (SAST, secrets scanning) as default steps |
+| 🔧 Flexibility | Offer escape hatches and extension points (custom steps, opt-out) |
+| 📈 Measure | Track time-to-first-deploy, infra ticket volume, pipeline failure rate, dev satisfaction |
 
 ---
 
-### GOLDEN PATH CHECKLIST
-
-- 🚀 Identify 1–3 common service types (web service, job, library)
-- 🧩 Create a minimal, documented pipeline template for each type
-- 📦 Provide scaffolding + repo template (CLI or GitHub template)
-- ⚙️ Automate onboarding (one command to get dev environment + run tests)
-
----
-
-### GOLDEN PATH CHECKLIST
-
-- 📊 Provide observability & defaults (metrics, alerting, tracing) baked into templates
-- 🛡️ Add security & compliance hooks (SAST, secrets scanning) as default steps
-- 🔧 Offer escape hatches and extension points (custom steps, opt-out)
-- 📈 Measure: time-to-first-deploy, infra ticket volume, pipeline failure rate, dev satisfaction
-
----
-
-### PILOT PLAN (3–6 WEEKS)
+<!-- ### PILOT PLAN (3–6 WEEKS)
 
 - Pick 1 service type + 1 friendly team (pilot).
 - Build a minimal Golden Path: repo template, CI pipeline, infra blueprint.
@@ -112,7 +97,7 @@
 - Iterate for 2 sprints, collect feedback, add escape hatches.
 - If successful, expand to 3–5 teams and formalize templates.
 
----
+--- -->
 
 ### METRICS TO TRACK
 
@@ -123,12 +108,12 @@
 - Cost metrics: infra cost per service, CI minutes saved, engineer hours saved
 
 ---
-
+<!--
 ### PITFALLS & ESCAPE-HATCHES
 
 <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Pitfalls" width="700"/>
 
----
+--- -->
 
 ### Pitfalls
 
@@ -155,38 +140,38 @@
 
 ---
 
-## 🧱 Golden Pipelines in Practice
+<!-- ## 🧱 Golden Pipelines in Practice
 
 - **CI/CD:** Automate build, test, security, and deploy
 - **IDP:** Exposed as templates or starter kits
 - **Platform Engineering:** Encapsulate policies and tooling
 
 
----
+--- -->
 
-### Silver Path:
+### Silver Path
 
-- Usually understood as a less strictly standardized, alternative path that allows more freedom but offers less convenience and support
-- Paths that do not fully comply with the “blessed” Golden Path but are still within the scope of the platform
-- Users tend to use the IDP as a toolbox (Terraform modules, individual services) without adopting the full Golden Path workflow.
-- Often used as a transitional step until a new, suitable Golden Path is created or a special case can be standardized.
+> A flexible alternative to the Golden Path — more freedom, less hand-holding
 
----
-
-### Silver Path:
-
-**Typical characteristics:**
-- Reuses parts of the platform (e.g., only infrastructure modules or only logging), but not the complete Golden Path template.
-- Get less automatic onboarding, less end-to-end automation, and mostly “best effort” support instead of guaranteed support.
-
-Serves as a compromise for teams with special requirements: They don't have to go completely “off road,” but accept more responsibility (e.g., their own pipelines, their own runtime decisions).
+| Aspect | Golden Path | Silver Path |
+|--------|-------------|-------------|
+| 🛤️ Structure | Full end-to-end workflow | Pick & choose components |
+| 🤝 Support | Guaranteed, first-class | Best effort |
+| 🎛️ Flexibility | Opinionated defaults | Custom decisions allowed |
+| 👥 Use Case | Most teams | Special requirements |
 
 ---
 
-### Example Trail mix for the silver path
+### Silver Path Examples
 
-- Switching off compliance enforcement (should be finely granular)
-- Control adjustments to the reference (via CODEOWNERS and Pull Requests)
+| Example | Description |
+|---------|-------------|
+| 🧩 Partial Adoption | Use only Terraform modules or logging, skip full template |
+| 🔓 Compliance Opt-out | Disable specific policy checks (with approval) |
+| 🔀 Custom Pipeline | Own CI/CD with platform observability integration |
+| 📝 CODEOWNERS Override | Adjust reference configs via PR approval |
+
+> **Transition path**: Silver Path → Golden Path as needs stabilize
 
 ---
 
@@ -196,7 +181,7 @@ Serves as a compromise for teams with special requirements: They don't have to g
 
 ---
 
-### EXAMPLE TEAM/COMPANY SIZES
+<!-- ### EXAMPLE TEAM/COMPANY SIZES
 
 - **Small org ~50 devs** → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
 
@@ -206,9 +191,9 @@ Serves as a compromise for teams with special requirements: They don't have to g
 
 - **Typical benefits reported:** faster on-board, less duplicated work, measurable dev-hours saved
 
----
+--- -->
 
-### TEAM SIZING
+<!-- ### TEAM SIZING
 
 <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Team sizing" width="800"/>
 
@@ -221,45 +206,38 @@ Serves as a compromise for teams with special requirements: They don't have to g
 - 100–500 devs: 6–20 FTEs running IDP, pipelines, service catalog, observability
 - 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
 
----
+--- -->
 
-### Platform Capabilities
+### Platform Capabilities: Developer Experience
 
-Capability domains to consider when building platforms for cloud-native computing:
-
-- Web portals for observing and provisioning products and capabilities
-- APIs (and CLIs) for automatically provisioning products and capabilities
-- “Golden path” templates and docs enabling optimal use of capabilities in products
-- Automation for building and testing services and products
-- Automation for delivering and verifying services and products
-- Development environments such as hosted IDEs and remote connection tools
-- Observability for services and products using instrumentation and dashboards, including observation of functionality, performance and costs
-
-(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
+| Category | Capabilities |
+|----------|--------------|
+| 🌐 Portals & APIs | Web UI + CLI for provisioning and observing |
+| 🛤️ Golden Paths | Templates, docs, and workflows for fast onboarding |
+| 🔄 CI/CD | Automation for build, test, deliver, and verify |
+| 💻 Dev Environments | Hosted IDEs, remote dev tools |
+| 📊 Observability | Metrics, logs, traces, cost dashboards |
 
 ---
 
-### Platform Capabilities
+### Platform Capabilities: Infrastructure
 
-Capability domains to consider when building platforms for cloud-native computing:
+| Category | Examples |
+|----------|----------|
+| 🖥️ Compute & Network | Runtimes, programmable networks, storage |
+| 🗄️ Data Services | Databases, caches, object stores |
+| 📨 Messaging | Brokers, queues, event fabrics |
+| 🔐 Identity & Secrets | Auth, certificates, secret storage |
+| 🛡️ Security | SAST, runtime analysis, policy enforcement |
+| 📦 Artifacts | Container images, packages, source code |
 
-- Infrastructure services including compute runtimes, programmable networks, and block and volume storage
-- Data services including databases, caches, and object stores
-- Messaging and event services including brokers, queues, and event fabrics
-- Identity and secret management services such as service and user identity and authorization, certificate and key issuance, and static secret storage
-- Security services including static analysis of code and artifacts, runtime analysis, and policy enforcement
-- Artifact storage including storage of container image and language-specific packages, custom binaries and libraries, and source code
-
-(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
+> Source: [CNCF Platforms Whitepaper](https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
 ---
 
-
-**CNCF PLATFORM CAPABILITIES**
+### CNCF Platform Capabilities
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-capabilities.png" alt="Alt Text" width="1000"/>
-
-(https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
 ---
 
@@ -283,21 +261,16 @@ Capability domains to consider when building platforms for cloud-native computin
 
 ---
 
-#### EXAMPLE: Investment
+### Platform Investment Maturity
 
-**Level 1, Provisional** — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support.
-Example: Improvements to a CI/CD considered only a ”side effort”
+| Level | Name | Characteristics | Example |
+|-------|------|-----------------|---------|
+| 1️⃣ | Provisional | Voluntary "tiger teams", short-lived, no long-term planning | CI/CD improvements as a "side effort" |
+| 2️⃣ | Operationalized | Dedicated generalist team, fills gaps across technologies | Central team reducing build times |
+| 3️⃣ | Scalable | Product mindset: PM, UX, roadmap, end-to-end testing | Decisions driven by platform usage metrics |
+| 4️⃣ | Optimizing | Enabled ecosystem, specialists extend the platform | Marketing integrates user tracking via platform |
 
-**Level 2, Operationalized** — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap
-Example: Central team tasked with reducing the build time of applications
-
-**Level 3, Scalable** — As product Characteristics staff includes product management and UX Designer has a roadmap features are tested end-to-end
-Example: Data derived from platform usage metrics is used to make informed decisions
-
-**Level 4, Optimizing** — Enabled ecosystem Characteristics priority to enable specialists to extend the platform centralized specialists act through the platform
-Example: Marketing works with platform builders to introduce consistent user tracking in order to attribute marketing efforts to product outcomes
-
-(https://maturitymodel.cncf.io/)
+> Source: [CNCF Maturity Model](https://maturitymodel.cncf.io/)
 
 ---
 
@@ -310,16 +283,14 @@ Example: Marketing works with platform builders to introduce consistent user tra
 - leading to faster delivery and better software quality
 
 ---
-
+<!--
 ### /DEV-EX
 
 “A means for capturing how developers think and feel about their activities within their working environments.”
 
 (F. Fagerholm & J. Münch)
 
----
-
-
+--- -->
 
 ### /MULTICLOUD
 
@@ -349,13 +320,13 @@ Example: Marketing works with platform builders to introduce consistent user tra
 > 🚀 **Git push = production change**, with full visibility and control
 ---
 
-### 🛠️ /GitOps Tools
+<!-- ### 🛠️ /GitOps Tools
 
 - **Flux** or **Argo CD** for automated syncing
 - **Kustomize** or **Helm** for templating
 - **Git** for storing desired state
 
-🧠 Changes in Git → Automatically applied to clusters
+🧠 Changes in Git → Automatically applied to clusters -->
 
 ---
 
@@ -371,13 +342,13 @@ Example: Marketing works with platform builders to introduce consistent user tra
 
 ---
 
-### /IDP
+<!-- ### /IDP
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/idps.png" alt="Alt Text" width="700"/>
 
 ( - Amazon Web Services)
 
----
+--- -->
 
 ### /IDP
 
@@ -395,19 +366,21 @@ Why it is a good idea to build an **Internal Developer Platform Portal**:
 > Think: “PaaS built by your platform team”
 
 ---
-
+<!--
 ### 🚀 DORA Metrics
 
-DORA (DevOps Research and Assessment) metrics measure software delivery performance:
 
 - **Deployment Frequency**
 - **Lead Time for Changes**
 - **Change Failure Rate**
 - **Mean Time to Recovery (MTTR)**
 
----
+--- -->
 
 # 📈 IDPs Make DORA Metrics Actionable
+
+DORA (DevOps Research and Assessment) metrics measure software delivery performance:
+
 
 | Metric | How an IDP Helps |
 |--------|------------------|
@@ -504,7 +477,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /PLAN
 
 **Project planning (Jira, Confluence, GitHub Projects)**
@@ -518,7 +490,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /CODE
 
 **Version control (GitHub/GitLab, IDEs)**
@@ -532,7 +503,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /BUILD
 
 **CI/CD Pipeline (GitLab CI, GitHub Actions)**
@@ -542,10 +512,8 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 - **Integrations with build/CI systems:**
   - Portal can visualize build results/status, making builds transparent.
 
-
 ---
 
-### /IDP
 #### /BUILD
 
 **CI/CD Pipeline (GitLab CI, GitHub Actions)**
@@ -554,7 +522,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /TEST
 
 **Automated testing (JUnit, Selenium)**
@@ -566,7 +533,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /RELEASE
 
 **Release-Management Tools (Spinnaker, Octopus Deploy)**
@@ -576,7 +542,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /DEPLOY
 
 **Deployment Automation (Terraform, Ansible, Helm, ArgoCD)**
@@ -588,7 +553,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /OPERATE
 
 **Configuration management (Chef, Puppet)**
@@ -600,7 +564,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /IDP
 #### /MONITOR
 
 **Monitoring tools (Prometheus, ELK)**
@@ -610,7 +573,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-# /PORT
+<!-- # /PORT
 
 ---
 
@@ -703,7 +666,4 @@ Port centralizes this data — giving teams **clarity, ownership, and impact awa
 - ✔️ Scorecard completion
 - ✔️ Catalog contribution
 
-Use these to **measure value and improve platform fit**
-
-
-{{% /section %}}
+Use these to **measure value and improve platform fit** -->
