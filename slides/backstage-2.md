@@ -1,3 +1,72 @@
-# /BACKSTAGE PART II
+### /BACKSTAGE PART II
 
 ---
+
+### CI/CD GITLAB PIPELINES
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage7.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+---
+
+### CI/CD GITLAB PIPELINES
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gitlab-pipeline.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+- Detailed view of the Components GitLab Pipelines
+
+---
+### /KUBERNETES
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kubernetes.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+- Detailed view of Kubernetes Clusters
+
+
+---
+
+### /TECHDOCS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+---
+
+### /TECHDOCS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+- TechDocs View in Backstage
+
+---
+
+## Why Plugins Matter
+
+- Backstage is a **framework**, not a product
+- Plugins turn it into a real **Internal Developer Portal**
+- Good plugin choices:
+  - Improve developer experience
+  - Reduce cognitive load
+  - Enable self-service
+
+---
+
+### GitHub / GitLab Plugins 🧑‍💻
+
+- GitHub Actions / GitLab CI
+- Pull Requests
+- Repo insights
+
+**➡️ Pick what matches your SCM**
+
+---
+
+### CI/CD Plugins ⚙️
+
+- GitHub Actions
+- GitLab Pipelines
+- CircleCI
+- Argo / Flux (GitOps)
+
+**➡️ Visibility without leaving Backstage**
+
+
+### FRONTEND + BACKEND PLUGINS

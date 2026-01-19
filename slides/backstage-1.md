@@ -1,4 +1,4 @@
-# /BACKSTAGE PART I
+### /BACKSTAGE PART I
 
 ---
 
@@ -31,7 +31,7 @@
 ---
 
 
-### / GITLAB AUTHENTICATION
+### GITLAB AUTHENTICATION
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gl-auth.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
@@ -40,7 +40,7 @@
 
 ---
 
-<!-- ### / GITLAB USER CONFIG
+<!-- ### GITLAB USER CONFIG
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gl-user.png" alt="Alt Text" width="600" style="border: none; box-shadow: none;" />
 
@@ -49,7 +49,7 @@
 
 --- -->
 
-### / GITLAB USER CONFIG
+### GITLAB USER CONFIG
 
 <div style="display: flex; align-items: center; justify-content: center;">
 
@@ -66,7 +66,7 @@
 ---
 
 
-### / SOFTWARE CATALOG
+### SOFTWARE CATALOG
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage3.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -132,10 +132,10 @@
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/catlog.png" alt="Alt Text" width="7000" style="border: none; box-shadow: none;" />
 
---- -->
+---
 
 
-### / SOFTWARE TEMPLATES
+### SOFTWARE TEMPLATES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage4.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -147,12 +147,13 @@
 
 - see all available sw-templates
 
-
-### / SOFTWARE TEMPLATES
+---
+<!--
+### SOFTWARE TEMPLATES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage4.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
----
+--- -->
 
 ### /SOFTWARE TEMPLATE OVERVIEW
 
@@ -179,14 +180,14 @@
 
 ---
 
-### /NAMESPACE TEMPLATE
+<!-- ### /NAMESPACE TEMPLATE
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/ns-tpl.png" alt="Right Image" width="1200" style="border: none; box-shadow: none;"/>
 
 - Namespace Creation w/ Crossplane
 - Nunjucks is a templating language created by Mozilla
 
----
+--- -->
 
 ### /CATALOG TEMPLATE
 
@@ -204,13 +205,13 @@
 — allowing teams to review changes before merging
 
 ---
-
+<!--
 ### /Crossplane Lifecycle Process
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/xplane-process2.png" alt="Alt Text" width="400" style="border: none; box-shadow: none;" />
 
----
-
+--- -->
+<!--
 
 ### /SOFTWARE TEMPLATES
 
@@ -224,21 +225,21 @@
 
 - Kro will render a Kubernetes Deployment, Secret, Service, and PVC based on this claim
 
----
+--- -->
 
-### / SOFTWARE TEMPLATES
+<!-- ### SOFTWARE TEMPLATES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage5.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
 ---
 
-### / SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cust-tpl.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
 
 ---
 
-### / SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cust.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
 
@@ -288,42 +289,4 @@
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/customergroups3.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
-- Merge Request
-
----
-
-### CI/CD GITLAB PIPELINES
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage7.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
----
-
-### CI/CD GITLAB PIPELINES
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/gitlab-pipeline.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
-- Detailed view of the Components GitLab Pipelines
-
----
-### /KUBERNETES
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kubernetes.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
-- Detailed view of Kubernetes Clusters
-
-
----
-
-### /TECHDOCS
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
----
-
-### /TECHDOCS
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
-- TechDocs View in Backstage
-
----
+- Merge Request -->
