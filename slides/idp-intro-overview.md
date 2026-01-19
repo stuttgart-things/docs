@@ -1,17 +1,8 @@
-# /Platform Foundations
-
----
-
-#### /Platform Foundations
+# Platform Foundations
 
 <img src="https://media.licdn.com/dms/image/v2/D4D22AQHolX5UwNFzPg/feedshare-shrink_800/B4DZTyTdDSG8Ag-/0/1739231974056?e=2147483647&v=beta&t=0V2HW-dJHygYyHMp4Kv-TbTgrue10vzZL2TYzzZmv_k" alt="Alt Text" width="400"/>
 
 - Platform Engineering is an evolution of DevOps
-
-
----
-
-# /Platform-Engineering
 
 ---
 
@@ -33,12 +24,9 @@
 
 ---
 
-### WHEN PLATFORM ENGINEERING PAYS
-<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="700"/>
-
----
-
 ### Signals it’s worth investing
+
+<img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/>
 
 - ~50 engineers OR rapid growth toward that number
 
@@ -50,22 +38,9 @@
 
 ---
 
-### PLATFORM TEAMS
+### WHEN TO INTRODUCE GOLDEN PATHS
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="750"/>
-
-
----
-
-### EXAMPLE TEAM/COMPANY SIZES
-
-- **Small org ~50 devs** → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
-
-- **Mid-size ~200 devs** → platform team (6–10 FTE), centralized pipelines, service catalog, self-service infra
-
-- **Enterprise 1000+ devs** → larger platform org (20+ FTE), strong IDP, SLOs, cross-team platform product managers
-
-- **Typical benefits reported:** faster on-board, less duplicated work, measurable dev-hours saved
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When to introduce" width="700"/>
 
 ---
 
@@ -76,12 +51,6 @@
 - Opinionated, well-documented, supported end-to-end workflows teams are encouraged to use
 - Examples: standardized CI/CD pipeline templates, service scaffolding, infra provisioning blueprints
 - Goal: let teams ship safely and fast using trusted defaults, keep flexibility via “escape hatches”
-
----
-
-### WHEN TO INTRODUCE GOLDEN PATHS
-
-<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When to introduce" width="700"/>
 
 ---
 
@@ -221,6 +190,24 @@ Serves as a compromise for teams with special requirements: They don't have to g
 
 ---
 
+### PLATFORM TEAMS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="1200"/>
+
+---
+
+### EXAMPLE TEAM/COMPANY SIZES
+
+- **Small org ~50 devs** → small platform team (2–4 FTE) focusing on on-boarding & pipeline templates
+
+- **Mid-size ~200 devs** → platform team (6–10 FTE), centralized pipelines, service catalog, self-service infra
+
+- **Enterprise 1000+ devs** → larger platform org (20+ FTE), strong IDP, SLOs, cross-team platform product managers
+
+- **Typical benefits reported:** faster on-board, less duplicated work, measurable dev-hours saved
+
+---
+
 ### TEAM SIZING
 
 <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Team sizing" width="800"/>
@@ -298,10 +285,10 @@ Capability domains to consider when building platforms for cloud-native computin
 
 #### EXAMPLE: Investment
 
-**Level 1, Provisional** — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support. 
+**Level 1, Provisional** — Voluntary or temporary Characteristics “Hit” or “tiger” teams short lived and not assigned nor granted the time to provide long term planning and support.
 Example: Improvements to a CI/CD considered only a ”side effort”
 
-**Level 2, Operationalized** — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap 
+**Level 2, Operationalized** — Dedicated team Characteristics team is made up of generalists backlog ranges several technologies first to fill the gap
 Example: Central team tasked with reducing the build time of applications
 
 **Level 3, Scalable** — As product Characteristics staff includes product management and UX Designer has a roadmap features are tested end-to-end

@@ -774,5 +774,3 @@ docs/
 - [Backstage TechDocs](https://backstage.io/docs/features/techdocs/)
 - [MkDocs](https://www.mkdocs.org/)
 - [TechDocs CLI](https://github.com/backstage/techdocs-cli)
-
-

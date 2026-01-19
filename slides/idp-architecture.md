@@ -251,7 +251,7 @@ Kafka / NATS]
 ❌ No owners <br>
 ❌ Stale services <br>
 ❌ Unlimited growth <br>
- 
+
 ✅ Ownership, lifecycle & validation
 
 ---
