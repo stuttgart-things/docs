@@ -73,32 +73,6 @@
 
 --- -->
 
-### When to Invest in Platform Engineering
-
-<!-- <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/> -->
-
-| Signal | Description |
-|--------|-------------|
-| 👥 Team Size | ~50 engineers OR rapid growth toward that number |
-| 🔧 Infra Friction | Long onboarding, many infra tickets, inconsistent CI/CD |
-| 🔁 Duplication | Many similar services (microservices) with duplicated build/deploy logic |
-| 🛡️ Governance | Need for self-service and audited defaults (security, compliance) |
-
----
-
-### Pitfalls to Avoid
-
-| Pitfall | How to Prevent |
-|---------|----------------|
-| 🔒 "Golden Cage" | Don't be too rigid — allow escape hatches |
-| 🏗️ Over-engineering | Start with real needs, not hypothetical ones |
-| 📚 Poor Docs | No docs = no adoption — invest in onboarding |
-| 🎯 Big Bang | Start small, measure, iterate based on usage |
-
-> **Mindset shift:** Treat platform as a product — assign a PM + support rota
-
----
-
 ### When to Introduce Golden Paths
 
 | Signal | Description |
@@ -224,12 +198,6 @@
 | 📝 CODEOWNERS Override | Adjust reference configs via PR approval |
 
 > **Transition path**: Silver Path → Golden Path as needs stabilize
-
----
-
-### PLATFORM TEAMS
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="1200"/>
 
 ---
 

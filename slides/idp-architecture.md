@@ -2,7 +2,7 @@
 
 ---
 
-## 1. Architecture Vision
+## Architecture Vision
 
 **Backstage is not the platform — it is the control plane of the platform.**
 
@@ -15,7 +15,59 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ---
 
-## 2. Target Architecture Overview
+
+### When to Invest in Platform Engineering
+
+<!-- <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/> -->
+
+| Signal | Description |
+|--------|-------------|
+| 👥 Team Size | ~50 engineers OR rapid growth toward that number |
+| 🔧 Infra Friction | Long onboarding, many infra tickets, inconsistent CI/CD |
+| 🔁 Duplication | Many similar services (microservices) with duplicated build/deploy logic |
+| 🛡️ Governance | Need for self-service and audited defaults (security, compliance) |
+
+---
+
+### Pitfalls to Avoid
+
+| Pitfall | How to Prevent |
+|---------|----------------|
+| 🔒 "Golden Cage" | Don't be too rigid — allow escape hatches |
+| 🏗️ Over-engineering | Start with real needs, not hypothetical ones |
+| 📚 Poor Docs | No docs = no adoption — invest in onboarding |
+| 🎯 Big Bang | Start small, measure, iterate based on usage |
+
+> **Mindset shift:** Treat platform as a product — assign a PM + support rota
+
+---
+
+### PLATFORM TEAMS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="1200"/>
+
+---
+
+### TEAM SIZING
+
+- < 30 devs: No dedicated platform org usually — 1–2 infra/DevOps engineers embedded in teams
+- ~30–100 devs: 2–6 people focused on platform features + templates (part-time or small team)
+- 100–500 devs: 6–20 FTEs running IDP, pipelines, service catalog, observability
+- 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
+
+---
+
+## Helpful Questions
+
+- Can you reduce feedback loops? (pair /peer programming)
+- Where is cognitive load highest?
+- Which teams need support?
+- What would great DX look like?
+
+---
+
+
+## Target Architecture Overview
 
 **Backstage** → **Automation** → **Infrastructure**
 
@@ -57,7 +109,7 @@ graph LR
 
 ---
 
-### 3. Architecture Evolution Overview
+### Architecture Evolution Overview
 
 | Phase | Name | Focus |
 |-------|------|-------|
@@ -68,7 +120,7 @@ graph LR
 
 ---
 
-### 4. Phase 1 — Initial Adoption
+### Phase 1 — Initial Adoption
 
 | Aspect | Details |
 |--------|---------|
@@ -79,7 +131,7 @@ graph LR
 
 ---
 
-### 5. Phase 2 — Controlled Self-Service
+### Phase 2 — Controlled Self-Service
 
 | Aspect | Details |
 |--------|---------|
@@ -90,7 +142,7 @@ graph LR
 
 ---
 
-### 6. Phase 3 — Policy-Driven Platform
+### Phase 3 — Policy-Driven Platform
 
 | Aspect | Details |
 |--------|---------|
@@ -101,7 +153,7 @@ graph LR
 
 ---
 
-### 7. Phase 4 — Platform at Scale
+### Phase 4 — Platform at Scale
 
 | Aspect | Details |
 |--------|---------|
@@ -112,7 +164,7 @@ graph LR
 
 ---
 
-## 8. Layer-to-Tool Mapping
+## Layer-to-Tool Mapping
 
 | Layer | Tools |
 |-------|-------|
@@ -124,8 +176,8 @@ graph LR
 | Secrets | Vault |
 
 ---
-
-## 9. Anti-Patterns
+<!--
+## Anti-Patterns
 
 | Area | Don't | Do |
 |------|-------|-----|
@@ -137,9 +189,9 @@ graph LR
 | **Catalog** | No owners, stale services | Ownership & lifecycle validation |
 | **FinOps** | No quotas, no accountability | Cost tied to ownership
 
----
+--- -->
 
-## 10. Lessons Learned
+## Lessons Learned
 
 - **Provide Templates for Documentation**
   - Ensure consistent documentation and clear documentation structures
@@ -155,16 +207,7 @@ graph LR
 
 ---
 
-## 11. Helpful Questions
-
-- Can you reduce feedback loops? (pair /peer programming)
-- Where is cognitive load highest?
-- Which teams need support?
-- What would great DX look like?
-
----
-
-## 12. Key Takeaways
+## Key Takeaways
 
 * Backstage is a **control plane**, not a workflow engine
 * Policies, events, and observability are mandatory at scale
@@ -173,7 +216,7 @@ graph LR
 
 ---
 
-## 13. Final Message
+## Final Message
 
 **A successful internal developer platform is:
 Self-service by default, governed by design, and observable end-to-end.**
