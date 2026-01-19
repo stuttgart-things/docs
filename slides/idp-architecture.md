@@ -1,4 +1,4 @@
-## Backstage Platform Architecture — Evolution & Maturity Model
+### Backstage Platform Architecture
 
 ---
 
@@ -17,256 +17,129 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ## 2. Target Architecture Overview
 
+**Backstage** → **Automation** → **Infrastructure**
+
+| Layer | What it does |
+|-------|--------------|
+| Control Plane | Backstage (UI, catalog, templates) |
+| Execution | GitLab, Ansible, Terraform |
+| Infrastructure | OpenShift, Azure |
+
 ```mermaid
-graph TB
-
-    %% Control Plane
-    subgraph CP[Platform Control Plane]
-        A[Backstage Portal]
-        B[Backstage Backend]
-        C[Catalog & Templates]
-        D[Policy Engine]
+graph LR
+    subgraph IDP[Internal Developer Platform]
+        Backstage
     end
 
-    %% Identity & Policy
-    subgraph IAM[Identity & Access Layer]
-        E[Keycloak / Entra ID]
-        F[RBAC / ABAC]
+    subgraph Auth[Identity]
+        Keycloak
     end
 
-    %% Eventing
-    subgraph EV[Eventing & Async Layer]
-        G[Event Bus
-Kafka / NATS]
-        H[Async Workers]
+    subgraph CI[Automation]
+        GitLab
     end
 
-    %% Execution Plane
-    subgraph EP[Execution Plane]
-        I[GitLab CI/CD]
-        J[Ansible Controller]
-        K[Terraform Cloud]
-        L[OpenShift Operators]
+    subgraph Runtime[Infrastructure]
+        OpenShift
     end
 
-    %% Infrastructure
-    subgraph INF[Infrastructure Layer]
-        M[OpenShift Clusters]
-        N[Azure Resources]
+    subgraph Ops[Observability]
+        Prometheus
+        Vault
     end
 
-    %% Observability
-    subgraph OBS[Observability Layer]
-        O[Prometheus]
-        P[Loki / ELK]
-        Q[Tempo / Jaeger]
-    end
-
-    %% Secrets
-    subgraph SEC[Secrets & Config Plane]
-        R[Vault / External Secrets]
-    end
-
-    %% Flows
-    A --> B --> C
-    B --> D
-    D --> I
-    D --> J
-    D --> K
-    D --> L
-
-    B --> G --> H --> EP
-
-    E --> B
-    F --> D
-
-    I --> M
-    J --> M
-    L --> M
-    K --> N
-
-    R --> EP
-    EP --> OBS
+    Keycloak --> Backstage
+    Backstage --> GitLab
+    GitLab --> OpenShift
+    OpenShift --> Prometheus
+    Vault --> OpenShift
 ```
 
 ---
 
-### 3. Architecture Evolution — Phase 1
+### 3. Architecture Evolution Overview
 
-#### Initial Adoption
-
-**Characteristics**
-
-* Backstage as a UI & catalog
-* Manual approvals
-* Direct API calls
-
-**Tools**
-
-* Backstage
-* GitLab
-* OpenShift
-
-**Risks**
-
-* Tight coupling
-* Limited governance
+| Phase | Name | Focus |
+|-------|------|-------|
+| 1 | Initial Adoption | Get started |
+| 2 | Controlled Self-Service | Automate |
+| 3 | Policy-Driven | Govern |
+| 4 | Platform at Scale | Optimize |
 
 ---
 
-### 4. Architecture Evolution — Phase 2
+### 4. Phase 1 — Initial Adoption
 
-#### Controlled Self-Service
-
-**Characteristics**
-
-* Software Templates
-* CI/CD-driven automation
-* Centralized identity
-
-**Tools**
-
-* Backstage Templates
-* GitLab CI/CD
-* Keycloak / Entra ID
-
-**Improvements**
-
-* Repeatability
-* Reduced manual work
+| Aspect | Details |
+|--------|---------|
+| **Goal** | Get Backstage running as UI & catalog |
+| **Characteristics** | Manual approvals, direct API calls |
+| **Tools** | Backstage, GitLab, OpenShift |
+| **Risks** | Tight coupling, limited governance |
 
 ---
 
-### 5. Architecture Evolution — Phase 3
+### 5. Phase 2 — Controlled Self-Service
 
-#### Policy-Driven Platform
-
-**Characteristics**
-
-* Policy as Code
-* Async workflows
-* Clear ownership
-
-**Tools**
-
-* OPA / Gatekeeper
-* Kyverno
-* Event Bus
-
-**Benefits**
-
-* Safe autonomy
-* Compliance by default
+| Aspect | Details |
+|--------|---------|
+| **Goal** | Enable repeatable, automated workflows |
+| **Characteristics** | Software Templates, CI/CD-driven, centralized identity |
+| **Tools** | Backstage Templates, GitLab CI/CD, Keycloak |
+| **Outcome** | Repeatability, reduced manual work |
 
 ---
 
-### 6. Architecture Evolution — Phase 4
+### 6. Phase 3 — Policy-Driven Platform
 
-#### Platform at Scale
-
-**Characteristics**
-
-* Observability-first
-* FinOps integration
-* Plugin lifecycle management
-
-**Tools**
-
-* Prometheus / Grafana
-* Cost Management APIs
-* Feature Flags
-
-**Outcome**
-
-* Predictable, scalable platform
+| Aspect | Details |
+|--------|---------|
+| **Goal** | Enforce governance without blocking teams |
+| **Characteristics** | Policy as Code, async workflows, clear ownership |
+| **Tools** | OPA / Gatekeeper, Kyverno, Event Bus |
+| **Outcome** | Safe autonomy, compliance by default |
 
 ---
 
-## 7. Layer-to-Tool Mapping
+### 7. Phase 4 — Platform at Scale
 
-| Layer             | Purpose            | Tools                      |
-| ----------------- | ------------------ | -------------------------- |
-| Control Plane     | UX & orchestration | Backstage                  |
-| Identity & Policy | AuthZ / AuthN      | Keycloak, OPA              |
-| Eventing          | Decoupling         | Kafka, NATS                |
-| Execution Plane   | Automation         | GitLab, Ansible, Terraform |
-| Infrastructure    | Runtime            | OpenShift, Azure           |
-| Observability     | Visibility         | Prometheus, Loki, Tempo    |
-| Secrets           | Zero-trust         | Vault, External Secrets    |
+| Aspect | Details |
+|--------|---------|
+| **Goal** | Sustainable, cost-aware platform operations |
+| **Characteristics** | Observability-first, FinOps, plugin lifecycle |
+| **Tools** | Prometheus / Grafana, Cost Management APIs, Feature Flags |
+| **Outcome** | Predictable, scalable platform |
 
 ---
 
-## 8. Anti-Patterns — Control Plane
+## 8. Layer-to-Tool Mapping
 
-❌ Backstage triggers infra changes directly <br>
-❌ Business logic embedded in plugins <br>
-❌ No approval or policy checks <br>
-
-✅ Backstage orchestrates, never executes
-
----
-
-## 9. Anti-Patterns — Identity & Policy
-
-❌ Hardcoded permissions <br>
-❌ Tool-specific RBAC only <br>
-❌ No audit trail <br>
-
-✅ Central identity + policy as code
+| Layer | Tools |
+|-------|-------|
+| Control | Backstage |
+| Identity | Keycloak, OPA |
+| Execution | GitLab, Ansible, Terraform |
+| Infrastructure | OpenShift, Azure |
+| Observability | Prometheus, Loki |
+| Secrets | Vault |
 
 ---
 
-## 10. Anti-Patterns — Eventing
+## 9. Anti-Patterns
 
-❌ Synchronous long-running tasks <br>
-❌ Plugins blocking the backend <br>
-❌ Tight coupling between tools <br>
-
-✅ Async, event-driven workflows
-
----
-
-## 11. Anti-Patterns — Observability
-
-❌ No metrics for plugins <br>
-❌ Logs only at infrastructure level <br>
-❌ No SLOs <br>
-
-✅ Full-stack observability
+| Area | Don't | Do |
+|------|-------|-----|
+| **Control Plane** | Direct infra changes, logic in plugins | Orchestrate, never execute |
+| **Identity** | Hardcoded permissions, no audit | Central identity + policy as code |
+| **Eventing** | Sync long-running tasks, tight coupling | Async, event-driven workflows |
+| **Observability** | No plugin metrics, no SLOs | Full-stack observability |
+| **Secrets** | Secrets in Git, no rotation | Runtime-only injection |
+| **Catalog** | No owners, stale services | Ownership & lifecycle validation |
+| **FinOps** | No quotas, no accountability | Cost tied to ownership
 
 ---
 
-## 12. Anti-Patterns — Secrets
-
-❌ Secrets in Git <br>
-❌ Secrets passing through Backstage <br>
-❌ No rotation <br>
-
-✅ Runtime-only secret injection
-
----
-
-## 13. Anti-Patterns — Catalog Governance
-
-❌ No owners <br>
-❌ Stale services <br>
-❌ Unlimited growth <br>
-
-✅ Ownership, lifecycle & validation
-
----
-
-## 14. Anti-Patterns — FinOps
-
-❌ Cost visibility outside platform <br>
-❌ No quotas or budgets <br>
-❌ No accountability <br>
-
-✅ Cost tied to ownership & metadata
-
----
-
-## 15. LESSONS LEARNED
+## 10. Lessons Learned
 
 - **Provide Templates for Documentation**
   - Ensure consistent documentation and clear documentation structures
@@ -282,7 +155,7 @@ Kafka / NATS]
 
 ---
 
-## 16. Helpul Questions
+## 11. Helpful Questions
 
 - Can you reduce feedback loops? (pair /peer programming)
 - Where is cognitive load highest?
@@ -291,7 +164,7 @@ Kafka / NATS]
 
 ---
 
-## 17. Key Takeaways
+## 12. Key Takeaways
 
 * Backstage is a **control plane**, not a workflow engine
 * Policies, events, and observability are mandatory at scale
@@ -300,7 +173,7 @@ Kafka / NATS]
 
 ---
 
-## 18. Final Message
+## 13. Final Message
 
 **A successful internal developer platform is:
 Self-service by default, governed by design, and observable end-to-end.**
