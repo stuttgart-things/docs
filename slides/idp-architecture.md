@@ -15,7 +15,6 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ---
 
-
 ### When to Invest in Platform Engineering
 
 <!-- <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/> -->
@@ -66,6 +65,163 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ---
 
+## High-level Goals of the Dev Architecture
+
+| Goal | Description |
+|------|-------------|
+| 🔌 Fast Local Development | Hot-reload, instant feedback, minimal setup time |
+| 🔁 App/Plugin Separation | Independent versioning, clear boundaries, pluggable architecture |
+| 🧪 Automated Testing | Unit, integration, e2e tests + ephemeral preview environments per PR |
+| 🚀 Safe Promotion | Staged rollouts: Preview → Staging → Production with gates |
+| 🔐 Secure Secrets | No secrets in code, runtime injection via Vault/K8s secrets |
+| 📦 Repeatable Builds | Deterministic builds, pinned dependencies, immutable artifacts |
+
+---
+
+## OpenShift Developer Hub vs. Backstage
+
+---
+
+### What's the Relationship?
+
+| | Backstage | RHDH |
+|---|-----------|------|
+| **Origin** | CNCF project (Spotify) | Red Hat enterprise distribution |
+| **Relationship** | Upstream OSS framework | Built directly on Backstage |
+| **Model** | Community-driven | Commercially supported |
+
+> **Think of it like:**
+> - Kubernetes → OpenShift
+> - Linux Kernel → RHEL
+
+{{% note %}}
+RHDH is not a fork — it's built directly on Backstage with additional enterprise features and support.
+{{% /note %}}
+
+---
+
+### Installation & Management
+
+| Aspect | Backstage | RHDH |
+|--------|-----------|------|
+| **Deployment** | Manual setup | Kubernetes Operator / Helm |
+| **Build Process** | Complex, DIY | Simplified, pre-built |
+| **Dependencies** | Self-managed | Bundled & validated |
+| **Updates** | Manual maintenance | Automated |
+| **Plugin Loading** | Static (rebuild required) | Dynamic (hot-reload) |
+
+{{% note %}}
+RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on Kubernetes.
+{{% /note %}}
+
+---
+
+### RHDH: Pre-Integrated Ecosystem
+
+RHDH ships with ready-to-use integrations optimized for the OpenShift/Red Hat ecosystem:
+
+| Category | Integration |
+|----------|-------------|
+| 🔍 **Visualization** | Application Topology for Kubernetes |
+| 🔧 **CI/CD** | Tekton Pipelines |
+| 🚀 **GitOps** | Argo CD (OpenShift GitOps) |
+| 📦 **Registry** | Quay container registry |
+| 🌐 **Multi-Cluster** | Open Cluster Manager |
+| 🔐 **Auth** | Keycloak authentication |
+
+---
+
+### Plugin Architecture Comparison
+
+| | Backstage (Static) | RHDH (Dynamic) |
+|---|-------------------|----------------|
+| **Adding Plugins** | Rebuild app | Configure & reload |
+| **Updates** | Redeploy required | Hot-reload capability |
+| **Downtime** | Yes, for changes | Zero-downtime updates |
+| **Flexibility** | Full control | Curated plugin set |
+
+---
+
+### Golden Path Templates
+
+RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adoption:
+
+| Benefit | Description |
+|---------|-------------|
+| 📐 **Pre-architected** | Proven patterns out of the box |
+| ⚡ **Optimized** | OpenShift-native workflows |
+| 🔒 **Secure** | Security best practices built-in |
+| 🚀 **Fast** | Reduced time-to-production |
+
+---
+
+### Decision Guide
+
+| Choose **Backstage** when... | Choose **RHDH** when... |
+|------------------------------|-------------------------|
+| ✅ Maximum flexibility needed | ✅ Faster time-to-value required |
+| ✅ Resources to build & maintain | ✅ Already invested in OpenShift/Red Hat |
+| ✅ Plugins outside Red Hat ecosystem | ✅ Enterprise support & SLAs needed |
+| ✅ Community-driven development | ✅ Want curated, validated plugins |
+| ✅ Full control over the platform | ✅ Simplified RBAC & compliance |
+| | ✅ Less operational overhead |
+
+---
+
+## Logical Architecture Overview
+
+```
+┌────────────────────────────────────────────────────────────┐
+│                       DEVELOPERS                           │
+│                                                            │
+│  ┌─────────────────┐      ┌─────────────────────────────┐  │
+│  │   Local Dev     │      │   IDE (VSCode)              │  │
+│  │   (yarn dev)    │◄────►│   - Backstage monorepo      │  │
+│  │                 │      │   - Plugin development      │  │
+│  └────────┬────────┘      │   - API contracts           │  │
+│           │               └─────────────────────────────┘  │
+└───────────┼────────────────────────────────────────────────┘
+            │ git push
+            ▼
+┌────────────────────────────────────────────────────────────┐
+│                    SOURCE CONTROL                          │
+│                                                            │
+│   GitHub / GitLab                                          │
+│   ├── backstage-app repo                                   │
+│   ├── plugins (monorepo or multi-repo)                     │
+│   └── catalog-info.yaml                                    │
+└───────────┬────────────────────────────────────────────────┘
+            │ webhook trigger
+            ▼
+┌────────────────────────────────────────────────────────────┐
+│                   CI/CD PIPELINE                           │
+│                                                            │
+│   GitHub Actions / GitLab CI                               │
+│   ├── Lint & Test                                          │
+│   ├── Build Backstage app                                  │
+│   ├── Build container image                                │
+│   ├── Publish artifacts (registry)                         │
+│   └── Deploy to preview / staging                          │
+└───────────┬────────────────────────────────────────────────┘
+            │ deploy
+            ▼
+┌────────────────────────────────────────────────────────────┐
+│                RUNTIME ENVIRONMENTS (K8s)                  │
+│                                                            │
+│   ┌────────────┐   ┌────────────┐   ┌────────────────┐     │
+│   │  Preview   │   │  Staging   │   │  Production    │     │
+│   │  (per PR)  │──►│            │──►│                │     │
+│   └────────────┘   └────────────┘   └────────────────┘     │
+│                                                            │
+│   Components:                                              │
+│   ├── Backstage backend + frontend                         │
+│   ├── PostgreSQL                                           │
+│   ├── Auth (Keycloak / GitHub OAuth)                       │
+│   └── Ingress / TLS                                        │
+└────────────────────────────────────────────────────────────┘
+```
+
+---
 
 ## Target Architecture Overview
 
