@@ -388,7 +388,7 @@
 
 ### /IDP
 
-<img src="https://artifacts-console.demo-infra.sthings-vsphere.labul.sva.de/browser/images/abstraction.jpeg" alt="Alt Text" width="700"/>
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/abstraction.jpeg" alt="Alt Text" width="700"/>
 
 ---
 
@@ -419,7 +419,7 @@ Why it is a good idea to build an **Internal Developer Platform Portal**:
 
 --- -->
 
-# 📈 IDPs Make DORA Metrics Actionable
+## 📈 IDPs Make DORA Metrics Actionable
 
 DORA (DevOps Research and Assessment) metrics measure software delivery performance:
 
@@ -433,7 +433,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### ⚙️ /Core Features
+### ⚙️ Core Features
 
 <img src="https://pradeepl.com/blog/internal-developer-portals-spotify-backstage/images/Backstage-Templates.png" alt="Alt Text" width="1000"/>
 
@@ -444,7 +444,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### 🚀 /Key IDP Benefits
+### 🚀 Key IDP Benefits
 
 ➡️ **Developers Focus on Code, Not Infrastructure**
 
@@ -461,7 +461,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
   → *"Devs own code, Platform owns infrastructure"*
 
 ---
-### 📈 /Measuring Adoption
+### 📈 Measuring Adoption
 
 > Adoption shows whether developers trust, use, and benefit from the platform
 
@@ -482,26 +482,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 - 🧩 **Heard of IDPs, but not used one yet**
 - 🤷 **What’s an IDP?** — sounds fancy! -->
 
----
-
-> ### /Quick Poll #2
->
-> Why is it beneficial to build an Internal Developer Platform Portal?
->
-> - 👨‍💻 To centralize developer UI and accelerate delivery
-> - ⚙️ To make infrastructure more complex
-> - ⏳ To increase onboarding time
-
----
-
-> ### /Quick Poll #3
->
-> Which core IDP feature helps developers deploy and provision environments on their own?
->
-> - 🔍 Visibility into logs and metrics
-> - 🛠️ Self-service deployment & environment provisioning
-> - 🚦 Policy enforcement
-
 
 ---
 
@@ -512,7 +492,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 ---
 
 
-### / DevOps --> IDP
+### DevOps --> IDP
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/devops-idp.png" alt="Alt Text" width="700"/>
 
@@ -560,7 +540,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 **CI/CD Pipeline (GitLab CI, GitHub Actions)**
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="700"/>
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="600"/>
 
 ---
 
