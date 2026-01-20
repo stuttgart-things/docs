@@ -2,42 +2,6 @@
 
 ---
 
-
-## Start With These Questions
-
-| Question | Why It Matters |
-|----------|----------------|
-| Can you reduce feedback loops? | Faster iteration = happier developers |
-| Where is cognitive load highest? | Target your platform investment |
-| Which teams need the most support? | Prioritize high-impact improvements |
-| What would great DX look like? | Define your north star |
-
----
-
-### When to Invest in Platform Engineering
-
-| Signal | Description |
-|--------|-------------|
-| 👥 Team Size | ~50 engineers OR rapid growth toward that number |
-| 🔧 Infra Friction | Long onboarding, many infra tickets, inconsistent CI/CD |
-| 🔁 Duplication | Many similar services (microservices) with duplicated build/deploy logic |
-| 🛡️ Governance | Need for self-service and audited defaults (security, compliance) |
-
----
-
-### Pitfalls to Avoid
-
-| Pitfall | How to Prevent |
-|---------|----------------|
-| 🔒 "Golden Cage" | Don't be too rigid — allow escape hatches |
-| 🏗️ Over-engineering | Start with real needs, not hypothetical ones |
-| 📚 Poor Docs | No docs = no adoption — invest in onboarding |
-| 🎯 Big Bang | Start small, measure, iterate based on usage |
-
-> **Mindset shift:** Treat platform as a product — assign a PM + support rota
-
----
-
 ### IDP Team Collaboration Model
 
 ```mermaid
@@ -295,6 +259,40 @@ RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adopt
 | ✅ Community-driven development | ✅ Want curated, validated plugins |
 | ✅ Full control over the platform | ✅ Simplified RBAC & compliance |
 | | ✅ Less operational overhead |
+
+---
+
+## Start With These Questions
+
+| Question | Why It Matters |
+|----------|----------------|
+| Can you reduce feedback loops? | Faster iteration = happier developers |
+| Where is cognitive load highest? | Target your platform investment |
+| Which teams need the most support? | Prioritize high-impact improvements |
+| What would great DX look like? | Define your north star |
+
+---
+
+### When to Invest in Platform Engineering
+
+| Signal | Description |
+|--------|-------------|
+| 👥 Team Size | ~50 engineers OR rapid growth toward that number |
+| 🔧 Infra Friction | Long onboarding, many infra tickets, inconsistent CI/CD |
+| 🔁 Duplication | Many similar services (microservices) with duplicated build/deploy logic |
+| 🛡️ Governance | Need for self-service and audited defaults (security, compliance) |
+
+---
+
+### Pitfalls to Avoid
+
+| Pitfall | How to Prevent |
+|---------|----------------|
+| 🔒 "Golden Cage" | Don't be too rigid — allow escape hatches |
+| 🏗️ Over-engineering | Start with real needs, not hypothetical ones |
+| 📚 Poor Docs | No docs = no adoption — invest in onboarding |
+| 🎯 Big Bang | Start small, measure, iterate based on usage |
+
 
 ---
 
