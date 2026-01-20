@@ -2,6 +2,20 @@
 
 ---
 
+### TECHDOCS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+---
+
+### TECHDOCS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+- TechDocs View in Backstage
+
+---
+
 ### CI/CD GITLAB PIPELINES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage7.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
@@ -21,20 +35,6 @@
 
 - Detailed view of Kubernetes Clusters
 
-
----
-
-### TECHDOCS
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
----
-
-### TECHDOCS
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
-- TechDocs View in Backstage
 
 ---
 
