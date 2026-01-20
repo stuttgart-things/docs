@@ -57,7 +57,12 @@
 
 ### 🏗️ Platform Engineering
 
-<img src="https://pbs.twimg.com/media/FnabgQxXwAEDZz6.jpg" alt="Alt Text" width="400"/>
+<img src="https://pbs.twimg.com/media/FnabgQxXwAEDZz6.jpg" alt="Alt Text" width="600"/>
+
+
+---
+
+### 🏗️ Platform Engineering
 
 | Principle | Description |
 |-----------|-------------|
@@ -82,7 +87,7 @@
 
 ---
 
-### 🏗️ Platform Team Responsibilities
+#### 🏗️ Platform Team Responsibilities
 
 | Area | What They Do |
 |------|--------------|
@@ -300,13 +305,24 @@
 
 | Capability | Description | CNCF/CDF Examples |
 |------------|-------------|-------------------|
-| 🌐 Web Portals | Publish docs, service catalogs, project templates, telemetry | Backstage, Skooner, Ortelius |
-| 🔌 APIs | Auto-create, update, delete, observe capabilities | Kubernetes, Crossplane, Helm, KubeVela |
+| 🌐 Web Portals | Publish docs, service catalogs, project templates | Backstage, Skooner, Ortelius |
+| 🔌 APIs | Auto-create, update, delete, observe capabilities | Kubernetes, Crossplane, Helm |
 | 🛤️ Golden Paths | Templated code + capabilities for rapid dev | ArtifactHub |
-| 🔄 Build & Test | Automate build and test of products/services | Tekton, Jenkins, Buildpacks, ko, Carvel |
-| 🚀 Delivery | Automate and observe delivery of services | Argo, Flux, Keptn, Flagger, OpenFeature |
-| 💻 Dev Environments | Enable R&D of applications and systems | Devfile, Nocalhost, Telepresence, DevSpace |
-| 📊 Observability | Instrument, gather, analyze telemetry | OpenTelemetry, Jaeger, Prometheus, Grafana |
+| 🔄 Build & Test | Automate build and test of products/services | Tekton, Jenkins, ko |
+| 🚀 Delivery | Automate and observe delivery of services | Argo, Flux, Flagger |
+| 💻 Dev Environments | Enable R&D of applications and systems | Devfile, Telepresence, DevSpace |
+| 📊 Observability | Instrument, gather, analyze telemetry | OpenTelemetry, Prometheus, Grafana |
+
+---
+
+### CNCF Platform Capabilities: Developer Experience
+
+| Capability | Description | CNCF/CDF Examples |
+|------------|-------------|-------------------|
+| 🔄 Build & Test | Automate build and test of products/services | Tekton, Jenkins, ko |
+| 🚀 Delivery | Automate and observe delivery of services | Argo, Flux, Flagger |
+| 💻 Dev Environments | Enable R&D of applications and systems | Devfile, Telepresence, DevSpace |
+| 📊 Observability | Instrument, gather, analyze telemetry | OpenTelemetry, Prometheus, Grafana |
 
 ---
 
@@ -359,7 +375,7 @@
 | Level | Name | Characteristics | Example |
 |-------|------|-----------------|---------|
 | 1️⃣ | Provisional | Voluntary "tiger teams", short-lived, no long-term planning | CI/CD improvements as a "side effort" |
-| 2️⃣ | Operationalized | Dedicated generalist team, fills gaps across technologies | Central team reducing build times |
+| 2️⃣ | Operational- ized | Dedicated generalist team, fills gaps across technologies | Central team reducing build times |
 | 3️⃣ | Scalable | Product mindset: PM, UX, roadmap, end-to-end testing | Decisions driven by platform usage metrics |
 | 4️⃣ | Optimizing | Enabled ecosystem, specialists extend the platform | Marketing integrates user tracking via platform |
 
