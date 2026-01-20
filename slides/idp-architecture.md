@@ -29,28 +29,8 @@
 | **Relationship** | Upstream OSS framework | Built directly on Backstage |
 | **Model** | Community-driven | Commercially supported |
 
-> **Think of it like:**
-> - Kubernetes → OpenShift
-> - Linux Kernel → RHEL
-
 {{% note %}}
 RHDH is not a fork — it's built directly on Backstage with additional enterprise features and support.
-{{% /note %}}
-
----
-
-### Installation & Management
-
-| Aspect | Backstage | RHDH |
-|--------|-----------|------|
-| **Deployment** | Manual setup | Kubernetes Operator / Helm |
-| **Build Process** | Complex, DIY | Simplified, pre-built |
-| **Dependencies** | Self-managed | Bundled & validated |
-| **Updates** | Manual maintenance | Automated |
-| **Plugin Loading** | Static (rebuild required) | Dynamic (hot-reload) |
-
-{{% note %}}
-RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on Kubernetes.
 {{% /note %}}
 
 ---
@@ -70,6 +50,23 @@ RHDH ships with ready-to-use integrations optimized for the OpenShift/Red Hat ec
 
 ---
 
+### Installation & Management
+
+| Aspect | Backstage | RHDH |
+|--------|-----------|------|
+| **Deployment** | Manual setup | Kubernetes Operator / Helm |
+| **Build Process** | Complex, DIY | Simplified, pre-built |
+| **Dependencies** | Self-managed | Bundled & validated |
+| **Updates** | Manual maintenance | Automated |
+| **Plugin Loading** | Static (rebuild required) | Dynamic (hot-reload) |
+
+{{% note %}}
+RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on Kubernetes.
+{{% /note %}}
+
+---
+<!--
+
 ### Plugin Architecture Comparison
 
 | | Backstage (Static) | RHDH (Dynamic) |
@@ -79,18 +76,18 @@ RHDH ships with ready-to-use integrations optimized for the OpenShift/Red Hat ec
 | **Downtime** | Yes, for changes | Zero-downtime updates |
 | **Flexibility** | Full control | Curated plugin set |
 
----
+--- -->
 
 ### Decision Guide
 
 | Choose **Backstage** when... | Choose **RHDH** when... |
 |------------------------------|-------------------------|
-| ✅ Maximum flexibility needed | ✅ Faster time-to-value required |
-| ✅ Resources to build & maintain | ✅ Already invested in OpenShift/Red Hat |
-| ✅ Plugins outside Red Hat ecosystem | ✅ Enterprise support & SLAs needed |
-| ✅ Community-driven development | ✅ Want curated, validated plugins |
-| ✅ Full control over the platform | ✅ Simplified RBAC & compliance |
-| | ✅ Less operational overhead |
+| 🔧 Maximum flexibility | ⚡ Faster time-to-value |
+| 👥 Resources to build/maintain | 🏢 OpenShift/Red Hat ecosystem |
+| 🧩 Custom plugins needed | 🛡️ Enterprise support required |
+| 🌐 Community-driven | 📦 Pre-integrated components |
+| 🎯 Full platform control | 🔒 RBAC & compliance built-in |
+| | 🚀 Lower operational overhead |
 
 ---
 
@@ -102,7 +99,7 @@ RHDH ships with ready-to-use integrations optimized for the OpenShift/Red Hat ec
 | **Platform Teams** | Provide golden paths, centralized infra & collaboration tools |
 | **Governance** | Enforce guard rails, compliance, reporting & contracts |
 
-```mermaid
+<!-- ```mermaid
 flowchart LR
     subgraph DT[Developer Teams]
         Apps[Applications]
@@ -123,7 +120,7 @@ flowchart LR
 
     DT <-->|"Patterns evolved in collaboration"| PT
     GOV -->|"Enforce, detect, report"| DT
-```
+``` -->
 
 
 ---
@@ -145,7 +142,7 @@ flowchart LR
 
 ---
 
-#### Logical Architecture Overview
+<!-- #### Logical Architecture Overview
 
 ```mermaid
 flowchart TD
@@ -216,7 +213,7 @@ graph LR
     Vault --> OpenShift
 ```
 
----
+--- -->
 
 ## Start With These Questions
 
