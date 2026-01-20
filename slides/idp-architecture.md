@@ -99,30 +99,6 @@ RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on K
 | **Platform Teams** | Provide golden paths, centralized infra & collaboration tools |
 | **Governance** | Enforce guard rails, compliance, reporting & contracts |
 
-<!-- ```mermaid
-flowchart LR
-    subgraph DT[Developer Teams]
-        Apps[Applications]
-        Infra[Infrastructure]
-    end
-
-    subgraph PT[Platform Teams]
-        Patterns[Golden Paths / Deployable Patterns]
-        Central[Centralized Infrastructure & Tools]
-    end
-
-    subgraph GOV[Governance]
-        Rails[Guard Rails]
-        Comply[Compliance]
-        Report[Reporting]
-        Contracts[API & Data Contracts]
-    end
-
-    DT <-->|"Patterns evolved in collaboration"| PT
-    GOV -->|"Enforce, detect, report"| DT
-``` -->
-
-
 ---
 <!--
 ### Platform Teams Overview
@@ -183,37 +159,7 @@ flowchart TD
 | Execution | GitLab, Ansible, Terraform |
 | Infrastructure | OpenShift, Azure |
 
-```mermaid
-graph LR
-    subgraph IDP[Internal Developer Platform]
-        Backstage
-    end
-
-    subgraph Auth[Identity]
-        Keycloak
-    end
-
-    subgraph CI[Automation]
-        GitLab
-    end
-
-    subgraph Runtime[Infrastructure]
-        OpenShift
-    end
-
-    subgraph Ops[Observability]
-        Prometheus
-        Vault
-    end
-
-    Keycloak --> Backstage
-    Backstage --> GitLab
-    GitLab --> OpenShift
-    OpenShift --> Prometheus
-    Vault --> OpenShift
-```
-
---- -->
+---
 
 ## Start With These Questions
 
@@ -342,9 +288,9 @@ graph LR
 * Architecture must evolve incrementally
 * Governance enables, not blocks, self-service
 
----
+<!-- ---
 
 ## Final Message
 
 **A successful internal developer platform is:
-Self-service by default, governed by design, and observable end-to-end.**
+Self-service by default, governed by design, and observable end-to-end.** -->

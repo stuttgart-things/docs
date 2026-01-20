@@ -120,15 +120,10 @@
 
 Building custom plugins extends Backstage to fit your organization's needs
 
-**Frontend Plugins**
-- Custom UI components & pages
-- Entity cards & tabs
-- Custom pickers & selectors
-
-**Backend Plugins**
-- API integrations
-- Custom data providers
-- Authentication & authorization
+| Plugin Type | Capabilities | Examples |
+|-------------|--------------|----------|
+| **Frontend** | 🎨 Custom UI components & pages<br/>📊 Entity cards & tabs<br/>🎯 Custom pickers & selectors | Repository picker<br/>Custom dashboards<br/>Entity overview cards |
+| **Backend** | 🔌 API integrations<br/>📡 Custom data providers<br/>🔐 Auth & authorization | Custom data fetchers<br/>External service connectors<br/>Permission providers |
 
 ---
 
