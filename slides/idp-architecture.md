@@ -2,56 +2,6 @@
 
 ---
 
-### IDP Team Collaboration Model
-
-```mermaid
-flowchart LR
-    subgraph DT[Developer Teams]
-        Apps[Applications]
-        Infra[Infrastructure]
-    end
-
-    subgraph PT[Platform Teams]
-        Patterns[Golden Paths / Deployable Patterns]
-        Central[Centralized Infrastructure & Tools]
-    end
-
-    subgraph GOV[Governance]
-        Rails[Guard Rails]
-        Comply[Compliance]
-        Report[Reporting]
-        Contracts[API & Data Contracts]
-    end
-
-    DT <-->|"Patterns evolved in collaboration"| PT
-    GOV -->|"Enforce, detect, report"| DT
-```
-
-| Team | Responsibility |
-|------|----------------|
-| **Developer Teams** | Consume patterns, build applications & infrastructure |
-| **Platform Teams** | Provide golden paths, centralized infra & collaboration tools |
-| **Governance** | Enforce guard rails, compliance, reporting & contracts |
-
----
-
-### Platform Teams Overview
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Platform Teams" width="1200"/>
-
----
-
-### Platform Team Sizing Guide
-
-| Org Size | Platform Team | Focus |
-|----------|---------------|-------|
-| < 30 devs | 1–2 embedded engineers | Basic automation, shared tooling |
-| 30–100 devs | 2–6 people (part-time/small team) | Templates, CI/CD standardization |
-| 100–500 devs | 6–20 FTEs | Full IDP, pipelines, catalog, observability |
-| 500+ devs | 20+ (full product org) | SLAs, PMs, SREs, UX, dedicated support |
-
----
-
 ## Architecture Vision
 
 **Backstage is not the platform — it is the control plane of the platform.**
@@ -61,8 +11,6 @@ flowchart LR
 * Orchestrates automation
 * Provides visibility & governance
 
-Everything else **executes**, **enforces**, **observes**, or **audits**.
-
 ---
 
 #### High-level Goals of the Dev Architecture
@@ -70,111 +18,12 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 | Goal | Description |
 |------|-------------|
 | 🔌 Fast Local Development | Hot-reload, instant feedback, minimal setup time |
-| 🔁 App/Plugin Separation | Independent versioning, clear boundaries, pluggable architecture |
 | 🧪 Automated Testing | Unit, integration, e2e tests + ephemeral preview environments per PR |
 | 🚀 Safe Promotion | Staged rollouts: Preview → Staging → Production with gates |
 | 🔐 Secure Secrets | No secrets in code, runtime injection via Vault/K8s secrets |
 | 📦 Repeatable Builds | Deterministic builds, pinned dependencies, immutable artifacts |
 
 ---
-
-#### Logical Architecture Overview
-
-```
-┌────────────────────────────────────────────────────────────┐
-│                       DEVELOPERS                           │
-│                                                            │
-│  ┌─────────────────┐      ┌─────────────────────────────┐  │
-│  │   Local Dev     │      │   IDE (VSCode)              │  │
-│  │   (yarn dev)    │◄────►│   - Backstage monorepo      │  │
-│  │                 │      │   - Plugin development      │  │
-│  └────────┬────────┘      │   - API contracts           │  │
-│           │               └─────────────────────────────┘  │
-└───────────┼────────────────────────────────────────────────┘
-            │ git push
-            ▼
-┌────────────────────────────────────────────────────────────┐
-│                    SOURCE CONTROL                          │
-│                                                            │
-│   GitHub / GitLab                                          │
-│   ├── backstage-app repo                                   │
-│   ├── plugins (monorepo or multi-repo)                     │
-│   └── catalog-info.yaml                                    │
-└───────────┬────────────────────────────────────────────────┘
-            │ webhook trigger
-            ▼
-┌────────────────────────────────────────────────────────────┐
-│                   CI/CD PIPELINE                           │
-│                                                            │
-│   GitHub Actions / GitLab CI                               │
-│   ├── Lint & Test                                          │
-│   ├── Build Backstage app                                  │
-│   ├── Build container image                                │
-│   ├── Publish artifacts (registry)                         │
-│   └── Deploy to preview / staging                          │
-└───────────┬────────────────────────────────────────────────┘
-            │ deploy
-            ▼
-┌────────────────────────────────────────────────────────────┐
-│                RUNTIME ENVIRONMENTS (K8s)                  │
-│                                                            │
-│   ┌────────────┐   ┌────────────┐   ┌────────────────┐     │
-│   │  Preview   │   │  Staging   │   │  Production    │     │
-│   │  (per PR)  │──►│            │──►│                │     │
-│   └────────────┘   └────────────┘   └────────────────┘     │
-│                                                            │
-│   Components:                                              │
-│   ├── Backstage backend + frontend                         │
-│   ├── PostgreSQL                                           │
-│   ├── Auth (Keycloak / GitHub OAuth)                       │
-│   └── Ingress / TLS                                        │
-└────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Target Architecture Overview
-
-**Backstage** → **Automation** → **Infrastructure**
-
-| Layer | What it does |
-|-------|--------------|
-| Control Plane | Backstage (UI, catalog, templates) |
-| Execution | GitLab, Ansible, Terraform |
-| Infrastructure | OpenShift, Azure |
-
-```mermaid
-graph LR
-    subgraph IDP[Internal Developer Platform]
-        Backstage
-    end
-
-    subgraph Auth[Identity]
-        Keycloak
-    end
-
-    subgraph CI[Automation]
-        GitLab
-    end
-
-    subgraph Runtime[Infrastructure]
-        OpenShift
-    end
-
-    subgraph Ops[Observability]
-        Prometheus
-        Vault
-    end
-
-    Keycloak --> Backstage
-    Backstage --> GitLab
-    GitLab --> OpenShift
-    OpenShift --> Prometheus
-    Vault --> OpenShift
-```
-
----
-
 
 ## OpenShift Developer Hub vs. Backstage
 
@@ -236,19 +85,6 @@ RHDH ships with ready-to-use integrations optimized for the OpenShift/Red Hat ec
 
 ---
 
-### Golden Path Templates
-
-RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adoption:
-
-| Benefit | Description |
-|---------|-------------|
-| 📐 **Pre-architected** | Proven patterns out of the box |
-| ⚡ **Optimized** | OpenShift-native workflows |
-| 🔒 **Secure** | Security best practices built-in |
-| 🚀 **Fast** | Reduced time-to-production |
-
----
-
 ### Decision Guide
 
 | Choose **Backstage** when... | Choose **RHDH** when... |
@@ -259,6 +95,130 @@ RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adopt
 | ✅ Community-driven development | ✅ Want curated, validated plugins |
 | ✅ Full control over the platform | ✅ Simplified RBAC & compliance |
 | | ✅ Less operational overhead |
+
+---
+
+### IDP Team Collaboration Model
+
+| Team | Responsibility |
+|------|----------------|
+| **Developer Teams** | Consume patterns, build applications & infrastructure |
+| **Platform Teams** | Provide golden paths, centralized infra & collaboration tools |
+| **Governance** | Enforce guard rails, compliance, reporting & contracts |
+
+```mermaid
+flowchart LR
+    subgraph DT[Developer Teams]
+        Apps[Applications]
+        Infra[Infrastructure]
+    end
+
+    subgraph PT[Platform Teams]
+        Patterns[Golden Paths / Deployable Patterns]
+        Central[Centralized Infrastructure & Tools]
+    end
+
+    subgraph GOV[Governance]
+        Rails[Guard Rails]
+        Comply[Compliance]
+        Report[Reporting]
+        Contracts[API & Data Contracts]
+    end
+
+    DT <-->|"Patterns evolved in collaboration"| PT
+    GOV -->|"Enforce, detect, report"| DT
+```
+
+
+---
+<!--
+### Platform Teams Overview
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Platform Teams" width="1200"/>
+
+--- -->
+
+### Platform Team Sizing Guide
+
+| Org Size | Platform Team | Focus |
+|----------|---------------|-------|
+| < 30 devs | 1–2 embedded engineers | Basic automation, shared tooling |
+| 30–100 devs | 2–6 people (part-time/small team) | Templates, CI/CD standardization |
+| 100–500 devs | 6–20 FTEs | Full IDP, pipelines, catalog, observability |
+| 500+ devs | 20+ (full product org) | SLAs, PMs, SREs, UX, dedicated support |
+
+---
+
+#### Logical Architecture Overview
+
+```mermaid
+flowchart TD
+    Dev[👨‍💨 Developers<br/>Local Dev + IDE]
+
+    Git[📦 Source Control<br/>GitHub/GitLab]
+
+    CI[⚙️ CI/CD Pipeline<br/>Build + Test + Publish]
+
+    Env[☁️ Runtime Environments]
+
+    subgraph Env
+        Preview[Preview<br/>per PR]
+        Staging[Staging]
+        Prod[Production]
+        Preview --> Staging --> Prod
+    end
+
+    Dev -->|git push| Git
+    Git -->|webhook| CI
+    CI -->|deploy| Env
+
+    style Dev fill:#e1f5ff
+    style Git fill:#fff4e1
+    style CI fill:#ffe1f5
+    style Env fill:#e1ffe1
+```
+
+---
+
+## Target Architecture Overview
+
+**Backstage** → **Automation** → **Infrastructure**
+
+| Layer | What it does |
+|-------|--------------|
+| Control Plane | Backstage (UI, catalog, templates) |
+| Execution | GitLab, Ansible, Terraform |
+| Infrastructure | OpenShift, Azure |
+
+```mermaid
+graph LR
+    subgraph IDP[Internal Developer Platform]
+        Backstage
+    end
+
+    subgraph Auth[Identity]
+        Keycloak
+    end
+
+    subgraph CI[Automation]
+        GitLab
+    end
+
+    subgraph Runtime[Infrastructure]
+        OpenShift
+    end
+
+    subgraph Ops[Observability]
+        Prometheus
+        Vault
+    end
+
+    Keycloak --> Backstage
+    Backstage --> GitLab
+    GitLab --> OpenShift
+    OpenShift --> Prometheus
+    Vault --> OpenShift
+```
 
 ---
 
