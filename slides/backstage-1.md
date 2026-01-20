@@ -205,6 +205,66 @@
 — allowing teams to review changes before merging
 
 ---
+
+### /TEMPLATE.YAML PARAMETERS
+
+```yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+spec:
+  parameters:
+    - title: Configure Terraform Backend
+      properties:
+        backend_type:
+          title: Backend Type
+          type: string
+          description: Terraform state backend type
+          default: s3
+          enum:
+            - s3
+            - azurerm
+            - gcs
+            - http
+            - local
+          enumNames:
+            - AWS S3
+            - Azure Storage
+            - Google Cloud Storage
+            - HTTP Backend
+            - Local (not recommended for production)
+```
+
+- `parameters` define the **UI form** for user input
+- `enum` + `enumNames` create dropdown with friendly labels
+- `default` sets pre-selected value
+
+---
+
+### /SKELETON TEMPLATING (NUNJUCKS)
+
+**Skeleton file** (`template/providers.tf`):
+```hcl
+{%- if values.provider == "vsphere" %}
+provider "vsphere" {
+  # Configure via environment variables:
+  # VSPHERE_USER, VSPHERE_PASSWORD, VSPHERE_SERVER
+  allow_unverified_ssl = false
+}
+{%- elif values.provider == "kubernetes" %}
+provider "kubernetes" {
+  # Configure via kubeconfig or in-cluster config
+  # config_path    = "~/.kube/config"
+  # config_context = "my-context"
+}
+{%- endif %}
+```
+
+- Skeleton files use **Nunjucks** templating (Mozilla)
+- `{%- if/elif/endif %}` for conditional logic
+- `${{ values.X }}` for variable substitution
+- User selects provider → correct config is generated
+
+---
 <!--
 ### /Crossplane Lifecycle Process
 
