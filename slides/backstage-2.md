@@ -1,7 +1,3 @@
-### BACKSTAGE PART II
-
----
-
 ### TECHDOCS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
@@ -35,7 +31,6 @@
 
 - Detailed view of Kubernetes Clusters
 
-
 ---
 
 ## Why Plugins Matter
@@ -51,7 +46,7 @@
 
 ### GitHub / GitLab Plugins 🧑‍💻
 
-- GitHub Actions / GitLab CI
+- GitHub Actions / GitLab CI (Frontend+Backend Plugins)
 - Pull Requests
 - Repo insights
 
@@ -68,5 +63,6 @@
 
 **➡️ Visibility without leaving Backstage**
 
+---
 
-### FRONTEND + BACKEND PLUGINS
+### CUSTOM FRONTEND + BACKEND PLUGINS
