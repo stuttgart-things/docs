@@ -2,22 +2,6 @@
 
 ---
 
-## Agenda
-
-| Section | Topics |
-|---------|--------|
-| **1. Why Platform Engineering** | Key questions, when to invest, pitfalls |
-| **2. Teams & Organization** | Collaboration model, team sizing |
-| **3. Architecture Vision** | Goals, logical & target architecture |
-| **4. Backstage vs. RHDH** | Comparison, decision guide |
-| **5. Evolution & Maturity** | Phases 1-4, layer mapping |
-| **6. Lessons & Takeaways** | Best practices, final message |
-
----
-
-<!-- ============================================ -->
-<!-- SECTION 1: WHY PLATFORM ENGINEERING          -->
-<!-- ============================================ -->
 
 ## Start With These Questions
 
@@ -53,10 +37,6 @@
 > **Mindset shift:** Treat platform as a product — assign a PM + support rota
 
 ---
-
-<!-- ============================================ -->
-<!-- SECTION 2: TEAMS & ORGANIZATION              -->
-<!-- ============================================ -->
 
 ### IDP Team Collaboration Model
 
@@ -107,10 +87,6 @@ flowchart LR
 | 500+ devs | 20+ (full product org) | SLAs, PMs, SREs, UX, dedicated support |
 
 ---
-
-<!-- ============================================ -->
-<!-- SECTION 3: ARCHITECTURE VISION               -->
-<!-- ============================================ -->
 
 ## Architecture Vision
 
@@ -235,9 +211,6 @@ graph LR
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 4: BACKSTAGE VS RHDH                 -->
-<!-- ============================================ -->
 
 ## OpenShift Developer Hub vs. Backstage
 
@@ -325,10 +298,6 @@ RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adopt
 
 ---
 
-<!-- ============================================ -->
-<!-- SECTION 5: EVOLUTION & MATURITY              -->
-<!-- ============================================ -->
-
 ### Architecture Evolution Overview
 
 | Phase | Name | Focus |
@@ -384,40 +353,6 @@ RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adopt
 
 ---
 
-## Layer-to-Tool Mapping
-
-| Layer | Tools |
-|-------|-------|
-| Control | Backstage |
-| Identity | Keycloak, OPA |
-| Execution | GitLab, Ansible, Terraform |
-| Infrastructure | OpenShift, Azure |
-| Observability | Prometheus, Loki |
-| Secrets | Vault |
-
----
-
-<!-- ============================================ -->
-<!-- SECTION 6: LESSONS & TAKEAWAYS               -->
-<!-- ============================================ -->
-
-## Lessons Learned
-
-- **Provide Templates for Documentation**
-  - Ensure consistent documentation and clear documentation structures
-  - Reduce effort for developers and faster documentation creation
-  - Increase completeness and clarity
-- **Support Linting**
-  - Increase the quality
-  - Catch errors early
-  - Provide a reusable jobs for CI/CD
-  - Provide documentation
-- **Provide Silver Path**
-  - Offer alternative paths when golden path doesn't fit
-  - Document trade-offs and when to deviate
-  - Enable flexibility without chaos
-
----
 
 ### Tactics - How to promote Backstage internally:
 
@@ -432,6 +367,22 @@ RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adopt
 
 ---
 
+## Lessons Learned
+
+- **Provide Templates for Documentation**
+  - Ensure consistent documentation and clear documentation structures
+  - Reduce effort for developers and faster documentation creation
+  - Increase completeness and clarity
+- **Support Linting**
+  - Increase the quality
+  - Catch errors early
+  - Provide a reusable jobs for CI/CD
+- **Provide Silver Path**
+  - Offer alternative paths when golden path doesn't fit
+  - Document trade-offs and when to deviate
+  - Enable flexibility without chaos
+
+---
 
 ## Key Takeaways
 
