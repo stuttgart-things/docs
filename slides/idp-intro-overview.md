@@ -308,10 +308,6 @@
 | 🌐 Web Portals | Publish docs, service catalogs, project templates | Backstage, Skooner, Ortelius |
 | 🔌 APIs | Auto-create, update, delete, observe capabilities | Kubernetes, Crossplane, Helm |
 | 🛤️ Golden Paths | Templated code + capabilities for rapid dev | ArtifactHub |
-| 🔄 Build & Test | Automate build and test of products/services | Tekton, Jenkins, ko |
-| 🚀 Delivery | Automate and observe delivery of services | Argo, Flux, Flagger |
-| 💻 Dev Environments | Enable R&D of applications and systems | Devfile, Telepresence, DevSpace |
-| 📊 Observability | Instrument, gather, analyze telemetry | OpenTelemetry, Prometheus, Grafana |
 
 ---
 
