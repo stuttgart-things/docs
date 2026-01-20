@@ -2,22 +2,35 @@
 
 ---
 
-## Architecture Vision
+## Agenda
 
-**Backstage is not the platform — it is the control plane of the platform.**
+| Section | Topics |
+|---------|--------|
+| **1. Why Platform Engineering** | Key questions, when to invest, pitfalls |
+| **2. Teams & Organization** | Collaboration model, team sizing |
+| **3. Architecture Vision** | Goals, logical & target architecture |
+| **4. Backstage vs. RHDH** | Comparison, decision guide |
+| **5. Evolution & Maturity** | Phases 1-4, layer mapping |
+| **6. Lessons & Takeaways** | Best practices, final message |
 
-* Enables self-service
-* Enforces policy
-* Orchestrates automation
-* Provides visibility & governance
+---
 
-Everything else **executes**, **enforces**, **observes**, or **audits**.
+<!-- ============================================ -->
+<!-- SECTION 1: WHY PLATFORM ENGINEERING          -->
+<!-- ============================================ -->
+
+## Start With These Questions
+
+| Question | Why It Matters |
+|----------|----------------|
+| Can you reduce feedback loops? | Faster iteration = happier developers |
+| Where is cognitive load highest? | Target your platform investment |
+| Which teams need the most support? | Prioritize high-impact improvements |
+| What would great DX look like? | Define your north star |
 
 ---
 
 ### When to Invest in Platform Engineering
-
-<!-- <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="When it pays" width="400"/> -->
 
 | Signal | Description |
 |--------|-------------|
@@ -41,27 +54,74 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ---
 
-### PLATFORM TEAMS
+<!-- ============================================ -->
+<!-- SECTION 2: TEAMS & ORGANIZATION              -->
+<!-- ============================================ -->
 
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Alt Text" width="1200"/>
+### IDP Team Collaboration Model
+
+```mermaid
+flowchart LR
+    subgraph DT[Developer Teams]
+        Apps[Applications]
+        Infra[Infrastructure]
+    end
+
+    subgraph PT[Platform Teams]
+        Patterns[Golden Paths / Deployable Patterns]
+        Central[Centralized Infrastructure & Tools]
+    end
+
+    subgraph GOV[Governance]
+        Rails[Guard Rails]
+        Comply[Compliance]
+        Report[Reporting]
+        Contracts[API & Data Contracts]
+    end
+
+    DT <-->|"Patterns evolved in collaboration"| PT
+    GOV -->|"Enforce, detect, report"| DT
+```
+
+| Team | Responsibility |
+|------|----------------|
+| **Developer Teams** | Consume patterns, build applications & infrastructure |
+| **Platform Teams** | Provide golden paths, centralized infra & collaboration tools |
+| **Governance** | Enforce guard rails, compliance, reporting & contracts |
 
 ---
 
-### TEAM SIZING
+### Platform Teams Overview
 
-- < 30 devs: No dedicated platform org usually — 1–2 infra/DevOps engineers embedded in teams
-- ~30–100 devs: 2–6 people focused on platform features + templates (part-time or small team)
-- 100–500 devs: 6–20 FTEs running IDP, pipelines, service catalog, observability
-- 500+ devs: Platform becomes a full product org (20+), with SLAs, PMs, SREs, UX
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/platform-teams.png" alt="Platform Teams" width="1200"/>
 
 ---
 
-## Helpful Questions
+### Platform Team Sizing Guide
 
-- Can you reduce feedback loops? (pair /peer programming)
-- Where is cognitive load highest?
-- Which teams need support?
-- What would great DX look like?
+| Org Size | Platform Team | Focus |
+|----------|---------------|-------|
+| < 30 devs | 1–2 embedded engineers | Basic automation, shared tooling |
+| 30–100 devs | 2–6 people (part-time/small team) | Templates, CI/CD standardization |
+| 100–500 devs | 6–20 FTEs | Full IDP, pipelines, catalog, observability |
+| 500+ devs | 20+ (full product org) | SLAs, PMs, SREs, UX, dedicated support |
+
+---
+
+<!-- ============================================ -->
+<!-- SECTION 3: ARCHITECTURE VISION               -->
+<!-- ============================================ -->
+
+## Architecture Vision
+
+**Backstage is not the platform — it is the control plane of the platform.**
+
+* Enables self-service
+* Enforces policy
+* Orchestrates automation
+* Provides visibility & governance
+
+Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ---
 
@@ -75,96 +135,6 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 | 🚀 Safe Promotion | Staged rollouts: Preview → Staging → Production with gates |
 | 🔐 Secure Secrets | No secrets in code, runtime injection via Vault/K8s secrets |
 | 📦 Repeatable Builds | Deterministic builds, pinned dependencies, immutable artifacts |
-
----
-
-## OpenShift Developer Hub vs. Backstage
-
----
-
-### What's the Relationship?
-
-| | Backstage | RHDH |
-|---|-----------|------|
-| **Origin** | CNCF project (Spotify) | Red Hat enterprise distribution |
-| **Relationship** | Upstream OSS framework | Built directly on Backstage |
-| **Model** | Community-driven | Commercially supported |
-
-> **Think of it like:**
-> - Kubernetes → OpenShift
-> - Linux Kernel → RHEL
-
-{{% note %}}
-RHDH is not a fork — it's built directly on Backstage with additional enterprise features and support.
-{{% /note %}}
-
----
-
-### Installation & Management
-
-| Aspect | Backstage | RHDH |
-|--------|-----------|------|
-| **Deployment** | Manual setup | Kubernetes Operator / Helm |
-| **Build Process** | Complex, DIY | Simplified, pre-built |
-| **Dependencies** | Self-managed | Bundled & validated |
-| **Updates** | Manual maintenance | Automated |
-| **Plugin Loading** | Static (rebuild required) | Dynamic (hot-reload) |
-
-{{% note %}}
-RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on Kubernetes.
-{{% /note %}}
-
----
-
-### RHDH: Pre-Integrated Ecosystem
-
-RHDH ships with ready-to-use integrations optimized for the OpenShift/Red Hat ecosystem:
-
-| Category | Integration |
-|----------|-------------|
-| 🔍 **Visualization** | Application Topology for Kubernetes |
-| 🔧 **CI/CD** | Tekton Pipelines |
-| 🚀 **GitOps** | Argo CD (OpenShift GitOps) |
-| 📦 **Registry** | Quay container registry |
-| 🌐 **Multi-Cluster** | Open Cluster Manager |
-| 🔐 **Auth** | Keycloak authentication |
-
----
-
-### Plugin Architecture Comparison
-
-| | Backstage (Static) | RHDH (Dynamic) |
-|---|-------------------|----------------|
-| **Adding Plugins** | Rebuild app | Configure & reload |
-| **Updates** | Redeploy required | Hot-reload capability |
-| **Downtime** | Yes, for changes | Zero-downtime updates |
-| **Flexibility** | Full control | Curated plugin set |
-
----
-
-### Golden Path Templates
-
-RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adoption:
-
-| Benefit | Description |
-|---------|-------------|
-| 📐 **Pre-architected** | Proven patterns out of the box |
-| ⚡ **Optimized** | OpenShift-native workflows |
-| 🔒 **Secure** | Security best practices built-in |
-| 🚀 **Fast** | Reduced time-to-production |
-
----
-
-### Decision Guide
-
-| Choose **Backstage** when... | Choose **RHDH** when... |
-|------------------------------|-------------------------|
-| ✅ Maximum flexibility needed | ✅ Faster time-to-value required |
-| ✅ Resources to build & maintain | ✅ Already invested in OpenShift/Red Hat |
-| ✅ Plugins outside Red Hat ecosystem | ✅ Enterprise support & SLAs needed |
-| ✅ Community-driven development | ✅ Want curated, validated plugins |
-| ✅ Full control over the platform | ✅ Simplified RBAC & compliance |
-| | ✅ Less operational overhead |
 
 ---
 
@@ -265,6 +235,100 @@ graph LR
 
 ---
 
+<!-- ============================================ -->
+<!-- SECTION 4: BACKSTAGE VS RHDH                 -->
+<!-- ============================================ -->
+
+## OpenShift Developer Hub vs. Backstage
+
+| | Backstage | RHDH |
+|---|-----------|------|
+| **Origin** | CNCF project (Spotify) | Red Hat enterprise distribution |
+| **Relationship** | Upstream OSS framework | Built directly on Backstage |
+| **Model** | Community-driven | Commercially supported |
+
+> **Think of it like:**
+> - Kubernetes → OpenShift
+> - Linux Kernel → RHEL
+
+{{% note %}}
+RHDH is not a fork — it's built directly on Backstage with additional enterprise features and support.
+{{% /note %}}
+
+---
+
+### Installation & Management
+
+| Aspect | Backstage | RHDH |
+|--------|-----------|------|
+| **Deployment** | Manual setup | Kubernetes Operator / Helm |
+| **Build Process** | Complex, DIY | Simplified, pre-built |
+| **Dependencies** | Self-managed | Bundled & validated |
+| **Updates** | Manual maintenance | Automated |
+| **Plugin Loading** | Static (rebuild required) | Dynamic (hot-reload) |
+
+{{% note %}}
+RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on Kubernetes.
+{{% /note %}}
+
+---
+
+### RHDH: Pre-Integrated Ecosystem
+
+RHDH ships with ready-to-use integrations optimized for the OpenShift/Red Hat ecosystem:
+
+| Category | Integration |
+|----------|-------------|
+| 🔍 **Visualization** | Application Topology for Kubernetes |
+| 🔧 **CI/CD** | Tekton Pipelines |
+| 🚀 **GitOps** | Argo CD (OpenShift GitOps) |
+| 📦 **Registry** | Quay container registry |
+| 🌐 **Multi-Cluster** | Open Cluster Manager |
+| 🔐 **Auth** | Keycloak authentication |
+
+---
+
+### Plugin Architecture Comparison
+
+| | Backstage (Static) | RHDH (Dynamic) |
+|---|-------------------|----------------|
+| **Adding Plugins** | Rebuild app | Configure & reload |
+| **Updates** | Redeploy required | Hot-reload capability |
+| **Downtime** | Yes, for changes | Zero-downtime updates |
+| **Flexibility** | Full control | Curated plugin set |
+
+---
+
+### Golden Path Templates
+
+RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adoption:
+
+| Benefit | Description |
+|---------|-------------|
+| 📐 **Pre-architected** | Proven patterns out of the box |
+| ⚡ **Optimized** | OpenShift-native workflows |
+| 🔒 **Secure** | Security best practices built-in |
+| 🚀 **Fast** | Reduced time-to-production |
+
+---
+
+### Decision Guide
+
+| Choose **Backstage** when... | Choose **RHDH** when... |
+|------------------------------|-------------------------|
+| ✅ Maximum flexibility needed | ✅ Faster time-to-value required |
+| ✅ Resources to build & maintain | ✅ Already invested in OpenShift/Red Hat |
+| ✅ Plugins outside Red Hat ecosystem | ✅ Enterprise support & SLAs needed |
+| ✅ Community-driven development | ✅ Want curated, validated plugins |
+| ✅ Full control over the platform | ✅ Simplified RBAC & compliance |
+| | ✅ Less operational overhead |
+
+---
+
+<!-- ============================================ -->
+<!-- SECTION 5: EVOLUTION & MATURITY              -->
+<!-- ============================================ -->
+
 ### Architecture Evolution Overview
 
 | Phase | Name | Focus |
@@ -332,20 +396,10 @@ graph LR
 | Secrets | Vault |
 
 ---
-<!--
-## Anti-Patterns
 
-| Area | Don't | Do |
-|------|-------|-----|
-| **Control Plane** | Direct infra changes, logic in plugins | Orchestrate, never execute |
-| **Identity** | Hardcoded permissions, no audit | Central identity + policy as code |
-| **Eventing** | Sync long-running tasks, tight coupling | Async, event-driven workflows |
-| **Observability** | No plugin metrics, no SLOs | Full-stack observability |
-| **Secrets** | Secrets in Git, no rotation | Runtime-only injection |
-| **Catalog** | No owners, stale services | Ownership & lifecycle validation |
-| **FinOps** | No quotas, no accountability | Cost tied to ownership
-
---- -->
+<!-- ============================================ -->
+<!-- SECTION 6: LESSONS & TAKEAWAYS               -->
+<!-- ============================================ -->
 
 ## Lessons Learned
 
@@ -359,7 +413,9 @@ graph LR
   - Provide a reusable jobs for CI/CD
   - Provide documentation
 - **Provide Silver Path**
-
+  - Offer alternative paths when golden path doesn't fit
+  - Document trade-offs and when to deviate
+  - Enable flexibility without chaos
 
 ---
 
