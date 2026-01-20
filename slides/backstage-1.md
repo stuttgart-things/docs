@@ -162,7 +162,7 @@
 - see all available sw-templates
 
 ---
-
+<!--
 ### SOFTWARE TEMPLATE DIALOG (CROSSPLANE RESOURCE)
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/software-templates2.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
@@ -178,7 +178,7 @@
 - Presents input parameters to the user (via Backstage UI)
 - Uses those parameters to generate code from a template repo
 
----
+--- -->
 
 <!-- ### NAMESPACE TEMPLATE
 
@@ -189,7 +189,7 @@
 
 --- -->
 
-### CATALOG TEMPLATE
+<!-- ### CATALOG TEMPLATE
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cat-info.png" alt="Right Image" width="700" style="border: none; box-shadow: none;"/>
 
@@ -204,7 +204,7 @@
 - Backstage can create a merge/pull request
 — allowing teams to review changes before merging
 
----
+--- -->
 
 ### TEMPLATE.YAML PARAMETERS
 
