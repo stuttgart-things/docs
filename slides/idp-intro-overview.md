@@ -88,6 +88,13 @@
 
 ### 🎯 What is an Internal Developer Platform (IDP)?
 
+<img src="https://i.ytimg.com/vi/U9zoxETp7XY/maxresdefault.jpg" alt="Alt Text" width="600"/>
+
+---
+
+### 🎯 What is an Internal Developer Platform (IDP)?
+
+
 **An IDP is a self-service layer that abstracts infrastructure complexity**
 
 | Aspect | Description |
