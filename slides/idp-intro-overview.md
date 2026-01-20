@@ -6,7 +6,7 @@
 
 ---
 
-### /MULTICLOUD
+### MULTICLOUD
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/multicloud.jpeg" alt="Alt Text" width="700"/>
 
@@ -16,7 +16,7 @@
 
 ---
 
-### 🔄 /GITOPS
+### 🔄 GITOPS
 
 <img src="https://cdn.prod.website-files.com/63c8f7191194d2a0cf4f630e/67951e7770966bf72c93aa96_Screenshot%202025-01-25%20at%2018.25.04.png" alt="Alt Text" width="500"/>
 
@@ -24,7 +24,7 @@
 
 ---
 
-### 🔄 /GITOPS
+### 🔄 GITOPS
 
 - 📜 **Declarative Infrastructure** — everything is defined in YAML
 - 🔗 **Git as the Source of Truth** — no more config drift
@@ -259,7 +259,7 @@
 
 --- -->
 
-### /DEV-EX
+### DEV-EX
 
 <img src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2Fbeozmmi208ae3ye2dr3v.jpg" alt="Alt Text" width="500"/>
 
@@ -472,7 +472,7 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
 
 ---
 
-### /Quick Poll #1
+### /Quick Poll
 
 > 🎯 Have you ever worked with an **Internal Developer Portal (IDP)**?
 
