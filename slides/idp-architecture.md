@@ -419,6 +419,20 @@ RHDH provides **pre-defined, Red Hat-validated templates** that accelerate adopt
 
 ---
 
+### Tactics - How to promote Backstage internally:
+
+- **"Lunch & Learns" & seminars**
+  - show, for example, how to build a plugin from scratch
+- **Hack days**
+  - fun way to get people into plugin development
+- **Show & tell meetings**
+  - quarterly meetings where anyone working on Backstage is invited to present their work
+- **Pro-actively identify new plugins**
+  - reach out to teams that own internal user interfaces or platforms that you think would make sense to consolidate into Backstage
+
+---
+
+
 ## Key Takeaways
 
 * Backstage is a **control plane**, not a workflow engine
