@@ -88,13 +88,10 @@
 
 ### 🎯 What is an Internal Developer Platform (IDP)?
 
-<img src="https://miro.medium.com/v2/resize:fit:1400/0*Jzv8Z9Z7d0X9Z8Z0" alt="IDP" width="600"/>
-
 **An IDP is a self-service layer that abstracts infrastructure complexity**
 
 | Aspect | Description |
 |--------|-------------|
-| 🛠️ **Definition** | Curated tooling and workflows that enable developer self-service |
 | 🎯 **Purpose** | Reduce cognitive load, accelerate delivery, standardize best practices |
 | 🧩 **Components** | Service catalog, golden paths, automation workflows, documentation |
 | 👥 **Users** | Developers consume platform capabilities without deep infrastructure knowledge |
@@ -111,15 +108,13 @@
 | 🌊 **Port** | SaaS | Low-code portal builder, scorecards, automations, integrations |
 | 🔧 **CLI-based** | Custom | Platform CLI tools (e.g., `platform create service`, `platform deploy`) |
 
-**Backstage** — Rich plugin ecosystem, highly customizable, self-hosted
+<!-- **Backstage** — Rich plugin ecosystem, highly customizable, self-hosted
 **Port** — Quick setup, managed service, visual workflow builder
-**CLI Tools** — Scriptable, integrates with existing workflows, developer-friendly
+**CLI Tools** — Scriptable, integrates with existing workflows, developer-friendly -->
 
 ---
 
-### 🔌 Crossplane: Infrastructure as Code, the Kubernetes Way
-
-<img src="https://blog.crossplane.io/content/images/2023/03/crossplane-logo.png" alt="Crossplane" width="400"/>
+### 🔌 Crossplane: IAC, the Kubernetes Way
 
 **Crossplane extends Kubernetes to manage cloud infrastructure**
 
@@ -142,12 +137,10 @@
 |----------|--------------|
 | 🗄️ **Database Provisioning** | Developer requests PostgreSQL → Crossplane creates RDS instance |
 | 🌐 **Environment Creation** | Service template triggers Crossplane composition for full stack |
-| 🔐 **Policy Enforcement** | Compositions enforce security, tagging, cost controls by default |
 | 📊 **Resource Discovery** | IDP catalog shows all Crossplane-managed resources with ownership |
 
 **Integration Example:**
 - Backstage template → triggers GitHub Action → applies Crossplane manifests → provisions cloud resources
-- Port automation → calls Crossplane API → creates namespace + DB + storage → updates catalog
 
 > **Crossplane = Infrastructure API for your IDP**
 
@@ -165,8 +158,6 @@
 
 ---
 
----
-
 <!-- ### 🏗️ Platform Engineering
 
 "...  is the discipline of designing and building toolchains and workflows that enable **self-service** capabilities for software engineering organizations in the cloud-native era. Platform engineers provide an integrated product most often referred to as an “ **Internal Developer Platform**” covering the operational necessities of the entire lifecycle of an application."
@@ -174,18 +165,6 @@
 (- Humanitec)
 
 --- -->
-
-### When to Introduce Golden Paths
-
-| Signal | Description |
-|--------|-------------|
-| 👥 Team Scale | Multiple teams (≈10+) doing similar CI/CD work |
-| 🔧 Pipeline Pain | Repeated pipeline maintenance and breakage across teams |
-| ⏱️ Slow Onboarding | Onboarding takes weeks, not days |
-| 🧠 Cognitive Load | Desire to reduce complexity and increase platform ROI |
-| ⚠️ Too Early If | Every service is unique and experimentation speed matters more than consistency |
-
----
 
 ### WHAT ARE GOLDEN PATHS
 
@@ -199,6 +178,18 @@
 
 ---
 
+### When to Introduce Golden Paths
+
+| Signal | Description |
+|--------|-------------|
+| 👥 Team Scale | Multiple teams (≈10+) doing similar CI/CD work |
+| 🔧 Pipeline Pain | Repeated pipeline maintenance and breakage across teams |
+| ⏱️ Slow Onboarding | Onboarding takes weeks, not days |
+| 🧠 Cognitive Load | Desire to reduce complexity and increase platform ROI |
+| ⚠️ Too Early If | Every service is unique and experimentation speed matters more than consistency |
+
+---
+<!--
 ### Why Golden Paths?
 
 | Principle | Benefit |
@@ -210,9 +201,9 @@
 
 > **"Love your Developers, not your Tools."**
 
----
+--- -->
 
-### Golden Path Checklist: Build
+<!-- ### Golden Path Checklist: Build
 
 | Step | Action |
 |------|--------|
@@ -221,7 +212,7 @@
 | 📦 Scaffolding | Provide repo template (CLI or GitHub template) |
 | ⚙️ Onboarding | One command → dev environment + run tests |
 
----
+--- -->
 
 ### Golden Path Checklist: Operate & Improve
 
@@ -381,7 +372,7 @@
 > Source: [CNCF Platforms Whitepaper](https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
 ---
-
+<!--
 ### CNCF Platform Capabilities: Developer Experience
 
 | Capability | Description | CNCF/CDF Examples |
@@ -399,7 +390,7 @@
 | 🔄 Build & Test | Automate build and test of products/services | Tekton, Jenkins, ko |
 | 🚀 Delivery | Automate and observe delivery of services | Argo, Flux, Flagger |
 | 💻 Dev Environments | Enable R&D of applications and systems | Devfile, Telepresence, DevSpace |
-| 📊 Observability | Instrument, gather, analyze telemetry | OpenTelemetry, Prometheus, Grafana |
+| 📊 Observability | Instrument, gather, analyze telemetry | OpenTelemetry, Prometheus, Grafana | -->
 
 ---
 
@@ -436,8 +427,8 @@
 | 5️⃣ | Adapt | Revisiting decisions, optimizing apps and infra |
 
 > Source: [CNCF Maturity Model](https://maturitymodel.cncf.io/)
-
 ---
+<!--
 
 ### CNCF Platform Maturity Model
 
@@ -467,7 +458,7 @@
 
 > Source: [CNCF Maturity Model](https://maturitymodel.cncf.io/)
 
----
+--- -->
 
 <!--
 ### /DEV-EX

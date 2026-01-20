@@ -279,7 +279,6 @@ steps:
 - **Not permanent**: If repo or file is deleted → component disappears after refresh
 - Alternative: `catalog:write` writes directly to Backstage database (permanent)
 
----
 <!--
 ### /Crossplane Lifecycle Process
 
