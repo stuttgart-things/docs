@@ -160,5 +160,3 @@ export const CustomRepoPicker: FieldExtensionComponent<string> = ({
 ```
 
 **Use case**: Provide custom repository selection in Software Templates
-
----
