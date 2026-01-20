@@ -1,4 +1,4 @@
-### /BACKSTAGE PART II
+### BACKSTAGE PART II
 
 ---
 
@@ -15,7 +15,7 @@
 - Detailed view of the Components GitLab Pipelines
 
 ---
-### /KUBERNETES
+### KUBERNETES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kubernetes.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -24,13 +24,13 @@
 
 ---
 
-### /TECHDOCS
+### TECHDOCS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
 ---
 
-### /TECHDOCS
+### TECHDOCS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
