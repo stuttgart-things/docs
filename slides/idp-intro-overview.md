@@ -372,6 +372,15 @@
 |-------|------|-----------------|---------|
 | 1️⃣ | Provisional | Voluntary "tiger teams", short-lived, no long-term planning | CI/CD improvements as a "side effort" |
 | 2️⃣ | Operational- ized | Dedicated generalist team, fills gaps across technologies | Central team reducing build times |
+
+> Source: [CNCF Maturity Model](https://maturitymodel.cncf.io/)
+
+---
+
+### Platform Investment Maturity
+
+| Level | Name | Characteristics | Example |
+|-------|------|-----------------|---------|
 | 3️⃣ | Scalable | Product mindset: PM, UX, roadmap, end-to-end testing | Decisions driven by platform usage metrics |
 | 4️⃣ | Optimizing | Enabled ecosystem, specialists extend the platform | Marketing integrates user tracking via platform |
 
@@ -398,13 +407,13 @@
 
 --- -->
 
-### /IDP
+### IDP
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/abstraction.jpeg" alt="Alt Text" width="700"/>
 
 ---
 
-### /IDP
+### IDP
 
 Why it is a good idea to build an **Internal Developer Platform Portal**:
 
@@ -431,7 +440,7 @@ Why it is a good idea to build an **Internal Developer Platform Portal**:
 
 --- -->
 
-## 📈 IDPs Make DORA Metrics Actionable
+### 📈 IDPs Make DORA Metrics Actionable
 
 DORA (DevOps Research and Assessment) metrics measure software delivery performance:
 
@@ -545,14 +554,6 @@ DORA (DevOps Research and Assessment) metrics measure software delivery performa
   - Standardized build pipelines as part of a self-service workflow in the portal.
 - **Integrations with build/CI systems:**
   - Portal can visualize build results/status, making builds transparent.
-
----
-
-#### /BUILD
-
-**CI/CD Pipeline (GitLab CI, GitHub Actions)**
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/build.png" alt="Alt Text" width="600"/>
 
 ---
 
