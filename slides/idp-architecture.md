@@ -125,7 +125,7 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ---
 
-## High-level Goals of the Dev Architecture
+#### High-level Goals of the Dev Architecture
 
 | Goal | Description |
 |------|-------------|
@@ -138,7 +138,7 @@ Everything else **executes**, **enforces**, **observes**, or **audits**.
 
 ---
 
-## Logical Architecture Overview
+#### Logical Architecture Overview
 
 ```
 ┌────────────────────────────────────────────────────────────┐
