@@ -1,8 +1,8 @@
-### /BACKSTAGE PART I
+### BACKSTAGE PART I
 
 ---
 
-### /THE Backstage Platform
+### THE Backstage Platform
 
 **Backstage** is an open platform for building Internal Developer Portals, originally created by Spotify.
 
@@ -16,7 +16,7 @@
 
 ---
 
-### /USE OR BUILD?
+### USE OR BUILD?
 
 <img src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F89c0df9e-a35b-40c9-bbd1-ade37c3f792e_500x626.jpeg" alt="Alt Text" width="500"/>
 
@@ -72,7 +72,7 @@
 
 ---
 
-### /SOFTWARE CATALOG
+### SOFTWARE CATALOG
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/components-overview.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -83,7 +83,7 @@
 ---
 
 
-### /LOCATION+COMPONENT
+### LOCATION+COMPONENT
 
 <div style="display: flex; align-items: center; justify-content: center;">
 
@@ -100,7 +100,7 @@
 ---
 
 <!--
-### /SOFTWARE CATALOG
+### SOFTWARE CATALOG
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/components-example.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -109,7 +109,7 @@
 ---
 
 
-### /SOFTWARE CATALOG
+### SOFTWARE CATALOG
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/createcomponent.png" alt="Backstage" style="width:200%; border: none; box-shadow: none;" />
 
@@ -117,7 +117,7 @@
 
 ---
 
-### /SOFTWARE CATALOG
+### SOFTWARE CATALOG
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/enterurl.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -126,7 +126,7 @@
 --- -->
 <!--
 ---
-### /CATALOG
+### CATALOG
 
 <!-- slide title: Component, Catalog, and Location -->
 
@@ -141,7 +141,7 @@
 
 ---
 
-### /SOFTWARE TEMPLATE OVERVIEW
+### SOFTWARE TEMPLATE OVERVIEW
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/software-templates.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -155,7 +155,7 @@
 
 --- -->
 
-### /SOFTWARE TEMPLATE OVERVIEW
+### SOFTWARE TEMPLATE OVERVIEW
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/software-templates.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -163,7 +163,7 @@
 
 ---
 
-### /SOFTWARE TEMPLATE DIALOG (CROSSPLANE RESOURCE)
+### SOFTWARE TEMPLATE DIALOG (CROSSPLANE RESOURCE)
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/software-templates2.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -171,7 +171,7 @@
 
 ---
 
-### /TEMPLATE DEFINITION
+### TEMPLATE DEFINITION
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/sw-tpl.png" alt="Right Image" width="600" style="border: none; box-shadow: none;"/>
 
@@ -180,7 +180,7 @@
 
 ---
 
-<!-- ### /NAMESPACE TEMPLATE
+<!-- ### NAMESPACE TEMPLATE
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/ns-tpl.png" alt="Right Image" width="1200" style="border: none; box-shadow: none;"/>
 
@@ -189,7 +189,7 @@
 
 --- -->
 
-### /CATALOG TEMPLATE
+### CATALOG TEMPLATE
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/cat-info.png" alt="Right Image" width="700" style="border: none; box-shadow: none;"/>
 
@@ -197,7 +197,7 @@
 
 ---
 
-### /MERGE REQUEST ACTION
+### MERGE REQUEST ACTION
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/sw-tpl-mr.png" alt="Right Image" width="2000" style="border: none; box-shadow: none;"/>
 
@@ -206,7 +206,7 @@
 
 ---
 
-### /TEMPLATE.YAML PARAMETERS
+### TEMPLATE.YAML PARAMETERS
 
 ```yaml
 apiVersion: scaffolder.backstage.io/v1beta3
@@ -240,7 +240,7 @@ spec:
 
 ---
 
-### /SKELETON TEMPLATING (NUNJUCKS)
+### SKELETON TEMPLATING (NUNJUCKS)
 
 **Skeleton file** (`template/providers.tf`):
 ```hcl
@@ -266,7 +266,7 @@ provider "kubernetes" {
 
 ---
 
-### /COMPONENT REGISTRATION LIFECYCLE
+### COMPONENT REGISTRATION LIFECYCLE
 
 ```yaml
 steps:
@@ -292,13 +292,13 @@ steps:
 --- -->
 <!--
 
-### /SOFTWARE TEMPLATES
+### SOFTWARE TEMPLATES
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage6.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
 ---
 
-### /KRO DB-CLAIM
+### KRO DB-CLAIM
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/kro-db.png" alt="Alt Text" width="700" style="border: none; box-shadow: none;" />
 
@@ -324,7 +324,7 @@ steps:
 
 ---
 
-### /SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/createcustomergroups1.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -332,7 +332,7 @@ steps:
 
 ---
 
-### /SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/createcustomergroups2.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -340,7 +340,7 @@ steps:
 
 ---
 
-### /SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/createcustomergroups3.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -348,7 +348,7 @@ steps:
 
 ---
 
-### /SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/customergroups1.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -356,7 +356,7 @@ steps:
 
 ---
 
-### /SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/customergroups2.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
@@ -364,7 +364,7 @@ steps:
 
 ---
 
-### /SOFTWARE TEMPLATES - CUSTOMER GROUPS
+### SOFTWARE TEMPLATES - CUSTOMER GROUPS
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/customergroups3.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
 
