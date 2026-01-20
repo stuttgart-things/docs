@@ -1,7 +1,3 @@
-### Backstage Platform Architecture
-
----
-
 ## Architecture Vision
 
 **Backstage is not the platform — it is the control plane of the platform.**
