@@ -265,6 +265,25 @@ provider "kubernetes" {
 - User selects provider → correct config is generated
 
 ---
+
+### /COMPONENT REGISTRATION LIFECYCLE
+
+```yaml
+steps:
+  - id: register
+    name: Register in Catalog
+    action: catalog:register
+    input:
+      repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+      catalogInfoPath: '/catalog-info.yaml'
+```
+
+- `catalog:register` performs **URL-based registration**
+- Component depends on the `catalog-info.yaml` in the Git repo
+- **Not permanent**: If repo or file is deleted → component disappears after refresh
+- Alternative: `catalog:write` writes directly to Backstage database (permanent)
+
+---
 <!--
 ### /Crossplane Lifecycle Process
 
