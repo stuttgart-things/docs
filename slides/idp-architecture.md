@@ -118,37 +118,6 @@ RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on K
 
 ---
 
-<!-- #### Logical Architecture Overview
-
-```mermaid
-flowchart TD
-    Dev[👨‍💨 Developers<br/>Local Dev + IDE]
-
-    Git[📦 Source Control<br/>GitHub/GitLab]
-
-    CI[⚙️ CI/CD Pipeline<br/>Build + Test + Publish]
-
-    Env[☁️ Runtime Environments]
-
-    subgraph Env
-        Preview[Preview<br/>per PR]
-        Staging[Staging]
-        Prod[Production]
-        Preview --> Staging --> Prod
-    end
-
-    Dev -->|git push| Git
-    Git -->|webhook| CI
-    CI -->|deploy| Env
-
-    style Dev fill:#e1f5ff
-    style Git fill:#fff4e1
-    style CI fill:#ffe1f5
-    style Env fill:#e1ffe1
-```
-
----
-
 ## Target Architecture Overview
 
 **Backstage** → **Automation** → **Infrastructure**
