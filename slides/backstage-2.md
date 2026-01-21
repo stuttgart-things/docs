@@ -1,3 +1,17 @@
+### TECHDOCS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+---
+
+### TECHDOCS
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
+
+- TechDocs View in Backstage
+
+---
+
 ### Demo: Modify files + Create Mr 0/8
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo2_0.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
@@ -43,23 +57,6 @@
 ### Demo: Modify files + Create Mr 7/8
 
 <img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo2_7.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
-
----
-
-
-
-
-### TECHDOCS
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/backstage8.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
----
-
-### TECHDOCS
-
-<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/techdocs.png" alt="Backstage" style="width:100%; border: none; box-shadow: none;" />
-
-- TechDocs View in Backstage
 
 ---
 
@@ -155,3 +152,57 @@ export const CustomRepoPicker: FieldExtensionComponent<string> = ({
 ```
 
 **Use case**: Provide custom repository selection in Software Templates
+
+---
+
+### Demo: Create MR by API + Custom Plugin 0/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_0.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 1/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_1.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 2/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_2.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 3/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_3.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 4/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_4.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 5/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_5.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 6/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_6.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 7/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_7.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
+
+---
+
+### Demo: Create MR by API + Custom Plugin 8/8
+
+<img src="https://artifacts.demo-infra.sthings-vsphere.labul.sva.de/images/demo3_8.png" alt="Alt Text" width="1200" style="border: none; box-shadow: none;" />
