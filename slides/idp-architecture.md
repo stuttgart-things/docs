@@ -130,7 +130,7 @@ RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on K
 
 ---
 
-## Organizing Backstage as a Dev Project
+#### Organizing Backstage as a Dev Project
 
 | Aspect | Recommendation |
 |--------|----------------|

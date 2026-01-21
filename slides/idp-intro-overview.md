@@ -402,7 +402,6 @@
 
 > Source: [CNCF Platforms Whitepaper](https://tag-app-delivery.cncf.io/whitepapers/platforms/)
 
----
 <!--
 ### CNCF Platform Capabilities: Developer Experience
 
