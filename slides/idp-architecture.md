@@ -130,6 +130,59 @@ RHDH eliminates the "undifferentiated heavy lifting" of deploying Backstage on K
 
 ---
 
+## Organizing Backstage as a Dev Project
+
+| Aspect | Recommendation |
+|--------|----------------|
+| **Repository Structure** | Monorepo with `packages/app`, `packages/backend`, and `plugins/` directories |
+| **Plugins** | Keep custom plugins in `plugins/` folder; publish shared ones to private registry |
+| **Configuration** | Environment-specific configs: `app-config.yaml`, `app-config.production.yaml` |
+| **Secrets** | Never commit secrets; use env vars or external secret management (Vault, K8s Secrets) |
+| **Dependencies** | Pin versions in `package.json`; use lockfiles; update regularly |
+
+---
+
+### Build & Deploy Backstage
+
+| Stage | Details |
+|-------|---------|
+| **Local Dev** | `yarn dev` for hot-reload; use `app-config.local.yaml` for overrides |
+| **Build** | `yarn build` creates production bundle; `yarn build:backend --config ../../app-config.production.yaml` |
+| **Container Image** | Multi-stage Dockerfile; separate build and runtime stages; minimize image size |
+| **CI/CD Pipeline** | Lint → Test → Build → Push Image → Deploy to staging → Promote to prod |
+| **Deployment** | Helm chart or Kubernetes manifests; GitOps with ArgoCD recommended |
+
+---
+
+### Plugins & Authentication Setup
+
+| Topic | Approach |
+|-------|----------|
+| **Plugin Installation** | `yarn add @backstage/plugin-xyz` then register in `App.tsx` / `plugins.ts` |
+| **Custom Plugins** | `yarn new --select plugin` to scaffold; develop in `plugins/` directory |
+| **Plugin Versioning** | Match plugin versions to your Backstage version; check compatibility matrix |
+| **Auth Providers** | Configure in `app-config.yaml` under `auth.providers` (GitHub, GitLab, Okta, Keycloak, etc.) |
+| **Auth Flow** | Sign-in page → Provider OAuth → Token exchange → Session cookie |
+| **RBAC** | Use permission framework; define policies in backend; integrate with identity provider groups |
+
+---
+
+### Backstage Runtime on OpenShift
+
+| Component | Configuration |
+|-----------|---------------|
+| **Deployment** | `Deployment` or `DeploymentConfig`; 2+ replicas for HA |
+| **Service** | ClusterIP service exposing port 7007 (backend) |
+| **Route / Ingress** | OpenShift Route with TLS termination; configure `app.baseUrl` accordingly |
+| **Database** | External PostgreSQL (recommended) or in-cluster; use `StatefulSet` for persistence |
+| **ConfigMaps** | Mount `app-config.production.yaml`; use for non-sensitive configuration |
+| **Secrets** | Store auth tokens, DB credentials, API keys; inject as env vars or volume mounts |
+| **ServiceAccount** | Custom SA with RBAC for Kubernetes plugin to read cluster resources |
+| **Resource Limits** | Set CPU/memory requests and limits; backend is memory-intensive |
+| **Health Probes** | Liveness: `/healthcheck`, Readiness: `/healthcheck`; adjust timeouts for startup |
+
+---
+
 ## Start With These Questions
 
 | Question | Why It Matters |

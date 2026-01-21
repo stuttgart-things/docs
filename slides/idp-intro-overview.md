@@ -121,6 +121,18 @@
 
 ---
 
+### /Quick Poll
+
+> 🎯 Have you ever worked with an **Internal Developer Portal (IDP)**?
+
+- 🎭 **Yes, with Backstage** — love the plugin ecosystem!
+- 🧱 **Yes, with another tool** — like Port, Cortex, or OpsLevel
+- 🛠️ **We built our own custom IDP** — DIY all the way
+- 🧩 **Heard of IDPs, but not used one yet**
+- 🤷 **What's an IDP?** — sounds fancy!
+
+---
+
 ### 🔌 Crossplane: IAC, the Kubernetes Way
 
 **Crossplane extends Kubernetes to manage cloud infrastructure**
@@ -298,6 +310,18 @@
 | 📝 CODEOWNERS Override | Adjust reference configs via PR approval |
 
 > **Transition path**: Silver Path → Golden Path as needs stabilize
+
+---
+
+### /Quick Poll
+
+> 🛤️ Does your organization define **Golden Paths or Silver Paths** for developers?
+
+- 🥇 **Yes, we have Golden Paths** — standardized, fully supported workflows
+- 🥈 **Yes, we use Silver Paths** — flexible alternatives with best-effort support
+- 🔀 **Both** — Golden Paths for most teams, Silver Paths for edge cases
+- 🚧 **Planning to introduce them** — working on it!
+- ❌ **No defined paths yet** — every team does their own thing
 
 ---
 
