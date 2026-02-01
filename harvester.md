@@ -1,7 +1,7 @@
 # HARVESTER
 
 <details>
-  <summary>FETCH HARVESTER-KUBECONFIG</summary>
+  <summary>Fetch Harvester Kubeconfig</summary>
 
 ```bash
 ssh rancher@192.168.1.50 "sudo cat /etc/rancher/rke2/rke2.yaml" > ./harvester.yaml
