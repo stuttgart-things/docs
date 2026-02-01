@@ -1,6 +1,19 @@
 # HARVESTER
 
 <details>
+  <summary>FETCH HARVESTER-KUBECONFIG</summary>
+
+```bash
+ssh rancher@192.168.1.50 "sudo cat /etc/rancher/rke2/rke2.yaml" > ./harvester.yaml
+yq -i '.clusters[].cluster.server = "https://192.168.1.50:6443"' ./harvester.yaml
+yq '.clusters[].cluster.server' ./harvester.yaml
+kubectl get nodes --kubeconfig ./harvester.yaml
+```
+
+</details>
+
+
+<details>
   <summary>ReplicaSchedulingFailure Single-Node Harvester Cluster</summary>
   
 You have a single-node Harvester cluster (sthings)
@@ -24,6 +37,7 @@ kubectl --kubeconfig ~/.kube/harvester patch volume pvc-5626539c-5b15-4b9c-8bf9-
 kubectl --kubeconfig ~/.kube/harvester patch settings.longhorn.io default-replica-count \
   -n longhorn-system --type=merge -p '{"value":"1"}'
 ```
+
 </details>
 
 
