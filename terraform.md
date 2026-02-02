@@ -2,6 +2,45 @@
 
 ## GENERAL
 
+<details><summary><b>DOWNLOAD PROVIDERS FOR AIRGAPPED</b></summary>
+
+```bash
+cat main.tf 
+provider "null" {}
+ 
+resource "null_resource" "example" {
+  triggers = {
+    timestamp = timestamp()
+  }
+}
+```
+
+```bash
+terraform providers mirror /tmp/tf-providers
+
+tree /tmp/tf-providers
+/tmp/tf-providers
+└── registry.terraform.io
+    └── hashicorp
+        └── null
+            ├── 3.2.4.json
+            ├── index.json
+            └── terraform-provider-null_3.2.4_linux_amd64.zip
+
+4 directories, 3 files
+```
+
+```bash
+# COPY TO AIRGAPPED MACHINE
+rsync -av /tmp/tf-providers/ \
+  sthings@airgap:/home/sthings/.terraform.d/plugins/
+
+# INIT TERRAFORM 
+terraform init -plugin-dir=/home/sthings/.terraform.d/plugins
+```
+
+</details>
+
 <details><summary><b>INSTALL TERRAFORM CLI (AS BINARY)</b></summary>
 
 ```bash
