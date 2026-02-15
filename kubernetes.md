@@ -2,6 +2,115 @@
 
 ## CLUSTER
 
+<details><summary>GATEWAY API (CILIUM)</summary>
+
+```bash
+# CHECK IF GATWAY API IS ENABLED
+sthings@maverick rke2 → cilium config view | grep enable-gateway-api
+enable-gateway-api                                true
+enable-gateway-api-alpn                           false
+enable-gateway-api-app-protocol                   false
+enable-gateway-api-proxy-protocol                 false
+enable-gateway-api-secrets-sync                   true
+
+# CHECK IF GATWAY API CRDS ARE INSTALLED
+sthings@maverick rke2 → kubectl get crd | grep gateway.networking.k8s.io
+backendtlspolicies.gateway.networking.k8s.io   2026-02-15T08:28:50Z
+gatewayclasses.gateway.networking.k8s.io       2026-02-15T08:28:50Z
+gateways.gateway.networking.k8s.io             2026-02-15T08:28:50Z
+grpcroutes.gateway.networking.k8s.io           2026-02-15T08:28:50Z
+httproutes.gateway.networking.k8s.io           2026-02-15T08:28:50Z
+referencegrants.gateway.networking.k8s.io      2026-02-15T08:28:51Z
+
+# OPTIONAL: ADD HOSST ENTRY
+echo "10.31.103.16 nginx.vre2.sthings.io" | sudo tee -a /etc/hosts
+
+# DEPLOY NGINX AS BACKEND
+kubectl apply -f - <<'EOF'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx-route
+  namespace: default
+spec:
+  parentRefs:
+    - name: test-gateway
+  hostnames:
+    - nginx.vre2.sthings.io
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: nginx
+          port: 80
+EOF
+
+# CHECK ENDPOINT
+curl nginx.vre2.sthings.io
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
+
+</details>
+
+
 <details><summary>CLOUD-INIT RKE2 CLUSTER</summary>
 
 ```bash
