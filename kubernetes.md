@@ -25,8 +25,55 @@ referencegrants.gateway.networking.k8s.io      2026-02-15T08:28:51Z
 # OPTIONAL: ADD HOSST ENTRY
 echo "10.31.103.16 nginx.vre2.sthings.io" | sudo tee -a /etc/hosts
 
-# DEPLOY NGINX AS BACKEND
+# CREATE WILDCARD CERT
 kubectl apply -f - <<'EOF'
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-whatever-tls
+  namespace: default
+spec:
+  commonName: "*.whatever.sthings.example.com"
+  dnsNames:
+    - "*.whatever.sthings.example.com"
+    - whatever.sthings.example.com
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer-approle
+  secretName: wildcard-whatever-tls
+EOF
+
+# CREATE GATEWAY + TEST NGINX
+kubectl apply -f - <<'EOF'
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: whatever-gateway
+  namespace: default
+spec:
+  gatewayClassName: cilium
+  listeners:
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.whatever.sthings.example.com"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: wildcard-whatever-tls
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: "*.whatever.sthings.example.com"
+      allowedRoutes:
+        namespaces:
+          from: Same
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -68,9 +115,10 @@ metadata:
   namespace: default
 spec:
   parentRefs:
-    - name: test-gateway
+    - name: whatever-gateway
+      sectionName: https
   hostnames:
-    - nginx.vre2.sthings.io
+    - nginx.whatever.sthings.example.com
   rules:
     - matches:
         - path:
@@ -81,8 +129,13 @@ spec:
           port: 80
 EOF
 
-# CHECK ENDPOINT
-curl nginx.vre2.sthings.io
+#After applying, check:
+kubectl get gateway whatever-gateway
+kubectl get httproute nginx-route
+kubectl get svc cilium-gateway-whatever-gateway
+
+# CHECK ROUTE/ENDPOINT
+curl -sk https://nginx.whatever.sthings.example.com/
 <!DOCTYPE html>
 <html>
 <head>
