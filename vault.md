@@ -587,3 +587,459 @@ spec:
 ```
 
 </details>
+
+## OPENBAO
+
+### Deploy via Compose
+
+<details><summary><b>docker-compose.yml</b></summary>
+
+```yaml
+name: openbao
+
+services:
+  openbao:
+    image: openbao/openbao:2.5.1
+    container_name: openbao
+    restart: unless-stopped
+
+    cap_add:
+      - IPC_LOCK
+
+    command: server
+
+    environment:
+      BAO_ADDR: http://0.0.0.0:8200
+
+    volumes:
+      - ./config:/openbao/config
+      - ./data:/openbao/file
+      - ./logs:/openbao/logs
+
+    expose:
+      - "8201"   # internal cluster port (raft)
+
+    networks:
+      - web
+      - openbao-internal
+
+    labels:
+      - "traefik.enable=true"
+
+      # HTTP → HTTPS redirect
+      - "traefik.http.routers.openbao-http.rule=Host(`YOUR_VAULT_URL`)"
+      - "traefik.http.routers.openbao-http.entrypoints=web"
+      - "traefik.http.routers.openbao-http.middlewares=openbao-https-redirect"
+      - "traefik.http.routers.openbao-http.service=openbao"
+
+      # HTTPS router
+      - "traefik.http.routers.openbao.rule=Host(`YOUR_VAULT_URL`)"
+      - "traefik.http.routers.openbao.entrypoints=websecure"
+      - "traefik.http.routers.openbao.tls=true"
+      - "traefik.http.routers.openbao.service=openbao"
+
+      # Backend port
+      - "traefik.http.services.openbao.loadbalancer.server.port=8200"
+
+      # Redirect middleware
+      - "traefik.http.middlewares.openbao-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.openbao-https-redirect.redirectscheme.permanent=true"
+
+      # Proper proxy header handling
+      - "traefik.http.middlewares.openbao-headers.headers.sslProxyHeaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.openbao.middlewares=openbao-headers"
+
+      # Important: must match your traefik docker network
+      - "traefik.docker.network=web"
+
+networks:
+  web:
+    external: true
+  openbao-internal:
+    driver: bridge
+```
+
+</details>
+
+
+<details><summary><b>config/openbao.hcl</b></summary>
+
+```
+ui = true
+
+storage "raft" {
+  path = "/openbao/file"
+}
+
+listener "tcp" {
+  address     = "0.0.0.0:8200"
+  tls_disable = 1
+}
+
+api_addr     = "https://YOUR_BAO_ADDR"
+cluster_addr = "http://openbao:8201"
+```
+
+</details>
+
+
+### Vault Terraform Configuration
+
+Manages [OpenBao](https://openbao.org/) (Vault-compatible) infrastructure using a reusable Terraform module.
+
+#### Example Structure (with keycloak-specific vault configuration)
+
+```
+terraform/
+├── modules/
+│   └── vault/          # Reusable module: KV secrets, policies, AppRole
+└── environments/
+    └── keycloak/       # Keycloak-specific Vault configuration
+```
+
+#### Prerequisites
+
+- [Terraform](https://developer.hashicorp.com/terraform/install) >= 1.5
+- Access to the OpenBao instance at `https://YOUR_VAULT_URL`
+- A Vault token with sufficient permissions (root token for initial bootstrap only)
+
+#### Quick Start
+
+```bash
+cd terraform/environments/keycloak
+terraform init
+terraform apply -var="vault_token=$VAULT_TOKEN"
+```
+
+#### Adding a New Service
+
+1. Create a new environment directory:
+
+```bash
+mkdir -p environments/<service-name>
+```
+
+2. Add `main.tf` that calls the module:
+
+<details><summary><b>main.tf</b></summary>
+  
+```hcl
+module "vault" {
+ source = "../../modules/vault"
+
+ enable_kv = false  # KV mount already exists after first apply
+
+ secrets = {
+   <service-name> = {
+     USERNAME = "..."
+     PASSWORD = "..."
+   }
+ }
+
+ policies = {
+   <service-name>-read = <<-EOT
+     path "secret/data/<service-name>" {
+       capabilities = ["read"]
+     }
+     path "secret/metadata/<service-name>" {
+       capabilities = ["read"]
+     }
+   EOT
+ }
+
+ approle_roles = {
+   <service-name> = {
+     token_policies = ["<service-name>-read"]
+   }
+ }
+}
+```
+
+</details>
+
+3. Add `variables.tf`, `terraform.tfvars`, and apply.
+
+> **Note:** Set `enable_kv = false` and `enable_approle = false` if the KV mount or AppRole backend was already created by another environment. Alternatively, use `terraform import` to adopt existing resources.
+
+
+### Example Keycloak Vault Environment
+
+Provisions Vault secrets and AppRole access for the Keycloak service.
+
+#### Setup
+
+1. **Initialize:**
+
+```bash
+cd terraform/environments/keycloak
+terraform init
+```
+
+2. **Configure main.tf**:
+
+<details><summary><b>main.tf</b></summary>
+  
+```
+terraform {
+  required_providers {
+    vault = {
+      source  = "hashicorp/vault"
+      version = "~> 4.0"
+    }
+  }
+}
+
+provider "vault" {
+  address = var.vault_addr
+  token   = var.vault_token
+}
+
+module "vault" {
+  source = "../../modules/vault"
+
+  # KV-v2
+  kv_mount_path = "secret"
+
+  # Secrets
+  secrets = {
+    keycloak = {
+      DB_USER     = var.keycloak_db_user
+      DB_PW       = var.keycloak_db_pw
+      KC_ADMIN    = var.keycloak_admin
+      KC_ADMIN_PW = var.keycloak_admin_pw
+      DB_LOCATION = var.keycloak_db_location
+    }
+  }
+
+  # Policies
+  policies = {
+    keycloak-read = <<-EOT
+      path "secret/data/keycloak" {
+        capabilities = ["read"]
+      }
+      path "secret/metadata/keycloak" {
+        capabilities = ["read"]
+      }
+    EOT
+  }
+
+  # AppRole
+  approle_roles = {
+    keycloak = {
+      token_policies = ["keycloak-read"]
+      token_ttl      = 1800
+      token_max_ttl  = 3600
+    }
+  }
+}
+
+output "role_id" {
+  value = module.vault.approle_role_ids["keycloak"]
+}
+
+output "secret_id" {
+  value     = module.vault.approle_secret_ids["keycloak"]
+  sensitive = true
+}
+
+```
+
+</details>
+
+
+3. **Configure secrets** in `terraform.tfvars`:
+
+```hcl
+keycloak_db_pw    = "your-db-password"
+keycloak_admin_pw = "your-admin-password"
+```
+
+4. **Configure Vars** in `variables.tf`:
+
+#### Variables
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `vault_addr` | `https://YOUR_VAULT_URL` | Vault API address |
+| `vault_token` | — | Token for Terraform provider auth |
+| `keycloak_db_user` | `keycloak` | Database username |
+| `keycloak_db_pw` | — | Database password |
+| `keycloak_admin` | `admin` | Keycloak admin username |
+| `keycloak_admin_pw` | — | Keycloak admin password |
+| `keycloak_db_location` | `./keycloak-database` | Database volume path |
+
+<details><summary><b>variables.tf</b></summary>
+
+```
+variable "vault_addr" {
+  type    = string
+  default = "https://YOUR_VAULT_URL
+}
+
+variable "vault_token" {
+  type      = string
+  sensitive = true
+}
+
+variable "keycloak_db_user" {
+  type    = string
+  default = "keycloak"
+}
+
+variable "keycloak_db_pw" {
+  type      = string
+  sensitive = true
+}
+
+variable "keycloak_admin" {
+  type    = string
+  default = "admin"
+}
+
+variable "keycloak_admin_pw" {
+  type      = string
+  sensitive = true
+}
+
+variable "keycloak_db_location" {
+  type    = string
+  default = "./keycloak-database"
+}
+
+```
+
+</details>
+
+5. **Apply:**
+
+```bash
+export VAULT_TOKEN=<root-or-admin-token>
+terraform apply -var="vault_token=$VAULT_TOKEN"
+```
+
+6. **Retrieve AppRole credentials:**
+
+```bash
+terraform output role_id
+terraform output -raw secret_id
+```
+
+
+### Using the Secret in Your Keycloak Setup
+
+Replace the static `.env` file with a Vault lookup using the AppRole credentials:
+
+<details><summary><b>fetch-secrets.sh</b></summary>
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+# =========================
+# Konfiguration
+# =========================
+VAULT_ADDR=""   # Your OpenBao/Vault FQDN
+ROLE_ID=""                                # Aus AppRole
+SECRET_ID=""                            # Aus AppRole
+SECRET_PATH="secret/keycloak"                         # KVv2 Mount "secret", Pfad "keycloak"
+ENV_FILE=".env"                                    # Ziel-Datei
+TMP_FILE="$(mktemp)"
+CURL_OPTS=(--fail -sS)                             # keine -k! (TLS verifizieren)
+
+# Falls du eine eigene CA nutzt:
+# CURL_OPTS+=( --cacert /pfad/zum/ca.pem )
+# Oder System-Truststore verwenden (Default).
+# Falls du wirklich testweise TLS-Verify AUS schalten willst (nicht empfohlen):
+CURL_OPTS+=( -k )
+
+# Optional: Namespace (falls verwendet)
+# VAULT_NAMESPACE="my-namespace"
+# HEADER_NAMESPACE=( -H "X-Vault-Namespace: $VAULT_NAMESPACE" )
+HEADER_NAMESPACE=()
+
+cleanup() { rm -f "$TMP_FILE"; }
+trap cleanup EXIT
+
+# =========================
+# Login via AppRole
+# =========================
+echo "→ AppRole Login…"
+LOGIN_PAYLOAD=$(jq -n --arg rid "$ROLE_ID" --arg sid "$SECRET_ID" '{role_id:$rid, secret_id:$sid}')
+
+TOKEN=$(
+  curl "${CURL_OPTS[@]}" -X POST \
+    -H "Content-Type: application/json" \
+    "${HEADER_NAMESPACE[@]}" \
+    -d "$LOGIN_PAYLOAD" \
+    "$VAULT_ADDR/v1/auth/approle/login" \
+  | jq -er '.auth.client_token'
+)
+
+if [[ -z "$TOKEN" ]]; then
+  echo "✗ Konnte kein Token erhalten." >&2
+  exit 1
+fi
+
+# =========================
+# KV v2 Secret abrufen
+#   WICHTIG: bei KV v2 ist der Data-Endpunkt /v1/<mount>/data/<pfad>
+# =========================
+MOUNT="${SECRET_PATH%%/*}"         # "secret"
+SUBPATH="${SECRET_PATH#*/}"        # "keycloak"
+
+DATA_ENDPOINT="$VAULT_ADDR/v1/$MOUNT/data/$SUBPATH"
+
+echo "→ Secrets von $SECRET_PATH lesen…"
+curl "${CURL_OPTS[@]}" \
+  -H "X-Vault-Token: $TOKEN" \
+  "${HEADER_NAMESPACE[@]}" \
+  "$DATA_ENDPOINT" \
+| jq -er '.data.data | to_entries[] | "\(.key)=\(.value)"' \
+> "$TMP_FILE"
+
+# =========================
+# Idempotent schreiben
+# =========================
+if [[ ! -f "$ENV_FILE" ]] || ! diff -q "$TMP_FILE" "$ENV_FILE" >/dev/null 2>&1; then
+  mv "$TMP_FILE" "$ENV_FILE"
+  echo "✓ $ENV_FILE aktualisiert."
+else
+  echo "✓ $ENV_FILE unverändert."
+fi
+
+```
+</details>
+
+#### keycloak docker-compose snippet
+
+```
+services:
+  keycloak:
+    env_file:
+      - ./.env
+```
+
+#### Fetch Secrets and start keycloak compose setup
+```
+chmod +x fetch-secrets.sh
+./fetch-secrets.sh
+docker compose up -d
+```
+
+</details>
+
+
+#### Debugging 
+
+Check if Vault is sealed
+
+```bash
+docker exec -it openbao bao status
+```
+
+Unseal Vault (you need your unseal keys (execute 3 times))
+```bash
+docker exec -it openbao bao operator unseal
+```
+
+
