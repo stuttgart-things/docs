@@ -588,9 +588,11 @@ spec:
 
 </details>
 
+
+
 ## OPENBAO
 
-### Deploy via Compose
+### Deploy OpenaBao via Compose
 
 <details><summary><b>docker-compose.yml</b></summary>
 
@@ -856,17 +858,6 @@ keycloak_admin_pw = "your-admin-password"
 
 4. **Configure Vars** in `variables.tf`:
 
-#### Variables
-
-| Name | Default | Description |
-|------|---------|-------------|
-| `vault_addr` | `https://YOUR_VAULT_URL` | Vault API address |
-| `vault_token` | — | Token for Terraform provider auth |
-| `keycloak_db_user` | `keycloak` | Database username |
-| `keycloak_db_pw` | — | Database password |
-| `keycloak_admin` | `admin` | Keycloak admin username |
-| `keycloak_admin_pw` | — | Keycloak admin password |
-| `keycloak_db_location` | `./keycloak-database` | Database volume path |
 
 <details><summary><b>variables.tf</b></summary>
 
@@ -910,6 +901,20 @@ variable "keycloak_db_location" {
 
 </details>
 
+<details><summary><b>Variables</b></summary>
+
+| Name | Default | Description |
+|------|---------|-------------|
+| `vault_addr` | `https://YOUR_VAULT_URL` | Vault API address |
+| `vault_token` | — | Token for Terraform provider auth |
+| `keycloak_db_user` | `keycloak` | Database username |
+| `keycloak_db_pw` | — | Database password |
+| `keycloak_admin` | `admin` | Keycloak admin username |
+| `keycloak_admin_pw` | — | Keycloak admin password |
+| `keycloak_db_location` | `./keycloak-database` | Database volume path |
+
+</details>
+
 5. **Apply:**
 
 ```bash
@@ -931,6 +936,8 @@ Replace the static `.env` file with a Vault lookup using the AppRole credentials
 
 <details><summary><b>fetch-secrets.sh</b></summary>
 
+Insert VAULT_ADDR, ROLE_ID and SECRET_ID from above
+
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -940,11 +947,11 @@ set -euo pipefail
 # =========================
 VAULT_ADDR=""   # Your OpenBao/Vault FQDN
 ROLE_ID=""                                # Aus AppRole
-SECRET_ID=""                            # Aus AppRole
-SECRET_PATH="secret/keycloak"                         # KVv2 Mount "secret", Pfad "keycloak"
-ENV_FILE=".env"                                    # Ziel-Datei
+SECRET_ID=""                              # Aus AppRole
+SECRET_PATH="secret/keycloak"             # KVv2 Mount "secret", Pfad "keycloak"
+ENV_FILE=".env"                           # Ziel-Datei
 TMP_FILE="$(mktemp)"
-CURL_OPTS=(--fail -sS)                             # keine -k! (TLS verifizieren)
+CURL_OPTS=(--fail -sS)                    # keine -k! (TLS verifizieren)
 
 # Falls du eine eigene CA nutzt:
 # CURL_OPTS+=( --cacert /pfad/zum/ca.pem )
@@ -1010,7 +1017,10 @@ fi
 ```
 </details>
 
-#### keycloak docker-compose snippet
+
+#### Keycloak docker-compose.yml Snippet
+
+<details><summary><b>docker-compose.yml</b></summary>
 
 ```
 services:
@@ -1019,19 +1029,21 @@ services:
       - ./.env
 ```
 
+</details>
+
+
 #### Fetch Secrets and start keycloak compose setup
+
 ```
 chmod +x fetch-secrets.sh
 ./fetch-secrets.sh
 docker compose up -d
 ```
 
-</details>
-
 
 #### Debugging 
 
-Check if Vault is sealed
+<details><summary><b>Check if Vault is sealed</b></summary>
 
 ```bash
 docker exec -it openbao bao status
@@ -1042,4 +1054,5 @@ Unseal Vault (you need your unseal keys (execute 3 times))
 docker exec -it openbao bao operator unseal
 ```
 
+</details>
 
