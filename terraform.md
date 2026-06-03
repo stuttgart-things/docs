@@ -5,9 +5,9 @@
 <details><summary><b>DOWNLOAD PROVIDERS FOR AIRGAPPED</b></summary>
 
 ```bash
-cat main.tf 
+cat main.tf
 provider "null" {}
- 
+
 resource "null_resource" "example" {
   triggers = {
     timestamp = timestamp()
@@ -35,7 +35,7 @@ tree /tmp/tf-providers
 rsync -av /tmp/tf-providers/ \
   sthings@airgap:/home/sthings/.terraform.d/plugins/
 
-# INIT TERRAFORM 
+# INIT TERRAFORM
 terraform init -plugin-dir=/home/sthings/.terraform.d/plugins
 ```
 

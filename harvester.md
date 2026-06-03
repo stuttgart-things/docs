@@ -15,7 +15,7 @@ kubectl get nodes --kubeconfig ./harvester.yaml
 
 <details>
   <summary>ReplicaSchedulingFailure Single-Node Harvester Cluster</summary>
-  
+
 You have a single-node Harvester cluster (sthings)
 Longhorn is configured for 3 replicas per volume
 Only 1 replica can run because Longhorn's anti-affinity prevents multiple replicas on the same node
@@ -39,6 +39,3 @@ kubectl --kubeconfig ~/.kube/harvester patch settings.longhorn.io default-replic
 ```
 
 </details>
-
-
-

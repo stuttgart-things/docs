@@ -724,7 +724,7 @@ mkdir -p environments/<service-name>
 2. Add `main.tf` that calls the module:
 
 <details><summary><b>main.tf</b></summary>
-  
+
 ```hcl
 module "vault" {
  source = "../../modules/vault"
@@ -780,7 +780,7 @@ terraform init
 2. **Configure main.tf**:
 
 <details><summary><b>main.tf</b></summary>
-  
+
 ```
 terraform {
   required_providers {
@@ -1041,7 +1041,7 @@ docker compose up -d
 ```
 
 
-#### Debugging 
+#### Debugging
 
 <details><summary><b>Check if Vault is sealed</b></summary>
 
@@ -1055,4 +1055,3 @@ docker exec -it openbao bao operator unseal
 ```
 
 </details>
-

@@ -587,4 +587,3 @@ polaris audit --audit-path /tmp/pod.yaml --only-show-failed-tests --severity err
 ```
 
 </details>
-

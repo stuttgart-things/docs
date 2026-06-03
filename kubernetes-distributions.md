@@ -176,6 +176,3 @@ spec:
 EOF
 ```
 </details>
-
-
-

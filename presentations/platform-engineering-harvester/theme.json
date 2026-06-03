@@ -1,0 +1,17 @@
+{
+  "name": "slidev-theme-harvester",
+  "version": "0.1.0",
+  "description": "Platform Engineering with Harvester — workshop theme",
+  "private": true,
+  "slidev": {
+    "defaults": {
+      "fonts": {
+        "sans": "Inter",
+        "mono": "JetBrains Mono"
+      },
+      "aspectRatio": "16/9",
+      "canvasWidth": 1920
+    },
+    "colorSchema": "light"
+  }
+}
