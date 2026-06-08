@@ -50,3 +50,7 @@ src: ./slides/00_intro.md
 ---
 src: ./slides/01_harvester-packer.md
 ---
+
+---
+src: ./slides/02_harvester-crossplane.md
+---
