@@ -109,3 +109,15 @@ src: ./slides/81_appendix-rancher.md
 ---
 src: ./slides/82_appendix-backstage-template.md
 ---
+
+---
+src: ./slides/70_appendix-kcl-xr.md
+---
+
+---
+src: ./slides/71_appendix-kcl-render.md
+---
+
+---
+src: ./slides/72_appendix-nested-package.md
+---

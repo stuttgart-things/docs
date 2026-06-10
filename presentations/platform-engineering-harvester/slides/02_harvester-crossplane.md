@@ -38,6 +38,9 @@ Git-reviewed, GitOps-delivered, Crossplane-reconciled — then Tekton runs Ansib
     <a class="card-link" href="/14">XR / claim</a>
     <a class="card-link" href="/15">Configuration</a>
     <a class="card-link" href="/16">EnvironmentConfig</a>
+    <a class="card-link" href="/20">KCL · t-shirt API</a>
+    <a class="card-link" href="/21">KCL · function-kcl</a>
+    <a class="card-link" href="/22">Nested package</a>
   </div>
 </div>
 
