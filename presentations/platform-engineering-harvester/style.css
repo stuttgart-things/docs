@@ -99,6 +99,18 @@
   border-radius: 14px;
 }
 
+.card-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+  padding-bottom: 1px;
+  word-break: break-all;
+}
+.card-link:hover { color: var(--fg); border-bottom-color: var(--fg); }
+
 .slide-meta {
   position: absolute;
   left: 110px; right: 110px; bottom: 48px;
