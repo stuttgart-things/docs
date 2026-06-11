@@ -41,6 +41,7 @@ SUSE's platform for provisioning and operating Kubernetes everywhere — data ce
 </div>
 
 <div style="margin-top: 32px; display: flex; gap: 28px;">
+  <a class="card-link" href="https://rancher.platform.sthings.lab/" target="_blank">Rancher · sthings.lab</a>
   <a class="card-link" href="https://www.rancher.com/" target="_blank">rancher.com</a>
   <a class="card-link" href="https://ranchermanager.docs.rancher.com/" target="_blank">ranchermanager.docs.rancher.com</a>
 </div>

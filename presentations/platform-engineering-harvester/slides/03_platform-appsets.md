@@ -14,7 +14,7 @@ Each platform is an ApplicationSet in the management cluster. Its <strong>cluste
 
 <div class="board">
   <div class="mgmt">
-    <div class="mgmt-h"><span class="mgmt-t"><img :src="'/logos/argo.svg'" alt="Argo CD" style="height: 20px; width: auto; vertical-align: -3px; margin-right: 8px;" />ArgoCD · management cluster</span><span class="mgmt-sub">platforms/ ApplicationSets</span></div>
+    <div class="mgmt-h"><span class="mgmt-t"><img :src="'/logos/argo.svg'" alt="Argo CD" style="height: 28px; width: auto; vertical-align: -5px; margin-right: 8px;" />ArgoCD · management cluster</span><span class="mgmt-sub">platforms/ ApplicationSets</span></div>
     <div class="plat" style="--c: #8b5cf6">
       <div class="plat-top"><span class="dot2"></span>cicd-platform</div>
       <div class="sel">cluster selector · <code>matchLabels: cicd-platform=true</code></div>

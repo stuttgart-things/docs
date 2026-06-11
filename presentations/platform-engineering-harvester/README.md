@@ -45,3 +45,17 @@ dagger call -m github.com/stuttgart-things/dagger/slidev build \
   --addons @slidev/types \
   export --path /tmp/platform-engineering-harvester/dist
 ```
+
+## Printable Export (PDF)
+
+Renders the deck to a single PDF for printing / sharing:
+
+```bash
+dagger call -m github.com/stuttgart-things/dagger/slidev export \
+  --slides ./slides.md \
+  --style  ./style.css \
+  --extras . \
+  --addons @slidev/types \
+  export --path /tmp/platform-engineering-harvester/out
+# → /tmp/platform-engineering-harvester/out/slides-export.pdf
+```

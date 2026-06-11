@@ -51,7 +51,27 @@ src: ./slides/02_harvester-crossplane.md
 ---
 
 ---
+src: ./slides/02b_claim-machinery.md
+---
+
+---
 src: ./slides/03_platform-appsets.md
+---
+
+---
+src: ./slides/04_clusterbook.md
+---
+
+---
+src: ./slides/04b_clusterbook-config.md
+---
+
+---
+src: ./slides/04c_appset-kargo.md
+---
+
+---
+src: ./slides/04d_ansible-run.md
 ---
 
 ---

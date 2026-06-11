@@ -22,7 +22,7 @@ Git-reviewed, GitOps-delivered, Crossplane-reconciled — then Tekton runs Ansib
     <div class="ar2">→</div>
     <div class="stage" style="--c:#0d9488"><img :src="'/logos/crossplane.svg'" class="slogo" alt="Crossplane" /><div class="sn">4 · reconcile</div><div class="st">Crossplane</div><div class="sd">composition renders the resources</div></div>
     <div class="ar2">→</div>
-    <div class="stage" style="--c:#3F7B59"><img :src="'/logos/harvester.svg'" class="slogo" alt="Harvester" style="height:16px;" /><div class="sn">5 · provision</div><div class="st">Harvester</div><div class="sd">KubeVirt VM is created</div></div>
+    <div class="stage" style="--c:#3F7B59"><img :src="'/logos/harvester.svg'" class="slogo" alt="Harvester" style="height:22px;" /><div class="sn">5 · provision</div><div class="st">Harvester</div><div class="sd">KubeVirt VM is created</div></div>
   </div>
   <div class="downflow">▼&nbsp;&nbsp;once the VM is up</div>
   <div class="tekbanner">
@@ -31,16 +31,17 @@ Git-reviewed, GitOps-delivered, Crossplane-reconciled — then Tekton runs Ansib
   </div>
   <div class="deepdive">
     <span class="dd-label">Appendix · deep dive</span>
-    <a class="card-link" href="/7">Namespace example</a>
-    <a class="card-link" href="/10">XRD</a>
-    <a class="card-link" href="/11">Composition</a>
-    <a class="card-link" href="/13">Functions</a>
-    <a class="card-link" href="/14">XR / claim</a>
-    <a class="card-link" href="/15">Configuration</a>
-    <a class="card-link" href="/16">EnvironmentConfig</a>
-    <a class="card-link" href="/20">KCL · t-shirt API</a>
-    <a class="card-link" href="/21">KCL · function-kcl</a>
-    <a class="card-link" href="/22">Nested package</a>
+    <a class="card-link" href="/10">Ansible-run · Crossplane</a>
+    <a class="card-link" href="/12">Namespace example</a>
+    <a class="card-link" href="/15">XRD</a>
+    <a class="card-link" href="/16">Composition</a>
+    <a class="card-link" href="/18">Functions</a>
+    <a class="card-link" href="/19">XR / claim</a>
+    <a class="card-link" href="/20">Configuration</a>
+    <a class="card-link" href="/21">EnvironmentConfig</a>
+    <a class="card-link" href="/25">KCL · t-shirt API</a>
+    <a class="card-link" href="/26">KCL · function-kcl</a>
+    <a class="card-link" href="/27">Nested package</a>
   </div>
 </div>
 
@@ -52,9 +53,9 @@ Git-reviewed, GitOps-delivered, Crossplane-reconciled — then Tekton runs Ansib
 .st { font-size: 21px; font-weight: 600; line-height: 1.15; margin-top: 8px; }
 .sd { font-size: 14.5px; color: var(--fg-muted); line-height: 1.4; margin-top: 8px; }
 .ar2 { align-self: center; font-size: 26px; color: var(--accent); }
-.slogo { height: 22px; width: auto; display: block; margin-bottom: 10px; }
-.banner-logo { height: 26px; width: auto; }
-.inline-logo { height: 16px; width: auto; vertical-align: -2px; margin-right: 8px; }
+.slogo { height: 30px; width: auto; display: block; margin-bottom: 10px; }
+.banner-logo { height: 34px; width: auto; }
+.inline-logo { height: 22px; width: auto; vertical-align: -2px; margin-right: 8px; }
 .downflow { text-align: center; font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin: 16px 0; letter-spacing: 0.03em; }
 .tekbanner { border: 1px solid var(--rule); border-left: 4px solid #B5832A; border-radius: 12px; background: color-mix(in srgb, #B5832A 7%, transparent); padding: 16px 22px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .tk-h { font-size: 20px; font-weight: 600; display: flex; align-items: center; gap: 10px; white-space: nowrap; }

@@ -7,7 +7,7 @@ meta: 'KCL · function-kcl render'
 
 <div class="page-label">O · function-kcl</div>
 
-# Compose with <span class="accent">KCL</span><span class="dot">.</span> <img :src="'/logos/kcl.svg'" alt="KCL" style="height: 30px; width: auto; vertical-align: -3px; margin-left: 6px;" />
+# Compose with <span class="accent">KCL</span><span class="dot">.</span> <img :src="'/logos/kcl.svg'" alt="KCL" style="height: 40px; width: auto; vertical-align: -6px; margin-left: 6px;" />
 
 ```yaml
 - step: render

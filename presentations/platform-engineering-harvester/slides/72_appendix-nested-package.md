@@ -11,7 +11,7 @@ meta: 'Crossplane · nested Configuration package'
 
 <div class="nest">
   <div class="topbox">
-    <div class="tb-h"><img :src="'/logos/kcl.svg'" alt="KCL" style="height: 26px; width: auto;" />virtual-machine</div>
+    <div class="tb-h"><img :src="'/logos/kcl.svg'" alt="KCL" style="height: 34px; width: auto;" />virtual-machine</div>
     <div class="tb-s">XVirtualMachine · t-shirt API · function-kcl Composition</div>
   </div>
   <div class="nestarrow">dependsOn&nbsp;&nbsp;▼</div>
