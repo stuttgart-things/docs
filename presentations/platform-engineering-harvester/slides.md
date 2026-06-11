@@ -43,6 +43,14 @@ src: ./slides/00_intro.md
 ---
 
 ---
+src: ./slides/00b_managed-namespace.md
+---
+
+---
+src: ./slides/00c_crossplane-config.md
+---
+
+---
 src: ./slides/01_harvester-packer.md
 ---
 
@@ -52,6 +60,10 @@ src: ./slides/02_harvester-crossplane.md
 
 ---
 src: ./slides/02b_claim-machinery.md
+---
+
+---
+src: ./slides/02c_rancher-cluster.md
 ---
 
 ---

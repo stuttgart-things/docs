@@ -49,7 +49,7 @@ spec:
   <div class="cfg-side">
     <div class="note" style="--c:#8b5cf6">
       <div class="note-h">labels = which platforms</div>
-      <div class="note-d">Each <code>&lt;profile&gt;: 'true'</code> is the umbrella switch; <code>&lt;profile&gt;/&lt;component&gt;</code> flips one component. Platform ApplicationSets <code>matchLabels</code> on them — see <a class="card-link" href="/6">the fan-out</a>.</div>
+      <div class="note-d">Each <code>&lt;profile&gt;: 'true'</code> is the umbrella switch; <code>&lt;profile&gt;/&lt;component&gt;</code> flips one component. Platform ApplicationSets <code>matchLabels</code> on them — see <a class="card-link" href="/8">the fan-out</a>.</div>
     </div>
     <div class="note" style="--c:#3b82f6">
       <div class="note-h">annotations = the config</div>

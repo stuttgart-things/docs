@@ -31,17 +31,17 @@ Git-reviewed, GitOps-delivered, Crossplane-reconciled — then Tekton runs Ansib
   </div>
   <div class="deepdive">
     <span class="dd-label">Appendix · deep dive</span>
-    <a class="card-link" href="/10">Ansible-run · Crossplane</a>
-    <a class="card-link" href="/12">Namespace example</a>
-    <a class="card-link" href="/15">XRD</a>
-    <a class="card-link" href="/16">Composition</a>
-    <a class="card-link" href="/18">Functions</a>
-    <a class="card-link" href="/19">XR / claim</a>
-    <a class="card-link" href="/20">Configuration</a>
-    <a class="card-link" href="/21">EnvironmentConfig</a>
-    <a class="card-link" href="/25">KCL · t-shirt API</a>
-    <a class="card-link" href="/26">KCL · function-kcl</a>
-    <a class="card-link" href="/27">Nested package</a>
+    <a class="card-link" href="/12">Ansible-run · Crossplane</a>
+    <a class="card-link" href="/14">Namespace example</a>
+    <a class="card-link" href="/17">XRD</a>
+    <a class="card-link" href="/18">Composition</a>
+    <a class="card-link" href="/20">Functions</a>
+    <a class="card-link" href="/21">XR / claim</a>
+    <a class="card-link" href="/22">Configuration</a>
+    <a class="card-link" href="/23">EnvironmentConfig</a>
+    <a class="card-link" href="/27">KCL · t-shirt API</a>
+    <a class="card-link" href="/28">KCL · function-kcl</a>
+    <a class="card-link" href="/29">Nested package</a>
   </div>
 </div>
 

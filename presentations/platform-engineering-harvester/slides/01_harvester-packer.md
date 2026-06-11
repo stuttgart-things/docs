@@ -38,26 +38,13 @@ Golden images for Harvester — built, versioned, and published to the catalog.
         </div>
       </div>
       <a class="card-link" href="https://github.com/stuttgart-things/backstage-resources/tree/main/templates/golang-service" target="_blank">Golang Service Template</a>
-      <a class="card-link" href="/11">Example catalog-info.yaml →</a>
-      <a class="card-link" href="/24">Software template example →</a>
+      <a class="card-link" href="/13">Example catalog-info.yaml →</a>
+      <a class="card-link" href="/26">Software template example →</a>
     </div>
   </div>
   <div class="surface" style="padding: 32px; min-height: 240px;">
     <div style="display: flex; justify-content: space-between; align-items: center; min-height: 34px; margin-bottom: 14px;">
       <div class="mono" style="font-size: 14px; color: var(--accent); letter-spacing: 0.14em;">B</div>
-      <img :src="'/logos/github.svg'" alt="GitHub" style="height: 40px; width: auto;" />
-    </div>
-    <div style="font-size: 26px; font-weight: 600; line-height: 1.2;">GitHub Workflow + Runner</div>
-    <p style="font-size: 18px; line-height: 1.4; margin-top: 10px; color: var(--fg-muted);">
-      Packer build on a self-hosted runner — reproducible in CI.
-    </p>
-    <div v-click="1" style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
-      <a class="card-link" href="https://github.com/stuttgart-things/harvester/tree/main/packer" target="_blank">Harvester Packer Code</a>
-    </div>
-  </div>
-  <div class="surface" style="padding: 32px; min-height: 240px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; min-height: 34px; margin-bottom: 14px;">
-      <div class="mono" style="font-size: 14px; color: var(--accent); letter-spacing: 0.14em;">C</div>
       <img :src="'/logos/harvester.svg'" alt="Harvester" style="height: 32px; width: auto;" />
     </div>
     <div style="font-size: 26px; font-weight: 600; line-height: 1.2;">Harvester</div>
@@ -66,8 +53,21 @@ Golden images for Harvester — built, versioned, and published to the catalog.
     </p>
     <div v-click="1" style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
       <a class="card-link" href="https://harvester.sthings.lab/" target="_blank">Harvester · sthings.lab</a>
-      <a class="card-link" href="/22">Harvester (SUSE) →</a>
-      <a class="card-link" href="/23">Rancher →</a>
+      <a class="card-link" href="/24">Harvester (SUSE) →</a>
+      <a class="card-link" href="/25">Rancher →</a>
+    </div>
+  </div>
+  <div class="surface" style="padding: 32px; min-height: 240px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; min-height: 34px; margin-bottom: 14px;">
+      <div class="mono" style="font-size: 14px; color: var(--accent); letter-spacing: 0.14em;">C</div>
+      <img :src="'/logos/github.svg'" alt="GitHub" style="height: 40px; width: auto;" />
+    </div>
+    <div style="font-size: 26px; font-weight: 600; line-height: 1.2;">GitHub Workflow + Runner</div>
+    <p style="font-size: 18px; line-height: 1.4; margin-top: 10px; color: var(--fg-muted);">
+      Packer build on a self-hosted runner — reproducible in CI.
+    </p>
+    <div v-click="1" style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
+      <a class="card-link" href="https://github.com/stuttgart-things/harvester/tree/main/packer" target="_blank">Harvester Packer Code</a>
     </div>
   </div>
 </div>

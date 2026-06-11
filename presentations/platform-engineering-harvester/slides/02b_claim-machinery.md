@@ -9,7 +9,7 @@ meta: 'KCL · claim-machinery-api · claims CLI · Backstage plugin'
 # One KCL profile, two <span class="accent">front doors</span><span class="dot">.</span>
 
 <p class="lede" style="margin-top: 12px; max-width: 94ch;">
-The same <code>XVirtualMachine</code> KCL module is served by <strong>claim-machinery-api</strong> and consumed two ways — the <code>claims</code> CLI or the Backstage plugin — both rendering one claim into a Git PR. Then it's the <a class="card-link" href="/4">VM flow from before</a>.
+The same <code>XVirtualMachine</code> KCL module is served by <strong>claim-machinery-api</strong> and consumed two ways — the <code>claims</code> CLI or the Backstage plugin — both rendering one claim into a Git PR. Then it's the <a class="card-link" href="/6">VM flow from before</a>.
 </p>
 
 <div class="cm">
