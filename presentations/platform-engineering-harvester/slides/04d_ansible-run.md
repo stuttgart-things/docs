@@ -9,7 +9,7 @@ meta: 'AnsibleRun · Crossplane Configuration · Tekton PipelineRun'
 # Wrap Ansible in Tekton, in <span class="accent">Crossplane</span><span class="dot">.</span>
 
 <p class="lede" style="margin-top: 10px; max-width: 94ch;">
-One <code>AnsibleRun</code> object renders a Tekton <code>PipelineRun</code> that runs the playbook — and Crossplane tracks it all the way to <code>Ready</code>. The deep dive behind <a class="card-link" href="/6">"Tekton runs Ansible"</a>.
+One <code>AnsibleRun</code> object renders a Tekton <code>PipelineRun</code> that runs the playbook — and Crossplane tracks it all the way to <code>Ready</code>. The deep dive behind <a class="card-link" href="/7">"Tekton runs Ansible"</a>.
 </p>
 
 <div class="ar">

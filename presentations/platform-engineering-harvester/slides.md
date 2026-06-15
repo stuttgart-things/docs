@@ -43,6 +43,10 @@ src: ./slides/00_intro.md
 ---
 
 ---
+src: ./slides/00a_harvester-facts.md
+---
+
+---
 src: ./slides/00b_managed-namespace.md
 ---
 

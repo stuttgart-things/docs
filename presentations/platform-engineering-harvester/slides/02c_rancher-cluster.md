@@ -29,7 +29,7 @@ The <code>RancherCluster</code> XR is intentionally thin — a <code>name</code>
     <span class="dd-label">Source</span>
     <a class="card-link" href="https://github.com/stuttgart-things/crossplane-configurations/tree/main/machinery/rancher-cluster" target="_blank">crossplane · rancher-cluster</a>
     <a class="card-link" href="https://github.com/stuttgart-things/kcl/tree/main/crossplane/xr-rancher-cluster" target="_blank">kcl · xr-rancher-cluster</a>
-    <a class="card-link" href="/10">Clusterbook · deep dive</a>
+    <a class="card-link" href="/11">Clusterbook · deep dive</a>
   </div>
 </div>
 

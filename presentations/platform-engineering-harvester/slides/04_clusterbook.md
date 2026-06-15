@@ -53,8 +53,8 @@ A <code>ClusterbookCluster</code> declares what a cluster <em>is</em>. The <stro
     <span class="dd-label" style="margin-left: 8px;">Source</span>
     <a class="card-link" href="https://github.com/stuttgart-things/clusterbook" target="_blank">stuttgart-things/clusterbook</a>
     <a class="card-link" href="https://github.com/stuttgart-things/argocd/tree/main/platforms" target="_blank">argocd/platforms</a>
-    <a class="card-link" href="/10">Config example →</a>
-    <a class="card-link" href="/8">Platform fan-out →</a>
+    <a class="card-link" href="/11">Config example →</a>
+    <a class="card-link" href="/9">Platform fan-out →</a>
   </div>
 </div>
 

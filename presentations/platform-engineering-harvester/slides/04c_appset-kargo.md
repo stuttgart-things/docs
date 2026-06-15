@@ -60,7 +60,7 @@ spec:
       <div class="note-d">No FQDN annotation? It falls back to <code>kargo.example.com</code> — so the AppSet is safe to apply across every cluster it selects.</div>
     </div>
     <a class="card-link" href="https://github.com/stuttgart-things/argocd/blob/main/platforms/cicd/appset-kargo.yaml" target="_blank">Full AppSet · appset-kargo.yaml →</a>
-    <a class="card-link" href="/8">Platform fan-out →</a>
+    <a class="card-link" href="/9">Platform fan-out →</a>
   </div>
 </div>
 

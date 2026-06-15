@@ -38,8 +38,8 @@ Golden images for Harvester — built, versioned, and published to the catalog.
         </div>
       </div>
       <a class="card-link" href="https://github.com/stuttgart-things/backstage-resources/tree/main/templates/golang-service" target="_blank">Golang Service Template</a>
-      <a class="card-link" href="/13">Example catalog-info.yaml →</a>
-      <a class="card-link" href="/26">Software template example →</a>
+      <a class="card-link" href="/14">Example catalog-info.yaml →</a>
+      <a class="card-link" href="/27">Software template example →</a>
     </div>
   </div>
   <div class="surface" style="padding: 32px; min-height: 240px;">
@@ -53,8 +53,8 @@ Golden images for Harvester — built, versioned, and published to the catalog.
     </p>
     <div v-click="1" style="margin-top: 18px; display: flex; flex-direction: column; gap: 10px;">
       <a class="card-link" href="https://harvester.sthings.lab/" target="_blank">Harvester · sthings.lab</a>
-      <a class="card-link" href="/24">Harvester (SUSE) →</a>
-      <a class="card-link" href="/25">Rancher →</a>
+      <a class="card-link" href="/25">Harvester (SUSE) →</a>
+      <a class="card-link" href="/26">Rancher →</a>
     </div>
   </div>
   <div class="surface" style="padding: 32px; min-height: 240px;">
