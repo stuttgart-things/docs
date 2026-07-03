@@ -1,0 +1,32 @@
+# GitLab Pages deploy für das Slidev-Deck.
+#
+# Annahme: dieses Deck liegt im ROOT des GitLab-Repos.
+# Liegt es in einem Unterordner, siehe Hinweis unten (cd + --out-Pfad).
+#
+# Ergebnis-URL:  https://<namespace>.gitlab.io/<projekt>/
+# Der --base-Pfad MUSS dazu passen, sonst laden CSS/JS/Assets nicht (404).
+
+image: node:20
+
+pages:
+  stage: deploy
+  script:
+    # Kein package.json/node_modules im Repo -> hier frisch installieren.
+    - npm init -y
+    - npm install -D @slidev/cli @slidev/theme-default @slidev/types
+    # Projekt-Pages liegen unter /<projekt>/ -> base entsprechend setzen.
+    # Für ein Root-Pages-Repo (<namespace>.gitlab.io) stattdessen: --base "/"
+    - npx slidev build slides.md --base "/$CI_PROJECT_NAME/" --out public
+  artifacts:
+    paths:
+      - public          # GitLab Pages liefert ausschließlich diesen Ordner aus
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+# --- Deck in einem Unterordner? ------------------------------------------
+# Dann im script vor dem Build hineinwechseln und public ins Repo-Root schreiben:
+#   - cd presentations/python-netzwerk
+#   - npm init -y
+#   - npm install -D @slidev/cli @slidev/theme-default @slidev/types
+#   - npx slidev build slides.md --base "/$CI_PROJECT_NAME/" --out ../../public
+# artifacts.paths bleibt "public" (relativ zum Repo-Root).
