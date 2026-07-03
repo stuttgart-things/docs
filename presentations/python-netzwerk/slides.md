@@ -65,6 +65,10 @@ src: ./slides/00c_vergleich.md
 ---
 
 ---
+src: ./slides/00c2_bash-vs-python.md
+---
+
+---
 src: ./slides/00d_paradigmen.md
 ---
 
@@ -86,6 +90,10 @@ src: ./slides/10_section-block1.md
 
 ---
 src: ./slides/11_variablen.md
+---
+
+---
+src: ./slides/11b_sammlungen.md
 ---
 
 ---
