@@ -19,21 +19,21 @@ der ★ Profi-Bonus ist für alle, die schneller durch sind.
     <td class="t-slot-num">Start</td>
     <td class="t-time">09:00</td>
     <td class="t-arrow">→</td>
-    <td class="t-slot"><a href="/4">Ankommen, Login & Spielregeln</a></td>
+    <td class="t-slot"><a href="/8">Ankommen, Login & Spielregeln</a></td>
     <td class="t-meta">code-server</td>
   </tr>
   <tr>
     <td class="t-slot-num">Block 1</td>
     <td class="t-time">09:15</td>
     <td class="t-arrow">→</td>
-    <td class="t-slot"><a href="/5">Grundlagen & Werkzeuge</a></td>
+    <td class="t-slot"><a href="/9">Grundlagen & Werkzeuge</a></td>
     <td class="t-meta">★ Übung 1</td>
   </tr>
   <tr>
     <td class="t-slot-num">Block 2</td>
     <td class="t-time">10:15</td>
     <td class="t-arrow">→</td>
-    <td class="t-slot"><a href="/7">Kontrollfluss</a></td>
+    <td class="t-slot"><a href="/11">Kontrollfluss</a></td>
     <td class="t-meta">★ Übung 2</td>
   </tr>
   <tr class="is-break">
@@ -47,7 +47,7 @@ der ★ Profi-Bonus ist für alle, die schneller durch sind.
     <td class="t-slot-num">Block 3</td>
     <td class="t-time">11:15</td>
     <td class="t-arrow">→</td>
-    <td class="t-slot"><a href="/10">Funktionen — das Herzstück</a></td>
+    <td class="t-slot"><a href="/14">Funktionen — das Herzstück</a></td>
     <td class="t-meta">★ Übung 3</td>
   </tr>
   <tr class="is-break">
@@ -61,7 +61,7 @@ der ★ Profi-Bonus ist für alle, die schneller durch sind.
     <td class="t-slot-num">Block 4</td>
     <td class="t-time">13:30</td>
     <td class="t-arrow">→</td>
-    <td class="t-slot"><a href="/14">Projekt organisieren — Module & venv</a></td>
+    <td class="t-slot"><a href="/18">Projekt organisieren — Module & venv</a></td>
     <td class="t-meta">★ Übung 4</td>
   </tr>
   <tr class="is-break">
@@ -75,14 +75,14 @@ der ★ Profi-Bonus ist für alle, die schneller durch sind.
     <td class="t-slot-num">Block 5</td>
     <td class="t-time">15:00</td>
     <td class="t-arrow">→</td>
-    <td class="t-slot"><a href="/18">Bibliotheken, APIs & Debugging</a></td>
+    <td class="t-slot"><a href="/22">Bibliotheken, APIs & Debugging</a></td>
     <td class="t-meta">★ Übung 5</td>
   </tr>
   <tr>
     <td class="t-slot-num">Ende</td>
     <td class="t-time">16:15</td>
     <td class="t-arrow">→</td>
-    <td class="t-slot"><a href="/23">Spickzettel, Ausblick & Q&A</a></td>
+    <td class="t-slot"><a href="/27">Spickzettel, Ausblick & Q&A</a></td>
     <td class="t-meta">bis 16:30</td>
   </tr>
 </table>

@@ -49,6 +49,30 @@ Datum: <DATUM>  ·  Trainer: <TRAINER>
 -->
 
 ---
+src: ./slides/00e_vorstellung.md
+---
+
+---
+src: ./slides/00a_wozu-python.md
+---
+
+---
+src: ./slides/00b_geschichte.md
+---
+
+---
+src: ./slides/00c_vergleich.md
+---
+
+---
+src: ./slides/00c2_bash-vs-python.md
+---
+
+---
+src: ./slides/00d_paradigmen.md
+---
+
+---
 src: ./slides/00_agenda.md
 ---
 
@@ -66,6 +90,10 @@ src: ./slides/10_section-block1.md
 
 ---
 src: ./slides/11_variablen.md
+---
+
+---
+src: ./slides/11b_sammlungen.md
 ---
 
 ---
@@ -106,6 +134,14 @@ src: ./slides/40_section-block4.md
 
 ---
 src: ./slides/41_projektstruktur.md
+---
+
+---
+src: ./slides/41a_auslagern.md
+---
+
+---
+src: ./slides/41b_anatomie.md
 ---
 
 ---
