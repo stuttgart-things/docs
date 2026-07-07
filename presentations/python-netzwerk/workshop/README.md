@@ -14,13 +14,23 @@ Willkommen! Diese Umgebung ist VS Code im Browser mit fertig installiertem Pytho
 | Datei | Thema |
 |-------|-------|
 | `01_grundlagen.py`   | Variablen, Datentypen, Ausgabe |
+| `01b_strings.py`     | *Zusatz:* Strings zerlegen & formatieren |
 | `02_filter.py`       | Schleifen & Bedingungen (IPs filtern) |
+| `02b_ipfile.py`      | *Zusatz:* Datei `data/ips.txt` einlesen & auswerten |
 | `03_refactor.py`     | Wiederholungen in Funktionen auslagern |
+| `03b_netzmaske.py`   | *Zusatz:* mehr Funktionen (Netzmaske ⇄ CIDR, Defaults) |
 | `04_module/`         | Code auf mehrere Dateien aufteilen + `venv` |
+| `04_module/report.py`| *Zusatz:* zweites Modul, das `netutils` mitbenutzt |
 | `05_api_debug.py`    | Bibliothek nutzen, REST-API abfragen |
 | `05_api_debug_broken.py` | **Debugging:** drei Fehler finden |
+| `05c_api_robust.py`  | *Zusatz:* zweite API + `try/except`-Fehlerbehandlung |
 
-Jede Übung hat eine **Basis-Aufgabe** (für alle) und einen **★ Profi-Bonus**.
+Jede Übung hat eine **Basis-Aufgabe** (für alle) und einen **★ Profi-Bonus**;
+zu jedem Thema gibt es zusätzlich eine **Zusatzübung** (`…b` / `…c`) als Zeitpuffer.
+
+> **Windows:** Alle Skripte laufen unverändert unter Windows. Pfade sind
+> plattformunabhängig (`pathlib`), Dateien werden mit `encoding="utf-8"`
+> geöffnet. venv aktivieren: `.venv\Scripts\Activate.ps1` (statt `source …`).
 
 Spickzettel: `SPICKZETTEL.md`
 

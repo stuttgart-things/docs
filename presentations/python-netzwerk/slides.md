@@ -73,6 +73,10 @@ src: ./slides/12_uebung1.md
 ---
 
 ---
+src: ./slides/12b_uebung1b.md
+---
+
+---
 src: ./slides/20_section-block2.md
 ---
 
@@ -82,6 +86,10 @@ src: ./slides/21_kontrollfluss.md
 
 ---
 src: ./slides/22_uebung2.md
+---
+
+---
+src: ./slides/22b_uebung2b.md
 ---
 
 ---
@@ -101,6 +109,10 @@ src: ./slides/33_uebung3.md
 ---
 
 ---
+src: ./slides/33b_uebung3b.md
+---
+
+---
 src: ./slides/40_section-block4.md
 ---
 
@@ -117,6 +129,10 @@ src: ./slides/43_uebung4.md
 ---
 
 ---
+src: ./slides/43b_uebung4b.md
+---
+
+---
 src: ./slides/50_section-block5.md
 ---
 
@@ -130,6 +146,10 @@ src: ./slides/52_tracebacks.md
 
 ---
 src: ./slides/53_uebung5.md
+---
+
+---
+src: ./slides/53b_uebung5b.md
 ---
 
 ---
