@@ -202,3 +202,108 @@ level=info msg="successfully acquired lease kube-system/cilium-l2announce-kube-s
 ## Cilium ingress controller (tbd)
 
 ## Cilium wildcard default certs (tbd)
+
+## Admission webhooks time out after a reboot (kind + socket LB)
+
+### Symptom
+
+Any admission webhook fails with a 10s timeout, e.g. Tekton:
+
+```bash
+failed calling webhook "webhook.pipeline.tekton.dev":
+Post "https://tekton-pipelines-webhook.tekton-pipelines.svc:443/defaulting":
+context deadline exceeded
+```
+
+The webhook pod is Running and has Endpoints, the cert is fine — but every request
+from the apiserver runs into the timeout. Affects all webhooks (Crossplane, cert-manager, ...),
+not just Tekton.
+
+### Cause
+
+`/run` inside a kind node is a **tmpfs**, so the `/run/cilium/cgroupv2` mount is gone after
+every node container (re)start — i.e. after every host reboot or `docker restart`. It is only
+recreated by the `mount-cgroup` init container of the cilium pod.
+
+Whether that init container re-runs is not deterministic: if kubelet rebuilds the pod sandbox
+it runs, if it only restarts the containers in place it is skipped. Without the mount, cilium's
+socket LB (kube-proxy replacement) no longer translates ClusterIPs for processes in the host
+netns. The BPF service map is still correct — `cilium-dbg service list` looks fine — but the
+translation never happens.
+
+This hurts most on the **control plane**, because the apiserver runs there with hostNetwork:
+it can no longer reach a single ClusterIP, so all admission webhooks time out.
+
+### Detect
+
+Fast check — is the network broken, or is it something else?
+
+```bash
+docker exec kind1-control-plane sh -c 'timeout 6 curl -sk -o /dev/null \
+  -w "%{http_code}\n" https://10.96.0.1:443/ || echo TIMEOUT'
+```
+
+`403` means the network is fine, look elsewhere. `TIMEOUT` means it is this problem.
+
+Confirm by checking the mount on every node:
+
+```bash
+for n in kind1-control-plane kind1-worker kind1-worker2; do
+  printf "%-22s " $n
+  docker exec $n sh -c 'grep -q cilium/cgroupv2 /proc/mounts && echo OK || echo MISSING'
+done
+```
+
+Useful to tell this apart from a real webhook problem: the pod IP works while the ClusterIP
+does not.
+
+```bash
+# pod IP - works even when broken
+docker exec kind1-control-plane sh -c 'timeout 5 curl -sk -o /dev/null \
+  -w "%{http_code}\n" https://<webhook-pod-ip>:8443/defaulting'
+
+# ClusterIP - times out
+docker exec kind1-control-plane sh -c 'timeout 5 curl -sk -o /dev/null \
+  -w "%{http_code}\n" https://<webhook-svc-ip>:443/defaulting'
+```
+
+### Fix
+
+Recreate the cilium pod on the affected node so the init containers — and with them
+`mount-cgroup` — run again:
+
+```bash
+NODE=kind1-control-plane
+
+kubectl -n kube-system delete pod -l k8s-app=cilium \
+  --field-selector spec.nodeName=$NODE
+
+kubectl -n kube-system wait --for=condition=Ready pod -l k8s-app=cilium \
+  --field-selector spec.nodeName=$NODE --timeout=180s
+```
+
+Short network disruption on that node, ~15s.
+
+### Verify
+
+```bash
+# mount back?
+docker exec $NODE sh -c 'grep cilium/cgroupv2 /proc/mounts'
+
+# ClusterIP reachable? expect 403 in ~10ms instead of a timeout
+docker exec $NODE sh -c 'timeout 6 curl -sk -o /dev/null \
+  -w "%{http_code} t=%{time_total}\n" https://10.96.0.1:443/'
+
+# webhook path end to end - expect a sub-second answer
+kubectl apply --dry-run=server -f <some-pipelinerun>.yaml
+```
+
+Also confirm the init container actually re-ran — `mount-cgroup` must show a recent timestamp:
+
+```bash
+kubectl -n kube-system get pod <new-cilium-pod> \
+  -o jsonpath='{range .status.initContainerStatuses[*]}{.name}{" finished="}{.state.terminated.finishedAt}{"\n"}{end}'
+```
+
+Note that `config` is a native sidecar in cilium 1.19 and restarts independently of the other
+init containers — a fresh timestamp on `config` alone does not mean `mount-cgroup` ran.
