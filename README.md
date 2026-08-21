@@ -21,6 +21,7 @@
 | **[kustomize][kustomize]** | Kustomize provides a solution for customizing Kubernetes resource configuration free from templates. |
 | **[cilium][cilium]** | Cilium is an open source, cloud native solution for providing, securing, and observing network connectivity between workloads. |
 | **[certificates][certificates]** | Certificate management, PKI, TLS — tools and workflows for managing certificates in Kubernetes. |
+| **[labda-wildcard-dns-lb-certs][labda-wildcard-dns-lb-certs]** | LabDA runbook: one LoadBalancer IP per cluster via Cilium L2, a wildcard record in PowerDNS, and Vault-PKI certificates for the services underneath. |
 | **[velero][velero]** | Velero gives you tools to back up and restore your Kubernetes cluster resources and persistent volumes. |
 | **[tekton][tekton]** | Tekton is a powerful yet flexible Kubernetes-native open source framework for creating CI/CD systems. |
 
@@ -109,6 +110,7 @@
 [kubernetes-monitoring]: https://github.com/stuttgart-things/docs/blob/main/kubernetes-monitoring.md
 [kubernetes-networking]: https://github.com/stuttgart-things/docs/blob/main/kubernetes-networking.md
 [kubernetes-workloads]: https://github.com/stuttgart-things/docs/blob/main/kubernetes-workloads.md
+[labda-wildcard-dns-lb-certs]: https://github.com/stuttgart-things/docs/blob/main/labda-wildcard-dns-lb-certs.md
 [kustomize]: https://github.com/stuttgart-things/docs/blob/main/kustomize.md
 [linux]: https://github.com/stuttgart-things/docs/blob/main/linux.md
 [minio]: https://github.com/stuttgart-things/docs/blob/main/minio.md
