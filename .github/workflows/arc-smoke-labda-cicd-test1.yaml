@@ -1,0 +1,32 @@
+---
+# Smoke test for the GitHub ARC runner scale set on labda-cicd-test1
+# (stuttgart-things/stuttgart-things#3798, argocd#675): the same two lint jobs
+# as lint-build-publish.yaml, but on `ghr-docs-labda-cicd-test1`. Both run in a
+# job `container:`, so they exercise ARC's kubernetes container mode (job pod +
+# work volume), not just the runner pod. Manual only; delete with the cluster.
+name: ARC smoke (labda-cicd-test1)
+on:
+  workflow_dispatch:
+
+jobs:
+  markdown-lint:
+    name: Lint markdown files
+    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-markdown-lint.yaml@mc2024-05-14
+    with:
+      environment-name: k8s
+      runs-on: ghr-docs-labda-cicd-test1
+      continue-error: true
+      alpine-version: 3.19.0
+      lintprofile-path: .markdownlint.rb
+      artifact-name: md-lint
+
+  yaml-lint:
+    name: Lint yaml files
+    uses: stuttgart-things/github-workflow-templates/.github/workflows/call-yaml-lint.yaml@mc2024-05-14
+    with:
+      environment-name: k8s
+      runs-on: ghr-docs-labda-cicd-test1
+      continue-error: true
+      yamllint-version: 1
+      lintprofile-path: .yamllint
+      artifact-name: yaml-lint
