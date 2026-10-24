@@ -6,7 +6,7 @@
 # Ergebnis-URL:  https://<namespace>.gitlab.io/<projekt>/
 # Der --base-Pfad MUSS dazu passen, sonst laden CSS/JS/Assets nicht (404).
 
-image: node:20
+image: node:24
 
 pages:
   stage: deploy
